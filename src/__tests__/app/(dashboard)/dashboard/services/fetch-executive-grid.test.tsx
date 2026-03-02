@@ -1,10 +1,10 @@
 import nock from 'nock';
 import { fetchExecutiveGrid } from '@/app/(dashboard)/dashboard/services/fetch-executive-grid';
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
 import { IExcecutiveGrids } from '@/app/(dashboard)/dashboard/components/reporting-tabs/executive/types/executive-grid';
 import { Filters } from '@/lib/utils/table';
 
-const server = `${import.meta.env.VITE_API_URL}`;
+const server = `${import.meta.env.VITE_API_URL}/api/reporting-service`;
 
 describe('fetchExecutiveGrid', () => {
   beforeEach(() => {
@@ -26,7 +26,7 @@ describe('fetchExecutiveGrid', () => {
     const size = 10;
 
     nock(server)
-      .post(`/api/${BackendResources.ExecutiveGrid}`, {
+      .post(`/${ApiResources.DashboardExecutiveGrid}`, {
         page,
         size,
       })
@@ -63,7 +63,7 @@ describe('fetchExecutiveGrid', () => {
     }
 
     nock(server)
-      .post(`/api/${BackendResources.ExecutiveGrid}`, requestData)
+      .post(`/${ApiResources.DashboardExecutiveGrid}`, requestData)
       .reply(200, mockResponse);
 
     const result = await fetchExecutiveGrid(page, size, status);
@@ -75,7 +75,7 @@ describe('fetchExecutiveGrid', () => {
     const size = 10;
 
     nock(server)
-      .post(`/api/${BackendResources.ExecutiveGrid}`)
+      .post(`/${ApiResources.DashboardExecutiveGrid}`)
       .reply(500, { message: 'Internal Server Error' });
 
     const result = await fetchExecutiveGrid(page, size, null);

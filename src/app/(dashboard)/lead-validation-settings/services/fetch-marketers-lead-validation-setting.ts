@@ -1,4 +1,5 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services';
 
@@ -9,12 +10,13 @@ export async function fetchMarketersLeadValidationSetting(
   try {
     return nextBackendRequest({
       resource: transformPath(
-        BackendResources.MarketersLeadValidationSettings,
+        ApiResources.MarketersLeadValidationSettingById,
         {
           tenantCode,
+          settingId: leadValidationSettingId,
         },
       ),
-      params: { leadValidationSettingId },
+      apiHost: ApiHost.PlatformService,
     });
   } catch (error) {}
 }

@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services';
 
@@ -11,13 +12,16 @@ export async function updateLineItemsLeadValidationSettingAttribute(
   try {
     return nextBackendRequest({
       resource: transformPath(
-        BackendResources.LineItemsLeadValidationSettingByAttribute,
+        ApiResources.LineItemsLeadValidationSettingByAttribute,
         {
           lineItemId,
+          settingId: leadValidationSettingId,
+          Id: attributeId,
         },
       ),
+      apiHost: ApiHost.PlatformService,
       method: HttpMethod.PUT,
-      data: { requestData, attributeId, leadValidationSettingId },
+      data: requestData,
     });
   } catch (error) {}
 }

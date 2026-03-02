@@ -1,8 +1,7 @@
-const BackendUrl = import.meta.env.VITE_API_URL || '';
 const ApiUrl = import.meta.env.VITE_API_URL || '';
 const LoggerUrl = import.meta.env.VITE_LOGGER_URL || '';
 
-const BackendService = BackendUrl;
+const BackendService = '';
 const CampaignService = ApiUrl + '/api/campaign-service';
 const ReportingService = ApiUrl + '/api/reporting-service';
 const FileService = ApiUrl + '/api/file-service';

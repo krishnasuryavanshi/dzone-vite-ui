@@ -1,15 +1,17 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { pushAnalyticsLogs } from '@/services/analytics';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const updateLineItem = async (data: any, lineItemId: string) => {
   try {
-    const resource = transformPath(BackendResources.LineItemById, {
+    const resource = transformPath(ApiResources.LineItemById, {
       lineItemId,
     });
     const result = nextBackendRequest({
       resource,
+      apiHost: ApiHost.CampaignService,
       method: HttpMethod.PUT,
       data,
     });

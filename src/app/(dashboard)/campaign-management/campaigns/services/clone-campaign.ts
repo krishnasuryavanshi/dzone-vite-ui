@@ -1,14 +1,16 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const cloneCampaign = async (campaignId: string) => {
   try {
-    const resource = transformPath(BackendResources.CloneCampaign, {
+    const resource = transformPath(ApiResources.CloneCampaign, {
       campaignId,
     });
     return nextBackendRequest({
       resource,
+      apiHost: ApiHost.CampaignService,
       method: HttpMethod.POST,
     });
   } catch (error) {}

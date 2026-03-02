@@ -1,4 +1,6 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
+import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const fetchWebformFormFields = async (
@@ -7,9 +9,13 @@ export const fetchWebformFormFields = async (
   lineItemId?: string,
 ) => {
   try {
+    const resource = transformPath(ApiResources.FormFieldsMapping, {
+      integrationId,
+    });
     return nextBackendRequest({
-      resource: BackendResources.WebFormFormFields,
-      params: { type, integrationId, lineItemId },
+      resource,
+      apiHost: ApiHost.PlatformService,
+      params: lineItemId ? { lineItemId } : undefined,
     });
   } catch (error) {
     // Error fetching form fields

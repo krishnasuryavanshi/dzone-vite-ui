@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { DzRecord } from '@/lib/types';
 import { nextBackendRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
@@ -12,7 +13,11 @@ export const fetchIntegrationDetails = async (
 ): Promise<IntegrationDetailsResponse> => {
   try {
     const response = await nextBackendRequest({
-      resource: `${BackendResources.Integrations}/${id}`,
+      resource: ApiResources.DeliveryTemplatesByIntegration.replace(
+        '{integrationId}',
+        id,
+      ),
+      apiHost: ApiHost.CampaignDeliveryService,
       method: HttpMethod.GET,
     });
 

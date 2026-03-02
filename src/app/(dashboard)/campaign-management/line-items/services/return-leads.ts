@@ -1,4 +1,6 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
+import { transformPath } from '@/lib/utils/string/transform-path';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const returnLeads = async (
@@ -7,12 +9,13 @@ export const returnLeads = async (
   returnReasons: string[],
 ) => {
   try {
+    const resource = transformPath(ApiResources.ReturnLeads, { lineItemId });
     const result = await nextBackendRequest({
-      resource: BackendResources.ReturnLeads,
+      resource,
+      apiHost: ApiHost.PlatformService,
       method: HttpMethod.POST,
       data: {
-        lineItemId,
-        leadIds,
+        ids: leadIds,
         returnReasons,
       },
     });

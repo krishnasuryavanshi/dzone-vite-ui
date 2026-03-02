@@ -12,11 +12,16 @@ import { usePermissionsStore } from '../stores/permissions-store';
 
 export const nextBackendRequest = async ({
   method = HttpMethod.GET,
-  isAuthenticated = false,
+  isAuthenticated = true,
   apiHost = ApiHost.BackendService,
-  apiVersion = '/api',
+  apiVersion,
   ...rest
 }: IApiRequestConfig) => {
+  // In the Vite app, direct backend calls (non-default apiHost) don't need
+  // the '/api' prefix — that was only for Next.js BFF routes.
+  if (apiVersion === undefined) {
+    apiVersion = apiHost === ApiHost.BackendService ? '/api' : '';
+  }
   try {
     const response = await backendRequest({
       logRequest: false,

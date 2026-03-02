@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services';
 
@@ -11,13 +12,16 @@ export async function updateLineItemsLeadValidationSettingRule(
   try {
     return nextBackendRequest({
       resource: transformPath(
-        BackendResources.LineItemsLeadValidationSettings,
+        ApiResources.LineItemsLeadValidationSettingByRuleName,
         {
           lineItemId,
+          settingId: leadValidationSettingId,
+          ruleName,
         },
       ),
+      apiHost: ApiHost.PlatformService,
       method: HttpMethod.PATCH,
-      data: { requestData, ruleName, leadValidationSettingId },
+      data: requestData,
     });
   } catch (error) {}
 }

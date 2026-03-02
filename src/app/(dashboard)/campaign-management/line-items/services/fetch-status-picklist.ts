@@ -1,10 +1,11 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { StatusPicklistData } from '@/public/mock/status-picklist';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const fetchStatusPicklist = async () => {
   try {
-    const resource = BackendResources.StatusPicklist;
+    const resource = ApiResources.LineItemStatusLookup;
 
     if (!resource) {
       return {
@@ -17,6 +18,7 @@ export const fetchStatusPicklist = async () => {
 
     const { data } = await nextBackendRequest({
       resource,
+      apiHost: ApiHost.CampaignService,
     });
 
     return { data };

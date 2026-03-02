@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const leadsStatusUpdate = async (
@@ -7,12 +8,11 @@ export const leadsStatusUpdate = async (
 ) => {
   try {
     return await nextBackendRequest({
-      resource: BackendResources.LeadsStatusUpdate,
+      resource: ApiResources.UpdateLeadsStatus,
+      apiHost: ApiHost.PlatformService,
       method: HttpMethod.PUT,
-      data: {
-        leadUpdates,
-        tenantCode,
-      },
+      data: leadUpdates,
+      headers: { tenantCode: tenantCode || '' } as any,
     });
   } catch (error) {}
 };

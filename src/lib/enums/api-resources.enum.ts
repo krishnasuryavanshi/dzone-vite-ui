@@ -136,6 +136,7 @@ export enum ApiResources {
   DashboardChartsInternalRejectReasons = 'dashboard/chart/internal-rejection-reasons',
 
   AllUsers = 'user/allUsers',
+  ValidateUser = 'users/validate',
 
   DeliveryTemplatesByMarketer = 'delivery-template/template/marketer/{marketerCode}',
   DeliveryTemplates = 'delivery-template',
@@ -217,6 +218,7 @@ export enum ApiResources {
 
   DzentInitialActions = 'dzent/initial-actions',
   DzentPostUserMessage = 'campaign/create',
+  DzentConversationFiles = 'ai/conversation-files',
   AiAgentFeedback = 'ai/agent-feedback',
   AiTitle = 'ai/title',
   AiConversations = 'ai/conversations/{conversationId}',

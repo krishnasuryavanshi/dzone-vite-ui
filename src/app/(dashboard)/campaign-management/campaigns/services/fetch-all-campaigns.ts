@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import { ICampaign } from '../lib/types';
 import { logError } from '@/services/logger';
@@ -6,7 +7,8 @@ import { logError } from '@/services/logger';
 export const fetchAllCampaigns = async () => {
   try {
     const requestConfig = {
-      resource: BackendResources.AllCampaigns,
+      resource: ApiResources.AllCampaigns,
+      apiHost: ApiHost.CampaignService,
       method: HttpMethod.GET,
     };
 

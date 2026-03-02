@@ -1,10 +1,12 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services';
 
 export async function fetchLeadValidationSettingMetadata() {
   try {
     return nextBackendRequest({
-      resource: BackendResources.LeadValidationSettingMetadata,
+      resource: ApiResources.LeadValidationSettingMetadata,
+      apiHost: ApiHost.PlatformService,
     });
   } catch (error) {}
 }

@@ -1,5 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
-import { transformPath } from '@/lib/utils/string';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import { supplierDataParams } from '../types/supplier-dashboard';
 
@@ -11,16 +11,17 @@ export const fetchSupplierDashboardData = async ({
   campaignList = [],
 }: supplierDataParams = {}) => {
   try {
-    const resource = transformPath(BackendResources.SupplierDashBoard, {
-      startDate,
-      endDate,
-      listItemList,
-      marketerList,
-      campaignList,
-    });
     return nextBackendRequest({
       method: HttpMethod.GET,
-      resource,
+      resource: ApiResources.SupplierDashboardDataUrl,
+      apiHost: ApiHost.AnalyticsService,
+      params: {
+        start_date: startDate,
+        end_date: endDate,
+        line_item_ids: listItemList,
+        marketer_names: marketerList,
+        campaign_ids: campaignList,
+      },
     });
   } catch (error) {
     throw error;

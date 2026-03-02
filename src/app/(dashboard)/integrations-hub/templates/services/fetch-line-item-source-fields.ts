@@ -1,11 +1,16 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
+import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const fetchLineItemSourceFields = async (lineItemId: string) => {
   try {
+    const resource = transformPath(ApiResources.LineItemSourceFields, {
+      lineItemId,
+    });
     return nextBackendRequest({
-      resource: BackendResources.GetLineItemSourceFields,
-      params: { lineItemId },
+      resource,
+      apiHost: ApiHost.PlatformService,
     });
   } catch (error) {}
 };

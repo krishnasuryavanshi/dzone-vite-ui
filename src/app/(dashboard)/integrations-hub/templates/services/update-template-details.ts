@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services/backend-request';
 
@@ -8,9 +9,10 @@ export const updateTemplateDetails = async (
 ) => {
   try {
     return nextBackendRequest({
-      resource: transformPath(BackendResources.DeliveryTemplateById, {
+      resource: transformPath(ApiResources.DeliveryTemplateUpdateDetails, {
         templateId,
       }),
+      apiHost: ApiHost.CampaignDeliveryService,
       method: HttpMethod.PUT,
       data,
     });

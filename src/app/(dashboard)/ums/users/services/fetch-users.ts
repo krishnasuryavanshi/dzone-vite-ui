@@ -1,4 +1,5 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const fetchUsers = (
@@ -20,8 +21,9 @@ export const fetchUsers = (
   }
   try {
     return nextBackendRequest({
-      resource: BackendResources.Users,
+      resource: ApiResources.PaginatedUsers,
       params,
+      apiHost: ApiHost.RBACService,
     });
   } catch (error) {}
 };

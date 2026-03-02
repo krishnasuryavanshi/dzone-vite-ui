@@ -10,7 +10,8 @@ import {
   ZapierIcon,
   ZohoCrmIcon,
 } from '@/components/uicomponents/icons/svgs';
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { IntegrationsActionsEnum } from '@/lib/enums/permissions';
 import { showNotification } from '@/services';
 import { nextBackendRequest } from '@/services/backend-request';
@@ -110,7 +111,8 @@ export const IntegrationsList: React.FC = () => {
     try {
       setDisconnecting(integrationId);
       await nextBackendRequest({
-        resource: `${BackendResources.Integrations}/${integrationId}/status`,
+        resource: `${ApiResources.Integrations}/${integrationId}`,
+        apiHost: ApiHost.PlatformService,
         method: HttpMethod.PUT,
         data: { status: newStatus },
       });

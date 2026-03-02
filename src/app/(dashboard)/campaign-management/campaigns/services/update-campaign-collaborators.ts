@@ -1,5 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
-import { transformPath } from '@/lib/utils/string';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const updateCampaignCollaborators = async (
@@ -7,16 +7,11 @@ export const updateCampaignCollaborators = async (
   campaignId: string,
 ) => {
   try {
-    const resource = transformPath(
-      BackendResources.UpdateCampaignCollaborators,
-      {
-        campaignId,
-      },
-    );
     return nextBackendRequest({
-      resource,
+      resource: ApiResources.UpdateCampaignCollaborators,
+      apiHost: ApiHost.CampaignService,
       method: HttpMethod.PUT,
-      data,
+      data: { id: campaignId, ...data },
     });
   } catch (error) {}
 };

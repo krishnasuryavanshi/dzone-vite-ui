@@ -1,16 +1,18 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
+import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const updateRoleStatus = async (roleId: string, status: string) => {
   try {
-    const resource = BackendResources.UpdateRoleStatus;
+    const resource = transformPath(ApiResources.UpdateRoleStatus, {
+      roleId,
+      status,
+    });
     const data = await nextBackendRequest({
       resource,
+      apiHost: ApiHost.RBACService,
       method: HttpMethod.POST,
-      params: {
-        roleId,
-        status,
-      },
     });
     return { data };
   } catch (error) {

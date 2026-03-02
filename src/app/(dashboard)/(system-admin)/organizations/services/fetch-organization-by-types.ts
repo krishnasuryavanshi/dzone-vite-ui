@@ -1,15 +1,25 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
+import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services/backend-request';
+import { TenantTypeEnum } from '@/app/(dashboard)/ums/users/lib/enums';
 
 export const fetchOrganizationsByType = async (
   types: string,
   userId?: string,
 ) => {
   try {
-    const resource = BackendResources.OrganizationsByType;
+    const resource = transformPath(ApiResources.OrganizationsByTypes, {
+      types,
+    });
+    const params: Record<string, string> = {};
+    if (types !== TenantTypeEnum.SUPPLIER) {
+      params.userId = types === TenantTypeEnum.MARKETER && userId ? userId : '';
+    }
     const data = await nextBackendRequest({
+      apiHost: ApiHost.RBACService,
       resource,
-      params: { types, userId },
+      params,
     });
     return data;
   } catch (error) {

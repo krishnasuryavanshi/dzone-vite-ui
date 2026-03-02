@@ -1,11 +1,13 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest, showNotification } from '@/services';
 import { AxiosHeaders } from 'axios';
 
 export const exportLeads = async () => {
   try {
     const response = await nextBackendRequest({
-      resource: BackendResources.ExportLeads,
+      resource: ApiResources.ExportLeads,
+      apiHost: ApiHost.CampaignService,
       responseType: 'arraybuffer',
       headers: {
         'Content-Type': 'blob',

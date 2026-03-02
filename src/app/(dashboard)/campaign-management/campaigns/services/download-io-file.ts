@@ -1,15 +1,14 @@
-import { BackendResources } from '@/lib/enums';
-import { transformPath } from '@/lib/utils/string';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest, showNotification } from '@/services';
 import { handleApiError } from '../../lib/utils';
 
 export const downloadIOFile = async (campaignId: string, fileId: string) => {
   try {
-    const resource = transformPath(BackendResources.DownloadIOFile, {
-      campaignId,
-    });
+    const resource = `${ApiResources.DownloadIOFile}/${campaignId}`;
     const response = await nextBackendRequest({
-      resource: resource,
+      resource,
+      apiHost: ApiHost.CampaignService,
       params: { fileId },
       responseType: 'arraybuffer',
       includeResponseHeaders: true,

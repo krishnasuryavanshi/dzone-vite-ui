@@ -1,4 +1,6 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
+import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const fetchPermissionsByActionId = async (
@@ -6,12 +8,13 @@ export const fetchPermissionsByActionId = async (
   moduleId: string,
 ) => {
   try {
+    const resource = transformPath(ApiResources.PermissionsByActionId, {
+      moduleId,
+      actionId,
+    });
     const { data } = await nextBackendRequest({
-      resource: BackendResources.PermissionsByActionId,
-      params: {
-        actionId,
-        moduleId,
-      },
+      resource,
+      apiHost: ApiHost.RBACService,
     });
     return { data };
   } catch (error) {

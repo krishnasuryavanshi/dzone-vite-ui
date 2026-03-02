@@ -1,10 +1,12 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const fetchCampaignsByMarketer = async (tenantCode: string) => {
   try {
     const { data } = await nextBackendRequest({
-      resource: BackendResources.FilterCampaignsByMarketer,
+      resource: ApiResources.FilterCampaignsByMarketer,
+      apiHost: ApiHost.CampaignService,
       params: {
         tenantCode,
       },

@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services/backend-request';
 
@@ -8,7 +9,8 @@ export const updateOrganization = async (
 ) => {
   try {
     return nextBackendRequest({
-      resource: transformPath(BackendResources.OrganizationsById, {
+      apiHost: ApiHost.RBACService,
+      resource: transformPath(ApiResources.OrganizationsById, {
         organizationId,
       }),
       method: HttpMethod.PUT,

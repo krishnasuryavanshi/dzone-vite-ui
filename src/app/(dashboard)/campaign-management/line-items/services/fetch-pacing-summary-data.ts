@@ -1,4 +1,5 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 import { transformPath } from '@/lib/utils/string/transform-path';
@@ -8,10 +9,10 @@ export const fetchPacingSummaryData = async (
   params?: Record<string, any>,
 ) => {
   try {
-    const resource = transformPath(BackendResources.PacingPerformanceGrid, {
+    const resource = transformPath(ApiResources.PacingPerformanceGrid, {
       lineItemId,
     });
-    return await nextBackendRequest({ resource, params });
+    return await nextBackendRequest({ resource, apiHost: ApiHost.PlatformService, params });
   } catch (error) {
     logError(error);
     return null;

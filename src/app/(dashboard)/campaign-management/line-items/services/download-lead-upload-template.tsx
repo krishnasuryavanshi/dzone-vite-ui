@@ -1,4 +1,5 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest, showNotification } from '@/services';
 import { handleApiError } from '../../lib/utils';
 
@@ -8,13 +9,10 @@ export const downloadLeadUploadTemplate = async (
   tenantCode: string,
 ) => {
   try {
-    const queryParams = new URLSearchParams({
-      lineItemId,
-      validationSettingId,
-      tenantCode,
-    }).toString();
     const response = await nextBackendRequest({
-      resource: `${BackendResources.DownloadLeadUploadTemplate}?${queryParams}`,
+      resource: ApiResources.DownloadLeadUploadTemplate,
+      apiHost: ApiHost.FileService,
+      params: { lineItemId, validationSettingId, tenantCode },
       responseType: 'arraybuffer',
       includeResponseHeaders: true,
     });

@@ -1,4 +1,5 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import { LineItemPicklistMappings } from '../lib/enums';
 
@@ -7,7 +8,8 @@ export const fetchLineItemFormPicklists = async (
 ) => {
   try {
     return nextBackendRequest({
-      resource: BackendResources.LineItemsPicklistOptions,
+      resource: ApiResources.Lookups,
+      apiHost: ApiHost.CampaignService,
       params: {
         source: category,
       },

@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 import { transformPath } from '@/lib/utils/string/transform-path';
@@ -33,7 +34,8 @@ export const fetchConversationList = async (
     // When filter is 'all', don't pass tenantCode to get all conversations
 
     const data = await nextBackendRequest({
-      resource: BackendResources.AiAgentConversations,
+      resource: ApiResources.CoworkerConversations,
+      apiHost: ApiHost.AICoworkerService,
       method: HttpMethod.GET,
       params: Object.keys(params).length > 0 ? params : undefined,
     });
@@ -50,12 +52,13 @@ export const fetchChatHistory = async (
   pageSize: number = 50,
 ): Promise<ChatHistoryResponse | null> => {
   try {
-    const resource = transformPath(BackendResources.AiAgentChatHistory, {
+    const resource = transformPath(ApiResources.CoworkerChatHistory, {
       conversationId,
     });
 
     const data = await nextBackendRequest({
       resource,
+      apiHost: ApiHost.AICoworkerService,
       method: HttpMethod.GET,
       params: { page, pageSize },
     });

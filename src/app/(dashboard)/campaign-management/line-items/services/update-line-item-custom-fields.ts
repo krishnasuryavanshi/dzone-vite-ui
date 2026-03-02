@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { DzRecord } from '@/lib/types';
 import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services/backend-request';
@@ -9,11 +10,12 @@ export const updateLineItemCustomFields = async (
   data: DzRecord,
 ) => {
   try {
-    const resource = transformPath(BackendResources.LineItemCustomFields, {
+    const resource = transformPath(ApiResources.UpdateLineItemCustomFields, {
       lineItemId,
     });
     const result = await nextBackendRequest({
       resource,
+      apiHost: ApiHost.PlatformService,
       method: HttpMethod.PUT,
       data,
     });

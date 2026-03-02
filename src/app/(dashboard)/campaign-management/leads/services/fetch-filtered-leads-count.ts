@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services';
 
 export const fetchFilteredLeadsCount = async (
@@ -7,7 +8,8 @@ export const fetchFilteredLeadsCount = async (
   try {
     return nextBackendRequest({
       method: HttpMethod.POST,
-      resource: BackendResources.ExportLeadsCount,
+      resource: ApiResources.FilteredLeadsCount,
+      apiHost: ApiHost.FileService,
       data: { filters },
     });
   } catch (error) {}

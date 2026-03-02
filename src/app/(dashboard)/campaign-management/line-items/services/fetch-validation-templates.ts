@@ -1,11 +1,16 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
+import { transformPath } from '@/lib/utils/string/transform-path';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const fetchValidationTemplates = async (orgCode: string) => {
   try {
+    const resource = transformPath(ApiResources.ValidationTemplates, {
+      orgCode,
+    });
     const data = await nextBackendRequest({
-      resource: BackendResources.ValidationTemplates,
-      params: { orgCode },
+      resource,
+      apiHost: ApiHost.PlatformService,
     });
     return data;
   } catch (error) {

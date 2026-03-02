@@ -121,8 +121,9 @@ export function useLogin() {
       try {
         const { login } = await import('../auth/auth-service');
         const result = await login(params.email, params.password);
-        // After successful login, redirect to dashboard
-        window.location.href = '/dashboard';
+        // After successful login, redirect to organizations
+        const { router } = await import('../router');
+        router.navigate('/organizations', { replace: true });
         return result;
       } catch (error: any) {
         const { showNotification } = await import('../services/notification');

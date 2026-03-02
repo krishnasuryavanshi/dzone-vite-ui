@@ -1,93 +1,101 @@
 /**
  * Client-side auth service.
- * Uses NextAuth endpoints through the Vite proxy so session cookies are set
- * automatically — the Next.js BFF works unchanged.
+ * Authenticates directly against the RBAC service (no NextAuth proxy).
  */
+import { pick } from 'lodash';
+import { ApiHost } from '@/lib/constants';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { backendRequest } from '@/services/back-end-manager';
 import { useAuthStore, useTokenStore } from './stores';
 import { usePermissionsStore } from '../stores/permissions-store';
 
 /**
- * Login — authenticate through NextAuth on the Next.js backend (via proxy).
- * 1. Fetch CSRF token
- * 2. POST credentials to NextAuth callback
- * 3. Fetch the session to populate Zustand stores
+ * Flatten modules array from the login response into a permissions object.
+ * Mirrors the JWT callback logic from dzone-ui's NextAuth options.ts.
  */
-export async function login(email: string, password: string) {
-  // 1. Get CSRF token from NextAuth
-  const csrfRes = await fetch('/api/auth/csrf', { credentials: 'include' });
-  if (!csrfRes.ok) throw new Error('Failed to fetch CSRF token');
-  const { csrfToken } = await csrfRes.json();
-
-  // 2. Sign in via NextAuth credentials provider
-  const signInRes = await fetch('/api/auth/callback/credentials', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body: new URLSearchParams({
-      email,
-      password,
-      csrfToken,
-      json: 'true',
-    }),
-    credentials: 'include',
-    redirect: 'manual', // Don't follow redirects — we handle it ourselves
+function flattenPermissions(
+  modules: { module: { name: string; access: string | string[] } }[],
+): Record<string, boolean> {
+  const allAccesses = modules.flatMap((item) => {
+    const moduleName = item.module.name;
+    const accesses = Array.isArray(item.module.access)
+      ? item.module.access
+      : item.module.access
+        ? [item.module.access]
+        : [];
+    return accesses.map((access: string) => `${moduleName}.${access}`);
   });
 
-  // NextAuth returns 302 on success (redirect to callbackUrl)
-  // or 200 with error on failure
-  if (signInRes.status === 200) {
-    const body = await signInRes.text();
-    // Check if it's an error response (NextAuth returns a page with error param)
-    if (body.includes('error') && !body.includes('"url"')) {
-      throw new Error('Invalid credentials');
-    }
-  }
-
-  // 3. Fetch the session — cookie was set by the signIn response
-  const sessionRes = await fetch('/api/auth/session', {
-    credentials: 'include',
-  });
-  if (!sessionRes.ok) throw new Error('Failed to fetch session');
-  const session = await sessionRes.json();
-
-  if (!session?.user) {
-    throw new Error('Invalid credentials');
-  }
-
-  // 4. Store session data in Zustand stores (for UI access)
-  useTokenStore.getState().setToken(session.accessToken || '', session.apiUrl);
-
-  useAuthStore.getState().setAuth({
-    user: session.user,
-    roles: session.roles || [],
-    tenantCode: session.tenantCode || [],
-    isDzoneUser: session.isDzoneUser || false,
-    tenantType: session.tenantType || '',
-    modules: session.modules || {},
-    moduleAccessList: session.moduleAccessList || [],
-  });
-
-  usePermissionsStore.getState().setAccesses(session.modules || {});
-  usePermissionsStore.getState().setModules(session.moduleAccessList || []);
-
-  return session;
+  return allAccesses.reduce(
+    (acc, perm) => {
+      acc[perm] = true;
+      return acc;
+    },
+    {} as Record<string, boolean>,
+  );
 }
 
 /**
- * Logout — sign out via NextAuth then clear client-side state.
+ * Login — POST credentials directly to the RBAC service.
+ */
+export async function login(email: string, password: string) {
+  const response = await backendRequest({
+    apiHost: ApiHost.RBACService,
+    resource: ApiResources.AuthToken,
+    method: HttpMethod.POST,
+    isAuthenticated: false,
+    data: { username: email, password },
+  });
+
+  const data = response.data;
+  if (!data?.accessToken) {
+    throw new Error('Invalid credentials');
+  }
+
+  data.name = data.name || 'DZOne';
+
+  // Flatten modules → permissions object
+  const permissionsObject = flattenPermissions(data.modules || []);
+
+  // Pick user identity fields
+  const user = pick(data, [
+    'name',
+    'email',
+    'userId',
+    'username',
+    'firstName',
+    'lastName',
+  ]);
+
+  // Populate stores
+  useTokenStore.getState().setToken(data.accessToken);
+
+  useAuthStore.getState().setAuth({
+    user,
+    roles: data.roles || [],
+    tenantCode: data.tenantCode || [],
+    isDzoneUser: data.isDzoneUser || false,
+    tenantType: data.type || '',
+    modules: permissionsObject,
+    moduleAccessList: data.modules || [],
+  });
+
+  usePermissionsStore.getState().setAccesses(permissionsObject);
+  usePermissionsStore.getState().setModules(data.modules || []);
+
+  return data;
+}
+
+/**
+ * Logout — call RBAC logout endpoint then clear all client-side state.
  */
 export async function logout() {
   try {
-    // Get CSRF token for signOut
-    const csrfRes = await fetch('/api/auth/csrf', { credentials: 'include' });
-    const { csrfToken } = await csrfRes.json();
-
-    // Call NextAuth signOut endpoint to clear the session cookie
-    await fetch('/api/auth/signout', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({ csrfToken }),
-      credentials: 'include',
-      redirect: 'manual',
+    await backendRequest({
+      apiHost: ApiHost.RBACService,
+      resource: ApiResources.AuthLogout,
+      method: HttpMethod.POST,
+      isAuthenticated: true,
     });
   } catch {
     // Best-effort — clear state regardless

@@ -1,10 +1,12 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services';
 
 export const fetchDataMapperFileUploadMetadata = async () => {
   try {
     const data = await nextBackendRequest({
-      resource: BackendResources.UploadDataMapperFileMetadata,
+      resource: ApiResources.DeliveryTemplateUploadDataMapperFileMetadata,
+      apiHost: ApiHost.CampaignDeliveryService,
     });
 
     return { data };

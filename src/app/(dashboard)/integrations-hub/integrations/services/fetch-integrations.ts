@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 import { IntegrationsResponse } from '../lib/types/integration';
@@ -6,7 +7,8 @@ import { IntegrationsResponse } from '../lib/types/integration';
 export const fetchIntegrations = async (): Promise<IntegrationsResponse> => {
   try {
     const data = await nextBackendRequest({
-      resource: BackendResources.Integrations,
+      resource: ApiResources.Integrations,
+      apiHost: ApiHost.PlatformService,
       method: HttpMethod.GET,
     });
     return data;

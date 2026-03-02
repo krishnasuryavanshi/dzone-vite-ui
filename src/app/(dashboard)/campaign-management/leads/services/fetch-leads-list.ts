@@ -1,5 +1,7 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services';
+import { transformPath } from '@/lib/utils/string/transform-path';
 
 export const fetchLeadsList = async (
   page: number,
@@ -9,15 +11,19 @@ export const fetchLeadsList = async (
   ...extraParams: Record<string, any>[]
 ) => {
   try {
+    const resource = lineItemUuId
+      ? transformPath(ApiResources.LeadsByLineItemId, {
+          lineItemId: lineItemUuId,
+        })
+      : ApiResources.Leads;
     const params: Record<string, any> = {
       page,
       size,
-      tenantCode,
-      lineItemUuId,
       ...Object.assign({}, ...extraParams),
     };
     const data = await nextBackendRequest({
-      resource: BackendResources.Leads,
+      resource,
+      apiHost: ApiHost.PlatformService,
       params,
     });
 

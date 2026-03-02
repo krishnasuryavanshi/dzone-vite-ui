@@ -1,14 +1,13 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
+import { ApiResources } from '@/lib/enums';
 import { nextBackendRequest } from '@/services';
 import { FilterMenuItemLabel } from '../components/filters-manager/filter-menu-item-label';
 import { IFilterCampaign, IFilterLineItem, ILineItem } from '../lib/types';
 
 export async function fetchFilterData() {
   const data = await nextBackendRequest({
-    resource: BackendResources.LineItems,
-    params: {
-      all: true,
-    },
+    apiHost: ApiHost.CampaignService,
+    resource: ApiResources.AllLineItems,
   });
 
   const lineItems: IFilterLineItem[] = [

@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 import { transformPath } from '@/lib/utils/string';
@@ -15,9 +16,10 @@ export const updateDeliverySchedule = async (
 ): Promise<DeliverySchedule | null> => {
   try {
     const data = await nextBackendRequest({
-      resource: transformPath(BackendResources.LineItemDeliveryScheduleById, {
+      resource: transformPath(ApiResources.LineItemDeliveryScheduleById, {
         scheduleId: id,
       }),
+      apiHost: ApiHost.PlatformService,
       method: HttpMethod.PUT,
       data: payload as unknown as Record<string, unknown>,
     });

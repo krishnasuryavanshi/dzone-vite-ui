@@ -1,14 +1,17 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const userResendSetPasswordLink = async (token: string) => {
   try {
     return nextBackendRequest({
-      resource: transformPath(BackendResources.UserResendSetPasswordLink, {
+      resource: transformPath(ApiResources.UserResendSetPasswordLink, {
         token,
       }),
-      method: HttpMethod.PUT,
+      apiHost: ApiHost.RBACService,
+      method: HttpMethod.POST,
+      isAuthenticated: false,
     });
   } catch (error) {}
 };

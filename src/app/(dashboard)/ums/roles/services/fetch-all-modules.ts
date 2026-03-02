@@ -1,11 +1,13 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const fetchAllModules = async () => {
   try {
-    const resource = BackendResources.AllModules;
+    const resource = ApiResources.RoleModules;
     const data = await nextBackendRequest({
       resource,
+      apiHost: ApiHost.RBACService,
     });
     return data;
   } catch (error) {

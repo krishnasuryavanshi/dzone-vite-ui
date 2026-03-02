@@ -1,10 +1,13 @@
-import { BackendResources } from "@/lib/enums";
-import { nextBackendRequest } from "@/services";
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
+import { nextBackendRequest } from '@/services';
 
 export const fetchFileUploadMeta = async () => {
   try {
     const data = await nextBackendRequest({
-      resource: BackendResources.FileUpload,
+      resource: ApiResources.FileUploadMetadata,
+      apiHost: ApiHost.CampaignService,
+      params: { fileTypeName: 'lead-file' },
     });
 
     return data;

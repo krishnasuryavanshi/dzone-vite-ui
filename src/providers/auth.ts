@@ -1,41 +1,33 @@
 'use client';
 
-import { BackendResources } from '@/lib/enums';
-import { Store, nextBackendRequest, showNotification } from '@/services';
+import { Store, showNotification } from '@/services';
 import { AuthBindings } from '@refinedev/core';
-import { getSession, signIn, signOut } from 'next-auth/react';
 import { encrypt } from '@/lib/utils';
 import { StorageKey } from '@/lib/enums';
-import { usePermissionsStore } from '@/stores/permissions-store';
-import { useTokenStore } from '@/stores/token-store';
-import { IUser } from '@/app/(dashboard)/ums/users/lib/types';
+import { login as authLogin, logout as authLogout } from '../auth/auth-service';
+import { useAuthStore } from '../auth/stores';
 
 const StoreKey_RememberMe = StorageKey.RememberMe;
 const StoreKey_Useridentity = StorageKey.UserIdentity;
 
-export enum IAMProvider {
-  Credentials = 'credentials',
-}
-
 export const logout = async () => {
-  await nextBackendRequest({
-    resource: BackendResources.Logout,
-  });
-  await signOut({
-    redirect: false,
-  });
-  usePermissionsStore.getState().clearPermissions();
-  useTokenStore.getState().clearToken();
+  await authLogout();
 };
 
 export const authProvider: AuthBindings = {
   login: async (params) => {
-    const resp = await signIn(IAMProvider.Credentials, {
-      email: params.email,
-      password: params.password,
-      redirect: false,
-    });
-    if (resp?.ok) {
+    try {
+      const data = await authLogin(params.email, params.password);
+
+      if (!data?.modules?.length) {
+        showNotification({
+          message:
+            'Access denied: Invalid credentials or insufficient permissions.',
+          type: 'error',
+        });
+        return { success: false };
+      }
+
       const isRememberMeChecked = Store.get(StoreKey_RememberMe) === true;
       if (isRememberMeChecked) {
         const user = {
@@ -46,23 +38,23 @@ export const authProvider: AuthBindings = {
       } else {
         Store.remove(StoreKey_Useridentity);
       }
+
       return {
         success: true,
         redirectTo: '/',
       };
+    } catch {
+      showNotification({
+        message:
+          'Access denied: Invalid credentials or insufficient permissions.',
+        type: 'error',
+      });
+      return { success: false };
     }
-    showNotification({
-      message:
-        'Access denied: Invalid credentials or insufficient permissions.',
-      type: 'error',
-    });
-    return {
-      success: false,
-    };
   },
   logout: async () => {
     try {
-      await logout();
+      await authLogout();
       showNotification({
         message: 'You have been logged out successfully',
       });
@@ -92,8 +84,8 @@ export const authProvider: AuthBindings = {
     };
   },
   check: async () => {
-    const session = await getSession();
-    if (!session) {
+    const { isAuthenticated } = useAuthStore.getState();
+    if (!isAuthenticated) {
       return {
         authenticated: false,
         logout: true,
@@ -106,24 +98,20 @@ export const authProvider: AuthBindings = {
     };
   },
   getPermissions: async () => {
-    const session = await getSession();
-
-    if (session?.roles?.length) {
-      return session.roles;
+    const { roles } = useAuthStore.getState();
+    if (roles?.length) {
+      return roles;
     }
     return null;
   },
   getIdentity: async () => {
-    const session = await getSession();
-
-    if (session?.user) {
-      const { user } = session;
+    const { user } = useAuthStore.getState();
+    if (user) {
       return {
-        name: `${(user as IUser).firstName} ${(user as IUser).lastName}`,
-        avatar: user.image,
+        name: `${user.firstName || ''} ${user.lastName || ''}`.trim(),
+        avatar: (user as any).image,
       };
     }
-
     return null;
   },
 };

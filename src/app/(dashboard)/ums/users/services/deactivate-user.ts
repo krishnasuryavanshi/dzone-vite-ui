@@ -1,12 +1,14 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const deactivateUser = async (userId: string) => {
   try {
     return nextBackendRequest({
-      resource: transformPath(BackendResources.DeactivateUser, { userId }),
+      resource: transformPath(ApiResources.DeactivateUserStatus, { username: userId }),
       method: HttpMethod.PUT,
+      apiHost: ApiHost.RBACService,
     });
   } catch (error) {}
 };

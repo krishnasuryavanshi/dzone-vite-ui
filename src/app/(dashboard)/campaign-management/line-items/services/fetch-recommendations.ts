@@ -1,12 +1,14 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const fetchRecommendations = async (type: string, value: string) => {
   try {
     const data = await nextBackendRequest({
-      resource: BackendResources.LineItemRecommendations,
+      resource: ApiResources.JobTitleRecommendations,
+      apiHost: ApiHost.RecommendationService,
       method: HttpMethod.POST,
-      params: { type, value },
+      params: { [type]: value },
     });
 
     if (!data.length) return null;

@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { Filters, processFiltersWithDateRange } from '@/lib/utils/table';
 import { nextBackendRequest } from '@/services/backend-request';
 import { ICampaign } from '../lib/types';
@@ -16,11 +17,12 @@ export const fetchCampaigns = async (
     const hasFilters = filters.length > 0;
     const method = hasFilters ? HttpMethod.POST : HttpMethod.GET;
     const resource = hasFilters
-      ? BackendResources.FilteredCampaigns
-      : BackendResources.Campaigns;
+      ? ApiResources.FilteredCampaigns
+      : ApiResources.Campaigns;
     const requestBody = hasFilters ? { filters } : {};
     const requestConfig = {
       resource,
+      apiHost: ApiHost.CampaignService,
       method,
       params: {
         page,

@@ -1,4 +1,5 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 import { IJob } from '../lib/types';
@@ -16,7 +17,8 @@ export const fetchJobMonitoringJobs = async (
 ): Promise<JobMonitoringListResponse | null> => {
   try {
     return await nextBackendRequest({
-      resource: BackendResources.JobMonitoringJobs,
+      resource: ApiResources.JobMonitoringJobs,
+      apiHost: ApiHost.JobMonitoringService,
       params: { page, size, ...(lineItemId && { lineItemId }), ...params },
     });
   } catch (error) {

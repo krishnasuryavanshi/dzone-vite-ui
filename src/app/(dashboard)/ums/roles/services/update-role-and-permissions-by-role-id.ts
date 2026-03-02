@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import { IRolePermissions } from '../lib/types';
 import { transformPath } from '@/lib/utils/string';
@@ -8,12 +9,13 @@ export const updateRoleAndPermissionsByRoleId = async (
   newValues: IRolePermissions,
 ) => {
   try {
-    const resource = transformPath(BackendResources.PermissionsByRoleId, {
+    const resource = transformPath(ApiResources.UpdateRole, {
       roleId,
     });
     const data = await nextBackendRequest({
       resource,
-      method: HttpMethod.PUT,
+      apiHost: ApiHost.RBACService,
+      method: HttpMethod.POST,
       data: { ...newValues },
     });
     return data;

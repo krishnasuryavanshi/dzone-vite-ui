@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest, showNotification } from '@/services';
 import { handleApiError } from '../../lib/utils';
 
@@ -8,9 +9,10 @@ export const exportFilteredLeads = async (
 ) => {
   try {
     const response = await nextBackendRequest({
-      resource: BackendResources.ExportLeads,
+      resource,
+      apiHost: ApiHost.FileService,
       method: HttpMethod.POST,
-      data: { filters, resource },
+      data: { filters },
       responseType: 'arraybuffer',
       requestName: 'exportFilteredLeads',
       includeResponseHeaders: true,

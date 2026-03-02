@@ -217,8 +217,8 @@ export const router = createBrowserRouter([
   {
     element: <AppLayout />,
     children: [
-      // Root redirects to dashboard
-      { index: true, element: <Navigate to="/dashboard" replace /> },
+      // Root redirects to organizations
+      { index: true, element: <Navigate to="/organizations" replace /> },
 
       // Dashboard
       { path: '/dashboard', element: <DashboardPage /> },

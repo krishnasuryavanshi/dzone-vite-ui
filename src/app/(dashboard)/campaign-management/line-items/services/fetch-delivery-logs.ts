@@ -1,4 +1,5 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services';
 import { logError } from '@/services/logger';
@@ -42,9 +43,10 @@ export const fetchDeliveryLogs = async (
     const { scheduleId, ...queryParams } = params;
 
     const response = await nextBackendRequest({
-      resource: transformPath(BackendResources.LineItemDeliveryLogs, {
+      resource: transformPath(ApiResources.LineItemDeliveryScheduleLogsById, {
         scheduleId,
       }),
+      apiHost: ApiHost.PlatformService,
       params: queryParams,
     });
 

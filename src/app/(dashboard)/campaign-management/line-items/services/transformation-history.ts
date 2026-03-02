@@ -1,5 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
-import { transformPath } from '@/lib/utils/string';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 
@@ -30,13 +30,12 @@ export const fetchTransformationHistory = async (
   size: number = 10,
 ): Promise<TransformationHistoryResponse | null> => {
   try {
-    const resource = transformPath(BackendResources.TranformationHistory, {
-      lineItemId,
-    });
     const response = await nextBackendRequest({
-      resource,
+      resource: ApiResources.TranformationHistory,
+      apiHost: ApiHost.TransformationService,
       method: HttpMethod.GET,
       params: {
+        lineItemId,
         page,
         size,
       },

@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import {
   Filters,
@@ -30,7 +31,8 @@ export const fetchOrganizations = async (
 
   try {
     return nextBackendRequest({
-      resource: BackendResources.FilteredOrganizations,
+      apiHost: ApiHost.RBACService,
+      resource: ApiResources.FilteredOrganizations,
       method: HttpMethod.POST,
       params,
       data: { filters },

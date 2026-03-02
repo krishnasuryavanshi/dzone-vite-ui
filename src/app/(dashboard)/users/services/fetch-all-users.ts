@@ -1,10 +1,12 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const fetchAllUsers = async () => {
   try {
     const users = await nextBackendRequest({
-      resource: BackendResources.AllUsers,
+      resource: ApiResources.AllUsers,
+      apiHost: ApiHost.CampaignService,
     });
     return users.data.map((status: any) => {
       return {

@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 import { Integration } from '../lib/types/integration';
@@ -16,7 +17,8 @@ export const updateIntegration = async (
 ): Promise<Integration | null> => {
   try {
     const data = await nextBackendRequest({
-      resource: `${BackendResources.Integrations}/${id}`,
+      resource: `${ApiResources.Integrations}/${id}`,
+      apiHost: ApiHost.PlatformService,
       method: HttpMethod.PUT,
       data: payload as unknown as Record<string, unknown>,
     });

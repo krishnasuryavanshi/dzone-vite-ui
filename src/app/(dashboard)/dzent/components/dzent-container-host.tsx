@@ -15,7 +15,7 @@ export const DzentContainerHost = ({ action }: DZentContainerProps) => {
       setReady(true);
       clear();
     }
-  }, [resetAll]);
+  }, []);
 
   // while destroying host component, reset the store and clear unsaved data context
   useEffect(() => {

@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services';
 
@@ -9,11 +10,12 @@ export async function createLeadValidationSetting(
   try {
     return nextBackendRequest({
       resource: transformPath(
-        BackendResources.MarketersLeadValidationSettings,
+        ApiResources.MarketersLeadValidationSettings,
         {
           tenantCode,
         },
       ),
+      apiHost: ApiHost.PlatformService,
       method: HttpMethod.POST,
       data: requestData,
     });

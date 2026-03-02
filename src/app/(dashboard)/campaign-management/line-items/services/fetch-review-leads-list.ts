@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 
 export const fetchReviewLeadsList = async (
@@ -7,7 +8,8 @@ export const fetchReviewLeadsList = async (
 ) => {
   try {
     return await nextBackendRequest({
-      resource: BackendResources.LeadsReviewList,
+      resource: ApiResources.LeadsDetails,
+      apiHost: ApiHost.PlatformService,
       method: HttpMethod.POST,
       data: { lineItemId, filters },
     });

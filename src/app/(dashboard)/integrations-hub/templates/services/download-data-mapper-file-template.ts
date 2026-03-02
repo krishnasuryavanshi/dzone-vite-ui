@@ -1,11 +1,13 @@
 import { handleApiError } from '@/app/(dashboard)/campaign-management/lib/utils';
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest, showNotification } from '@/services';
 
 export const downloadDataMapperFileTemplate = async (type = '') => {
   try {
     const response = await nextBackendRequest({
-      resource: BackendResources.DownloadDataMapperFileTemplate,
+      resource: ApiResources.DownloadDataMapperUploadTemplate,
+      apiHost: ApiHost.CampaignDeliveryService,
       responseType: 'arraybuffer',
       includeResponseHeaders: true,
       params: {

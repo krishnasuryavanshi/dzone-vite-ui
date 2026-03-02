@@ -1,4 +1,5 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services/backend-request';
 import { ITransformAndExportLeads } from '../lib/types';
 
@@ -7,7 +8,8 @@ export const transformAndExportLeads = async (
 ) => {
   try {
     const response = await nextBackendRequest({
-      resource: BackendResources.TransformAndExportLeads,
+      resource: ApiResources.TransformAndExportLeads,
+      apiHost: ApiHost.TransformationService,
       method: HttpMethod.POST,
       includeResponseHeaders: true,
       data: { ...requestPayload },

@@ -1,4 +1,6 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
+import { transformPath } from '@/lib/utils/string/transform-path';
 import { nextBackendRequest } from '@/services';
 
 export const fetchLeadUploadProcessingStatus = async (
@@ -6,16 +8,18 @@ export const fetchLeadUploadProcessingStatus = async (
   requestId?: string,
 ) => {
   try {
-    const params: Record<string, string> = {
+    const resource = transformPath(ApiResources.LeadUploadValidationCount, {
       lineItemId,
-    };
+    });
 
+    const params: Record<string, string> = {};
     if (requestId) {
-      params.requestId = requestId;
+      params.batchId = requestId;
     }
 
     const response = await nextBackendRequest({
-      resource: BackendResources.LeadUploadProcessingStatus,
+      resource,
+      apiHost: ApiHost.PlatformService,
       params,
     });
     return response;

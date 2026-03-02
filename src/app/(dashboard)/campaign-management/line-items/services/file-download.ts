@@ -1,13 +1,14 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
+import { transformPath } from '@/lib/utils/string/transform-path';
 import { nextBackendRequest, showNotification } from '@/services';
 
 export const fileDownload = async (fileId: string) => {
   try {
+    const resource = transformPath(ApiResources.FileDownload, { fileId });
     const { data } = await nextBackendRequest({
-      resource: BackendResources.FileDownloadLineItem,
-      params: {
-        fileId,
-      },
+      resource,
+      apiHost: ApiHost.FileService,
     });
     if (data?.url) {
       const link = document.createElement('a');

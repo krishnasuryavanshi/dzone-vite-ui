@@ -1,13 +1,13 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services';
-
-const Resource = BackendResources.ValidateCampaignById;
 
 export async function validateCampaign(campaignId: string) {
   try {
     const data = await nextBackendRequest({
-      resource: transformPath(Resource, { campaignId }),
+      resource: transformPath(ApiResources.ValidateCampaignById, { campaignId }),
+      apiHost: ApiHost.CampaignService,
     });
     return data;
   } catch (error) {}

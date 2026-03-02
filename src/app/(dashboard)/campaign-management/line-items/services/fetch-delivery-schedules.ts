@@ -1,4 +1,6 @@
-import { BackendResources, HttpMethod } from '@/lib/enums';
+import { ApiResources, HttpMethod } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
+import { transformPath } from '@/lib/utils/string';
 import { nextBackendRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 import { convertUTCTimeToLocal } from '../lib/utils/convert-time-to-local';
@@ -43,11 +45,13 @@ export const fetchDeliverySchedules = async (
   lineItemId?: string,
 ): Promise<DeliverySchedulesResponse | null> => {
   try {
-    const params = lineItemId ? { lineItemId } : undefined;
+    const resource = lineItemId
+      ? transformPath(ApiResources.LineItemDeliverySchedulesList, { lineItemId })
+      : ApiResources.LineItemDeliverySchedules;
     const response = await nextBackendRequest({
-      resource: BackendResources.LineItemDeliverySchedules,
+      resource,
+      apiHost: ApiHost.PlatformService,
       method: HttpMethod.GET,
-      params,
     });
 
     // Convert deliveryTime from UTC to local timezone for each schedule

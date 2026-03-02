@@ -1,4 +1,5 @@
-import { BackendResources } from '@/lib/enums';
+import { ApiResources } from '@/lib/enums';
+import { ApiHost } from '@/lib/constants';
 import { nextBackendRequest } from '@/services';
 
 export async function fetchAllLeadValidationSettings(
@@ -7,7 +8,8 @@ export async function fetchAllLeadValidationSettings(
 ) {
   try {
     return nextBackendRequest({
-      resource: BackendResources.LeadValidationSettings,
+      resource: ApiResources.LeadValidationSettings,
+      apiHost: ApiHost.PlatformService,
       params: { page, size },
     });
   } catch (error) {}
