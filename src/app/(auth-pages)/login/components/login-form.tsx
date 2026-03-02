@@ -1,12 +1,9 @@
 'use client';
 
-import { Translate } from '@/components/i18n';
-import { Store, showNotification } from '@/services';
 import { Form as Login } from '@/uicomponents/form';
 import { useLogin } from '@refinedev/core';
 import { FC, PropsWithChildren } from 'react';
 import { loginConfig } from '../config';
-import { validateUserEmail } from '../services';
 import { IUserIdentity } from '../types';
 
 interface ILoginFormProps extends PropsWithChildren {
@@ -26,15 +23,7 @@ export const LoginForm: FC<ILoginFormProps> = ({
 
   const onSubmit = async (values: any) => {
     if (values.email && !values.password) {
-      onFormModeChange(false);
-      const data = await validateUserEmail(values.email);
-      if (data.isValid) {
-        onFormModeChange(true);
-      } else {
-        showNotification({
-          message: <Translate i18nKey='form.login.email.invalid' />,
-        });
-      }
+      onFormModeChange(true);
       return;
     }
     if (values.email && values.password) {
