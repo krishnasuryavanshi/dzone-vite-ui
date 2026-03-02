@@ -1,0 +1,29 @@
+/* Base class */
+.deliveryTemplate {
+  cursor: default;
+}
+
+/* Hover helper class */
+.hoverUnderline {
+  text-decoration: none;
+}
+
+/* Combined selector for higher specificity */
+.deliveryTemplate.hoverUnderline {
+  text-decoration: none;
+}
+
+/* Hover state with double class specificity (0,2,1) */
+.deliveryTemplate.hoverUnderline:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Target child anchor tags with chained classes */
+.deliveryTemplate.hoverUnderline a {
+  text-decoration: none;
+}
+
+.deliveryTemplate.hoverUnderline:hover a {
+  text-decoration: underline;
+}

@@ -1,0 +1,18 @@
+.custom-tooltip .ant-tooltip-inner {
+  background-color: #eff4fd;
+  color: #235aed;
+  font-size: 0.75rem;
+  text-align: center;
+  max-width: none;
+}
+
+.custom-tooltip .ant-tooltip-arrow {
+  border-color: #eff4fd !important;
+}
+.custom-tooltip .ant-tooltip-arrow::before {
+  background-color: #eff4fd !important;
+}
+
+.template-field-form .input-control.form-control-item .ant-input-number {
+  width: 100%;
+}

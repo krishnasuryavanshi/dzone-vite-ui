@@ -1,0 +1,19 @@
+.chat-summary-container {
+  .chat-summary-progress {
+    .dz-progress.ant-progress .ant-progress-outer,
+    .dz-progress.ant-progress .ant-progress-bg {
+      height: 0.5rem !important;
+    }
+  }
+
+  .truncated-text {
+    color: var(--dzent-color-text-muted);
+    font-size: 0.625rem;
+    font-style: normal;
+    font-weight: 400;
+
+    .expand-link {
+      font-size: 0.625rem;
+    }
+  }
+}

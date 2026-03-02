@@ -1,0 +1,20 @@
+.upload-leads-inprogress {
+  width: 9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #707070 ; // or use your CLR_GRAY_4 variable if using CSS vars
+}
+
+.upload-leads-inprogress .anticon-loading,
+.upload-leads-inprogress .anticon-loading svg {
+  color: #707070 ;
+  fill: #464343 ;
+  font-size: 18px ;
+  width: 18px ;
+  height: 18px ;
+}
+
+.upload-leads-inprogress .ant-spin {
+  margin-right: 0.5rem;
+}

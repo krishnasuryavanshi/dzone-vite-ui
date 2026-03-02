@@ -1,0 +1,16 @@
+import { BackendResources } from '@/lib/enums';
+import { nextBackendRequest } from '@/services/backend-request';
+
+export const fetchLineItemStatuses = async () => {
+  try {
+    const statuses = await nextBackendRequest({
+      resource: BackendResources.LineItemStatuses,
+    });
+    return statuses.data.map((status: any) => {
+      return {
+        text: status.value,
+        value: status.name,
+      };
+    });
+  } catch (error) {}
+};

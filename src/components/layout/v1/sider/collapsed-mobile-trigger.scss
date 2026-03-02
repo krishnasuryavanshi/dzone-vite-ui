@@ -1,0 +1,11 @@
+.collapsed-mobile-trigger-container {
+  background-color: var(--dzone-color-brand-black);
+  position: absolute;
+  top: 0.75rem;
+  width: 2.5rem !important;
+  left: 0;
+  z-index: 1;
+  padding: 0.25rem 0.5rem;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+}

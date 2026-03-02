@@ -1,0 +1,250 @@
+.integrationTooltip {
+  font-size: 0.875rem;
+  min-width: 13.75rem;
+  max-width: 25rem;
+  word-break: break-word;
+}
+.integrationsList {
+  padding: 0;
+  max-height: calc(100vh - 7.5rem);
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.integrationsList::-webkit-scrollbar {
+  width: var(--dzone-spacing-sm);
+}
+
+.integrationsList::-webkit-scrollbar-track {
+  background: var(--dzone-color-bg-scrollbar);
+  border-radius: var(--dzone-radius-sm);
+}
+
+.integrationsList::-webkit-scrollbar-thumb {
+  background: rgba(35, 90, 237, 0.56);
+  border-radius: var(--dzone-radius-sm);
+}
+
+.integrationsList::-webkit-scrollbar-thumb:hover {
+  background: rgba(35, 90, 237, 0.8);
+}
+
+.sectionTitle {
+  font-size: var(--dzone-font-size-base);
+  font-weight: var(--dzone-font-weight-semibold);
+  color: var(--dzone-color-black);
+  margin-bottom: var(--dzone-spacing-2xl);
+  display: block;
+}
+
+.connectedIntegrationsTable {
+  margin-bottom: var(--dzone-spacing-4xl);
+}
+
+.connectedIntegrationItem {
+  border: 1px solid var(--dzone-color-border-light);
+  border-radius: var(--dzone-radius-md);
+  margin-bottom: var(--dzone-spacing-lg);
+  overflow: hidden;
+}
+
+.integrationHeaderRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--dzone-spacing-lg) var(--dzone-spacing-3xl);
+  background: var(--dzone-color-white);
+}
+
+.integrationInfo {
+  display: flex;
+  align-items: center;
+}
+
+.integrationNameStatus {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dzone-spacing-2xs);
+}
+
+.integrationConnectedName {
+  font-size: var(--dzone-font-size-md);
+  font-weight: var(--dzone-font-weight-medium);
+  color: var(--dzone-color-black);
+}
+
+.statusTag {
+  font-size: var(--dzone-font-size-base);
+  color: var(--dzone-color-success);
+}
+
+.statusError {
+  font-size: var(--dzone-font-size-base);
+  color: var(--dzone-color-error);
+}
+
+.addNewButton {
+  height: var(--dzone-height-button-md);
+  font-size: var(--dzone-font-size-sm);
+  font-weight: var(--dzone-font-weight-bold);
+  padding: 0 var(--dzone-spacing-2xl);
+  background: var(--dzone-color-primary);
+  border-color: var(--dzone-color-primary);
+}
+
+.addNewButton:hover {
+  background: var(--dzone-color-primary-hover);
+  border-color: var(--dzone-color-primary-hover);
+}
+
+.integrationDetailsRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 var(--dzone-spacing-md) var(--dzone-spacing-md)
+    var(--dzone-spacing-md);
+  padding: var(--dzone-spacing-md) var(--dzone-spacing-3xl);
+  background: var(--dzone-color-bg-light-gray);
+  border-radius: var(--dzone-radius-sm);
+}
+
+.detailsLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--dzone-spacing-7xl);
+  padding-left: var(--dzone-spacing-6xl);
+}
+
+.detailItem {
+  display: flex;
+  align-items: center;
+  gap: var(--dzone-spacing-xs);
+  min-width: 0;
+}
+
+.detailLabel {
+  font-size: var(--dzone-font-size-base);
+  color: var(--dzone-color-black);
+  font-weight: var(--dzone-font-weight-normal);
+  flex-shrink: 0;
+}
+
+.detailValue {
+  font-size: var(--dzone-font-size-base);
+  color: var(--dzone-color-gray);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  max-width: 28rem;
+  flex: 1 1 0;
+  display: block;
+  vertical-align: bottom;
+}
+
+.detailsRight {
+  display: flex;
+  align-items: center;
+  gap: var(--dzone-spacing-3xl);
+}
+
+.connectLink {
+  font-size: var(--dzone-font-size-base);
+  padding: 0;
+  height: auto;
+  color: var(--dzone-color-success);
+  font-weight: var(--dzone-font-weight-medium);
+}
+
+.connectLink:hover {
+  color: var(--dzone-color-success-hover);
+}
+
+.disconnectLink {
+  font-size: var(--dzone-font-size-base);
+  padding: 0;
+  height: auto;
+  color: var(--dzone-color-error);
+  font-weight: var(--dzone-font-weight-medium);
+}
+
+.disconnectLink:hover {
+  color: var(--dzone-color-error-hover);
+}
+
+.viewDetailsLink {
+  font-size: var(--dzone-font-size-base);
+  padding: 0;
+  height: auto;
+  color: var(--dzone-color-info);
+  font-weight: var(--dzone-font-weight-medium);
+}
+
+.viewDetailsLink:hover {
+  color: var(--dzone-color-info-hover);
+}
+
+.retryLink {
+  font-size: var(--dzone-font-size-sm);
+  padding: 0;
+  height: auto;
+  text-decoration: underline !important;
+}
+
+.availableSectionTitle {
+  font-size: var(--dzone-font-size-base);
+  font-weight: var(--dzone-font-weight-semibold);
+  color: var(--dzone-color-black);
+  margin-bottom: var(--dzone-spacing-lg);
+  display: block;
+}
+
+.availableIntegrations {
+  margin-bottom: var(--dzone-spacing-4xl);
+}
+
+.emptyState {
+  text-align: center;
+  padding: var(--dzone-spacing-7xl) var(--dzone-spacing-3xl);
+  background: var(--dzone-color-bg-lighter-gray);
+  border-radius: var(--dzone-radius-sm);
+  margin-bottom: var(--dzone-spacing-4xl);
+}
+
+.integrationItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--dzone-spacing-md) var(--dzone-spacing-lg);
+  background: var(--dzone-color-white);
+  border: 1px solid var(--dzone-color-border);
+  border-radius: var(--dzone-radius-sm);
+  transition: all 0.3s ease;
+  min-height: var(--dzone-height-element-lg);
+}
+
+.integrationItem:hover {
+  box-shadow: var(--dzone-shadow-sm);
+  border-color: var(--dzone-color-border-hover);
+}
+
+.integrationName {
+  font-size: var(--dzone-font-size-base);
+  font-weight: var(--dzone-font-weight-normal);
+  color: var(--dzone-color-black);
+}
+
+.connectButton {
+  min-width: var(--dzone-spacing-8xl);
+  height: var(--dzone-height-button-sm);
+  font-size: var(--dzone-font-size-sm);
+  font-weight: var(--dzone-font-weight-bold);
+  padding: 0 var(--dzone-spacing-lg);
+  background: var(--dzone-color-black);
+  border-color: var(--dzone-color-black);
+  color: var(--dzone-color-white);
+}
+
+.connectButton:hover {
+  background: var(--dzone-color-bg-lighter-gray);
+  border-color: var(--dzone-color-black);
+}

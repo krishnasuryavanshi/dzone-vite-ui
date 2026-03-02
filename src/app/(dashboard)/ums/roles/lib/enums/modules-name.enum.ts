@@ -1,0 +1,16 @@
+export enum ModuleNames {
+  DASHBOARD = 'Dashboard',
+  CLIENT = 'Client',
+  DZENT = 'Dzent',
+  INTEGRATIONS = 'Integrations',
+  CAMPAIGN = 'Campaign',
+  LINE_ITEM = 'Line Item',
+  LEADS = 'Leads',
+  DELIVERY_TEMPLATES = 'Delivery Templates',
+  ROLES_AND_PERMISSIONS = 'Roles and Permissions',
+  USER = 'Users',
+  ORGANIZATIONS = 'Organizations',
+  VALIDATION_SETTINGS = 'Validation Settings',
+  ICP = 'ICP',
+  JOBS = 'Jobs',
+}

@@ -1,0 +1,14 @@
+.dz-one-toast-notification {
+    .icon {
+      font-size: 2rem;
+      color: var(--dz-upload-icon-color);
+    }
+  
+    &.Success {
+      --dz-upload-icon-color: #04ca56;
+    }
+    &.Error {
+      --dz-upload-icon-color: #ff602e;
+    }
+  }
+  

@@ -1,0 +1,31 @@
+.user-profile-menu {
+  &-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    width: 100%;
+    text-align: left;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.04);
+    }
+
+    &-icon {
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    &-text {
+      flex: 1;
+    }
+  }
+
+  &-divider {
+    margin: 4px 0;
+    border-top: 1px solid rgba(5, 5, 5, 0.06);
+  }
+}

@@ -1,0 +1,107 @@
+[
+  {
+    "field": "hasCustomQuestions",
+    "label": "Custom Questions?",
+    "fieldType": "checkbox",
+    "showLabelInControl": true,
+    "valuePropName": "checked",
+    "viewOrder": 1,
+    "section": "Custom Questions",
+    "permissions": {
+      "view": "Line Item.VIEW.customQuestions",
+      "edit": "Line Item.EDIT.customQuestions",
+      "create": "Line Item.CREATE.customQuestions"
+    }
+  },
+  {
+    "field": "customQuestions",
+    "label": "Custom Questions",
+    "fieldType": "custom-component",
+    "component": "CustomQuestions",
+    "viewComponent": "ShowCustomQuestions",
+    "columnSpan": { "span": 24 },
+    "viewOrder": 3,
+    "section": "Custom Questions",
+    "permissions": {
+      "view": "Line Item.VIEW.customQuestions",
+      "edit": "Line Item.EDIT.customQuestions",
+      "create": "Line Item.CREATE.customQuestions"
+    },
+    "childrenFields": [
+      {
+        "showLabel": false,
+        "field": "question",
+        "placeholder": "Enter Question",
+        "fieldType": "textarea",
+        "maxLength": 64000,
+        "rules": [{ "required": true }],
+        "section": "Custom Questions",
+        "permissions": {
+          "view": "Line Item.VIEW.customQuestion",
+          "edit": "Line Item.EDIT.customQuestion",
+          "create": "Line Item.CREATE.customQuestion"
+        }
+      },
+      {
+        "showLabel": false,
+        "field": "acceptedAnswer",
+        "placeholder": "Enter Accepted Answer",
+        "fieldType": "textarea",
+        "maxLength": 64000,
+        "rules": [{ "required": true }],
+        "section": "Custom Questions",
+        "permissions": {
+          "view": "Line Item.VIEW.acceptedAnswersToCustomQuestion",
+          "edit": "Line Item.EDIT.acceptedAnswersToCustomQuestion",
+          "create": "Line Item.CREATE.acceptedAnswersToCustomQuestion"
+        }
+      },
+      {
+        "showLabel": false,
+        "field": "rejectedAnswer",
+        "placeholder": "Enter Rejected Answer",
+        "fieldType": "textarea",
+        "maxLength": 64000,
+        "rules": [{ "required": true }],
+        "section": "Custom Questions",
+        "permissions": {
+          "view": "Line Item.VIEW.rejectedAnswersToCustomQuestion",
+          "edit": "Line Item.EDIT.rejectedAnswersToCustomQuestion",
+          "create": "Line Item.CREATE.rejectedAnswersToCustomQuestion"
+        }
+      },
+      {
+        "showLabel": false,
+        "field": "id",
+        "fieldType": "text",
+        "hidden": true
+      }
+    ]
+  },
+  {
+    "field": "customQuestionInstructions",
+    "label": "Custom Question Instructions",
+    "fieldType": "textarea",
+    "maxLength": 64000,
+    "viewOrder": 2,
+    "section": "Custom Questions",
+    "permissions": {
+      "view": "Line Item.VIEW.customQuestionInstructions",
+      "edit": "Line Item.EDIT.customQuestionInstructions",
+      "create": "Line Item.CREATE.customQuestionInstructions"
+    }
+  },
+  {
+    "field": "additionalInstructions",
+    "label": "Additional Instructions",
+    "fieldType": "textarea",
+    "maxLength": 64000,
+    "viewOrder": 4,
+    "section": "Custom Questions",
+    "permissions": {
+      "view": "Line Item.VIEW.additionalInstructions",
+      "edit": "Line Item.EDIT.additionalInstructions",
+      "create": "Line Item.CREATE.additionalInstructions"
+    }
+  }
+]

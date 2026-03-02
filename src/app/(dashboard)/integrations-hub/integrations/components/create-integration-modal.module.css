@@ -1,0 +1,48 @@
+.createIntegrationModal .ant-modal-content {
+  padding: 0;
+}
+
+.modalContent {
+  padding: var(--dzone-spacing-3xl);
+}
+
+.iconContainer {
+  text-align: center;
+  margin-bottom: var(--dzone-spacing-2xl);
+}
+
+.modalTitle {
+  text-align: center;
+  margin-bottom: var(--dzone-spacing-xs);
+  font-weight: var(--dzone-font-weight-semibold);
+}
+
+.modalSubtitle {
+  text-align: center;
+  margin-bottom: var(--dzone-spacing-3xl);
+  margin-top: 0;
+  white-space: normal;
+  line-height: 1.5;
+}
+
+.formItem {
+  margin-bottom: var(--dzone-spacing-2xl);
+}
+
+.formItem:last-of-type {
+  margin-bottom: var(--dzone-spacing-3xl);
+}
+
+.inputControl {
+  height: var(--dzone-height-element-lg);
+}
+
+.buttonContainer {
+  gap: var(--dzone-spacing-lg);
+  justify-content: flex-end;
+}
+
+.cancelButton,
+.submitButton {
+  height: var(--dzone-height-element-lg);
+}

@@ -1,0 +1,25 @@
+.chat-widget-action-button.action-button.gradient-action.gradient-action-button {
+  border-radius: 140px;
+  font-size: 0.625rem;
+  color: #323131;
+  padding: 0.5rem;
+  opacity: 1;
+  background: transparent;
+  border: 1px solid #323131;
+  font-weight: 400;
+  &.focused,
+  &.focused:hover,
+  &:hover {
+    color: #fff;
+    // border: none;
+    background: #323131;
+  }
+
+  &.action-form-submit {
+    border-radius: 8px;
+  }
+
+  &.loading {
+    opacity: 0.5;
+  }
+}

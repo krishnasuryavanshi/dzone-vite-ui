@@ -1,0 +1,18 @@
+.integrationsContainer {
+  padding: var(--dzone-spacing-sm);
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.integrationsContent {
+  background: var(--dzone-color-white);
+  border-radius: var(--dzone-radius-md);
+  padding: var(--dzone-spacing-2xl) var(--dzone-spacing-3xl);
+  box-shadow: var(--dzone-shadow-xs);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}

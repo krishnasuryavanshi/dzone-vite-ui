@@ -1,0 +1,32 @@
+.modal {
+  max-height: 90vh;
+}
+
+.container {
+  padding: var(--dzone-spacing-2xl);
+  min-height: 400px;
+  overflow-x: auto;
+}
+
+.section {
+  flex: 1;
+  min-width: 600px;
+}
+
+.sectionTitle {
+  margin-bottom: var(--dzone-spacing-sm) !important;
+  color: var(--dzone-color-text-primary);
+}
+
+.totalLeads {
+  margin-bottom: var(--dzone-spacing-2xl);
+  font-size: var(--dzone-font-size-base);
+}
+
+.emptyState {
+  padding: var(--dzone-spacing-4xl);
+  text-align: center;
+  display: block;
+  background: var(--dzone-color-bg-lighter-gray);
+  border-radius: var(--dzone-radius-md);
+}

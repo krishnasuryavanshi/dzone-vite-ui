@@ -1,0 +1,22 @@
+.filter-dropdown-container {
+  max-height: 18.75rem;
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-options {
+  overflow-y: auto;
+  flex-grow: 1;
+}
+
+.fixed-buttons {
+  margin-top: auto;
+  justify-content: end;
+}

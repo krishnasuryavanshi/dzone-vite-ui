@@ -1,0 +1,43 @@
+.section-attributes-container {
+  .chips-input-textbox {
+    &::placeholder {
+      color: #707070;
+      text-align: center;
+      font-size: 1.25rem;
+      font-weight: 700;
+    }
+    &:focus {
+      border: none;
+      outline: none;
+      box-shadow: none;
+    } 
+  }
+
+  .dropdown-custom,
+  .dropdown-search {
+    .dropdown-option {
+      &:hover,
+      &.selected {
+        background-color: #dce5fc;
+      }
+    }
+  }
+
+  .suppression-inclusion-list {
+    .ant-radio-wrapper-checked {
+      .radio-content {
+        flex: 1;
+        width: 100%;
+      }
+    }
+  }
+
+  .chips-inclusion-container {
+    .chips-input-textbox {
+      width: 100%;
+      input.input-field {
+        height: 3rem;
+      }
+    }
+  }
+}

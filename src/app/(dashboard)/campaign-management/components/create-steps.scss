@@ -1,0 +1,106 @@
+.dz-one-steps-form {
+  position: relative;
+  padding-top: 1.875rem;
+  width: 34rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-items: center;
+  margin: 0 auto;
+
+  padding-bottom: 3rem;
+  .ant-steps-item {
+    .ant-steps-item-content {
+      margin-top: 0.625rem;
+      .ant-steps-item-title {
+        font-size: 0.875rem;
+      }
+    }
+  }
+  .ant-steps-item-process .ant-steps-item-container {
+    .ant-steps-item-icon {
+      background-color: transparent;
+      color: var(--global-blue-primary-button-color);
+      border-color: var(--global-blue-primary-button-color);
+      .ant-steps-icon {
+        color: var(--global-blue-primary-button-color);
+      }
+    }
+  }
+
+  .ant-steps-item-wait .ant-steps-item-icon {
+    background-color: #e8e8e8;
+    color: rgba(0, 0, 0, 0.25);
+  }
+  .ant-steps-item-finish > .ant-steps-item-container {
+    .ant-steps-item-icon {
+      background-color: var(--global-blue-primary-button-color);
+      color: var(--global-white-color);
+      border-color: var(--global-blue-primary-button-color);
+
+      .ant-steps-icon {
+        color: var(--global-white-color);
+      }
+    }
+    .ant-steps-item-content > .ant-steps-item-title {
+      color: var(--global-blue-primary-button-color);
+    }
+  }
+
+  .ant-steps-item-finish
+    > .ant-steps-item-container:hover
+    .ant-steps-item-icon
+    .ant-steps-icon {
+    .anticon svg {
+      color: var(--global-white-color);
+    }
+  }
+
+  .ant-steps-item-process
+    > .ant-steps-item-container
+    > .ant-steps-item-content
+    > .ant-steps-item-title {
+    color: var(--global-blue-primary-button-color);
+  }
+}
+
+.ant-steps
+  .ant-steps-item:not(.ant-steps-item-active):not(.ant-steps-item-finish)
+  > .ant-steps-item-container[role='button']:hover {
+  cursor: default;
+  .ant-steps-item-icon {
+    border-color: transparent;
+    .ant-steps-icon {
+      color: rgba(0, 0, 0, 0.65);
+    }
+  }
+  .ant-steps-item-content > .ant-steps-item-title {
+    color: rgba(0, 0, 0, 0.45);
+  }
+}
+
+.create-line-item-form {
+  .ant-steps-item-process,
+  .ant-steps-item-wait,
+  .ant-steps-item-finish {
+    .ant-steps-item-container {
+      .ant-steps-item-content {
+        min-width: 8rem;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .ant-steps {
+    width: 100%;
+    .ant-steps-item {
+      width: 100%;
+      .ant-steps-item-container {
+        .ant-steps-item-tail {
+          margin-top: 0.5rem;
+        }
+      }
+    }
+  }
+}

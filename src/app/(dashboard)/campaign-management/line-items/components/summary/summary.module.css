@@ -1,0 +1,93 @@
+.summaryContainer {
+  padding: var(--dzone-spacing-2xl);
+}
+
+.headingBar {
+  padding: var(--dzone-spacing-lg) var(--dzone-spacing-2xl);
+  border-radius: var(--dzone-radius-lg);
+  background: var(--dzone-color-gray-50);
+}
+
+.heading {
+  margin: 0;
+  color: var(--dzone-color-black);
+  font-size: var(--dzone-font-size-md);
+  font-weight: var(--dzone-font-weight-semibold);
+  line-height: normal;
+}
+
+.card {
+  flex: 1;
+  padding: var(--dzone-spacing-2xl);
+  border: 1px solid var(--dzone-color-border);
+  border-radius: var(--dzone-radius-lg);
+  background: var(--dzone-color-white);
+  text-align: center;
+  transition:
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+  cursor: default;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+
+.cardTitle {
+  font-size: var(--dzone-font-size-base);
+  font-weight: var(--dzone-font-weight-medium);
+  color: var(--dzone-color-gray-light);
+  line-height: normal;
+}
+
+.cardValue {
+  margin: 0;
+  font-size: var(--dzone-spacing-4xl);
+  font-weight: var(--dzone-font-weight-semibold);
+  line-height: normal;
+}
+
+.statusTag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--dzone-spacing-xs);
+  width: 7.5rem;
+  border-radius: var(--dzone-radius-lg);
+  padding: 0.25rem var(--dzone-spacing-sm);
+  font-size: var(--dzone-font-size-sm);
+  font-weight: var(--dzone-font-weight-medium);
+  border: none;
+  line-height: 1.5rem;
+}
+
+.variancePositive {
+  color: var(--dzone-color-variance-positive);
+}
+
+.varianceNegative {
+  color: var(--dzone-color-variance-negative);
+}
+
+.varianceZero {
+  color: var(--dzone-color-variance-zero);
+}
+
+.expandToggle {
+  cursor: pointer;
+  color: var(--dzone-color-primary);
+  font-size: var(--dzone-font-size-sm);
+  font-weight: var(--dzone-font-weight-medium);
+}
+
+.sortIcon {
+  cursor: pointer;
+  margin-left: var(--dzone-spacing-xs);
+  font-size: var(--dzone-font-size-xs);
+  color: var(--dzone-color-gray-light);
+}
+
+.sortIconActive {
+  color: var(--dzone-color-primary);
+}

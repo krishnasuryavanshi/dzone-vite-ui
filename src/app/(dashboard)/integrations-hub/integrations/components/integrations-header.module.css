@@ -1,0 +1,20 @@
+.integrationsHeader {
+  padding: 0 0 var(--dzone-spacing-lg) 0;
+}
+
+.backArrow {
+  font-size: var(--dzone-font-size-base);
+  color: var(--dzone-color-gray);
+  cursor: pointer;
+}
+
+.backArrow:hover {
+  color: var(--dzone-color-gray-dark);
+}
+
+.integrationsHeader h3 {
+  color: var(--dzone-color-black);
+  font-weight: var(--dzone-font-weight-medium);
+  font-size: var(--dzone-font-size-lg);
+  margin: 0;
+}

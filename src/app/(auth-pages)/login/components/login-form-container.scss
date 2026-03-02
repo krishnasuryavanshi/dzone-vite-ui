@@ -1,0 +1,146 @@
+.rememberMe.checkbox-remember-me.action-remember-me,
+.rememberMe.checkbox-remember-me.action-remember-me:hover {
+  .ant-checkbox,
+  .ant-checkbox-checked {
+    .ant-checkbox-inner {
+      border: 2px solid #fff;
+    }
+  }
+}
+
+.ant-form-item-row[disabled] {
+  opacity: 0.7;
+  pointer-events: none;
+
+  * {
+    cursor: not-allowed;
+  }
+}
+
+// Login form input styling with bottom border only
+.login-input-field {
+  .ant-input,
+  &.ant-input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0;
+    color: #fff;
+    padding-left: 0;
+    padding-right: 0;
+    font-weight: 600;
+    outline: none;
+
+    &::placeholder {
+      color: #fff;
+    }
+
+    &:focus,
+    &:hover,
+    &.ant-input:focus,
+    &.ant-input:hover {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: none;
+      outline: none;
+    }
+
+    &:focus-visible,
+    &.ant-input:focus-visible {
+      outline: none;
+      outline-offset: 0;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: none;
+    }
+  }
+  
+  // Override Ant Design's form item focus styles
+  &.ant-form-item .ant-input:focus,
+  &.ant-form-item .ant-input-focused {
+    border-color: transparent;
+    border-bottom-color: rgba(255, 255, 255, 0.6);
+    box-shadow: none;
+    outline: none;
+  }
+}
+
+// Handle autofill styling for transparent background
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+.login-input-field input:-webkit-autofill,
+.login-password-field input:-webkit-autofill {
+  /* Force transparent background using box-shadow trick */
+  -webkit-box-shadow: 0 0 0 1000px transparent inset;
+  /* Force white text color */
+  -webkit-text-fill-color: #fff;
+  /* Ensure background stays transparent */
+  background-color: transparent;
+  /* Add transition to prevent flash */
+  transition: background-color 5000s ease-in-out 0s;
+  /* Keep the bottom border visible */
+  border: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+// Password input container styling
+.login-password-field {
+  &.ant-input-password,
+  .ant-input-password {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 0;
+    padding: 0;
+    font-weight: 600;
+    color: #fff;
+    outline: none;
+
+    &:hover,
+    &:focus-within,
+    &.ant-input-affix-wrapper:hover,
+    &.ant-input-affix-wrapper:focus,
+    &.ant-input-affix-wrapper-focused {
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: none;
+      outline: none;
+    }
+
+    .ant-input {
+      background: transparent;
+      border: none;
+      color: #fff;
+      padding-left: 0;
+      outline: none;
+
+      &::placeholder {
+        color: #fff;
+      }
+
+      &:focus,
+      &:focus-visible {
+        outline: none;
+        box-shadow: none;
+        border: none;
+      }
+    }
+
+    .ant-input-suffix {
+      color: #fff;
+    }
+  }
+  
+  // Override Ant Design's password wrapper focus styles
+  &.ant-input-affix-wrapper-focused,
+  .ant-input-affix-wrapper-focused {
+    border-color: transparent;
+    border-bottom-color: rgba(255, 255, 255, 0.6);
+    box-shadow: none;
+    outline: none;
+  }
+}

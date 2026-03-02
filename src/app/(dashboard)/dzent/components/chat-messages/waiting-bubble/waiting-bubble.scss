@@ -1,0 +1,43 @@
+// Waiting bubble animation for chat
+.three-dot-waiting-bubble {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  height: 1.25rem;
+}
+
+.three-dot-waiting-bubble .dot {
+  width: 0.6rem;
+  height: 0.6rem;
+  background: var(--dzent-color-gray-medium);
+  border-radius: 50%;
+  display: inline-block;
+  opacity: 0.7;
+  animation: waiting-bounce 1s infinite alternate;
+}
+
+.three-dot-waiting-bubble .dot-1 {
+  animation-delay: 0s;
+}
+.three-dot-waiting-bubble .dot-2 {
+  animation-delay: 0.4s;
+}
+
+.three-dot-waiting-bubble .dot-3 {
+  animation-delay: 0.8s;
+}
+
+@keyframes waiting-bounce {
+  0% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-0.4rem);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+}

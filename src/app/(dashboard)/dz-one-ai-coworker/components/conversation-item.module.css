@@ -1,0 +1,80 @@
+.item {
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+  border-radius: 8px;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.item:hover {
+  background-color: #323131;
+}
+
+.item:hover .title {
+  color: #fff;
+}
+
+.item:hover .secondary {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.active {
+  background-color: #323131;
+}
+
+.active:hover {
+  background-color: #323131;
+}
+
+.title {
+  font-size: 1rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.15s ease;
+}
+
+.secondary {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #8c8c8c;
+  transition: color 0.15s ease;
+}
+
+.active .title {
+  color: #fff;
+}
+
+.active .secondary {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.streamingDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(
+    109deg,
+    #ffb8ec 4.89%,
+    #f3d6ff 51.39%,
+    #7d88ff 97.01%
+  );
+  flex-shrink: 0;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.8);
+    filter: drop-shadow(0 0 2px rgba(125, 136, 255, 0.3));
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 4px rgba(125, 136, 255, 0.6));
+  }
+}

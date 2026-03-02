@@ -1,0 +1,161 @@
+// Resizable columns styles
+.resizable-columns {
+  .ant-table-thead > tr > th {
+    position: relative;
+    user-select: none;
+  }
+}
+
+.column-resize-handle {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+  cursor: col-resize;
+  z-index: 1;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    right: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 60%;
+    background: #f0f0f0;
+    transition: all 0.2s;
+  }
+  
+  &:hover::after {
+    background: #1890ff;
+    width: 2px;
+    right: 1px;
+  }
+  
+  &.resizing::after {
+    background: #1890ff;
+    width: 2px;
+    right: 1px;
+    height: 80%;
+  }
+}
+
+.dz-table.ant-table-wrapper .ant-table {
+  background-color: #f9fafb;
+
+  .ant-table-container {
+    .rc-virtual-list.ant-table-tbody.ant-table-tbody-virtual {
+      .rc-virtual-list-scrollbar {
+        .rc-virtual-list-scrollbar-thumb {
+          background: var(--dzone-color-gray-light);
+        }
+      }
+      .ant-table-cell {
+        &.ant-table-cell-ellipsis {
+          padding-top: var(--dz-table-cell-ellipsis-padding-top, 0.5rem);
+          font-size: var(--dz-table-cell-ellipsis-font-size, 0.875rem);
+        }
+        &:not(.ant-table-cell-ellipsis) {
+          display: flex;
+          align-items: center;
+        }
+      }
+    }
+
+    table {
+      border-spacing: 0 0.125rem;
+    }
+
+    tr,
+    .ant-table-row {
+      border-radius: var(--border-radius-default);
+      border-top: 1px solid transparent;
+      border-bottom: 1px solid transparent;
+
+      td,
+      th,
+      .ant-table-cell {
+        border-bottom: none;
+        background-color: #fff;
+      }
+
+      .ant-table-cell-fix-left {
+        box-shadow: 0px 0px 16px 0px rgba(35, 90, 237, 0.16);
+      }
+
+      .ant-table-cell-fix-right {
+        box-shadow: 0px 0px 16px 0px rgba(35, 90, 237, 0.16);
+      }
+
+      th,
+      .ant-table-cell {
+        padding: 0 1rem;
+        height: var(--dz-table-cell-th-height, 2.5rem);
+        font-size: var(--dz-table-cell-th-font-size, 0.875rem);
+
+        &::before {
+          background-color: #707070 !important;
+        }
+      }
+
+      td,
+      .ant-table-cell {
+        padding: 0 1rem;
+        height: var(--dz-table-cell-td-height, 2.5rem);
+        font-size: var(--dz-table-cell-td-font-size, 0.875rem);
+      }
+    }
+  }
+}
+
+.legacy-dz-table {
+  --dz-table-cell-ellipsis-padding-top: 1rem;
+  --dz-table-cell-ellipsis-font-size: 1rem;
+  --dz-table-cell-th-height: 2.875rem;
+  --dz-table-cell-th-font-size: 1rem;
+  --dz-table-cell-td-height: 3.5rem;
+  --dz-table-cell-td-font-size: 1rem;
+}
+
+// Ensure color bar in first cell touches the left edge and spacing is correct
+.basic-details-row-cell {
+  padding-left: 0 !important;
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+// For selectable rows, remove left padding from first cell
+.dz-table.rows-selectable .ant-table-row .ant-table-cell:first-child {
+  padding-left: 0 !important;
+}
+
+.dz-table.rows-selectable
+  .ant-table-container
+  .ant-table-header
+  .ant-table-thead {
+  tr th.ant-table-cell:nth-child(2) {
+    padding-left: 3rem;
+  }
+}
+
+.row-hover-highlight {
+  .ant-table .ant-table-container .ant-table-tbody {
+    .ant-table-row {
+      .ant-table-cell-row-hover,
+      Ø &:hover {
+        cursor: pointer;
+        background: #ebeef1;
+      }
+    }
+  }
+}
+
+.cell-height-max-content {
+  .ant-table .ant-table-container .ant-table-tbody {
+    .ant-table-row .ant-table-cell {
+      height: auto;
+    }
+  }
+}

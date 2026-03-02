@@ -1,0 +1,28 @@
+label.ant-form-item-required {
+  position: relative;
+}
+
+.ant-form-item
+  .ant-form-item-label
+  > label.ant-form-item-required:not(
+    .ant-form-item-required-mark-optional
+  )::before {
+  position: absolute;
+  right: 0;
+}
+
+.input-control {
+  text-align: left;
+
+  .input-field {
+    height: 3rem;
+
+    &.ant-input-status-error {
+      border-width: 2px;
+    }
+  }
+
+  .ant-form-item-explain:has( .ant-form-item-explain-error) {
+    margin-bottom: 0.75rem;
+  }
+}

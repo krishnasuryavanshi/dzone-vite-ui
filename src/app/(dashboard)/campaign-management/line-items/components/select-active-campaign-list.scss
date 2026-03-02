@@ -1,0 +1,9 @@
+.select-active-campaing-list {
+  .ant-select-selector .ant-select-selection-item {
+    .ant-flex {
+      .anticon-check {
+        display: none !important;
+      }
+    }
+  }
+}

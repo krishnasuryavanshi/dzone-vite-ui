@@ -1,0 +1,834 @@
+[
+  {
+    "field": "marketerCode",
+    "label": "Marketer",
+    "fieldType": "searchableSelect",
+    "rules": [
+      {
+        "required": true,
+        "message": "This field is required"
+      }
+    ],
+    "placeholder": "Select Marketer",
+    "optionsType": "Dynamic",
+    "optionsKey": "marketers",
+    "span": 8,
+    "group": "marketer",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.marketer",
+      "edit": "Line Item.EDIT.marketer",
+      "create": "Line Item.CREATE.marketer"
+    }
+  },
+  {
+    "field": "tenantCode",
+    "label": "Marketer ID",
+    "fieldType": "text",
+    "disabled": true,
+    "placeholder": "ORG123",
+    "span": 8,
+    "group": "marketer",
+    "dataIndex": "marketerCode",
+    "viewOrder": 3,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.marketerCode"
+    }
+  },
+  {
+    "field": "marketer",
+    "label": "Marketer",
+    "columnTranslationKey": "pages.campaigns.label.marketer",
+    "fieldType": "text",
+    "dataIndex": "marketer",
+    "columnOrder": 3,
+    "viewOrder": 4,
+    "columnMetadata": {
+      "isSearchable": true,
+      "ellipsis": true,
+      "width": 250
+    },
+    "renderer": "marketerNameIdRenderer",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.marketer"
+    }
+  },
+  {
+    "field": "campaignName",
+    "label": "Campaign Name",
+    "columnTranslationKey": "pages.campaigns.label.campaign",
+    "fieldType": "text",
+    "dataIndex": "campaignName",
+    "columnOrder": 2,
+    "viewOrder": 6,
+    "columnMetadata": {
+      "ellipsis": true,
+      "width": 300,
+      "isSearchable": true
+    },
+    "renderer": "campaignNameIdRendererNoBadge",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.campaignName"
+    }
+  },
+  {
+    "field": "campaignId",
+    "label": "Campaign",
+    "fieldType": "searchableSelect",
+    "rules": [
+      {
+        "required": true,
+        "message": "This field is required"
+      }
+    ],
+    "placeholder": "Select Campaign Name",
+    "optionsType": "Dynamic",
+    "optionsKey": "campaigns",
+    "span": 8,
+    "group": "campaign",
+    "dataIndex": "campaignId",
+    "columnMetadata": {
+      "ellipsis": true,
+      "width": 300,
+      "isSearchable": true
+    },
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.campaignName",
+      "edit": "Line Item.EDIT.campaignName",
+      "create": "Line Item.CREATE.campaignName"
+    }
+  },
+  {
+    "field": "campaignIdNumber",
+    "label": "Campaign ID",
+    "fieldType": "text",
+    "placeholder": "CAMP12345",
+    "disabled": true,
+    "hidden": true,
+    "span": 8,
+    "group": "campaign",
+    "dataIndex": "campaign.campaignId",
+    "columnMetadata": {
+      "isSearchable": true
+    },
+    "viewOrder": 5,
+    "viewField": "campaign.campaignId",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.campaignId",
+      "edit": "Line Item.EDIT.campaignId",
+      "create": "Line Item.CREATE.campaignId"
+    }
+  },
+  {
+    "field": "name",
+    "label": "Line Item Name",
+    "columnTranslationKey": "pages.lineItems.label.name",
+    "fieldType": "text",
+    "dataIndex": "name",
+    "placeholder": "Enter Line Item Name",
+    "maxLength": 255,
+    "span": 8,
+    "group": "lineItem",
+    "rules": [
+      {
+        "required": true,
+        "message": "This field is required"
+      },
+      {
+        "pattern": "^[a-zA-Z0-9 _-]*$",
+        "message": "Only - and _ special characters are allowed."
+      }
+    ],
+    "columnMetadata": {
+      "ellipsis": true,
+      "width": 300,
+      "isSearchable": true,
+      "fixed": "left"
+    },
+    "columnOrder": 1,
+    "renderer": "lineItemNameIdRenderer",
+    "viewOrder": 2,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.lineItemName",
+      "edit": "Line Item.EDIT.lineItemName",
+      "create": "Line Item.CREATE.lineItemName"
+    }
+  },
+  {
+    "field": "lineItemId",
+    "label": "Line Item ID",
+    "placeholder": "LI12345",
+    "dataIndex": "lineItemId",
+    "hidden": true,
+    "fieldType": "text",
+    "group": "lineItem",
+    "columnMetadata": {
+      "isSearchable": true
+    },
+    "viewOrder": 1,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.lineItemId"
+    }
+  },
+  {
+    "field": "description",
+    "label": "Line Item Description",
+    "span": 8,
+    "fieldType": "text",
+    "placeholder": "Enter Line Item Description",
+    "columnMetadata": {
+      "isSearchable": true
+    },
+    "viewOrder": 7,
+    "group": "poDetails",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.description",
+      "edit": "Line Item.EDIT.description",
+      "create": "Line Item.CREATE.description"
+    }
+  },
+  {
+    "field": "poNumber",
+    "label": "PO Number",
+    "fieldType": "text",
+    "maxLength": 255,
+    "viewOrder": 10,
+    "placeholder": "Enter PO Number",
+    "span": 8,
+    "group": "poDetails",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.poNumber",
+      "edit": "Line Item.EDIT.poNumber",
+      "create": "Line Item.CREATE.poNumber"
+    }
+  },
+  {
+    "field": "supplierCode",
+    "label": "Supplier Code",
+    "hidden": true,
+    "dataIndex": "supplierCode",
+    "columnMetadata": {
+      "ellipsis": true,
+      "width": 300,
+      "isSearchable": true
+    },
+    "viewOrder": 8,
+    "viewField": "supplierCode",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.supplierCode"
+    }
+  },
+  {
+    "field": "supplier",
+    "label": "Supplier Name",
+    "hidden": "true",
+    "dataIndex": "supplier",
+    "columnTranslationKey": "pages.lineItems.label.supplierName",
+    "columnMetadata": {
+      "ellipsis": true,
+      "width": 300,
+      "isSearchable": true
+    },
+    "renderer": "supplierAssignmentRenderer",
+    "columnOrder": 6,
+    "viewOrder": 9,
+    "viewField": "supplier",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.supplier"
+    }
+  },
+  {
+    "field": "needLandingPageBuilt",
+    "label": "Need Landing Page Built?",
+    "fieldType": "checkbox",
+    "valuePropName": "checked",
+    "span": 8,
+    "viewOrder": 12,
+    "group": "proofDetails",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.needLandingPageBuilt",
+      "edit": "Line Item.EDIT.needLandingPageBuilt",
+      "create": "Line Item.CREATE.needLandingPageBuilt"
+    }
+  },
+  {
+    "field": "proofLinks",
+    "label": "Proof Link(s)",
+    "fieldType": "textArea",
+    "placeholder": "Enter Proof Link(s)",
+    "maxLength": "64000",
+    "span": 8,
+    "viewOrder": 16,
+    "group": "proofDetails",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.proofLinks",
+      "edit": "Line Item.EDIT.proofLinks",
+      "create": "Line Item.CREATE.proofLinks"
+    }
+  },
+  {
+    "field": "assetFileIds",
+    "label": "Asset Files (Upload)",
+    "fieldType": "multipleFileUpload",
+    "span": 10,
+    "viewOrder": 1,
+    "group": "assetDetails",
+    "fileTypeName": "asset",
+    "viewType": "upload",
+    "section": "Assets",
+    "permissions": {
+      "view": "Line Item.VIEW.assetFileIds",
+      "edit": "Line Item.EDIT.assetFileIds",
+      "create": "Line Item.CREATE.assetFileIds"
+    }
+  },
+  {
+    "field": "product",
+    "label": "Product",
+    "placeholder": "Select Product",
+    "fieldType": "select",
+    "span": 8,
+    "group": "product",
+    "optionsType": "Dynamic",
+    "optionsKey": "products",
+    "viewOrder": 17,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.product",
+      "edit": "Line Item.EDIT.product",
+      "create": "Line Item.CREATE.product"
+    }
+  },
+  {
+    "field": "isValueAddedLineItem",
+    "label": "Is Value Added Line Item?",
+    "fieldType": "checkbox",
+    "valuePropName": "checked",
+    "span": 8,
+    "group": "product",
+    "viewOrder": 19,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.isValueAddLineItem",
+      "edit": "Line Item.EDIT.isValueAddLineItem",
+      "create": "Line Item.CREATE.isValueAddLineItem"
+    }
+  },
+  {
+    "field": "targetLeadGoal",
+    "label": "Target Lead Goal",
+    "placeholder": "Enter Target Lead Goal",
+    "fieldType": "number",
+    "dataIndex": "targetLeadGoal",
+    "rules": [
+      {
+        "required": true,
+        "message": "This field is required"
+      }
+    ],
+    "span": 8,
+    "group": "leadGoal",
+    "viewOrder": 18,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.targetLeadGoal",
+      "edit": "Line Item.EDIT.targetLeadGoal",
+      "create": "Line Item.CREATE.targetLeadGoal"
+    }
+  },
+  {
+    "field": "targetCostPerLead",
+    "label": "CPL (USD)",
+    "columnTranslationKey": "pages.lineItems.label.cpl",
+    "fieldType": "number",
+    "dataIndex": "targetCostPerLead",
+    "placeholder": "Enter Target Cost Per Lead",
+    "viewOrder": 20,
+    "columnOrder": 4,
+    "columnMetadata": {
+      "width": 200
+    },
+    "span": 8,
+    "group": "leadGoal",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.targetCostPerLead",
+      "edit": "Line Item.EDIT.targetCostPerLead",
+      "create": "Line Item.CREATE.targetCostPerLead"
+    }
+  },
+  {
+    "field": "lineItemTargetStartDate",
+    "label": "Target Start Date",
+    "columnTranslationKey": "pages.lineItems.label.lineItemTargetStartDate",
+    "fieldType": "date",
+    "dataIndex": "lineItemTargetStartDate",
+    "placeholder": "Select Target Start Date",
+    "format": "DD MMM YYYY",
+    "rules": [
+      {
+        "required": true,
+        "message": "This field is required"
+      }
+    ],
+    "span": 8,
+    "group": "targetDates",
+    "renderer": "dateRenderer",
+    "viewOrder": 21,
+    "columnOrder": 7,
+    "columnMetadata": {
+      "isDateRangeObjectFilter": true
+    },
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.lineItemTargetStartDate",
+      "edit": "Line Item.EDIT.lineItemTargetStartDate",
+      "create": "Line Item.CREATE.lineItemTargetStartDate"
+    }
+  },
+  {
+    "field": "lineItemTargetEndDate",
+    "label": "Target End Date",
+    "columnTranslationKey": "pages.lineItems.label.lineItemTargetEndDate",
+    "fieldType": "date",
+    "dataIndex": "lineItemTargetEndDate",
+    "placeholder": "Select Target End Date",
+    "format": "DD MMM YYYY",
+    "span": 8,
+    "columnOrder": 8,
+    "group": "targetDates",
+    "rules": [
+      {
+        "required": true,
+        "message": "This field is required"
+      }
+    ],
+    "renderer": "dateRenderer",
+    "columnMetadata": {
+      "isDateRangeObjectFilter": true
+    },
+    "viewOrder": 22,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.lineItemTargetEndDate",
+      "edit": "Line Item.EDIT.lineItemTargetEndDate",
+      "create": "Line Item.CREATE.lineItemTargetEndDate"
+    }
+  },
+  {
+    "field": "leadCapPerDomain",
+    "label": "Lead Cap Per Domain",
+    "placeholder": "Enter Lead Cap Per Domain",
+    "fieldType": "number",
+    "span": 8,
+    "group": "leadCap",
+    "viewOrder": 25,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.leadCapPerDomain",
+      "edit": "Line Item.EDIT.leadCapPerDomain",
+      "create": "Line Item.CREATE.leadCapPerDomain"
+    }
+  },
+  {
+    "field": "targetDeliveryStartDate",
+    "label": "Target Delivery Start Date",
+    "placeholder": "Select Target Delivery Start Date",
+    "tooltip": "Beginning this date suppliers can start delivering leads. All pacing caps are calculated from this date forward. You can adjust this now (0-90 days from Target Start Date), but once your line item is live, this date is locked.",
+    "fieldType": "date",
+    "format": "DD MMM YYYY",
+    "renderer": "dateRenderer",
+    "span": 8,
+    "group": "leadCap",
+    "viewOrder": 26,
+    "rules": [
+      {
+        "required": false,
+        "message": "This field will be auto-calculated if not provided"
+      }
+    ],
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.targetDeliveryStartDate",
+      "edit": "Line Item.EDIT.targetDeliveryStartDate",
+      "create": "Line Item.CREATE.targetDeliveryStartDate"
+    }
+  },
+  {
+    "field": "deliveryMethod",
+    "label": "Delivery Method",
+    "fieldType": "select",
+    "placeholder": "Select Delivery Method",
+    "optionsType": "Dynamic",
+    "optionsKey": "deliveryMethod",
+    "span": 8,
+    "group": "deliveryMethod",
+    "viewOrder": 27,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.deliveryMethod",
+      "edit": "Line Item.EDIT.deliveryMethod",
+      "create": "Line Item.CREATE.deliveryMethod"
+    }
+  },
+  {
+    "field": "integrateConverterId",
+    "label": "Integrate Converter ID",
+    "fieldType": "text",
+    "placeholder": "Enter Integrate Converter ID",
+    "span": 8,
+    "group": "deliveryMethod",
+    "viewOrder": 28,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.integrateConverterId",
+      "edit": "Line Item.EDIT.integrateConverterId",
+      "create": "Line Item.CREATE.integrateConverterId"
+    }
+  },
+  {
+    "field": "deliveryTemplateId",
+    "label": "Delivery Template (Upload)",
+    "fieldType": "fileUpload",
+    "fileTypeName": "delivery-template",
+    "viewOrder": 29,
+    "span": 8,
+    "group": "deliveryDays",
+    "section": "Basic Details",
+    "viewType": "upload",
+    "permissions": {
+      "view": "Line Item.VIEW.deliveryTemplateId",
+      "edit": "Line Item.EDIT.deliveryTemplateId",
+      "create": "Line Item.CREATE.deliveryTemplateId"
+    }
+  },
+  {
+    "field": "deliveryDays",
+    "label": "Delivery Day(s)",
+    "fieldType": "multiselect",
+    "placeholder": "Select Delivery Day(s)",
+    "viewOrder": 30,
+    "span": 8,
+    "group": "deliveryDays",
+    "optionsType": "Dynamic",
+    "optionsKey": "deliveryDays",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.deliveryDays",
+      "edit": "Line Item.EDIT.deliveryDays",
+      "create": "Line Item.CREATE.deliveryDays"
+    }
+  },
+  {
+    "field": "pacing",
+    "label": "Pacing Type",
+    "fieldType": "select",
+    "dataIndex": "pacing",
+    "placeholder": "Select Pacing",
+    "rules": [
+      {
+        "required": true,
+        "message": "This field is required"
+      }
+    ],
+    "optionsType": "Dynamic",
+    "optionsKey": "pacing",
+    "span": 8,
+    "group": "pacing",
+    "viewOrder": 15,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.pacing",
+      "edit": "Line Item.EDIT.pacing",
+      "create": "Line Item.CREATE.pacing"
+    }
+  },
+  {
+    "field": "pacingSchedule",
+    "label": "Pacing Schedule",
+    "fieldType": "hidden",
+    "hidden": true,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.pacingSchedule",
+      "edit": "Line Item.EDIT.pacingSchedule",
+      "create": "Line Item.CREATE.pacingSchedule"
+    }
+  },
+  {
+    "field": "customPacingData",
+    "label": "Preview Pacing Chart",
+    "fieldType": "pacingChart",
+    "component": "PacingChartPreview",
+    "viewComponent": "ShowPacingChartPreview",
+    "span": 8,
+    "viewOrder": 13,
+    "group": "pacing",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.pacingChartLink",
+      "edit": "Line Item.EDIT.pacingChartLink",
+      "create": "Line Item.CREATE.pacingChartLink"
+    }
+  },
+  {
+    "field": "allowOverflow",
+    "fieldType": "hidden",
+    "hidden": true,
+    "group": "pacing",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.pacingSchedule",
+      "edit": "Line Item.EDIT.pacingSchedule",
+      "create": "Line Item.CREATE.pacingSchedule"
+    }
+  },
+  {
+    "field": "deficitManagement",
+    "fieldType": "hidden",
+    "hidden": true,
+    "group": "pacing",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.pacingSchedule",
+      "edit": "Line Item.EDIT.pacingSchedule",
+      "create": "Line Item.CREATE.pacingSchedule"
+    }
+  },
+  {
+    "field": "additionalInstructions",
+    "label": "Additional Instructions",
+    "fieldType": "textArea",
+    "placeholder": "Enter Additional Instruction",
+    "maxLength": 64000,
+    "span": 8,
+    "viewOrder": 31,
+    "group": "additionalInstructions",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.additionalInstructions",
+      "edit": "Line Item.EDIT.additionalInstructions",
+      "create": "Line Item.CREATE.additionalInstructions"
+    }
+  },
+
+  {
+    "field": "validationSettingsId",
+    "label": "Validation Settings",
+    "fieldType": "searchableSelect",
+    "rules": [
+      {
+        "required": true,
+        "message": "This field is required"
+      }
+    ],
+    "placeholder": "Select Validation Setting",
+    "optionsType": "Dynamic",
+    "optionsKey": "validationTemplates",
+    "span": 8,
+    "group": "validationTemplate",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.marketer",
+      "edit": "Line Item.EDIT.marketer",
+      "create": "Line Item.CREATE.marketer"
+    }
+  },
+  {
+    "field": "status",
+    "label": "Status",
+    "columnTranslationKey": "pages.lineItems.label.status",
+    "dataIndex": "status",
+    "fieldType": "text",
+    "hidden": true,
+    "viewOrder": 11,
+    "columnMetadata": {
+      "width": 300,
+      "isFilterable": true
+    },
+    "renderer": "statusRenderer",
+    "columnOrder": 5,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.status"
+    }
+  },
+  {
+    "field": "actualStartDate",
+    "label": "Actual Start Date",
+    "columnTranslationKey": "pages.lineItems.label.actualStartDate",
+    "fieldType": "date",
+    "renderer": "dateRenderer",
+    "dataIndex": "actualStartDate",
+    "format": "DD MMM YYYY",
+    "columnOrder": 9,
+    "viewOrder": 23,
+    "columnMetadata": {
+      "isDateRangeObjectFilter": true
+    },
+    "hidden": true,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.actualStartDate"
+    }
+  },
+  {
+    "field": "actualEndDate",
+    "label": "Actual End Date",
+    "columnTranslationKey": "pages.lineItems.label.actualEndDate",
+    "fieldType": "date",
+    "dataIndex": "actualEndDate",
+    "renderer": "dateRenderer",
+    "format": "DD MMM YYYY",
+    "columnOrder": 10,
+    "viewOrder": 24,
+    "hidden": true,
+    "columnMetadata": {
+      "isDateRangeObjectFilter": true
+    },
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.actualEndDate"
+    }
+  },
+  {
+    "field": "createdAt",
+    "label": "Created On",
+    "columnTranslationKey": "pages.campaigns.label.createdAt",
+    "fieldType": "date",
+    "dataIndex": "createdOn",
+    "format": "DD MMM YYYY",
+    "renderer": "dateRenderer",
+    "columnOrder": 14,
+    "hidden": true,
+    "columnMetadata": {
+      "isDateFilter": true
+    },
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.createdOn"
+    }
+  },
+  {
+    "field": "createdBy",
+    "label": "Created By",
+    "columnTranslationKey": "pages.campaigns.label.createdBy",
+    "span": 8,
+    "dataIndex": "createdBy",
+    "columnOrder": 13,
+    "columnMetadata": {
+      "ellipsis": true,
+      "width": 300,
+      "isSearchable": true
+    },
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.createdBy"
+    }
+  },
+  {
+    "field": "updatedAt",
+    "label": "Updated On",
+    "columnTranslationKey": "pages.campaigns.label.updatedAt",
+    "fieldType": "date",
+    "renderer": "dateRenderer",
+    "format": "DD MMM YYYY",
+    "dataIndex": "updatedAt",
+    "columnOrder": 16,
+    "hidden": true,
+    "columnMetadata": {
+      "isDateFilter": true
+    },
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.updatedOn"
+    }
+  },
+  {
+    "field": "updatedBy",
+    "label": "Updated By",
+    "columnTranslationKey": "pages.campaigns.label.updatedBy",
+    "hidden": true,
+    "dataIndex": "updatedBy",
+    "columnOrder": 15,
+    "columnMetadata": {
+      "ellipsis": true,
+      "width": 300,
+      "isSearchable": true
+    },
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.updatedBy"
+    }
+  },
+  {
+    "field": "lineItemId",
+    "fieldType": "text",
+    "hidden": true
+  },
+  {
+    "field": "leadsDeliveryPercentage",
+    "label": "Leads Delivered (%)",
+    "dataIndex": "leadsDeliveryPercentage",
+    "columnTranslationKey": "pages.lineItems.label.leadsDeliveryPercentage",
+    "columnMetadata": {
+      "width": 200
+    },
+    "columnOrder": 11,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW"
+    }
+  },
+  {
+    "field": "actions",
+    "label": "Actions",
+    "columnMetadata": {
+      "fixed": "right",
+      "width": 100
+    },
+    "renderer": "lineItemActionsRenderer",
+    "columnTranslationKey": "label.actions",
+    "columnOrder": 17,
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW"
+    }
+  },
+  {
+    "field": "assignedTo",
+    "label": "Assigned To",
+    "columnTranslationKey": "pages.lineItems.label.assignedTo",
+    "fieldType": "multiselect",
+    "optionsType": "dynamic",
+    "optionsKey": "assignedTo",
+    "hasMultiselectSearch": true,
+    "hidden": true,
+    "dataIndex": "collaborators.assignedTo",
+    "columnMetadata": {
+      "ellipsis": true,
+      "width": 300,
+      "isFilterable": true
+    },
+    "renderer": "assignedToNamesRenderer",
+    "columnOrder": 12,
+    "viewField": "collaborators.assignedTo",
+    "section": "Basic Details",
+    "permissions": {
+      "view": "Line Item.VIEW.assignedTo"
+    }
+  }
+]

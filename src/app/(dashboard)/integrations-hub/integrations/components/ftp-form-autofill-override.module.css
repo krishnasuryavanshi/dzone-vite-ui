@@ -1,0 +1,58 @@
+/* Override browser autofill styles */
+.autofillOverride input:-webkit-autofill,
+.autofillOverride input:-webkit-autofill:hover,
+.autofillOverride input:-webkit-autofill:focus,
+.autofillOverride input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset;
+  -webkit-text-fill-color: inherit;
+  background-color: transparent;
+  background-image: none;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+/* For password fields */
+.autofillOverride input[type='password']:-webkit-autofill,
+.autofillOverride input[type='password']:-webkit-autofill:hover,
+.autofillOverride input[type='password']:-webkit-autofill:focus,
+.autofillOverride input[type='password']:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset;
+  -webkit-text-fill-color: inherit;
+  background-color: transparent;
+  background-image: none;
+}
+
+/* Firefox autofill override */
+.autofillOverride input:-moz-autofill {
+  background-color: transparent;
+  background-image: none;
+  box-shadow: none;
+}
+
+/* Hide autofill suggestion icons */
+.autofillOverride input::-webkit-credentials-auto-fill-button {
+  display: none;
+  visibility: hidden;
+}
+
+/* Additional aggressive autofill prevention */
+.autofillOverride input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset;
+}
+
+.autofillOverride input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0 30px white inset;
+}
+
+/* Disable any autofill animations */
+.autofillOverride input {
+  animation-name: none;
+  animation-duration: 0s;
+  animation-delay: 0s;
+  animation-fill-mode: none;
+}
+
+/* Force background color */
+.autofillOverride input {
+  background-color: white;
+  background-image: none;
+}

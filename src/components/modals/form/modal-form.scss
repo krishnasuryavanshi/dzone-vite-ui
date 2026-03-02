@@ -1,0 +1,34 @@
+.dz-modal-form {
+  .form-header {
+    border-radius: 12px;
+    background: #fff;
+    box-shadow: 0px 2px 6px 0px rgba(0, 0, 0, 0.16);
+    height: 4rem;
+    margin-bottom: 0.25rem;
+    .form-title {
+      margin-bottom: 0;
+    }
+  }
+  .ant-modal-content {
+    padding: 0;
+  }
+  .dz-form,
+  .extra-content {
+    padding: 1rem 1.5rem;
+  }
+  .extra-content {
+    padding-bottom: 0;
+  }
+  .form-footer {
+    .action {
+      &.cancel {
+        border: 1px solid #235aed;
+      }
+    }
+  }
+  .dz-modal-form-body {
+    height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+}

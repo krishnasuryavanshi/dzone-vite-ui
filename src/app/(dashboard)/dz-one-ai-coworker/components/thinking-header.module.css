@@ -1,0 +1,65 @@
+/* Icon pulse animation - scale from small to normal */
+.iconPulse {
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+/* Gradient icon wrapper */
+.gradientIcon {
+  position: relative;
+  display: inline-flex;
+  animation: iconPulse 2s ease-in-out infinite;
+}
+
+.gradientIcon svg {
+  fill: url(#thunderboltGradient);
+}
+
+@keyframes iconPulse {
+  0%,
+  100% {
+    transform: scale(0.5);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+}
+
+/* Normal text style */
+.textNormal {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #323131;
+}
+
+/* Text glow animation - left to right and right to left */
+.textGlow {
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: linear-gradient(
+    90deg,
+    #323131 0%,
+    #323131 15%,
+    #ffb8ec 25%,
+    #f3d6ff 40%,
+    #7d88ff 55%,
+    #323131 70%,
+    #323131 100%
+  );
+  background-size: 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGlow 6s ease-in-out infinite;
+}
+
+@keyframes textGlow {
+  0% {
+    background-position: 100% 0;
+  }
+  50% {
+    background-position: 0% 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}

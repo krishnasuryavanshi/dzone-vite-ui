@@ -1,0 +1,136 @@
+:root {
+  /* Colors */
+  --dzone-color-black: #000000;
+  --dzone-color-gray-dark: #262626;
+  --dzone-color-gray: #595959;
+  --dzone-color-gray-light: #8c8c8c;
+  --dzone-color-border: #d9d9d9;
+  --dzone-color-border-light: #e8e8e8;
+  --dzone-color-border-lighter: #d2d2d2;
+  --dzone-color-border-hover: #bfbfbf;
+  --dzone-color-bg-light-blue: #eaf1ff;
+  --dzone-color-bg-light-gray: #f8f9fa;
+  --dzone-color-bg-lighter-gray: #fafafa;
+  --dzone-color-bg-scrollbar: #f1f1f1;
+  --dzone-color-bg-container: #ffffff;
+  --dzone-color-white: #ffffff;
+  --dzone-color-success: #00a200;
+  --dzone-color-success-hover: #73d13d;
+  --dzone-color-error: #ff4d4f;
+  --dzone-color-error-hover: #ff7875;
+  --dzone-color-info: #1890ff;
+  --dzone-color-info-hover: #40a9ff;
+  --dzone-color-warning: #faad14;
+  --dzone-color-primary: #235aed;
+  --dzone-color-primary-hover: #1a47d4;
+  --dzone-color-gray-50: #f9fafb;
+  --dzone-color-gray-600: #707070;
+  --dzone-color-blue-50: #eaf1ff;
+  --dzone-color-text-primary: #262626;
+  --dzone-color-text-secondary: #4f4e4ec2;
+  --dzone-color-bg-light: #f5f5f5;
+  --dzone-color-alert-warning-compact: #ffe9d8;
+  --dzone-color-alert-uncapped: #e6e8ff;
+  --dzone-color-info-border: #91d5ff;
+  /* Brand rebrand */
+  --dzone-color-brand-black: #323131;
+  --dzone-color-brand-gray-dark: #49494a;
+  --dzone-color-brand-gray: #595959;
+  --dzone-color-brand-gray-medium: #d6d6d5;
+  --dzone-color-brand-gray-lighter: #eaeaea;
+  --dzone-color-brand-btn-border: #9ea3ae;
+  --dzone-color-brand-btn-bg: #ebeef0;
+
+  /* Chat and UI Component Colors */
+  --dzent-color-icon-purple: #7f88fe;
+  --dzent-color-checkmark-teal: #4fbd9d;
+  --dzent-color-bg-light: #f9fafb;
+  --dzent-color-bg-light-blue: #f3f6ff;
+  --dzent-color-bg-selected: #e6f7ff;
+  --dzent-color-bg-action: #dce5fc;
+  --dzent-color-bg-white: #fff;
+  --dzent-color-border-light: #e5e6eb;
+  --dzent-color-border-medium: #bcbcbc;
+  --dzent-color-text-muted: #777a81;
+  --dzent-color-text-black: #000;
+  --dzent-color-text-white: #ffffff;
+  --dzent-color-btn-dark: #323131;
+  --dzent-color-btn-primary: #3d71fb;
+  --dzent-color-gray-medium: #b3b3b3;
+  --dzent-color-gray-dark: #6c6c6c;
+  /* Pacing Summary Status */
+  --dzone-color-status-on-track: #00a200;
+  --dzone-color-status-on-track-bg: #e6f9e6;
+  --dzone-color-status-deficit: #ff4d4f;
+  --dzone-color-status-deficit-bg: #fff1f0;
+  --dzone-color-status-overflow: #d4a017;
+  --dzone-color-status-overflow-bg: #fffbe6;
+  --dzone-color-status-in-progress: #1890ff;
+  --dzone-color-status-in-progress-bg: #e6f7ff;
+  --dzone-color-status-upcoming: #8c8c8c;
+  --dzone-color-status-upcoming-bg: #f5f5f5;
+  --dzone-color-variance-positive: #d4a017;
+  --dzone-color-variance-negative: #ff4d4f;
+  --dzone-color-variance-zero: #8c8c8c;
+
+  /* Shadows */
+  --dzone-shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.03);
+  --dzone-shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+  /* AI Agent drop zone */
+  --dzone-ai-dropzone-bg: rgba(35, 90, 237, 0.05);
+  --dzone-ai-dropzone-border: #235aed;
+
+  /* Spacing */
+  --dzone-spacing-2xs: 0.125rem;
+  --dzone-spacing-xs: 0.375rem;
+  --dzone-spacing-sm: 0.5rem;
+  --dzone-spacing-md: 0.625rem;
+  --dzone-spacing-lg: 0.75rem;
+  --dzone-spacing-xl: 0.875rem;
+  --dzone-spacing-2xl: 1rem;
+  --dzone-spacing-3xl: 1.25rem;
+  --dzone-spacing-4xl: 1.5rem;
+  --dzone-spacing-5xl: 1.75rem;
+  --dzone-spacing-6xl: 2rem;
+  --dzone-spacing-7xl: 2.5rem;
+  --dzone-spacing-8xl: 4.375rem;
+
+  /* Font sizes */
+  --dzone-font-size-xs: 0.625rem;
+  --dzone-font-size-sm: 0.75rem;
+  --dzone-font-size-base: 0.875rem;
+  --dzone-font-size-md: 1rem;
+  --dzone-font-size-lg: 1.125rem;
+  --dzone-font-size-xl: 1.25rem;
+
+  /* Heights */
+  --dzone-height-button-sm: 1.625rem;
+  --dzone-height-button-md: 1.75rem;
+  --dzone-height-element-md: 2.5rem;
+  --dzone-height-element-lg: 2.75rem;
+
+  /* Border radius */
+  --dzone-radius-sm: 4px;
+  --dzone-radius-md: 6px;
+  --dzone-radius-lg: 8px;
+
+  /* Font weights */
+  --dzone-font-weight-normal: 400;
+  --dzone-font-weight-medium: 500;
+  --dzone-font-weight-semibold: 600;
+  --dzone-font-weight-bold: 700;
+
+  /* Widths */
+  --dzone-width-dropdown-lg: 18rem;
+  --dzone-width-pagination-select: 4rem;
+
+  /* Pagination specific */
+  --dzone-pagination-button-size: 2rem; /* 32px */
+  --dzone-pagination-text-color: #2e3d66;
+  --dzone-pagination-height: 4rem;
+  --dzone-pagination-button-bg: #6c727f;
+  --dzone-pagination-button-hover-bg: #6c727f;
+  --dzone-pagination-button-disabled-bg: #d3d5da;
+  --dzone-pagination-button-disabled-color: #ffffff;
+}

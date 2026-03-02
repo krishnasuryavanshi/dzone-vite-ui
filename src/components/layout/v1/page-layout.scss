@@ -1,0 +1,33 @@
+.dz-page-container {
+  padding: 0.5rem;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  background-color: #fff;
+}
+
+.dz-panel-mobile {
+  padding-left: 0;
+  background: #fff;
+}
+
+.dz-panel-desktop {
+  padding-left: var(--dz-sider-margin);
+  background: #fff;
+}
+
+.dz-page-content {
+  padding: 0.5rem;
+  padding-bottom: 0;
+  height: 100%;
+  background: #fff;
+}
+
+.dz-box {
+  .dz-one-box {
+    background: #fff;
+    border-radius: 8px;
+    padding: 0.25rem 0.75rem;
+  }
+}

@@ -1,0 +1,34 @@
+.dz-dropdown.filter-dropdown {
+  .dz-dropdown-menu-wrapper {
+    padding: 0.5rem 0 0.25rem 0;
+
+    --dz-scroll-content-gap: 0.5;
+  }
+  .dz-serach-dropdown {
+    padding: 0 0.75rem;
+  }
+  .ant-dropdown-menu-item {
+    height: 2.5rem;
+
+    span.ant-dropdown-menu-title-content {
+      width: 100%;
+      div.dz-dropdown-menu-item {
+        width: 100%;
+      }
+    }
+
+    &-active,
+    &-selected {
+      border-radius: 8px;
+      background: #eaf1ff !important;
+    }
+  }
+}
+
+.dz-dropdown-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+}

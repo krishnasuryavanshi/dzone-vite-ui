@@ -1,0 +1,12 @@
+.stepper-form-footer {
+  position: relative;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+@media (max-width: 575px) {
+  .stepper-form-footer {
+    right: 0;
+    position: relative;
+  }
+}

@@ -1,0 +1,612 @@
+/* Alert styles */
+.compactWarningAlert {
+  margin-bottom: var(--dzone-spacing-lg);
+  padding: var(--dzone-spacing-lg) var(--dzone-spacing-xl);
+  border-radius: var(--dzone-radius-md);
+  border: 1px solid #f5d2a7;
+  background: var(--dzone-color-alert-warning-compact);
+  font-size: var(--dzone-font-size-sm);
+  line-height: 1.4;
+}
+
+.compactWarningAlert :global(.ant-alert-icon) {
+  color: #c87229;
+  font-size: var(--dzone-font-size-md);
+  margin-top: var(--dzone-spacing-xs);
+}
+
+.compactWarningAlert :global(.ant-alert-message) {
+  color: #c87229;
+  font-size: var(--dzone-font-size-base);
+  font-weight: var(--dzone-font-weight-bold);
+  margin-bottom: var(--dzone-spacing-xs);
+}
+
+.compactWarningAlert :global(.ant-alert-description) {
+  color: #374151;
+  font-size: var(--dzone-font-size-base);
+  line-height: 1.4;
+}
+
+.uncappedAlert {
+  margin-bottom: var(--dzone-spacing-lg);
+  padding: var(--dzone-spacing-lg) var(--dzone-spacing-xl);
+  border-radius: var(--dzone-radius-md);
+  border: 1px solid #c7d2fe;
+  background: var(--dzone-color-alert-uncapped);
+  font-size: var(--dzone-font-size-base);
+}
+
+.uncappedAlert :global(.ant-alert-icon) {
+  color: #656ed1;
+  font-size: var(--dzone-font-size-md);
+}
+
+.uncappedAlert :global(.ant-alert-message) {
+  color: #656ed1;
+  font-size: var(--dzone-font-size-base);
+  font-weight: var(--dzone-font-weight-bold);
+}
+
+.uncappedAlert :global(.ant-alert-description) {
+  color: #374151;
+  font-size: var(--dzone-font-size-base);
+}
+
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--dzone-spacing-lg);
+}
+
+.radioCard {
+  width: 100%;
+  margin-left: var(--dzone-spacing-lg);
+}
+
+.radioCard .ant-card-body {
+  padding: var(--dzone-spacing-xl);
+}
+
+.radioGroup .ant-radio-wrapper {
+  display: flex;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.radioGroup .ant-radio {
+  margin-top: var(--dzone-spacing-sm);
+}
+
+.radioDescription {
+  font-size: var(--dzone-font-size-sm);
+  margin-top: var(--dzone-spacing-sm);
+}
+
+.tableSection {
+  margin-top: var(--dzone-spacing-xl);
+}
+
+.configSection {
+  margin-bottom: var(--dzone-spacing-2xl);
+  border: 1px solid var(--dzone-color-border);
+}
+
+.pacingTable {
+  border: 1px solid var(--dzone-color-border);
+  border-radius: var(--dzone-radius-md);
+}
+
+/* Main table styling with alternating rows */
+.pacingTable :global(.ant-table-tbody > tr:nth-child(odd) > td) {
+  background: white;
+}
+
+.pacingTable :global(.ant-table-tbody > tr:nth-child(even) > td) {
+  background: #f9f9f9;
+}
+
+.pacingTable :global(.ant-table-tbody > tr:nth-child(odd):hover > td) {
+  background: white;
+}
+
+.pacingTable :global(.ant-table-tbody > tr:nth-child(even):hover > td) {
+  background: #f9f9f9;
+}
+
+.pacingTable :global(.ant-table-expanded-row > td) {
+  background: #f0f4f7;
+  padding: 0;
+}
+
+.pacingTable :global(.ant-table-expanded-row:hover > td) {
+  background: #f0f4f7;
+}
+
+/* Table header styling - More specific selectors */
+.pacingTable :global(.ant-table-wrapper .ant-table-thead > tr > th) {
+  background: #fafafa !important;
+}
+
+/* Fix expand column header specifically */
+.pacingTable :global(.ant-table-wrapper .ant-table-thead > tr > th:last-child) {
+  background: #fafafa !important;
+  border-right: none;
+}
+
+/* Target the expand column header cell specifically */
+.pacingTable :global(.ant-table-thead > tr > th[key='expand']) {
+  background: #fafafa !important;
+}
+
+/* Ensure all th elements have the same background */
+.pacingTable :global(.ant-table thead th) {
+  background: #fafafa !important;
+}
+
+/* Fix the expand icon cell that appears as td in thead */
+.pacingTable
+  :global(.ant-table-thead > tr > td.ant-table-cell-row-expand-icon-cell) {
+  background: #fafafa !important;
+}
+
+/* Also target any td that might appear in thead */
+.pacingTable :global(.ant-table-thead td) {
+  background: #fafafa !important;
+}
+
+/* Fix any column header variations with more specific selectors */
+.pacingTable
+  :global(
+    .ant-table-wrapper .ant-table-thead > tr > th.ant-table-cell-fix-right-first
+  ) {
+  background: #fafafa !important;
+}
+
+/* Fix fixed right column header background */
+.pacingTable :global(.ant-table-thead > tr > th.ant-table-cell-fix-right) {
+  background: #fafafa !important;
+}
+
+.pacingTable
+  :global(
+    .ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-has-actions
+  ) {
+  background: #fafafa;
+}
+
+.pacingTable
+  :global(
+    .ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-has-sorters
+  ) {
+  background: #fafafa;
+}
+
+/* Override filter column backgrounds */
+.pacingTable
+  :global(
+    .ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-has-filters
+  ) {
+  background: #fafafa;
+}
+
+/* Override any selected/active column headers */
+.pacingTable
+  :global(.ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-sort) {
+  background: #fafafa;
+}
+
+.pacingTable :global(.ant-table-wrapper .ant-table-thead > tr > th:hover) {
+  background: #fafafa;
+}
+
+/* Force all header cells to have same background */
+.pacingTable :global(.ant-table-wrapper .ant-table-thead .ant-table-cell) {
+  background: #fafafa;
+}
+
+/* Ensure expanded content is visible */
+.pacingTable :global(.ant-table-expanded-row) {
+  background: #f0f4f7;
+}
+
+.pacingTable :global(.ant-table-expanded-row > td) {
+  background: #f0f4f7;
+  padding: 16px;
+}
+
+/* Remove selection colors but preserve alternating rows */
+.pacingTable
+  :global(.ant-table-tbody > tr.ant-table-row-selected:nth-child(odd) > td) {
+  background: white;
+}
+
+.pacingTable
+  :global(.ant-table-tbody > tr.ant-table-row-selected:nth-child(even) > td) {
+  background: #f9f9f9;
+}
+
+/* Expanded row container styling */
+.expandedRow {
+  background: #f0f4f7;
+}
+
+.expandedRow :global(td) {
+  background: #f0f4f7;
+  padding: 16px;
+  border: none;
+}
+
+/* Hide spinners specifically in expanded rows */
+.expandedRow :global(.ant-spin) {
+  display: none;
+}
+
+.expandedRow :global(.ant-spin-container) {
+  position: relative;
+}
+
+/* Fix Flex wrapper spacing in expanded rows */
+.expandedRow :global(.ant-flex) {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.expandedRow :global(.ant-flex > *) {
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove orange/yellow strips more carefully */
+.expandedRow :global(td)::before,
+.expandedRow :global(td)::after {
+  display: none;
+  content: none;
+}
+
+/* Only hide the fixed positioning elements, not the content */
+.pacingTable :global(.ant-table-expanded-row-fixed::before),
+.pacingTable :global(.ant-table-expanded-row-fixed::after) {
+  display: none;
+  content: none;
+}
+
+/* Remove any default expand cell styling */
+.pacingTable :global(.ant-table-expand-icon-th) {
+  background: #fafafa !important;
+}
+
+.pacingTable :global(.ant-table-row-expand-icon-cell) {
+  background: inherit;
+}
+
+/* Ensure expand icon cell follows alternating row pattern */
+.pacingTable
+  :global(
+    .ant-table-tbody > tr:nth-child(odd) > td.ant-table-row-expand-icon-cell
+  ) {
+  background: white;
+}
+
+.pacingTable
+  :global(
+    .ant-table-tbody > tr:nth-child(even) > td.ant-table-row-expand-icon-cell
+  ) {
+  background: #f9f9f9;
+}
+
+/* Expanded/Child table styling */
+.expandedTable {
+  margin: 0;
+  border: 1px solid #f0f4f7;
+  border-radius: 4px;
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Remove extra left padding/margin */
+.expandedTable :global(.ant-table) {
+  margin: 0;
+  width: 100%;
+}
+
+/* Ensure full width for table wrapper */
+.expandedTable :global(.ant-table-wrapper) {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Fix child table content alignment */
+.expandedTable :global(.ant-table-container) {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.expandedTable :global(.ant-table-content) {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+/* Remove any extra padding from table cells */
+.expandedTable :global(.ant-table-tbody > tr > td:first-child) {
+  padding-left: 8px;
+}
+
+/* Override Ant Design's nested table margin that causes spacing issue */
+.expandedTable
+  :global(
+    .ant-table-wrapper
+      .ant-table.ant-table-small
+      .ant-table-tbody
+      .ant-table-wrapper:only-child
+      .ant-table
+  ) {
+  margin-inline: 0;
+  margin-block: 0;
+}
+
+/* Alternative more specific override - needs local class for CSS modules */
+.pacingTable
+  :global(
+    .ant-table-wrapper
+      .ant-table.ant-table-small
+      .ant-table-tbody
+      .ant-table-wrapper:only-child
+      .ant-table
+  ) {
+  margin-inline: 0;
+}
+
+/* More comprehensive fix for nested table spacing */
+.expandedTable :global(.ant-table-wrapper) {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.expandedTable :global(.ant-table) {
+  margin: 0 !important;
+}
+
+.expandedTable :global(.ant-table-container) {
+  padding: 0 !important;
+}
+
+/* Force remove any margin from table body */
+.expandedTable :global(.ant-table-tbody) {
+  margin: 0 !important;
+}
+
+/* Target the specific nested table issue */
+.expandedRow :global(.ant-table-wrapper .ant-table) {
+  margin: 0 !important;
+  margin-inline: 0 !important;
+  margin-block: 0 !important;
+}
+
+.expandedTable :global(.ant-table-thead > tr > th) {
+  background: #fafafa;
+  font-weight: 500;
+  border-bottom: 1px solid #f0f4f7;
+  padding: 6px 8px;
+  height: auto;
+}
+
+/* Alternate row colors for child table */
+.expandedTable :global(.ant-table-tbody > tr:nth-child(odd) > td) {
+  background: white;
+}
+
+.expandedTable :global(.ant-table-tbody > tr:nth-child(even) > td) {
+  background: #f9f9f9;
+}
+
+/* Remove hover effect from child table rows */
+.expandedTable :global(.ant-table-tbody > tr:hover > td) {
+  background: inherit;
+}
+
+.expandedTable :global(.ant-table-tbody > tr:nth-child(odd):hover > td) {
+  background: white;
+}
+
+.expandedTable :global(.ant-table-tbody > tr:nth-child(even):hover > td) {
+  background: #f9f9f9;
+}
+
+/* Match input styles in child table to parent */
+.expandedTable :global(.ant-input-number) {
+  width: 100px;
+  height: 32px;
+}
+
+.pacingCollapse {
+  background: var(--dzone-color-white);
+  border: 1px solid var(--dzone-color-border);
+  border-radius: var(--dzone-radius-md);
+}
+
+.panelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-right: var(--dzone-spacing-3xl);
+}
+
+.leadRequiredInput {
+  display: flex;
+  align-items: center;
+  gap: var(--dzone-spacing-sm);
+}
+
+.nestedTable {
+  margin-top: var(--dzone-spacing-2xl);
+}
+
+.warningSection {
+  padding: 0;
+}
+
+.childWarningSection {
+  margin-top: var(--dzone-spacing-lg);
+  padding: var(--dzone-spacing-lg) 0;
+  border-top: 1px solid var(--dzone-color-border);
+}
+
+.drawerFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--dzone-spacing-2xl);
+  border-top: 1px solid var(--dzone-color-border);
+}
+
+.leadGoalSection {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.leadGoalText {
+  font-size: var(--dzone-font-size-lg);
+  color: var(--dzone-color-primary);
+  font-weight: var(--dzone-font-weight-bold);
+  margin-top: var(--dzone-spacing-sm);
+}
+
+.pacingDrawer :global(.ant-drawer-header) {
+  background-color: #323131;
+}
+
+.pacingDrawer :global(.ant-drawer-title) {
+  color: white;
+  background-color: transparent;
+}
+
+.pacingDrawer :global(.ant-drawer-close) {
+  color: white;
+  right: 16px;
+  position: absolute;
+}
+
+.pacingDrawer :global(.ant-drawer-close):hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.pacingDrawer :global(.ant-card) {
+  position: relative;
+  border-radius: var(--dzone-radius-sm);
+  border-image: linear-gradient(
+      126deg,
+      #fdbbe9 6.35%,
+      #eed7fc 53.89%,
+      #7d87fe 97.78%
+    )
+    1;
+  background: linear-gradient(
+    126deg,
+    rgba(253, 187, 233, 0.1) 6.35%,
+    rgba(238, 215, 252, 0.1) 53.89%,
+    rgba(125, 135, 254, 0.1) 97.78%
+  );
+  transition: all 0.3s ease;
+}
+
+.gradientBorderWrapper {
+  display: block;
+}
+
+.customPacingCard {
+  border-radius: 4px;
+  border: 1px solid #fdbbe9;
+  background: linear-gradient(
+    126deg,
+    rgba(253, 187, 233, 0.1) 6.35%,
+    rgba(238, 215, 252, 0.1) 53.89%,
+    rgba(125, 135, 254, 0.1) 97.78%
+  );
+  position: relative;
+  display: block;
+  cursor: pointer;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* Table Styles */
+.pacingTable :global(.ant-table) {
+  background: transparent;
+}
+
+.pacingTable :global(.ant-table-thead > tr > th) {
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e8e8e8;
+  height: 30px;
+  padding: 4px 8px;
+  font-weight: 600;
+  color: #4a4a4a;
+  font-size: 0.875rem;
+}
+
+.pacingTable :global(.ant-table-tbody > tr) {
+  height: 40px;
+}
+
+.pacingTable :global(.ant-table-tbody > tr > td) {
+  padding: 6px 8px;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.875rem;
+}
+
+/* These rules are now handled above with more specific selectors */
+
+/* Input styles in table */
+.pacingTable :global(.ant-input-number) {
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+}
+
+/* Hide table loading spinners to prevent nested spinning */
+.pacingTable :global(.ant-spin) {
+  display: none;
+}
+
+.expandedTable :global(.ant-spin) {
+  display: none;
+}
+
+.pacingTable :global(.ant-spin-container) {
+  position: relative;
+}
+
+.expandedTable :global(.ant-spin-container) {
+  position: relative;
+}
+
+/* Disabled checkbox styling */
+.disabledOverflowCheckbox :global(.ant-checkbox-disabled + span) {
+  color: var(--dzone-color-gray-light) !important;
+  opacity: 0.6;
+}
+
+.disabledOverflowCheckbox :global(.ant-checkbox-disabled .ant-checkbox-inner) {
+  background-color: var(--dzone-color-border-light) !important;
+  border-color: var(--dzone-color-border) !important;
+}
+
+.disabledOverflowCheckbox
+  :global(.ant-checkbox-disabled.ant-checkbox-checked .ant-checkbox-inner) {
+  background-color: var(--dzone-color-gray-light) !important;
+  border-color: var(--dzone-color-gray-light) !important;
+}
+
+.disabledOverflowCheckbox
+  :global(
+    .ant-checkbox-disabled.ant-checkbox-checked .ant-checkbox-inner::after
+  ) {
+  border-color: white !important;
+}

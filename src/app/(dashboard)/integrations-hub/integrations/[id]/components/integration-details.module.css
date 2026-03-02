@@ -1,0 +1,17 @@
+.integrationDetails {
+  padding: 0;
+}
+
+.backArrow {
+  font-size: var(--dzone-font-size-base);
+  color: var(--dzone-color-gray);
+  cursor: pointer;
+}
+
+.backArrow:hover {
+  color: var(--dzone-color-gray-dark);
+}
+
+.templatesTable {
+  border-radius: var(--dzone-radius-lg);
+}

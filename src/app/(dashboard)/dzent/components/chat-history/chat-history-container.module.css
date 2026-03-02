@@ -1,0 +1,23 @@
+.chatHistoryItem {
+  padding: var(--dzone-spacing-lg) var(--dzone-spacing-2xl);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  background-color: transparent;
+  border-radius: var(--dzone-radius-sm);
+  margin-bottom: var(--dzone-spacing-xs);
+  color: var(--dzone-color-white);
+  font-size: var(--dzone-font-size-base);
+}
+
+.chatHistoryItem:hover {
+  background-color: var(--dzone-color-bg-lighter-gray);
+}
+
+.active {
+  background-color: var(--dzone-color-brand-gray-medium);
+  color: var(--dzone-color-white);
+}
+
+.active:hover {
+  background-color: var(--dzone-color-bg-lighter-gray);
+}

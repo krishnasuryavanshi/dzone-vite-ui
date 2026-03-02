@@ -1,0 +1,28 @@
+.dz-chart {
+  &.legend-placement-bottom {
+    .recharts-legend-wrapper {
+      bottom: 0 !important;
+    }
+  }
+  .recharts-legend-wrapper {
+    ul {
+      margin: 0;
+      padding: 0;
+      li.recharts-legend-item {
+        padding: var(--dz-legend-list-item-padding, 0.5rem 0);
+        display: var(--dz-legend-list-item-display, block);
+        span.recharts-legend-item-text {
+          display: inline-block;
+          &:first-letter {
+            text-transform: capitalize;
+          }
+        }
+      }
+      &.bottom {
+        text-align: center;
+        --dz-legend-list-item-display: inline-block;
+        --dz-legend-list-item-padding: 0 0.5rem;
+      }
+    }
+  }
+}

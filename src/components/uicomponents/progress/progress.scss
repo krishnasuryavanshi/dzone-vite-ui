@@ -1,0 +1,17 @@
+.dz-progress.ant-progress {
+  .ant-progress-outer,
+  .ant-progress-inner {
+    display: block;
+  }
+  .ant-progress-outer,
+  .ant-progress-bg {
+    height: 0.125rem !important;
+  }
+}
+
+.launch-progress.ant-progress.ant-progress-circle .ant-progress-inner {
+  font-size: 0.5rem;
+  .anticon {
+    color: var(--global-blue-primary-button-color);
+  }
+}

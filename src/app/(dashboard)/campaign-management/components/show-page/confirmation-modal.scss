@@ -1,0 +1,23 @@
+.confirm-cancel-modal {
+  .ant-modal-content {
+    padding: 0;
+  }
+  .confirmation-modal {
+    background-color: white;
+    border-radius: 8px;
+  }
+
+  .confirmation-modal-header {
+    font-size: 1.125rem;
+    font-weight: bold;
+  }
+
+  .confirmation-modal-description {
+    font-size: 1rem;
+  }
+
+  .confirmation-modal-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+}

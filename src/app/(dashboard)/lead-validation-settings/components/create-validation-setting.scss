@@ -1,0 +1,39 @@
+.create-validation-setting {
+  .ant-radio-group label.ant-radio-wrapper .ant-radio,
+  .ant-checkbox-group label.ant-checkbox-wrapper .ant-checkbox {
+    align-self: flex-start;
+    padding-top: 0.125rem;
+  }
+
+  .ant-tabs-left {
+    > .ant-tabs-content-holder {
+      margin-left: 0;
+      border-left: none;
+    }
+    .ant-tabs-tab {
+      padding-right: 0.25rem;
+    }
+    .ant-tabs-content-holder
+      .ant-tabs-content
+      .ant-tabs-tabpane.ant-tabs-tabpane-active {
+      padding-left: 0.25rem;
+    }
+
+    .ant-tabs-ink-bar {
+      background-color: transparent;
+    }
+
+    .ant-switch.ant-switch-checked {
+      background-color: #34c759;
+    }
+  }
+
+  .targeting-validation-settings {
+    .ant-switch.ant-switch-checked {
+      background-color: #34c759;
+    }
+  }
+
+  .ant-tabs-left .ant-tabs-nav-list .ant-tabs-tab-active {
+  }
+}

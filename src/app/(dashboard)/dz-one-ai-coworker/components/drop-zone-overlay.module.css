@@ -1,0 +1,22 @@
+.overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(white, white) padding-box,
+    linear-gradient(109deg, #ffb8ec 4.89%, #f3d6ff 51.39%, #7d88ff 97.01%)
+      border-box;
+  border: 2px solid transparent;
+  border-radius: 0 0 0.75rem 0.75rem;
+  z-index: 10;
+  pointer-events: none;
+}
+
+.icon {
+  font-size: var(--dzone-spacing-6xl);
+  color: var(--dzone-color-gray-dark);
+}
+
+.text {
+  color: var(--dzone-color-gray-dark);
+  font-weight: var(--dzone-font-weight-medium);
+}

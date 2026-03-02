@@ -1,0 +1,15 @@
+.supplier-chart-container {
+  box-shadow: 4px 4px 10px 0px rgba(0, 0, 0, 0.06);
+  height: 22.45rem;
+  .ant-card-head {
+    min-height: 3rem;
+    padding: 0 1rem;
+    .ant-card-head-wrapper {
+      display: flex;
+      .ant-card-head-title,
+      .ant-card-extra {
+        width: 50%;
+      }
+    }
+  }
+}

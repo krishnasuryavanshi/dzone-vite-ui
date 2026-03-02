@@ -1,0 +1,26 @@
+.dz-one-tabs {
+  &.ant-tabs-top > .ant-tabs-nav::before {
+    border-bottom: none;
+  }
+  // Set the ink bar (bottom border) to black
+  // Increase specificity for ink bar color without !important
+  > .ant-tabs-nav > .ant-tabs-ink-bar,
+  .ant-tabs-ink-bar {
+    background: #323131;
+  }
+
+  // Override Ant Design tab label color with higher specificity
+  .ant-tabs-tab .ant-tabs-tab-btn {
+    color: #323131;
+    transition: color 0.2s;
+  }
+  .ant-tabs-tab:hover .ant-tabs-tab-btn,
+  .ant-tabs-tab:focus .ant-tabs-tab-btn {
+    color: #595959;
+  }
+  .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: #323131;
+  }
+}
+
+

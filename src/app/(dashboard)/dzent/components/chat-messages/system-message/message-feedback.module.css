@@ -1,0 +1,27 @@
+.feedbackContainer {
+  position: relative;
+  margin-top: -1.125rem;
+  margin-left: 4.5rem;
+}
+
+.feedbackButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 1.25rem;
+  transition: all 0.2s;
+  background-color: #f9f9f9;
+}
+
+.feedbackButton:hover {
+  background-color: #f0f0f0;
+}
+
+.selected {
+  background-color: #e6f4ff;
+  border: 2px solid #1890ff;
+}

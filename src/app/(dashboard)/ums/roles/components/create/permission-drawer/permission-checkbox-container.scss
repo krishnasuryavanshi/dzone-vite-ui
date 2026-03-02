@@ -1,0 +1,16 @@
+.dz-permission-checkbox.ant-checkbox-wrapper-disabled .ant-checkbox {
+  opacity: 0.4;
+}
+
+.dz-permission-checkbox.ant-checkbox-wrapper-disabled
+  .ant-checkbox-input:checked
+  + .ant-checkbox-inner {
+  background: var(--global-blue-primary-button-color);
+  border-color: var(--global-blue-primary-button-color);
+}
+
+.dz-permission-checkbox.ant-checkbox-wrapper-disabled
+  .ant-checkbox-input:checked
+  + .ant-checkbox-inner::after {
+  border-color: white;
+}
