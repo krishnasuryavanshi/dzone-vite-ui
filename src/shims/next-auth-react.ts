@@ -3,7 +3,7 @@
  * Maps useSession, signIn, signOut, getSession, SessionProvider
  * to client-side Zustand auth stores.
  */
-import React from 'react';
+import React, { useMemo } from 'react';
 import { useAuthStore, useTokenStore, usePermissionsStore } from '../auth/stores';
 
 export type SessionStatus = 'authenticated' | 'unauthenticated' | 'loading';
@@ -22,41 +22,56 @@ export interface Session {
   error: string;
 }
 
+const noop = () => {};
+
 export function useSession() {
   const auth = useAuthStore();
   const token = useTokenStore();
 
-  if (auth.isLoading) {
-    return { data: null, status: 'loading' as SessionStatus, update: () => {} };
-  }
+  return useMemo(() => {
+    if (auth.isLoading) {
+      return { data: null, status: 'loading' as SessionStatus, update: noop };
+    }
 
-  if (!auth.isAuthenticated || !auth.user) {
-    return {
-      data: null,
-      status: 'unauthenticated' as SessionStatus,
-      update: () => {},
+    if (!auth.isAuthenticated || !auth.user) {
+      return {
+        data: null,
+        status: 'unauthenticated' as SessionStatus,
+        update: noop,
+      };
+    }
+
+    const session: Session = {
+      accessToken: token.accessToken || '',
+      apiUrl: import.meta.env.VITE_API_URL || '',
+      roles: auth.roles || [],
+      tenantCode: auth.tenantCode || [],
+      isDzoneUser: auth.isDzoneUser || false,
+      user: auth.user,
+      tenantType: auth.tenantType || '',
+      modules: auth.modules || {},
+      moduleAccessList: auth.moduleAccessList || [],
+      permissions: [],
+      error: '',
     };
-  }
 
-  const session: Session = {
-    accessToken: token.accessToken || '',
-    apiUrl: import.meta.env.VITE_API_URL || '',
-    roles: auth.roles || [],
-    tenantCode: auth.tenantCode || [],
-    isDzoneUser: auth.isDzoneUser || false,
-    user: auth.user,
-    tenantType: auth.tenantType || '',
-    modules: auth.modules || {},
-    moduleAccessList: auth.moduleAccessList || [],
-    permissions: [],
-    error: '',
-  };
-
-  return {
-    data: session,
-    status: 'authenticated' as SessionStatus,
-    update: () => {},
-  };
+    return {
+      data: session,
+      status: 'authenticated' as SessionStatus,
+      update: noop,
+    };
+  }, [
+    auth.isLoading,
+    auth.isAuthenticated,
+    auth.user,
+    auth.roles,
+    auth.tenantCode,
+    auth.isDzoneUser,
+    auth.tenantType,
+    auth.modules,
+    auth.moduleAccessList,
+    token.accessToken,
+  ]);
 }
 
 export async function getSession(): Promise<Session | null> {

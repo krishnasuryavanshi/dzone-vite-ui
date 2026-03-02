@@ -5,7 +5,7 @@ import { nextBackendRequest } from '@/services/backend-request';
 export const fetchLineItemStatuses = async () => {
   try {
     const statuses = await nextBackendRequest({
-      resource: ApiResources.LineItemStatusesLookup,
+      resource: ApiResources.LineItemStatusLookup,
       apiHost: ApiHost.CampaignService,
     });
     return statuses.data.map((status: any) => {

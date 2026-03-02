@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import { AuthGuard } from '../auth/auth-guard';
+import { UnsavedDataWarningContextProvider } from '../contexts';
 import PageLayout from '../components/layout/v1/page-layout';
 
 /**
@@ -10,9 +11,11 @@ import PageLayout from '../components/layout/v1/page-layout';
 export const AppLayout = () => {
   return (
     <AuthGuard>
-      <PageLayout>
-        <Outlet />
-      </PageLayout>
+      <UnsavedDataWarningContextProvider>
+        <PageLayout>
+          <Outlet />
+        </PageLayout>
+      </UnsavedDataWarningContextProvider>
     </AuthGuard>
   );
 };
