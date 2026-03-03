@@ -4,7 +4,7 @@ import { useTranslate } from '@/lib/hooks/use-i18n';
 import { Avatar, Popover, Button, Text, Divider } from '@/uicomponents';
 import { ApiOutlined, LogoutOutlined } from '@/uicomponents/icons';
 import { Space } from '@/uicomponents/layout';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import './user-profile.scss';
 import { Settings, UserIcon } from '@/uicomponents/icons/svgs';
 import { HasPermission } from '@/components/auth/has-permission';

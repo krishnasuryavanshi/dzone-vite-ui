@@ -18,7 +18,7 @@ import {
 } from '@/lib/enums/permissions';
 import { usePermissionCheck } from '@/lib/hooks';
 import { CLR_BLACK, DZONE_CLR_BLACK, DZONE_CLR_GRAY_2 } from '@/lib/constants';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 interface ICammpainFiltersProps {
   handleAssignedToFilterChange: (assignedTo: string) => void;

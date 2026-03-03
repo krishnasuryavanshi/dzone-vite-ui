@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router';
 import { useSession } from '@/lib/hooks/use-session';
 import { CreateNewLineItem } from '../components/create-new-line-item';
 

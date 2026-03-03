@@ -1,7 +1,7 @@
 import { Translate } from '@/components/i18n';
 import { CLR_BLACK } from '@/lib/constants';
 import { Button } from '@/uicomponents';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import React, { FC } from 'react';
 
 interface ICreateNewOrganizationActionProps {}

@@ -4,7 +4,7 @@ import { FC, useEffect, useMemo, useState } from 'react';
 
 import { customResources, resources as allResources } from '@/config/resources';
 import { getResourceName } from '@/lib/utils/get-resource-name';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link } from 'react-router';
 import { Translate } from '@/components/i18n';
 import './navigation-menu.scss';
 

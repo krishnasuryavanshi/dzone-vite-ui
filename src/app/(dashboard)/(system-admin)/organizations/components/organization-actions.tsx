@@ -4,7 +4,7 @@ import { UserActionsEnum } from '@/lib/enums/permissions';
 import { MenuProps } from '@/lib/types/uicomponents';
 import { MoreOutlined } from '@/uicomponents/icons';
 import { Button, Dropdown } from '@/uicomponents';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { FC } from 'react';
 import { IOrganization } from '../lib/types';
 import { ThreeDotsActionsIcon } from '@/uicomponents/icons/svgs';

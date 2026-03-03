@@ -129,7 +129,8 @@ export const PacingModals: React.FC<PacingModalsProps> = ({
               </Text>
               <DatePicker
                 value={localDateRange ? localDateRange[0] : null}
-                onChange={(date) => {
+                onChange={(rawDate) => {
+                  const date = Array.isArray(rawDate) ? rawDate[0] : rawDate;
                   if (date) {
                     const newRange: [Dayjs, Dayjs | null] = [
                       date,
@@ -182,7 +183,8 @@ export const PacingModals: React.FC<PacingModalsProps> = ({
               </Text>
               <DatePicker
                 value={localDateRange ? localDateRange[1] : null}
-                onChange={(date) => {
+                onChange={(rawDate) => {
+                  const date = Array.isArray(rawDate) ? rawDate[0] : rawDate;
                   if (date) {
                     const newRange: [Dayjs | null, Dayjs] = [
                       localDateRange ? localDateRange[0] : null,

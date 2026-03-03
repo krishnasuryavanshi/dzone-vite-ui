@@ -18,7 +18,7 @@ import { Button, Spin, Text } from '@/uicomponents';
 import { WebformIcon } from '@/uicomponents/icons/svgs/webform';
 import { Flex, Space } from '@/uicomponents/layout';
 import { Col, Row } from '@/uicomponents/layout/grid';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import React, { useEffect, useState } from 'react';
 import { Integration, IntegrationType } from '../lib/types/integration';
 import { fetchIntegrations, fetchIntegrationTypes } from '../services';

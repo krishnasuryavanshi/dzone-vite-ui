@@ -5,7 +5,7 @@ import { Flex } from 'antd';
 import { Text } from '@/uicomponents/text';
 import { ArrowLeft } from '@/uicomponents/icons/svgs';
 import { DZONE_CLR_GRAY_DARK } from '@/lib/constants';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 interface CreateCampaignBreadCrumbContainer {
   campaignId?: string;

@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useSession } from '@/lib/hooks/use-session';
 import UpdateLineItem from '@/app/(dashboard)/campaign-management/line-items/components/update-line-item/update-line-item';
 

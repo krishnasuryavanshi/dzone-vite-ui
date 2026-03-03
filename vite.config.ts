@@ -46,7 +46,7 @@ export default defineConfig(({ mode }) => ({
     rollupOptions: {
       output: {
         manualChunks: {
-          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-react': ['react', 'react-dom', 'react-router'],
           'vendor-antd': ['antd', '@ant-design/icons'],
           'vendor-utils': ['lodash', 'zustand', 'axios', 'i18next'],
         },

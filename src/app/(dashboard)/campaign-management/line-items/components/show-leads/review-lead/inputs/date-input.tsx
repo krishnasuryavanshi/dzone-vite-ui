@@ -15,7 +15,7 @@ interface DateInputProps {
   placeholder?: string;
   value?: Dayjs | string;
   format?: string;
-  onChange?: (date: Dayjs | null, dateString: string | string[]) => void;
+  onChange?: (date: Dayjs | Dayjs[] | null, dateString: string | string[] | null) => void;
   disabled?: boolean;
   className?: string;
   onOpenChange?: (open: boolean) => void;
@@ -106,8 +106,9 @@ export const DateInput: FC<DateInputProps> = ({
   }, [value]);
 
   // Handle onChange to ensure the date is formatted correctly
-  const handleChange = (date: Dayjs | null, dateString: string | string[]) => {
+  const handleChange = (rawDate: Dayjs | Dayjs[] | null, dateString: string | string[] | null) => {
     if (onChange) {
+      const date = Array.isArray(rawDate) ? rawDate[0] : rawDate;
       if (date) {
         // Format according to the configured format when user selects
         const formattedDateString = date.format(format);
@@ -117,7 +118,7 @@ export const DateInput: FC<DateInputProps> = ({
       } else {
         setInternalDateValue(undefined);
         setDisplayValue('');
-        onChange(date, dateString);
+        onChange(date ?? null, dateString);
       }
     }
   };

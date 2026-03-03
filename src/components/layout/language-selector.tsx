@@ -12,26 +12,19 @@ export const LanguageSelector = () => {
   const changeLanguage = useSetLocale();
   const currentLocale = locale();
 
-  const menu = (
-    <Menu selectedKeys={currentLocale ? [currentLocale] : []}>
-      {[...(i18n.languages || [])].sort().map((lang: string) => (
-        <MenuItem
-          key={lang}
-          onClick={() => changeLanguage(lang)}
-          icon={
-            <span style={{ marginRight: 8 }}>
-              <Avatar size={16} src={`/images/flags/${lang}.svg`} />
-            </span>
-          }
-        >
-          {lang === "en" ? "English" : "German"}
-        </MenuItem>
-      ))}
-    </Menu>
-  );
+  const menuItems = [...(i18n.languages || [])].sort().map((lang: string) => ({
+    key: lang,
+    label: lang === "en" ? "English" : "German",
+    icon: (
+      <span style={{ marginRight: 8 }}>
+        <Avatar size={16} src={`/images/flags/${lang}.svg`} />
+      </span>
+    ),
+    onClick: () => changeLanguage(lang),
+  }));
 
   return (
-    <Dropdown overlay={menu}>
+    <Dropdown menu={{ items: menuItems, selectedKeys: currentLocale ? [currentLocale] : [] }}>
       <Button type="link">
         <Space>
           <Avatar size={16} src={`/images/flags/${currentLocale}.svg`} />

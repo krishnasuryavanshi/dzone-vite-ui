@@ -3,7 +3,7 @@ import { DZONE_CLR_GRAY_DARK } from '@/lib/constants';
 import { ArrowLeft } from '@/uicomponents/icons/svgs';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import React, { FC } from 'react';
 
 interface IBackNavigationProps {

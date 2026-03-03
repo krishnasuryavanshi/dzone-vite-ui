@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { useSession } from '@/lib/hooks/use-session';
 import { CreateTemplate } from '../../components/create-template';
 

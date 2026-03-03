@@ -1,7 +1,7 @@
 import { Hideable } from '@/components/shared';
 import { ArrowLeft } from '@/uicomponents/icons/svgs';
 import { Flex, Space } from '@/uicomponents/layout';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { FC } from 'react';
 import { TemplateStep } from '../../lib/enums';
 import { useTemplateStore } from '../../stores';

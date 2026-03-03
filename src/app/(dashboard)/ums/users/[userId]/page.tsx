@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { UsersEditContainer } from '../components/create';
 
 const EditUserPage = () => {

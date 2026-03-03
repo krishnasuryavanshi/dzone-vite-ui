@@ -18,7 +18,7 @@ export const UnauthorizedContainer = () => {
   return (
     <Card
       bordered={false}
-      style={{ width: '100%', backgroundColor: '#ff5555' }}>
+      style={{ backgroundColor: '#ff5555', margin: '1rem' }}>
       <Space direction='vertical'>
         <Title level={5}>
           <ExclamationCircleOutlined /> Unauthorized Access!

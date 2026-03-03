@@ -4,7 +4,7 @@ import { Text } from '@/uicomponents';
 import React, { FC } from 'react';
 import { ArrowLeft } from '@/uicomponents/icons/svgs';
 import { DZONE_CLR_GRAY_DARK } from '@/lib/constants';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 interface IUsersBackNavigationProps {
   isEditing?: boolean;

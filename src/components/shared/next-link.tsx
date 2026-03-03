@@ -1,5 +1,5 @@
 import { UnsavedDataWarningContext } from '@/contexts/unsaved-data-warning';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { useRouter } from '@/lib/hooks/use-router';
 import { FC, MouseEvent, useContext, useState } from 'react';
 import { Translate } from '../i18n';

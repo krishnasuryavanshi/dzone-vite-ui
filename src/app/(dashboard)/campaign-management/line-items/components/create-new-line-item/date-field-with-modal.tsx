@@ -47,7 +47,8 @@ export const DateFieldWithModal: React.FC<DateFieldWithModalProps> = ({
         value={validDate && validDate.isValid() ? validDate : null}
         className='input-field'
         disabledDate={disabledDate}
-        onChange={(date) => {
+        onChange={(rawDate) => {
+          const date = Array.isArray(rawDate) ? rawDate[0] : rawDate;
           if (!date) {
             // If date is cleared, apply immediately
             form.setFieldValue(field.field, null);

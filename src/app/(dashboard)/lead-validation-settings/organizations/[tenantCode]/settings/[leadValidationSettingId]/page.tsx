@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { CreateValidationSettingContainer } from '@/app/(dashboard)/lead-validation-settings/components';
 
 const EditLeadValidationSettings = () => {

@@ -1,5 +1,5 @@
 import React, { lazy } from 'react';
-import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router';
 import { AppLayout } from './layout/app-layout';
 import { AuthLayout } from './layout/auth-layout';
 

@@ -1,6 +1,6 @@
 /**
  * Router hook — replaces next/navigation useRouter.
- * Wraps react-router-dom to provide the same API as the Next.js shim.
+ * Wraps react-router to provide the same API as the Next.js shim.
  */
 import { useMemo } from 'react';
 import {
@@ -8,7 +8,7 @@ import {
   useLocation,
   useSearchParams as useRRSearchParams,
   useParams as useRRParams,
-} from 'react-router-dom';
+} from 'react-router';
 
 export function useRouter() {
   const navigate = useNavigate();

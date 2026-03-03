@@ -4,7 +4,7 @@ import { Dropdown } from '@/uicomponents/dropdown';
 import { Button } from '@/uicomponents/button';
 import { IExcecutiveGrids } from '../types';
 import { ThreeDotsActionsIcon } from '@/uicomponents/icons/svgs';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 export const ExecutiveGridActions: FC<{ executive: IExcecutiveGrids }> = ({
   executive,

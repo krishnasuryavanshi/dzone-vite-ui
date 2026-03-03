@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { FC } from 'react';
 import { IUser } from '../lib/types';
 import { DzBox } from '@/components/layout/v1';

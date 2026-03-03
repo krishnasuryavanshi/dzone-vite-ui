@@ -6,7 +6,7 @@ import { DzentAiIcon } from '@/uicomponents/icons/svgs';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
 import { CloseOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import React, { useState } from 'react';
 
 export const AiCampaignCreate = () => {

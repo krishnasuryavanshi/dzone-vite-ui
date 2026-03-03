@@ -1,4 +1,4 @@
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router';
 import { LeadsContainer } from '@/app/(dashboard)/campaign-management/leads/components';
 import React from 'react';
 

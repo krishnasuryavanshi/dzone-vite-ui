@@ -29,7 +29,7 @@ export const UploadButtonRow: FC<IUploadButtonRowProps> = ({
       ) : (
         <p className='ant-upload-hint' style={{ fontSize: '0.75rem' }}>
           <Translate i18nKey='Supported Formats:' />{' '}
-          {uploadProps?.accept?.replaceAll('.', '').replaceAll(',', ', ')}
+          {typeof uploadProps?.accept === 'string' ? uploadProps.accept.replaceAll('.', '').replaceAll(',', ', ') : ''}
         </p>
       )}
     </DraggerUpload>

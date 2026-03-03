@@ -1,6 +1,7 @@
 import React from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router';
 import { AuthGuard } from '../auth/auth-guard';
+import { PermissionGuard } from '../auth/permission-guard';
 import { UnsavedDataWarningContextProvider } from '../contexts';
 import PageLayout from '../components/layout/v1/page-layout';
 
@@ -13,7 +14,9 @@ export const AppLayout = () => {
     <AuthGuard>
       <UnsavedDataWarningContextProvider>
         <PageLayout>
-          <Outlet />
+          <PermissionGuard>
+            <Outlet />
+          </PermissionGuard>
         </PageLayout>
       </UnsavedDataWarningContextProvider>
     </AuthGuard>

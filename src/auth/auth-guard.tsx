@@ -3,7 +3,7 @@
  * Redirects to /login if not authenticated.
  */
 import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router';
 import { useAuthStore } from './stores';
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {

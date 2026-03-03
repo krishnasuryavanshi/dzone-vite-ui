@@ -17,7 +17,7 @@ import {
 } from '@/lib/enums/permissions';
 import { usePermissionCheck } from '@/lib/hooks';
 import { HasPermission } from '@/components/auth';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { CLR_BLACK, DZONE_CLR_BLACK, DZONE_CLR_GRAY_2 } from '@/lib/constants';
 
 interface ILineItemsActionsProps {

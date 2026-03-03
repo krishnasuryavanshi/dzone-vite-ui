@@ -3,7 +3,7 @@ import { MoreOutlined } from "@/uicomponents/icons";
 import React, { FC } from "react";
 
 import "./record-actions.scss";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 interface ILeadsRecordActionsProps {
   lineItemId: string;

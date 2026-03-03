@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate } from "react-router";
 import { AuthGuard } from "../auth/auth-guard";
 
 export default function IndexPage() {

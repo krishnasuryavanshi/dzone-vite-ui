@@ -17,7 +17,7 @@ export const DatepickerAction = ({
   name,
   form,
 }: DatepickerActionProps) => {
-  const handleDateChange = (_: Dayjs, dateStr: string | string[]) => {
+  const handleDateChange = (_: Dayjs | Dayjs[] | null, dateStr: string | string[] | null) => {
     form.setFieldValue(name, formatDate(dateStr));
   };
 

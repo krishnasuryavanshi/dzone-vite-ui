@@ -1,7 +1,7 @@
 import { Translate } from '@/components/i18n';
 import { DZONE_CLR_BLACK } from '@/lib/constants';
 import { Button } from '@/uicomponents/index';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import React, { FC } from 'react';
 
 const CreateNewTemplateLink = '/integrations-hub/templates/create';

@@ -2,7 +2,7 @@ import { Translate } from '@/components/i18n';
 import { MenuProps } from '@/lib/types/uicomponents';
 import { Button } from '@/uicomponents/button';
 import { Dropdown } from '@/uicomponents/dropdown';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 import { MoreOutlined } from '@ant-design/icons';
 import { FC } from 'react';
 import { CLR_GRAY_1 } from '@/lib/constants';

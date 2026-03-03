@@ -16,7 +16,7 @@ import {
   CampaignActionsEnum,
   LineItemActionsEnum,
 } from '@/lib/enums/permissions';
-import { Link as NextJsLink } from 'react-router-dom';
+import { Link as NextJsLink } from 'react-router';
 import { ThreeDotsActionsIcon } from '@/uicomponents/icons/svgs';
 
 interface ICampaignRowActionsProps {

@@ -1,7 +1,7 @@
 import { Translate } from '@/components/i18n';
 import { CLR_BLACK } from '@/lib/constants';
 import { Button } from '@/uicomponents/button';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router';
 
 export const CreateNewUser = () => {
   return (

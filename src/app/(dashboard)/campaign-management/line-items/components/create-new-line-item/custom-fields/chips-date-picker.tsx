@@ -47,7 +47,8 @@ export const ChipsDatePicker: FC<IChipsDatePickerProps> = ({
     prevFormatRef.current = format;
   }, [format, value, onChange]);
 
-  const handleDateChange = (date: Dayjs | null) => {
+  const handleDateChange = (rawDate: Dayjs | Dayjs[] | null) => {
+    const date = Array.isArray(rawDate) ? rawDate[0] : rawDate;
     if (!date) {
       return;
     }
