@@ -6,6 +6,7 @@ import { pick } from 'lodash';
 import { ApiHost } from '@/lib/constants';
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { backendRequest } from '@/services/back-end-manager';
+import { logger } from '@/services/logger';
 import { useAuthStore, useTokenStore } from './stores';
 import { usePermissionsStore } from '../stores/permissions-store';
 
@@ -39,6 +40,9 @@ function flattenPermissions(
  * Login — POST credentials directly to the RBAC service.
  */
 export async function login(email: string, password: string) {
+  const maskedEmail = email.replace(/(.{2}).*(@.*)/, '$1***$2');
+  logger.info('Auth: login attempt', { email: maskedEmail });
+
   const response = await backendRequest({
     apiHost: ApiHost.RBACService,
     resource: ApiResources.AuthToken,
@@ -49,6 +53,7 @@ export async function login(email: string, password: string) {
 
   const data = response.data;
   if (!data?.accessToken) {
+    logger.warn('Auth: login failed — no token received');
     throw new Error('Invalid credentials');
   }
 
@@ -83,6 +88,8 @@ export async function login(email: string, password: string) {
   usePermissionsStore.getState().setAccesses(permissionsObject);
   usePermissionsStore.getState().setModules(data.modules || []);
 
+  logger.info('Auth: login success', { userId: data.userId });
+
   return data;
 }
 
@@ -90,6 +97,8 @@ export async function login(email: string, password: string) {
  * Logout — call RBAC logout endpoint then clear all client-side state.
  */
 export async function logout() {
+  logger.info('Auth: logout initiated');
+
   try {
     await backendRequest({
       apiHost: ApiHost.RBACService,
@@ -97,11 +106,13 @@ export async function logout() {
       method: HttpMethod.POST,
       isAuthenticated: true,
     });
-  } catch {
-    // Best-effort — clear state regardless
+  } catch (error) {
+    logger.warn('Auth: logout API failed (clearing state anyway)', { error });
   }
 
   useAuthStore.getState().clear();
   useTokenStore.getState().clearToken();
   usePermissionsStore.getState().clearPermissions();
+
+  logger.info('Auth: logout complete — stores cleared');
 }

@@ -1,5 +1,5 @@
 import { ILoader } from "@/lib/types";
-import { appLogger } from "@/services/logger";
+import { logger } from "@/services/logger";
 import React, { FC } from "react";
 import { ListLoader } from "./list";
 import { TableLoader } from "./table";
@@ -19,7 +19,7 @@ export const Loader: FC<ILoaderProps> = ({
   type,
 }) => {
   if (isLoading) {
-    appLogger.info(message, { resource, action, payload });
+    logger.info(message, { resource, action, payload });
     if (type === 'card') {
       return <CardLoader/>;
     }

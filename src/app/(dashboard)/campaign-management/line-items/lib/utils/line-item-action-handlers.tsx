@@ -1,3 +1,4 @@
+import { logError } from '@/services/logger';
 import { StepsProgress, StorageKey } from '@/lib/enums';
 import { normalizeDates, sanitizeData } from '@/lib/utils';
 import { getCombinedDataFromCookies } from '@/lib/utils/get-combined-data-from-cookies';
@@ -134,8 +135,7 @@ export const handleSave = async (
       showNotification({ message: data.message, type: 'error' });
     }
   } catch (error) {
-    // eslint-disable-next-line
-    console.log(error);
+    logError(error);
   }
 };
 

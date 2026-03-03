@@ -112,10 +112,10 @@ export const createLogger = (
   },
 ) => new Logger(app, options);
 
-export const appLogger = createLogger('dzone-vite', {
+export const logger = createLogger('dzone-vite', {
   logEndpoint: import.meta.env.VITE_LOGGER_URL || undefined,
 });
 
 export const logHttpRequest = (data: Record<string, unknown>, isError = false) => {
-  appLogger.logHttpRequest(data, isError);
+  logger.logHttpRequest(data, isError);
 };

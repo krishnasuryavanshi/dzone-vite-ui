@@ -1,6 +1,6 @@
 import { streamingAxios } from '@/services/streaming-axios';
 import { useTokenStore } from '@/stores/token-store';
-import { logError } from '@/services/logger';
+import { logError, logger } from '@/services/logger';
 import axios, { CancelTokenSource } from 'axios';
 
 export interface SSEConnectionConfig<T> {
@@ -62,10 +62,12 @@ async function createConnection<T>(
   const cancelSource = axios.CancelToken.source();
   config.cancelSource = cancelSource;
   activeConnections.set(connectionId, cancelSource);
+  logger.info('SSE: connection opening', { connectionId, endpoint: config.endpoint });
 
   try {
     const token = await useTokenStore.getState().getToken();
     if (!token) {
+      logger.warn('SSE: no access token — aborting', { connectionId });
       throw new Error('No access token available');
     }
 
@@ -121,9 +123,13 @@ async function createConnection<T>(
     // Stream completed normally
     activeConnections.delete(connectionId);
     connectionConfigs.delete(connectionId);
+    logger.info('SSE: connection completed', { connectionId });
     config.onComplete?.();
   } catch (error) {
-    if (axios.isCancel(error)) return;
+    if (axios.isCancel(error)) {
+      logger.debug('SSE: connection cancelled', { connectionId });
+      return;
+    }
 
     logError(`SSE error for ${connectionId}: ${error}`);
     config.onError?.(error as Error);
@@ -137,6 +143,7 @@ async function createConnection<T>(
         connectionId,
       ) as InternalConfig<T>;
       if (savedConfig) {
+        logger.info('SSE: scheduling reconnect', { connectionId, retryDelayMs: RETRY_DELAY });
         savedConfig.retryTimeout = setTimeout(() => {
           if (!intentionalDisconnects.has(connectionId)) {
             createConnection(connectionId, savedConfig);
@@ -152,7 +159,10 @@ export function connectSSE<T>(
   endpoint: string,
   config: SSEConnectionConfig<T>,
 ): void {
-  if (activeConnections.has(connectionId)) return;
+  if (activeConnections.has(connectionId)) {
+    logger.debug('SSE: already active, skipping', { connectionId });
+    return;
+  }
 
   const existingConfig = connectionConfigs.get(
     connectionId,
@@ -176,6 +186,7 @@ export function connectSSE<T>(
 }
 
 export function disconnectSSE(connectionId: string): void {
+  logger.info('SSE: disconnecting', { connectionId });
   intentionalDisconnects.add(connectionId);
 
   const config = connectionConfigs.get(connectionId);
@@ -194,6 +205,7 @@ export function disconnectSSE(connectionId: string): void {
 }
 
 export function disconnectAllSSE(): void {
+  logger.info('SSE: disconnecting all', { count: activeConnections.size });
   activeConnections.forEach((_, id) => intentionalDisconnects.add(id));
   connectionConfigs.forEach((config, id) => {
     if (config.retryTimeout) clearTimeout(config.retryTimeout);

@@ -6,6 +6,7 @@ import { ApiHost } from '@/lib/constants';
 import { HttpMethod } from '@/lib/enums';
 import { IApiRequestConfig } from '@/lib/types';
 import { backendRequest } from './back-end-manager';
+import { logger } from './logger';
 import { showNotification } from './notification';
 import { useAuthStore, useTokenStore } from '../auth/stores';
 import { usePermissionsStore } from '../stores/permissions-store';
@@ -37,6 +38,7 @@ export const nextBackendRequest = async ({
     return response.data;
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {
+      logger.warn('Auth: auto-logout triggered', { status: error.status, resource: rest.resource, url: rest.url });
       // Clear all auth state (client-side logout)
       useAuthStore.getState().clear();
       useTokenStore.getState().clearToken();

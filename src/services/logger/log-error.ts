@@ -1,5 +1,5 @@
-import { appLogger } from './logger';
+import { logger } from './logger';
 
 export const logError = (data: unknown) => {
-  appLogger.logError(data);
+  logger.logError(data);
 };

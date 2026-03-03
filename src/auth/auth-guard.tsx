@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import { Navigate, useLocation } from 'react-router';
+import { logger } from '@/services/logger';
 import { useAuthStore } from './stores';
 
 export function AuthGuard({ children }: { children: React.ReactNode }) {
@@ -11,8 +12,9 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   const location = useLocation();
 
   if (!isAuthenticated) {
-    const returnTo = `${location.pathname}${location.search}`;
-    return <Navigate to={`/login?to=${encodeURIComponent(returnTo)}`} replace />;
+    const blockedPath = `${location.pathname}${location.search}`;
+    logger.warn('AuthGuard: unauthenticated — redirecting to login', { blockedPath });
+    return <Navigate to={`/login?to=${encodeURIComponent(blockedPath)}`} replace />;
   }
 
   return <>{children}</>;
