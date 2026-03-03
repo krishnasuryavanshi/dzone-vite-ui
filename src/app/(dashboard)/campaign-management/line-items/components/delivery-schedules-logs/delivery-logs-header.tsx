@@ -17,8 +17,7 @@ export const DeliveryLogsHeader = ({
   lineItemId,
 }: DeliveryLogsHeaderProps) => {
   const router = useRouter();
-  const { filters, setFilters, fetchLogs, resetFilters } =
-    useDeliveryLogsStore();
+  const { filters, setFilters, resetFilters } = useDeliveryLogsStore();
   const [form] = useForm();
 
   const handleBack = () => {
@@ -30,12 +29,8 @@ export const DeliveryLogsHeader = ({
   };
 
   const handleFilterChange = (field: string, value: string | undefined) => {
-    // Convert empty string to undefined for "All Status" option
     const filterValue = value === '' ? undefined : value;
     setFilters({ [field]: filterValue });
-    if (scheduleId) {
-      fetchLogs(scheduleId);
-    }
   };
 
   const handleDateRangeChange = (
@@ -49,17 +44,11 @@ export const DeliveryLogsHeader = ({
     } else {
       setFilters({ startDate: undefined, endDate: undefined });
     }
-    if (scheduleId) {
-      fetchLogs(scheduleId);
-    }
   };
 
   const handleReset = () => {
     form.resetFields();
     resetFilters();
-    if (scheduleId) {
-      fetchLogs(scheduleId);
-    }
   };
 
   const statusOptions = [

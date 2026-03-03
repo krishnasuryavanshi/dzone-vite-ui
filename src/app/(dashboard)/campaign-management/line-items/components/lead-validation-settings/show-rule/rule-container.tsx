@@ -3,6 +3,8 @@ import { Hideable, MapFunction } from '@/components/shared';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents';
 import React, { PropsWithChildren, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 import { HasPermission } from '@/components/auth';
 import { LineItemActionsEnum } from '@/lib/enums/permissions';
 import { useValidationSettingStore } from '@/app/(dashboard)/lead-validation-settings/store';
@@ -39,6 +41,7 @@ export const RuleContainer = ({
   const [isLoading, setIsLoading] = useState(false);
   const [activeRuleName, setActiveRuleName] = useState('');
   const [copiedCount, setCopiedCount] = useState<number | null>(null);
+  const queryClient = useQueryClient();
 
   const configRuleName = VALIDATION_LABEL_MAP[ruleName] || ruleName;
 
@@ -239,8 +242,7 @@ export const RuleContainer = ({
         });
 
         // Refresh the validation settings data
-        const { fetchConfiguration } = useValidationSettingStore.getState();
-        await fetchConfiguration();
+        await queryClient.invalidateQueries({ queryKey: queryKeys.validationSettings.all });
 
         setIsDrawerOpen(false);
         setIsLoading(false);
@@ -299,8 +301,7 @@ export const RuleContainer = ({
         });
 
         // Refresh the validation settings data
-        const { fetchConfiguration } = useValidationSettingStore.getState();
-        await fetchConfiguration();
+        await queryClient.invalidateQueries({ queryKey: queryKeys.validationSettings.all });
 
         setIsDrawerOpen(false);
         setIsLoading(false);
@@ -365,8 +366,7 @@ export const RuleContainer = ({
       });
 
       // Refresh the validation settings data
-      const { fetchConfiguration } = useValidationSettingStore.getState();
-      await fetchConfiguration();
+      await queryClient.invalidateQueries({ queryKey: queryKeys.validationSettings.all });
 
       setIsDrawerOpen(false);
     } catch (error) {

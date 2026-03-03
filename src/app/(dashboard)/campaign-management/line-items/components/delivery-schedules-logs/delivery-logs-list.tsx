@@ -5,17 +5,16 @@ import { TableProps } from '@/lib/types/uicomponents';
 import { createColumn } from '@/lib/utils/table/create-columns';
 import { Tag, Text, Spin } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
-import { useDeliveryLogsStore } from './use-delivery-logs-store';
 import { DeliveryLog } from '../../services/fetch-delivery-logs';
 import styles from './delivery-logs-list.module.css';
 
 interface DeliveryLogsListProps {
   scheduleId: string | null;
+  logs: DeliveryLog[];
+  isLoading: boolean;
 }
 
-export const DeliveryLogsList = ({ scheduleId }: DeliveryLogsListProps) => {
-  const { logs, isLoading } = useDeliveryLogsStore();
-
+export const DeliveryLogsList = ({ scheduleId, logs, isLoading }: DeliveryLogsListProps) => {
   if (!scheduleId) {
     return (
       <Flex justify='center' align='center' className={styles.noDataContainer}>

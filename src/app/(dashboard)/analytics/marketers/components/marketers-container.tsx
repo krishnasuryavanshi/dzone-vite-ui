@@ -1,15 +1,12 @@
 
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { MarketerFilterDropdowns } from './filter-manager/marketer-filter-dropdowns';
 import { Col, Row } from '@/uicomponents/layout/grid';
 import { MarketerCard } from './cards/marketer-card';
 import { ChartsContainer } from './marketer-charts-container';
 import './marketer-container.scss';
 import { MarketersGrids } from './marketers-grid/marketers-grid';
-import { showNotification } from '@/services/notification';
-import { fetchMarketerDashboardData } from '../../supplier/services/fetch-marketer-dashboard-data';
-import { fetchMarketerMasterFilterList } from '../../supplier/services/fetch-marketer-master-filter';
 import {
   buildCampaignData,
   buildLineItemData,
@@ -23,6 +20,8 @@ import {
 } from '@/app/(dashboard)/analytics/store/filter-dashboard-store/use-filter-dashboard-store';
 import { Skeleton } from '@/uicomponents/layout/skeleton';
 import { Button } from '@/uicomponents/button';
+import { useMarketerMasterFilterQuery, useMarketerDashboardQuery } from '../hooks';
+
 interface IMarketerProps {
   data?: string;
 }
@@ -62,137 +61,105 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
   const setReturnReasonData = useFilterDashboardStore(
     (state: FilterState) => state.setReturnReasonData,
   );
-  const [loading, setLoading] = useState<boolean>(true);
   const [filteredData, setFilteredData] = useState<any>(null);
-  const [campaignList, setCompaignList] = useState<any>([]);
-  const [supplierList, setSupplierList] = useState<any>([]);
-  const [lineItemList, setLineItemList] = useState<any[]>([]);
-  const [marketerList, setMarketerList] = useState<any[]>([]);
-  const [marketerCode, setMarketerCode] = useState<string[]>([]);
   const [riskCount, setRiskCount] = useState<{
     atRiskToLaunch: number;
     atRiskToDeliver: number;
   }>({ atRiskToLaunch: 0, atRiskToDeliver: 0 });
-  const [dashboardData, setDashboardData] = useState<any>([]);
-  const [tableData, setTableData] = useState<any[]>([]);
 
   const handleSelection = (data: any) => {
     // Removed console.log to fix lint error
   };
 
-  const setMarketerCodeData = (data: marketerMasterFilterList[]) => {
-    let marketerCodes: string[] = [];
-    if (data?.length > 0) {
-      data.forEach((item: marketerMasterFilterList) => {
-        if (!marketerCodes.includes(item.marketer_code)) {
-          marketerCodes.push(item.marketer_code);
-        }
-      });
-    }
-    setMarketerCode(marketerCodes);
-  };
+  // Master filter query
+  const { data: masterFilterData } = useMarketerMasterFilterQuery();
 
-  const getMarketerMasterFilterList = async () => {
-    try {
-      const data: marketerMasterFilterList[] =
-        await fetchMarketerMasterFilterList();
-      if (data?.length > 0) {
-        setMarketerCodeData(data);
-        setMarketerFilterData(data);
-        setCampaignFilterData(data);
-        setLineItemFilterData(data);
-        setSupplierFilterData(data);
-      } else {
-        setMarketerFilterData([]);
-        setCampaignFilterData([]);
-        setLineItemFilterData([]);
-        setSupplierFilterData([]);
+  const marketerCode = useMemo(() => {
+    if (!masterFilterData?.length) return [];
+    const codes: string[] = [];
+    masterFilterData.forEach((item: marketerMasterFilterList) => {
+      if (!codes.includes(item.marketer_code)) {
+        codes.push(item.marketer_code);
       }
-      setLoading(false);
-    } catch (err: any) {
-      setLoading(false);
-      showNotification({
-        message: err.message || 'Failed to fetch Marketer Master Filter List',
-        type: 'error',
-      });
-    }
-  };
+    });
+    return codes;
+  }, [masterFilterData]);
 
-  const setCampaignFilterData = (data: any) => {
-    try {
-      // Convert Map values to array
-      const campaignData = buildCampaignData(data);
-      if (campaignData.length > 0) {
-        // Sort by label (supplier_name) for better usability
-        campaignData.sort((a, b) => a.label.localeCompare(b.label));
-        setCompaignList(campaignData);
-      } else {
-        setCompaignList([]);
-      }
-    } catch (error: any) {
-      showNotification({
-        message: error.message || 'Failed to fetch data',
-        type: 'error',
-      });
-    }
-  };
+  const marketerList = useMemo(() => {
+    if (!masterFilterData?.length) return [];
+    const items = buildMarketerData(masterFilterData);
+    items.sort((a, b) => a.label.localeCompare(b.label));
+    return items;
+  }, [masterFilterData]);
 
-  const setLineItemFilterData = (data: any) => {
-    try {
-      // Convert Map values to array
-      const lineItemsData = buildLineItemData(data);
-      if (lineItemsData.length > 0) {
-        // Sort by label (supplier_name) for better usability
-        lineItemsData.sort((a, b) => a.label.localeCompare(b.label));
-        setLineItemList(lineItemsData);
-      } else {
-        setLineItemList([]);
-      }
-    } catch (error: any) {
-      showNotification({
-        message: error.message || 'Failed to fetch data',
-        type: 'error',
-      });
-    }
-  };
+  const campaignList = useMemo(() => {
+    if (!masterFilterData?.length) return [];
+    const items = buildCampaignData(masterFilterData);
+    items.sort((a, b) => a.label.localeCompare(b.label));
+    return items;
+  }, [masterFilterData]);
 
-  const setMarketerFilterData = (data: any) => {
-    try {
-      // Convert Map values to array
-      const marketerData = buildMarketerData(data);
-      if (marketerData.length > 0) {
-        // Sort by label (marketer_name) for better usability
-        marketerData.sort((a, b) => a.label.localeCompare(b.label));
-        setMarketerList(marketerData);
-      } else {
-        setMarketerList([]);
-      }
-    } catch (error: any) {
-      showNotification({
-        message: error.message || 'Failed to fetch data',
-        type: 'error',
-      });
-    }
-  };
+  const lineItemList = useMemo(() => {
+    if (!masterFilterData?.length) return [];
+    const items = buildLineItemData(masterFilterData);
+    items.sort((a, b) => a.label.localeCompare(b.label));
+    return items;
+  }, [masterFilterData]);
 
-  const setSupplierFilterData = (data: any) => {
-    try {
-      // Convert Map values to array
-      const supplierData = buildSupplierData(data);
-      if (supplierData.length > 0) {
-        // Sort by label (supplier_name) for better usability
-        supplierData.sort((a, b) => a.label.localeCompare(b.label));
-        setSupplierList(supplierData);
-      } else {
-        setSupplierList([]);
+  const supplierList = useMemo(() => {
+    if (!masterFilterData?.length) return [];
+    const items = buildSupplierData(masterFilterData);
+    items.sort((a, b) => a.label.localeCompare(b.label));
+    return items;
+  }, [masterFilterData]);
+
+  // Dashboard data query
+  const dashboardParams = useMemo(
+    () => ({
+      startDate: filterValues?.dateRange?.startDate,
+      endDate: filterValues?.dateRange?.endDate,
+      campaignList: filterValues?.selectedCompaigns,
+      supplierList: filterValues?.selectedSuppliers,
+      lineItemList: filterValues?.selectedLineItems,
+      tenantCodes: filterValues?.selectedMarketers?.length
+        ? filterValues?.selectedMarketers
+        : marketerCode,
+    }),
+    [
+      filterValues?.dateRange,
+      filterValues?.selectedSuppliers,
+      filterValues?.selectedCompaigns,
+      filterValues?.selectedMarketers,
+      filterValues?.selectedLineItems,
+      marketerCode,
+    ],
+  );
+
+  const hasMarketerCodes = marketerCode.length > 0;
+  const { data: dashboardData, isLoading: loading } =
+    useMarketerDashboardQuery(dashboardParams, hasMarketerCodes);
+
+  const tableData = useMemo(() => {
+    if (!dashboardData?.at_risk) return [];
+    return dashboardData.at_risk.map((item: any) => {
+      let atRiskReason = '';
+      if (
+        item?.at_risk_reason_to_launch &&
+        item?.at_risk_to_deliver &&
+        item?.at_risk_to_deliver !== '%'
+      ) {
+        atRiskReason = `${MISSED_START_DATE}/ ${UNDER_DELIVERING}`;
+      } else if (item?.at_risk_reason_to_launch) {
+        atRiskReason = MISSED_START_DATE;
+      } else if (
+        item?.at_risk_to_deliver &&
+        item?.at_risk_to_deliver !== '%'
+      ) {
+        atRiskReason = UNDER_DELIVERING;
       }
-    } catch (error: any) {
-      showNotification({
-        message: error.message || 'Failed to fetch data',
-        type: 'error',
-      });
-    }
-  };
+      return { ...item, at_risk_reason: atRiskReason };
+    });
+  }, [dashboardData]);
 
   const setPieData = (filtered: any) => {
     let returnReason = [];
@@ -207,52 +174,42 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
     setReturnReasonData(returnReason);
   };
 
-  const getMarketerData = async ({ ...props }) => {
-    // Simulate an API call to fetch marketer data
-    setLoading(true);
-    try {
-      const data = await fetchMarketerDashboardData({ ...props });
-      const marketerDashboardData: any = data;
-      if (marketerDashboardData) {
-        setDashboardData(marketerDashboardData);
-        const tableData = marketerDashboardData?.at_risk?.map((item: any) => {
-          let atRiskReason = '';
-          if (
-            item?.at_risk_reason_to_launch &&
-            item?.at_risk_to_deliver &&
-            item?.at_risk_to_deliver !== '%'
-          ) {
-            atRiskReason = `${MISSED_START_DATE}/ ${UNDER_DELIVERING}`;
-          } else if (item?.at_risk_reason_to_launch) {
-            atRiskReason = MISSED_START_DATE;
-          } else if (
-            item?.at_risk_to_deliver &&
-            item?.at_risk_to_deliver !== '%'
-          ) {
-            atRiskReason = UNDER_DELIVERING;
-          }
-          return { ...item, at_risk_reason: atRiskReason };
-        });
-        setTableData(tableData);
-        setFilteredData(tableData);
-        setPieData(marketerDashboardData.return_reason_breakdown);
-      } else {
-        setDashboardData(null);
-        setFilteredData(null);
-        setPieData(null);
-      }
-      setLoading(false);
-    } catch (error: any) {
-      showNotification({
-        message: error.message || 'Failed to fetch data',
-        type: 'error',
-      });
-      setLoading(false);
-      setDashboardData(null);
+  // Sync chart data when dashboard data arrives
+  useEffect(() => {
+    if (dashboardData) {
+      setFilteredData(tableData);
+      setPieData(dashboardData.return_reason_breakdown);
+    } else if (dashboardData === null) {
       setFilteredData(null);
       setPieData(null);
     }
-  };
+  }, [dashboardData, tableData]);
+
+  useEffect(() => {
+    if (
+      !filterValues?.dateRange?.startDate &&
+      !filterValues?.dateRange?.endDate &&
+      filterValues?.selectedCompaigns?.length === 0 &&
+      filterValues?.selectedSuppliers?.length === 0 &&
+      filterValues?.selectedMarketers?.length === 0 &&
+      filterValues?.selectedLineItems?.length === 0
+    ) {
+      setPieData(dashboardData?.return_reason_breakdown);
+      setFilteredData(tableData);
+      return;
+    }
+
+    if (filterValues?.reset) {
+      setPieData(dashboardData?.return_reason_breakdown);
+      setFilteredData(tableData);
+    }
+  }, [filterValues]);
+
+  useEffect(() => {
+    if (topReason) {
+      setPieData(filteredData);
+    }
+  }, [topReason]);
 
   const getAtRiskCounts = () => {
     let atRiskToLaunchCount = 0;
@@ -269,6 +226,11 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
       atRiskToDeliver: atRiskToDeliverCount,
     });
   };
+
+  useEffect(() => {
+    getAtRiskCounts();
+  }, [tableData]);
+
   const filterTableDataByAtRisk = (type: string) => {
     if (type === 'atRiskToLaunch') {
       const atRiskFilteredData = tableData?.filter((item: any) => {
@@ -287,80 +249,6 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
     setFilteredData(tableData);
   };
 
-  useEffect(() => {
-    if (
-      !filterValues?.dateRange?.startDate &&
-      !filterValues?.dateRange?.endDate &&
-      filterValues?.selectedCompaigns?.length === 0 &&
-      filterValues?.selectedSuppliers?.length === 0 &&
-      filterValues?.selectedMarketers?.length === 0 &&
-      filterValues?.selectedLineItems?.length === 0
-    ) {
-      setPieData(dashboardData?.return_reason_breakdown);
-      setFilteredData(tableData);
-      return;
-    }
-
-    if (filterValues?.reset) {
-      setPieData(dashboardData.return_reason_breakdown);
-      setFilteredData(tableData);
-    }
-  }, [filterValues]);
-  // Date range filter
-  useEffect(() => {
-    if (
-      filterValues?.dateRange?.startDate &&
-      filterValues?.dateRange?.endDate &&
-      marketerCode.length > 0
-    ) {
-      getMarketerData({
-        startDate: filterValues?.dateRange?.startDate,
-        endDate: filterValues?.dateRange?.endDate,
-        campaignList: filterValues?.selectedCompaigns,
-        supplierList: filterValues?.selectedSuppliers,
-        lineItemList: filterValues?.selectedLineItems,
-        tenantCodes: filterValues?.selectedMarketers?.length
-          ? filterValues?.selectedMarketers
-          : marketerCode,
-      });
-    }
-  }, [
-    filterValues?.dateRange,
-    filterValues?.selectedSuppliers,
-    filterValues?.selectedCompaigns,
-    filterValues?.selectedMarketers,
-    filterValues?.selectedLineItems,
-  ]);
-
-  useEffect(() => {
-    if (topReason) {
-      setPieData(filteredData);
-    }
-  }, [topReason]);
-
-  useEffect(() => {
-    getAtRiskCounts();
-  }, [tableData]);
-
-  useEffect(() => {
-    if (marketerCode?.length > 0) {
-      getMarketerData({
-        startDate: filterValues?.dateRange?.startDate,
-        endDate: filterValues?.dateRange?.endDate,
-        campaignList: filterValues?.selectedCompaigns,
-        supplierList: filterValues?.selectedSuppliers,
-        lineItemList: filterValues?.selectedLineItems,
-        tenantCodes: filterValues?.selectedMarketers?.length
-          ? filterValues?.selectedMarketers
-          : marketerCode,
-      });
-    }
-  }, [marketerCode]);
-
-  useEffect(() => {
-    getMarketerMasterFilterList();
-  }, []);
-
   return (
     <DzBox className='dz-page-content dashboard-container'>
       <DzScrollContainer vertical>
@@ -377,18 +265,8 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
             allComparison={allComparison}
             activeTab={activeTab}
             onRefresh={(filters) => {
-              getMarketerData({
-                startDate: filters?.dateRange?.startDate,
-                endDate: filters?.dateRange?.endDate,
-                campaignList: filters?.selectedCompaigns,
-                supplierList: filters?.selectedSuppliers,
-                lineItemList: filters?.selectedLineItems,
-                marketerList: filters?.selectedMarketers,
-                tenantCodes:
-                  filters?.selectedMarketers?.length > 0
-                    ? filters?.selectedMarketers
-                    : marketerList.map((item: any) => item.key),
-              });
+              // Query will auto-refetch when filter values in the store change
+              // This callback is kept for compatibility with the filter dropdown component
             }}
           />
         </DzScrollContainer.Sticky>

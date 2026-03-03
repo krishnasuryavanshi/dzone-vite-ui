@@ -5,6 +5,8 @@ import { Flex } from '@/uicomponents/layout';
 import { Link } from '@/uicomponents/link';
 import { Switch } from '@/uicomponents/switch';
 import { useEffect, useState } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 import { IAction, IGroupPermissions, IPermission } from '../../../lib/types';
 import { MessageDetails } from '../../../lib/utils';
 import {
@@ -20,6 +22,7 @@ import {
   useSelectedActionsStore,
   useSelectedPermissionsStore,
 } from '../../../stores';
+import { fetchPermissionsByActionId } from '../../../services';
 import { PermissionsDrawer } from '../permission-drawer';
 
 interface IActionItemProps {
@@ -34,8 +37,9 @@ export const ActionItem = ({ action, isLast }: IActionItemProps) => {
     useSelectedActionsStore();
   const { setSelectedPermissions, selectedPermissions } =
     useSelectedPermissionsStore();
-  const { allPermissions, fetchAllPermissions } = usePermissionsStore();
+  const { allPermissions, setPermissions } = usePermissionsStore();
   const { dependantActions } = useDependanciesStore();
+  const queryClient = useQueryClient();
 
   const [isChecked, setIsChecked] = useState(false);
   const [isParentActionsChecked, setIsParentActionsChecked] = useState(false);
@@ -84,17 +88,42 @@ export const ActionItem = ({ action, isLast }: IActionItemProps) => {
   const actionEnumKey = getActionsEnumKey(action.value);
   const message = MessageDetails[moduleEnumKey!]?.[actionEnumKey];
 
+  const fetchAndStorePermissions = async () => {
+    const data = await queryClient.fetchQuery({
+      queryKey: queryKeys.roles.permissionsByAction(action.id, selectedModuleId as string),
+      queryFn: async () => {
+        const response = await fetchPermissionsByActionId(action.id, selectedModuleId as string);
+        if (response.isError) throw new Error('Failed to fetch permissions');
+
+        const permissionDependencies: Record<string, string[]> = {};
+        response.data.forEach((group: IGroupPermissions) => {
+          group.attributes.forEach((permission: IPermission) => {
+            permission.actionsMapping = {
+              parentAction: action.dependsOnAction,
+              childrenActions: action.children,
+            };
+            if (permission?.children?.length) {
+              permissionDependencies[permission.id] = permission.children;
+            }
+          });
+        });
+
+        useDependanciesStore.getState().setDependantPermissions(permissionDependencies);
+        return response.data as IGroupPermissions[];
+      },
+      staleTime: 30 * 60 * 1000,
+    });
+
+    setPermissions(action.id, data);
+    return data;
+  };
+
   const onCheckedChange = async (isChecked: boolean) => {
     setIsLoading(true);
     try {
       if (isChecked) {
         setSelectedAction(selectedModuleId as string, action.id);
-        const permissions = await fetchAllPermissions(
-          action.id,
-          selectedModuleId as string,
-          action.dependsOnAction,
-          action.children,
-        );
+        const permissions = await fetchAndStorePermissions();
         const permissionIds = permissions.flatMap((group: IGroupPermissions) =>
           group.attributes
             .filter((perm: IPermission) => {

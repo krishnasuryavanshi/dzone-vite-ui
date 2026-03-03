@@ -1,15 +1,8 @@
 import { Translate } from '@/components/i18n';
 import { Button } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
-import React, { FC, useEffect, useState } from 'react';
-import { useDashboardReportStore } from '../../store/use-dashboard-report-store';
-import {
-  BillingReportType,
-  ExecutiveReportType,
-  PerformanceCountsType,
-  ReachReportType,
-  ReportType,
-} from '../../lib/enums';
+import React, { FC } from 'react';
+import { useIsFetching } from '@tanstack/react-query';
 
 interface IFilterActionsProps {
   reset?: () => void;
@@ -22,31 +15,8 @@ export const FilterActions: FC<IFilterActionsProps> = ({
   submit,
   activeTab,
 }) => {
-  const progress = useDashboardReportStore((s) => s.progress);
-
-  const [loading, setLoading] = useState(true);
-
-  const isReportTypeKey = (key: string): boolean => {
-    switch (activeTab) {
-      case ReportType.Executive:
-        return (Object.values(ExecutiveReportType) as string[]).includes(key);
-      case ReportType.Performance:
-        return (Object.values(PerformanceCountsType) as string[]).includes(key);
-      case ReportType.Billing:
-        return (Object.values(BillingReportType) as string[]).includes(key);
-      case ReportType.Reach:
-        return (Object.values(ReachReportType) as string[]).includes(key);
-      default:
-        return false;
-    }
-  };
-
-  useEffect(() => {
-    const isLoading = Object.keys(progress)
-      .filter((key) => isReportTypeKey(key))
-      .some((key) => progress[key] === 'loading');
-    setLoading(isLoading);
-  }, [progress, activeTab]);
+  const fetchingCount = useIsFetching({ queryKey: ['dashboard'] });
+  const loading = fetchingCount > 0;
 
   return (
     <Flex

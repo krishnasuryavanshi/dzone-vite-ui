@@ -1,15 +1,15 @@
 
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { SimplePagination } from '@/uicomponents';
-import { FC, useEffect, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { ILead } from '../lib/types';
-import { fetchLeadsList } from '../services';
 import { LeadsFiltersManager } from './leads-filters-manager';
 import { LeadsList } from './leads-list';
 import { Filters } from '@/lib/utils/table';
 import { isEmpty } from 'lodash';
 import { useSearchParams } from '@/lib/hooks/use-router';
-import { useLeadsStore } from '../../line-items/store';
+import { useLeadsListQuery } from '../hooks/use-leads-list-query';
+
 interface IleadsContainerProps {
   batchId?: string;
 }
@@ -18,39 +18,28 @@ export const LeadsContainer: FC<IleadsContainerProps> = ({ batchId }) => {
   const searchParams = useSearchParams();
   const lineItemId = searchParams.get('lineItemId');
   const tenantCode = searchParams.get('tenantCode') || '';
-  const leadsList = useLeadsStore((state) => state.leadsList);
-  const setLeadsList = useLeadsStore((state) => state.setLeadsList);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
-  const [totalRecords, setTotalRecords] = useState(0);
   const [filteredInfo, setFilteredInfo] = useState<Filters<ILead>>({});
   const [disableExportButton, setDisableExportButton] =
     useState<boolean>(false);
-  const [isSearchDisabled, setIsSearchDisabled] = useState<boolean>(false);
-  const [isFilterDisabled, setIsFilterDisabled] = useState<boolean>(false);
-  const [isRefreshDisabled, setIsRefreshDisabled] = useState<boolean>(false);
+  const [isSearchDisabled] = useState<boolean>(true);
+  const [isFilterDisabled] = useState<boolean>(true);
+  const [isRefreshDisabled] = useState<boolean>(true);
 
-  useEffect(() => {
-    setIsFilterDisabled(true);
-    setIsRefreshDisabled(true);
-    setIsSearchDisabled(true);
-  }, []);
-
-  useEffect(() => {
+  const extraParams = useMemo(() => {
     const nonEmptyKeys = Object.keys(filteredInfo)
       .filter(
         (key) => filteredInfo[key] !== null && filteredInfo[key] !== undefined,
       )
       .reduce(
         (acc, key) => {
-          // Handle sortBy and sortOrder arrays specially
           if (key === 'sortBy' || key === 'sortOrder') {
             const value = filteredInfo[key];
             acc[key] = Array.isArray(value) ? value[0] : value;
           } else {
             const value = filteredInfo[key];
-            // Handle date range objects (from DateTimeRangeFilter or DateRangeObjectFilter)
             if (
               Array.isArray(value) &&
               value.length > 0 &&
@@ -69,27 +58,25 @@ export const LeadsContainer: FC<IleadsContainerProps> = ({ batchId }) => {
         },
         {} as Record<string, any>,
       );
-    fetchData(currentPage - 1, pageSize, nonEmptyKeys);
-  }, [pageSize, currentPage, filteredInfo, lineItemId]);
+    return nonEmptyKeys;
+  }, [filteredInfo]);
 
-  const fetchData = async (
-    page: number,
-    size: number,
-    nonEmptyKeys: Record<string, any> = {},
-  ) => {
-    const data = await fetchLeadsList(
-      page,
-      size,
-      tenantCode,
-      lineItemId,
-      nonEmptyKeys,
-    );
-    if (data) {
-      setTotalRecords(data?.total);
-      setLeadsList(data.data);
-      setDisableExportButton(data?.data.length === 0);
-    }
-  };
+  const { data } = useLeadsListQuery(
+    currentPage - 1,
+    pageSize,
+    tenantCode,
+    lineItemId,
+    extraParams,
+    !!lineItemId,
+  );
+
+  const leadsList = data?.data ?? [];
+  const totalRecords = data?.total ?? 0;
+
+  // Update export button state based on data
+  useMemo(() => {
+    setDisableExportButton(leadsList.length === 0);
+  }, [leadsList.length]);
 
   const handlePaginationChange = (page: number, pageSize: number) => {
     setCurrentPage(page);

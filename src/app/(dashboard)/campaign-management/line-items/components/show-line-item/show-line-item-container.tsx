@@ -1,21 +1,16 @@
 
-import { DzBox, DzScrollContainer } from '@/components/layout/v1';
+import { DzScrollContainer } from '@/components/layout/v1';
 import { RestrictedAccessKeys } from '@/lib/enums';
 import { useRestrictedAccess } from '@/lib/hooks';
 import { Flex } from '@/uicomponents/layout';
-import { FC, PropsWithChildren, useEffect, useMemo, useState } from 'react';
+import { FC, PropsWithChildren, useEffect, useMemo } from 'react';
 import BasicDetails from '../../lib/schemas/basic-details.json';
 import CustomQuestions from '../../lib/schemas/custom-questions.json';
 import { useLineItemContextStore } from '../../store/use-line-item-context-store';
 import { LineItemSummaryViewFields } from '../../lib/constants';
 import { LineItemFields } from '../../lib/enums';
 import { ILineItem } from '../../lib/types';
-import { prepareViewData } from '../../lib/utils/prepare-view-data';
-import {
-  fetchFileDetails,
-  fetchMultipleFileDetails,
-} from '../../services';
-import { useLineItemDetailQuery } from '../../hooks';
+import { useLineItemDetailQuery, useLineItemAdditionalDetailsQuery } from '../../hooks';
 import { LeadsContainer } from '../leads-container';
 import { ShowLineItemBreadcrumb } from './../show-line-item-breadcrumb';
 import { ShowLineItemWrapper } from './show-line-item-wrapper';
@@ -44,57 +39,30 @@ export const ShowLineItemContainer: FC<IShowLineItemContainerProps> = ({
     RestrictedAccessKeys.CplFieldInLineItemDetails,
   );
 
+  const restrictedFields: (string | false)[] = useMemo(
+    () => [isTargetCplRestricted && LineItemFields.TargetCostPerLead],
+    [isTargetCplRestricted],
+  );
+
   const { data: lineItemResponse } = useLineItemDetailQuery(lineItemId);
 
-  const [lineItemDetails, setLineItemDetails] = useState<ILineItem>();
-  const [detailsSectionProps, setDetailsSectionProps] =
-    useState<IShowItemDetailsProps>({
-      pageLabel: 'pages.lineItems.label.lineItemDetails',
-      formConfig: [...BasicDetails],
-      summaryViewFields: LineItemSummaryViewFields,
-      updateUrl: 'edit',
-    } as IShowItemDetailsProps);
+  const { data: lineItemDetails } = useLineItemAdditionalDetailsQuery(
+    lineItemResponse?.data,
+    restrictedFields,
+    !!lineItemResponse?.data,
+  );
 
-  useEffect(() => {
-    if (lineItemResponse?.data) {
-      fetchAdditionalDetails(lineItemResponse.data);
-    }
-  }, [lineItemResponse]);
-
-  const fetchAdditionalDetails = async (lineItemData: any) => {
-    let assetFileIds = [];
-    if (lineItemData?.assetFileIds?.length > 0) {
-      const assetFileResponse = await fetchMultipleFileDetails(
-        lineItemData.assetFileIds,
-      );
-      assetFileIds = assetFileResponse?.data;
-    }
-    let deliveryTemplateDetails = {};
-    if (lineItemData?.deliveryTemplateId) {
-      const deliveryTemplateResponse = await fetchFileDetails(
-        lineItemData.deliveryTemplateId,
-      );
-      deliveryTemplateDetails = deliveryTemplateResponse;
-    }
-    const viewData = prepareViewData(lineItemData, {
-      restrictedFields: [
-        isTargetCplRestricted && LineItemFields.TargetCostPerLead,
-      ],
-    });
-
-    const updatedLineItemDetails = {
-      ...viewData,
-      assetFileIds: assetFileIds,
-      deliveryTemplateId: deliveryTemplateDetails,
-    };
-
-    setLineItemDetails(updatedLineItemDetails);
-
-    setDetailsSectionProps((prev) => ({
-      ...prev,
-      itemDetails: updatedLineItemDetails,
-    }));
-  };
+  const detailsSectionProps: IShowItemDetailsProps = useMemo(
+    () =>
+      ({
+        pageLabel: 'pages.lineItems.label.lineItemDetails',
+        formConfig: [...BasicDetails],
+        summaryViewFields: LineItemSummaryViewFields,
+        updateUrl: 'edit',
+        itemDetails: lineItemDetails,
+      }) as IShowItemDetailsProps,
+    [lineItemDetails],
+  );
 
   return (
     <>

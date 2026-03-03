@@ -1,7 +1,6 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { CreateOrganizationContainer } from './create-organization-container';
-import { IOrganization } from '../../lib/types';
-import { fetchOrganization } from '../../services';
+import { useOrganizationDetailQuery } from '../../hooks';
 
 interface IEditOrganizationContainerProps {
   organizationId?: string;
@@ -10,23 +9,12 @@ interface IEditOrganizationContainerProps {
 export const EditOrganizationContainer: FC<IEditOrganizationContainerProps> = ({
   organizationId,
 }) => {
-  const [organization, setOrganization] = React.useState<IOrganization | null>(
-    null,
+  const { data } = useOrganizationDetailQuery(
+    organizationId as string,
+    !!organizationId,
   );
-  useEffect(() => {
-    if (organizationId) {
-      fetchOrganizationDetails();
-    } else {
-      setOrganization(null);
-    }
-  }, [organizationId]);
+  const organization = data?.data ?? null;
 
-  const fetchOrganizationDetails = async () => {
-    try {
-      const { data } = await fetchOrganization(organizationId as string);
-      setOrganization(data);
-    } catch (error) {}
-  };
   if (!organization) {
     return null;
   }

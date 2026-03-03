@@ -6,6 +6,8 @@ import { Modal } from '@/uicomponents/modal';
 import { leadsStatusUpdate } from '../../services';
 import { useLeadsStore } from '../../store';
 import { DZONE_CLR_BLACK } from '@/lib/constants';
+import { useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 
 interface IArchiveLeadsProps {
   leadIds: number[];
@@ -20,8 +22,8 @@ export const ArchiveLeads: FC<IArchiveLeadsProps> = ({
   lineItemId,
   filteredInfo,
 }) => {
-  const fetchLeads = useLeadsStore((state) => state.fetchLeads);
   const setSelectedIds = useLeadsStore((state) => state.setSelectedIds);
+  const queryClient = useQueryClient();
   const [showModal, setShowModal] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
@@ -34,8 +36,8 @@ export const ArchiveLeads: FC<IArchiveLeadsProps> = ({
     }));
     try {
       await leadsStatusUpdate(leadUpdates, tenantCode);
-      // Refresh the leads list after archiving
-      await fetchLeads(tenantCode, lineItemId, filteredInfo);
+      // Invalidate leads queries to trigger refetch
+      queryClient.invalidateQueries({ queryKey: queryKeys.leads.lists() });
       setSelectedIds([]);
       setShowModal(false);
     } catch (e) {

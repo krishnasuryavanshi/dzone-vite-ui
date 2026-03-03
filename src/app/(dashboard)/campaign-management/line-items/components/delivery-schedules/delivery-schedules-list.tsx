@@ -11,10 +11,12 @@ import { showNotification } from '@/services';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from '@/lib/hooks/use-router';
 import {
-  fetchDeliverySchedules,
   updateDeliveryScheduleStatus,
   DeliverySchedule,
 } from '../../services';
+import { useDeliverySchedulesQuery } from '../../hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 import { DeliveryType } from '@/app/(dashboard)/integrations-hub/templates/lib/enums';
 import styles from './delivery-schedules-list.module.css';
 
@@ -32,34 +34,27 @@ export const DeliverySchedulesList: React.FC<DeliverySchedulesListProps> = ({
   onEditSchedule,
 }) => {
   const router = useRouter();
-  const [schedules, setSchedules] = useState<DeliverySchedule[]>([]);
-  const [loading, setLoading] = useState(true);
+  const queryClient = useQueryClient();
   const [updating, setUpdating] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (lineItemId) {
-      loadSchedules();
-    }
-  }, [lineItemId, refreshTrigger]);
+  const { data, isLoading: loading } = useDeliverySchedulesQuery(lineItemId);
+  const schedules = data?.data ?? [];
 
-  const loadSchedules = async () => {
-    try {
-      setLoading(true);
-      const response = await fetchDeliverySchedules(lineItemId);
-      if (response) {
-        const { data, total } = response;
-        setSchedules(data || []);
-        // Notify parent component of the count
-        if (onSchedulesLoaded) {
-          onSchedulesLoaded(total || data?.length || 0);
-        }
-      }
-    } catch (err) {
-      // Error is handled by authenticatedRequest
-    } finally {
-      setLoading(false);
+  // Notify parent of schedule count when data changes
+  useEffect(() => {
+    if (data && onSchedulesLoaded) {
+      onSchedulesLoaded(data.total || data.data?.length || 0);
     }
-  };
+  }, [data]);
+
+  // Invalidate query when refreshTrigger changes
+  useEffect(() => {
+    if (refreshTrigger && lineItemId) {
+      queryClient.invalidateQueries({
+        queryKey: queryKeys.deliverySchedules.list(lineItemId),
+      });
+    }
+  }, [refreshTrigger]);
 
   const handleStatusChange = async (
     scheduleId: string,
@@ -73,7 +68,9 @@ export const DeliverySchedulesList: React.FC<DeliverySchedulesListProps> = ({
           type: 'success',
           message: `Schedule ${newStatus.toLowerCase()} successfully`,
         });
-        await loadSchedules();
+        queryClient.invalidateQueries({
+          queryKey: queryKeys.deliverySchedules.list(lineItemId),
+        });
       } else {
         showNotification({
           type: 'error',

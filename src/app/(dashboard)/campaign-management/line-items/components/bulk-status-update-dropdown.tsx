@@ -5,6 +5,8 @@ import { DzRadioDropdown } from '@/components/shared/custom/dz-radio-dropdown';
 import { leadsStatusUpdate } from '../services';
 import { showNotification } from '@/services/notification';
 import { useLeadsStore } from '../store';
+import { useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 
 interface IBulkStatusUpdateDropdownProps {
   disabled?: boolean;
@@ -26,8 +28,8 @@ export const BulkStatusUpdateDropdown: FC<IBulkStatusUpdateDropdownProps> = ({
   lineItemId,
   filteredInfo,
 }) => {
-  const fetchLeadsFromStore = useLeadsStore((state) => state.fetchLeads);
   const setSelectedIds = useLeadsStore((state) => state.setSelectedIds);
+  const queryClient = useQueryClient();
   const [options, setOptions] = useState<Option[]>([]);
   const [selected, setSelected] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
@@ -67,8 +69,8 @@ export const BulkStatusUpdateDropdown: FC<IBulkStatusUpdateDropdownProps> = ({
     try {
       const response = await leadsStatusUpdate(leadUpdates, tenantCode);
       if (response) {
-        // Refresh the leads list after status update
-        await fetchLeadsFromStore(tenantCode, lineItemId, filteredInfo);
+        // Invalidate leads queries to trigger refetch
+        queryClient.invalidateQueries({ queryKey: queryKeys.leads.lists() });
         setSelectedIds([]);
         showNotification({ message: response.message });
       }

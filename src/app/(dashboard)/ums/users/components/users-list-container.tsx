@@ -10,26 +10,24 @@ import { Modal } from '@/uicomponents/modal';
 import { Text } from '@/uicomponents/text';
 import { useEffect, useState } from 'react';
 import { IUser } from '../lib/types';
-import {
-  activateUser,
-  adminResendSetPasswordLink,
-  deactivateUser,
-  fetchUsers,
-} from '../services';
+import { adminResendSetPasswordLink } from '../services';
+import { useUsersQuery } from '../hooks/use-users-query';
+import { useActivateUserMutation } from '../hooks/use-activate-user-mutation';
+import { useDeactivateUserMutation } from '../hooks/use-deactivate-user-mutation';
 import { CreateNewUser } from './create-new-user';
 import { UsersTitle } from './users-title';
 import { UsersList } from './users-list';
 import { Filters } from '@/lib/utils/table';
 import { Flex } from '@/uicomponents/layout';
+import { useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 
 export const UsersListContainer = () => {
-  const [users, setUsers] = useState<IUser[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(25);
-  const [totalRecords, setTotalRecords] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [modal, contextHolder] = Modal.useModal();
   const [filteredInfo, setFilteredInfo] = useState<Filters<IUser>>({});
+  const queryClient = useQueryClient();
 
   const { queryState, setQueryState } = useQueryState();
 
@@ -38,16 +36,34 @@ export const UsersListContainer = () => {
     ? decodeURIComponent(queryState.orgName as string)
     : undefined;
 
+  const roleId = queryState?.roleId as string | undefined;
+  const username = (filteredInfo?.username?.[0] || '') as string;
+  const hasValidPagination = currentPage > 0 && pageSize > 0;
+
+  const { data, isLoading } = useUsersQuery(
+    currentPage - 1,
+    pageSize,
+    roleId,
+    username,
+    org,
+    hasValidPagination,
+  );
+
+  const users = (data?.data ?? []).map((user: IUser) => ({ ...user, key: user.id }));
+  const totalRecords = data?.total ?? 0;
+
+  const activateUserMutation = useActivateUserMutation();
+  const deactivateUserMutation = useDeactivateUserMutation();
+
   useEffect(() => {
     if (queryState) {
-      let { page, pageSize, roleId } = queryState;
+      let { page, pageSize } = queryState;
       const pageNo = Number(page);
       const size = Number(pageSize);
 
       if (pageNo && size) {
         setCurrentPage(pageNo);
         setPageSize(size);
-        fetchUsersList(pageNo, size, roleId, org);
       } else {
         setQueryState([
           { name: 'page', value: pageNo || 1 },
@@ -55,7 +71,7 @@ export const UsersListContainer = () => {
         ]);
       }
     }
-  }, [queryState, filteredInfo]);
+  }, [queryState]);
 
   const handlePageChange = (page: number, size: number) => {
     setQueryState([
@@ -81,62 +97,18 @@ export const UsersListContainer = () => {
       cancelText: 'Cancel',
       okButtonProps: { danger: true },
       onOk: () => {
-        deactivateUserRecord({ username } as IUser);
+        deactivateUserMutation.mutate(username);
       },
     });
   };
 
-  const fetchUsersList = async (
-    currentPage: number,
-    pageSize: number,
-    roleId?: string,
-    org?: string,
-  ) => {
-    setIsLoading(true);
-    const username = filteredInfo?.username?.[0] || '';
-    const { data, total } = await fetchUsers(
-      currentPage - 1,
-      pageSize,
-      roleId,
-      username as string,
-      org,
-    );
-    setUsers(data.map((user: IUser) => ({ ...user, key: user.id })));
-    setTotalRecords(total);
-    setIsLoading(false);
-  };
-
   const toggleStatus = (user: IUser) => {
     const status = user.status;
-    try {
-      if (status === 'Deactivated') {
-        activateUserRecord(user);
-      } else {
-        confirm(user.username);
-      }
-    } catch (error) {}
-  };
-
-  const activateUserRecord = async (user: IUser) => {
-    try {
-      const data = await activateUser(user.username);
-      showNotification({
-        type: 'success',
-        message: data?.message,
-      });
-      handleRefreshList(data?.data);
-    } catch (error) {}
-  };
-
-  const deactivateUserRecord = async (user: IUser) => {
-    try {
-      const data = await deactivateUser(user.username);
-      showNotification({
-        type: 'success',
-        message: data?.message,
-      });
-      handleRefreshList(data?.data);
-    } catch (error) {}
+    if (status === 'Deactivated') {
+      activateUserMutation.mutate(user.username);
+    } else {
+      confirm(user.username);
+    }
   };
 
   const resendSetPasswordLink = async (user: IUser) => {
@@ -146,21 +118,11 @@ export const UsersListContainer = () => {
         type: 'success',
         message: data?.message,
       });
-      handleRefreshList(data?.data);
+      queryClient.invalidateQueries({ queryKey: queryKeys.users.lists() });
     } catch (error) {}
   };
 
-  const handleRefreshList = (user: IUser) => {
-    const usersList = [...users];
-    const index = usersList.findIndex((u) => u.id === user.id);
-    if (index !== -1) {
-      usersList[index] = { ...usersList[index], ...user };
-    }
-    setUsers(usersList);
-  };
-
   const handleFiltersChange = (filters: Record<string, any> = {}) => {
-    // filter out the falsy value keys
     const filteredKeys = Object.keys(filters).reduce(
       (acc, key) => {
         if (filters[key]) {
@@ -174,7 +136,7 @@ export const UsersListContainer = () => {
     handlePageChange(1, pageSize);
   };
 
-  if (isLoading) return <ScreenLoader />;
+  if (isLoading && !data) return <ScreenLoader />;
 
   return (
     <>

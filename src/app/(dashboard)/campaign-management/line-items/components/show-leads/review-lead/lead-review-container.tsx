@@ -1,21 +1,15 @@
 import { LeadValidationStatus } from '@/app/(dashboard)/campaign-management/leads/lib/enums';
 import { ILead } from '@/app/(dashboard)/campaign-management/leads/lib/types';
-import { usePolling } from '@/lib/hooks';
 import { getDeltaOfObjects, hasUnsavedChanges } from '@/lib/utils';
 import { showNotification } from '@/services/notification';
 import { LoadingOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import {
   LEAD_IN_VALIDATION_ERROR_MESSAGE,
   LEAD_VALIDATION_SKIPPED_DUE_TO_NO_CHANGES,
 } from '../../../../lib/constants';
-import {
-  fetchLeadDetailsById,
-  fetchLeadReviewFormConfig,
-  fetchReviewLeadsList,
-  updateLeadDetails,
-} from '../../../services';
+import { updateLeadDetails } from '../../../services';
 import { LeadInfo } from './lead-info';
 import { LeadMeta } from './lead-meta';
 import { Navigation } from './navigation';
@@ -25,6 +19,11 @@ import {
   formatDateFieldsForPayload,
 } from '../../../lib/utils';
 import { DzRecord } from '@/lib/types';
+import {
+  useLeadDetailQuery,
+  useLeadReviewFormConfigQuery,
+  useReviewLeadsListQuery,
+} from '../../../hooks';
 
 interface ILeadReviewContainerProps {
   show: boolean;
@@ -40,8 +39,6 @@ export interface LeadError {
   message: string;
 }
 
-const PollingWaitTime = 15;
-
 export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
   show,
   selectedLeadTrackingId,
@@ -51,15 +48,10 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
   validationStatuses,
   tenantCode,
 }) => {
-  const { updatePollingDetails, stopPolling, startPolling, pollingResult } =
-    usePolling<{ leadValidationStatus: string }>();
-  const [leadTrackingIds, setLeadTrackingIds] = useState<string[]>([]);
-  const [leadIds, setLeadIds] = useState<number[]>([]);
   const [currentLeadTrackingId, setCurrentLeadTrackingId] =
     useState<string>('');
   const [currentLeadId, setCurrentLeadId] = useState<number>(0);
   const [currentLeadNumber, setCurrentLeadNumber] = useState(0);
-  const [leadDetails, setLeadDetails] = useState<ILead | null>(null);
   const [leadValidationStatus, setLeadValidationStatus] = useState<string>('');
   const [initialFormValue, setInitialFormValue] = useState<Record<string, any>>(
     {},
@@ -67,26 +59,72 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
   const [formValue, setFormValue] = useState<Record<string, any>>({});
   const [leadErrorMessages, setLeadErrorMessages] = useState<LeadError[]>([]);
   const [disableRevalidate, setDisableRevalidate] = useState(false);
-  const [leadReviewFormConfig, setLeadReviewFormConfig] = useState<DzRecord[]>(
-    [],
+
+  // Build filters for review leads list
+  const reviewFilters = useMemo(() => {
+    const filters: Record<string, any>[] = [];
+    if (leadStatuses.length > 0) {
+      filters.push({ key: 'leadStatus', value: leadStatuses });
+    }
+    if (validationStatuses.length > 0) {
+      filters.push({ key: 'leadValidationStatus', value: validationStatuses });
+    }
+    return filters;
+  }, [leadStatuses, validationStatuses]);
+
+  // TanStack Query: review leads list
+  const { data: reviewData } = useReviewLeadsListQuery(
+    lineItemId,
+    reviewFilters,
+    !!lineItemId,
   );
 
-  useEffect(() => {
-    fetchLeadTrackingIdsToReview();
-    fetchFormConfig();
-  }, []);
+  const leadTrackingIds = useMemo(
+    () => (reviewData?.data ?? []).map((item: { trackingId: string }) => item.trackingId),
+    [reviewData],
+  );
+  const leadIds = useMemo(
+    () => (reviewData?.data ?? []).map((item: { id: number }) => item.id),
+    [reviewData],
+  );
 
+  // Determine if polling is needed
+  const shouldPoll =
+    !!leadValidationStatus &&
+    [
+      LeadValidationStatus.NotStarted,
+      LeadValidationStatus.InValidation,
+      LeadValidationStatus.Scheduled,
+    ].includes(leadValidationStatus as LeadValidationStatus);
+
+  // TanStack Query: lead details with polling
+  const { data: leadDetails } = useLeadDetailQuery(
+    currentLeadId,
+    tenantCode,
+    !!currentLeadId,
+    { refetchInterval: shouldPoll ? 15000 : false },
+  );
+
+  // TanStack Query: form config
+  const { data: formConfigResult } = useLeadReviewFormConfigQuery(
+    'panel',
+    lineItemId,
+    !!lineItemId,
+  );
+  const leadReviewFormConfig: DzRecord[] = formConfigResult?.data ?? [];
+
+  // Sync lead details from query into local state
   useEffect(() => {
-    if (pollingResult) {
-      setLeadValidationStatus(pollingResult.leadValidationStatus);
-      handlePolling(pollingResult.leadValidationStatus);
+    if (leadDetails) {
+      setLeadValidationStatus(leadDetails.leadValidationStatus);
+      processValidationHistory(
+        leadDetails.leadValidationStatus,
+        leadDetails.validationHistory,
+      );
     }
-  }, [pollingResult]);
+  }, [leadDetails]);
 
-  useEffect(() => {
-    handlePolling(leadValidationStatus);
-  }, [leadValidationStatus]);
-
+  // Set current lead when selection or review list changes
   useEffect(() => {
     if (selectedLeadTrackingId && leadTrackingIds.length > 0) {
       setCurrentLeadTrackingId(selectedLeadTrackingId);
@@ -95,85 +133,10 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
     }
   }, [selectedLeadTrackingId, leadTrackingIds, leadIds, selectedCurrentLeadId]);
 
+  // Reset lead state when navigating to a new lead
   useEffect(() => {
-    setLeadDetails(null);
     setLeadValidationStatus('');
-    if (currentLeadId) {
-      fetchLeadDetails(currentLeadId, tenantCode);
-      updatePollingDetails({
-        pollWaitTime: PollingWaitTime,
-        pollFunction: refreshLeadValidationStatus,
-        pollFunctionArgs: { lineItemId, currentLeadId },
-      });
-    }
   }, [currentLeadTrackingId]);
-
-  const handlePolling = (leadValidationStatus: string) => {
-    if (
-      leadValidationStatus &&
-      [
-        LeadValidationStatus.NotStarted,
-        LeadValidationStatus.InValidation,
-        LeadValidationStatus.Scheduled,
-      ].includes(leadValidationStatus as LeadValidationStatus)
-    ) {
-      startPolling();
-    } else {
-      stopPolling();
-    }
-  };
-
-  const fetchLeadDetails = async (
-    currentLeadId: number,
-    tenantCode?: string,
-  ) => {
-    const leadData = await fetchLeadDetailsById(currentLeadId, tenantCode);
-    if (leadData) {
-      setLeadValidationStatus(leadData.leadValidationStatus);
-      setLeadDetails(leadData);
-      // Process validation history from the response
-      processValidationHistory(
-        leadData.leadValidationStatus,
-        leadData.validationHistory,
-      );
-    }
-  };
-
-  const refreshLeadValidationStatus = async (params: Record<string, any>) => {
-    const { currentLeadId } = params || {};
-    fetchLeadDetails(currentLeadId, tenantCode);
-  };
-
-  const fetchLeadTrackingIdsToReview = async () => {
-    const filters = [];
-    if (leadStatuses.length > 0) {
-      filters.push({
-        key: 'leadStatus',
-        value: leadStatuses,
-      });
-    }
-    if (validationStatuses.length > 0) {
-      filters.push({
-        key: 'leadValidationStatus',
-        value: validationStatuses,
-      });
-    }
-
-    const { data } = await fetchReviewLeadsList(lineItemId, filters);
-    const ids = data.map((item: { id: number }) => item.id);
-    const trackingIds = data.map(
-      (item: { trackingId: string }) => item.trackingId,
-    );
-    setLeadTrackingIds(trackingIds);
-    setLeadIds(ids);
-  };
-
-  const fetchFormConfig = async () => {
-    const { data } = await fetchLeadReviewFormConfig('panel', lineItemId);
-    if (data) {
-      setLeadReviewFormConfig(data);
-    }
-  };
 
   const handlePrevNavigation = () => {
     const newCurrentLeadNumber = currentLeadNumber - 1;
@@ -218,7 +181,6 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
         formValue,
       );
 
-      // Format date fields to strings before sending to API
       const formattedPayload = formatDateFieldsForPayload(
         leadDifferenceWithJobGroup,
         leadReviewFormConfig,
@@ -241,7 +203,6 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
     if (IGNORE_VALIDATION_ERRORS_STATUSES.includes(leadValidationStatus)) {
       return;
     }
-    // Process validation history data - flatten errors with multiple messages per field
     const errors: LeadError[] = [];
     if (Array.isArray(validationHistory)) {
       validationHistory.forEach(
@@ -271,7 +232,6 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
       );
       if (data) {
         setLeadValidationStatus(data.leadValidationStatus);
-        setLeadDetails(data);
         showNotification({
           message: 'Lead details updated successfully and being validated.',
           type: 'success',
@@ -321,7 +281,7 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
         />
       </LeadMeta>
       <LeadInfo
-        leadDetails={leadDetails}
+        leadDetails={leadDetails ?? null}
         updateInitialFormValue={updateInitialFormValues}
         handleFormValueChange={updateFormValues}
         leadErrorMessages={leadErrorMessages}

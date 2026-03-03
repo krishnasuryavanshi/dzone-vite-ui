@@ -1,10 +1,5 @@
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
-import {
-  fetchLeadValidationSettingMetadata,
-  fetchLineItemsLeadValidationSetting,
-  fetchMarketersLeadValidationSetting,
-} from '../services';
 import { DzRecord } from '@/lib/types';
 import { JobTitleTokenType } from '../../campaign-management/line-items/lib/enums';
 
@@ -22,10 +17,15 @@ interface Store {
   leadValidationSettingInfo: Record<string, string | null> | null;
   setLeadValidationSettingInfo: (
     leadValidationSettingInfo: Record<string, string | null> | null,
-  ) => void; // { tenantCode, lineItemId, leadValidationSettingId, name}
+  ) => void;
 
   leadValidationSettingConfig: DzRecord | null;
-  fetchConfiguration: () => Promise<void>;
+
+  processConfigurationResponse: (
+    response: DzRecord,
+    isEditing: boolean,
+    info: Record<string, string | null> | null,
+  ) => void;
 
   selectedValues: DzRecord;
   setSelectedValues: (sectionName: string, values: DzRecord) => void;
@@ -67,44 +67,16 @@ export const useValidationSettingStore = create<Store>()(
       leadValidationSettingInfo: Record<string, string | null> | null,
     ) => set({ leadValidationSettingInfo }),
 
-    fetchConfiguration: async () => {
-      const { isEditing, leadValidationSettingInfo } = get();
-      let response = null;
-      if (!isEditing) {
-        response = await fetchLeadValidationSettingMetadata();
-      } else {
-        if (!leadValidationSettingInfo) {
-          return;
-        }
-
-        if (
-          leadValidationSettingInfo.tenantCode &&
-          leadValidationSettingInfo.leadValidationSettingId &&
-          !leadValidationSettingInfo.lineItemId
-        ) {
-          response = await fetchMarketersLeadValidationSetting(
-            leadValidationSettingInfo.tenantCode,
-            leadValidationSettingInfo.leadValidationSettingId,
-          );
-        } else if (
-          !leadValidationSettingInfo.tenantCode &&
-          leadValidationSettingInfo.leadValidationSettingId &&
-          leadValidationSettingInfo.lineItemId
-        ) {
-          response = await fetchLineItemsLeadValidationSetting(
-            leadValidationSettingInfo.lineItemId,
-            leadValidationSettingInfo.leadValidationSettingId,
-          );
-        } else {
-          return;
-        }
-      }
-
+    processConfigurationResponse: (
+      response: DzRecord,
+      isEditing: boolean,
+      info: Record<string, string | null> | null,
+    ) => {
       if (response.isError) {
         return;
       }
 
-      const isReadOnly = leadValidationSettingInfo?.tenantCode === 'DEFAULT';
+      const isReadOnly = info?.tenantCode === 'DEFAULT';
 
       const rulesList = response.data.rules || [];
       const enabledRules: Record<string, boolean> = {};
@@ -155,15 +127,11 @@ export const useValidationSettingStore = create<Store>()(
         targetingSwitchFields,
       });
 
-      if (isEditing) {
-        if (!leadValidationSettingInfo) {
-          return;
-        }
-
+      if (isEditing && info) {
         if (
-          leadValidationSettingInfo.tenantCode &&
-          leadValidationSettingInfo.leadValidationSettingId &&
-          !leadValidationSettingInfo.lineItemId
+          info.tenantCode &&
+          info.leadValidationSettingId &&
+          !info.lineItemId
         ) {
           set({
             settingMetadata: {
@@ -174,16 +142,16 @@ export const useValidationSettingStore = create<Store>()(
             },
           });
         } else if (
-          !leadValidationSettingInfo.tenantCode &&
-          leadValidationSettingInfo.leadValidationSettingId &&
-          leadValidationSettingInfo.lineItemId
+          !info.tenantCode &&
+          info.leadValidationSettingId &&
+          info.lineItemId
         ) {
           set({
             settingMetadata: {
               name: response.data.name,
               tenantCode: response.data.tenantCode,
               id: response.data.id,
-              lineItemId: leadValidationSettingInfo.lineItemId,
+              lineItemId: info.lineItemId,
             },
           });
         }

@@ -1,16 +1,8 @@
 import { Button } from '@/uicomponents';
 import { DownloadOutlined, ReloadOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
-import React, { FC, useEffect, useState } from 'react';
-import { useDashboardReportStore } from '../../store/use-dashboard-report-store';
-
-import {
-  BillingReportType,
-  ExecutiveReportType,
-  PerformanceCountsType,
-  ReachReportType,
-  ReportType,
-} from '../../lib/enums';
+import React, { FC } from 'react';
+import { useIsFetching } from '@tanstack/react-query';
 import { HasPermission } from '@/components/auth';
 import { DashboardActionsEnum } from '@/lib/enums/permissions';
 
@@ -25,30 +17,8 @@ export const Actions: FC<IActionsProps> = ({
   activeTab,
   isDownloadDisabled,
 }) => {
-  const progress = useDashboardReportStore((s) => s.progress);
-  const [loading, setLoading] = useState(true);
-
-  const isReportTypeKey = (key: string): boolean => {
-    switch (activeTab) {
-      case ReportType.Executive:
-        return (Object.values(ExecutiveReportType) as string[]).includes(key);
-      case ReportType.Performance:
-        return (Object.values(PerformanceCountsType) as string[]).includes(key);
-      case ReportType.Billing:
-        return (Object.values(BillingReportType) as string[]).includes(key);
-      case ReportType.Reach:
-        return (Object.values(ReachReportType) as string[]).includes(key);
-      default:
-        return false;
-    }
-  };
-
-  useEffect(() => {
-    const isLoading = Object.keys(progress)
-      .filter((key) => isReportTypeKey(key))
-      .some((key) => progress[key] === 'loading');
-    setLoading(isLoading);
-  }, [progress, activeTab]);
+  const fetchingCount = useIsFetching({ queryKey: ['dashboard'] });
+  const loading = fetchingCount > 0;
 
   return (
     <Flex gap={'0.75rem'} justify='flex-end'>

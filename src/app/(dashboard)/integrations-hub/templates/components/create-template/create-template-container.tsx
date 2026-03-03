@@ -1,19 +1,16 @@
 
-import { DzRecord } from '@/lib/types';
 import { Flex } from '@/uicomponents/layout';
 import { Spin } from '@/uicomponents/spin';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { DeliveryType, TemplateStep } from '../../lib/enums';
-import {
-  fetchDestinationDropdownFields,
-  fetchHubspotFormFields,
-  fetchReservedDestinationNames,
-  fetchTemplateDetails,
-  fetchWebformFormFields,
-} from '../../services';
 import { useTemplateStore } from '../../stores';
 import { Step1Container } from './steps/step1-configuration';
 import { Step2Container } from './steps/step2-field-mapping';
+import {
+  useReservedNamesQuery,
+  useTemplateDetailQuery,
+  useDestinationFieldsQuery,
+} from '../../hooks';
 
 interface ICreateTemplateContainerProps {
   templateId?: string;
@@ -37,135 +34,72 @@ export const CreateTemplateContainer: FC<ICreateTemplateContainerProps> = ({
     fields,
   } = useTemplateStore();
 
-  const [isLoadingDropdownOptions, setIsLoadingDropdownOptions] =
-    useState(false);
+  // Fetch reserved names
+  const { data: reservedNamesData } = useReservedNamesQuery(true);
 
   useEffect(() => {
-    fetchReservedDestinationNameList();
-  }, []);
-
-  useEffect(() => {
-    if (templateId && existingTemplate) {
-      fetchTemplateData(templateId);
+    if (reservedNamesData?.data) {
+      updateReservedNames(
+        reservedNamesData.data.map(({ name }: { name: string }) => name),
+      );
     }
-  }, [templateId, existingTemplate]);
+  }, [reservedNamesData]);
 
-  // Fetch destination dropdown options and form fields for edit mode (HubSpot, WebForm, Zapier)
+  // Fetch template details for edit mode
+  const { data: templateDetailData } = useTemplateDetailQuery(
+    templateId ?? '',
+    !!templateId && existingTemplate,
+  );
+
   useEffect(() => {
-    if (
-      existingTemplate &&
-      updatedTemplateData?.deliveryType &&
-      updatedTemplateData.deliveryType !== DeliveryType.FLAT_FILE &&
-      updatedTemplateData.deliveryType !== DeliveryType.FTP &&
-      updatedTemplateData.integrationId
-    ) {
-      const fetchDropdownAndFormFields = async () => {
-        setIsLoadingDropdownOptions(true);
-        try {
-          const deliveryType = updatedTemplateData.deliveryType as string;
-          const integrationId = updatedTemplateData.integrationId as string;
-          const deliveryObjectId = updatedTemplateData.deliveryObject?.id;
+    if (templateDetailData?.data) {
+      setInitialTemplateData(templateDetailData.data, true);
+    }
+  }, [templateDetailData]);
 
-          // Fetch dropdown options (skip for Zapier "Zaps" type)
-          // Zaps type uses manual field entry like Flat File
-          if (
-            !(deliveryType === 'Zapier' && updatedTemplateData.type === 'Zaps')
-          ) {
-            const dropdownResponse = await fetchDestinationDropdownFields(
-              deliveryType,
-              integrationId,
-              deliveryObjectId,
-            );
+  // Determine if destination fields should be fetched
+  const shouldFetchDestinationFields =
+    existingTemplate &&
+    !!updatedTemplateData?.deliveryType &&
+    updatedTemplateData.deliveryType !== DeliveryType.FLAT_FILE &&
+    updatedTemplateData.deliveryType !== DeliveryType.FTP &&
+    !!updatedTemplateData.integrationId;
 
-            if (dropdownResponse?.data) {
-              const options = dropdownResponse.data.map(
-                (field: { value: string; name: string }) => ({
-                  label: field.name,
-                  value: field.value,
-                }),
-              );
-              updateFormFieldMappingOptions(options);
-            }
-          }
+  const { data: destinationFieldsData, isLoading: isLoadingDropdownOptions } =
+    useDestinationFieldsQuery(
+      (updatedTemplateData?.deliveryType as string) ?? '',
+      (updatedTemplateData?.integrationId as string) ?? '',
+      updatedTemplateData?.deliveryObject?.id,
+      updatedTemplateData?.type as string | undefined,
+      shouldFetchDestinationFields,
+    );
 
-          // Fetch form fields to get confidence values
-          let formFieldsResponse: DzRecord | null = null;
+  // Sync dropdown options and confidence values from destination fields query
+  useEffect(() => {
+    if (!destinationFieldsData) return;
 
-          if (deliveryType === 'HubSpot' && deliveryObjectId) {
-            formFieldsResponse = await fetchHubspotFormFields(
-              deliveryType,
-              integrationId,
-              deliveryObjectId,
-            );
-          } else if (deliveryType === 'WebForm') {
-            formFieldsResponse = await fetchWebformFormFields(
-              deliveryType,
-              integrationId,
-            );
-          } else if (deliveryType === 'Zapier') {
-            // For Zapier, only fetch form fields if it's NOT Zaps type
-            // Zaps type uses manual field entry like Flat File
-            if (
-              updatedTemplateData.type &&
-              updatedTemplateData.type !== 'Zaps'
-            ) {
-              formFieldsResponse = await fetchWebformFormFields(
-                deliveryType,
-                integrationId,
-              );
-            }
-          }
+    const { dropdownOptions, formFieldsData } = destinationFieldsData;
 
-          // Update fields with confidence values from form fields API
-          if (
-            formFieldsResponse?.data &&
-            Array.isArray(formFieldsResponse.data)
-          ) {
-            const confidenceMap = new Map<string, number>();
-            formFieldsResponse.data.forEach((field: DzRecord) => {
-              if (field.masterName && field.confidence !== undefined) {
-                confidenceMap.set(field.masterName, field.confidence);
-              }
-            });
+    if (dropdownOptions) {
+      updateFormFieldMappingOptions(dropdownOptions);
+    }
 
-            // Update each field's confidence value
-            fields.forEach((field, index) => {
-              const confidence = confidenceMap.get(field.source || field.name);
-              if (confidence !== undefined) {
-                updateFieldByIndex(index, { ...field, confidence }, true);
-              }
-            });
-          }
-        } catch (error) {
-          // Error fetching dropdown options or form fields
-        } finally {
-          setIsLoadingDropdownOptions(false);
+    if (formFieldsData) {
+      const confidenceMap = new Map<string, number>();
+      formFieldsData.forEach((field) => {
+        if (field.masterName && field.confidence !== undefined) {
+          confidenceMap.set(field.masterName, field.confidence);
         }
-      };
+      });
 
-      fetchDropdownAndFormFields();
+      fields.forEach((field, index) => {
+        const confidence = confidenceMap.get(field.source || field.name);
+        if (confidence !== undefined) {
+          updateFieldByIndex(index, { ...field, confidence }, true);
+        }
+      });
     }
-  }, [
-    existingTemplate,
-    updatedTemplateData?.deliveryType,
-    updatedTemplateData?.integrationId,
-  ]);
-
-  const fetchTemplateData = async (templateId: string) => {
-    try {
-      const { data } = await fetchTemplateDetails(templateId);
-      setInitialTemplateData(data, true);
-    } catch (error) {}
-  };
-
-  const fetchReservedDestinationNameList = async () => {
-    try {
-      const { data } = await fetchReservedDestinationNames();
-      updateReservedNames(data.map(({ name }: { name: string }) => name));
-    } catch (error) {
-      // Error handling
-    }
-  };
+  }, [destinationFieldsData]);
 
   // For existing templates (edit mode), always show Step 2
   // For new templates, show based on current step

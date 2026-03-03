@@ -1,5 +1,5 @@
 
-import { FC, useCallback, useEffect } from 'react';
+import { FC, useCallback } from 'react';
 import { Title } from '@/uicomponents/title';
 import { Flex } from '@/uicomponents/layout';
 import { Button } from '@/uicomponents/button';
@@ -8,6 +8,7 @@ import { DZONE_CLR_BLACK } from '@/lib/constants';
 import { useLineItemContextStore } from '../../store/use-line-item-context-store';
 import { usePacingSummaryStore } from '../../store';
 import { exportPacingSummary } from '../../services';
+import { usePacingSummaryQuery, usePacingSummaryDataQuery } from '../../hooks';
 import { SummaryCards } from './summary-cards';
 import { SummaryGrid } from './summary-grid';
 import styles from './summary.module.css';
@@ -22,20 +23,24 @@ export const SummaryContainer: FC<ISummaryContainerProps> = ({
   lineItemId,
 }) => {
   const lineItem = useLineItemContextStore((s) => s.lineItem);
-  const { summary, gridData, showDelivered, fetchSummary, fetchData, reset } =
-    usePacingSummaryStore();
+  const { pagination } = usePacingSummaryStore();
 
   const pacingType = lineItem?.pacingSchedule as string;
 
-  useEffect(() => {
-    if (show && lineItemId) {
-      fetchSummary(lineItemId);
-      fetchData(lineItemId);
-    }
-    return () => {
-      reset();
-    };
-  }, [show, lineItemId]);
+  const { data: summaryResult } = usePacingSummaryQuery(
+    lineItemId,
+    show && !!lineItemId,
+  );
+
+  const { data: gridResult } = usePacingSummaryDataQuery(
+    lineItemId,
+    { page: pagination.current - 1, size: pagination.pageSize },
+    show && !!lineItemId,
+  );
+
+  const summary = summaryResult?.data ?? null;
+  const gridData = gridResult?.data ?? [];
+  const showDelivered = summary?.delivered !== null && summary?.delivered !== undefined;
 
   const handleExport = useCallback(() => {
     exportPacingSummary(lineItemId);

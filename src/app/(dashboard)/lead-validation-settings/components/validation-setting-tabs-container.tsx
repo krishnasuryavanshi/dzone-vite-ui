@@ -1,11 +1,12 @@
 import { DzBox } from '@/components/layout/v1';
 import { TabsProps } from '@/lib/types/uicomponents';
 import { Tabs } from '@/uicomponents/tabs';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { ValidationsSettingsContainer } from './validations';
 import { Hideable } from '@/components/shared';
 import { TargetingValidationSettingContainer } from './targeting';
 import { useValidationSettingStore } from '../store';
+import { useValidationSettingConfigQuery } from '../hooks';
 import { Flex } from '@/uicomponents/layout';
 import { ValidationSettingsActions } from './validation-settings-actions';
 
@@ -29,7 +30,7 @@ export const ValidationSettingTabsContainer = ({
   const {
     setIsEditing,
     setLeadValidationSettingInfo,
-    fetchConfiguration,
+    processConfigurationResponse,
     leadValidationSettingInfo,
     leadValidationSettingConfig,
   } = useValidationSettingStore();
@@ -47,9 +48,22 @@ export const ValidationSettingTabsContainer = ({
     }
   }, [isEditing, leadValidationSettingId, tenantCode, lineItemId]);
 
+  const queryEnabled = useMemo(() => {
+    if (!isEditing) return true;
+    return !!leadValidationSettingInfo;
+  }, [isEditing, leadValidationSettingInfo]);
+
+  const { data: configResponse } = useValidationSettingConfigQuery(
+    !!isEditing,
+    leadValidationSettingInfo,
+    queryEnabled,
+  );
+
   useEffect(() => {
-    fetchConfiguration();
-  }, [leadValidationSettingInfo]);
+    if (configResponse) {
+      processConfigurationResponse(configResponse, !!isEditing, leadValidationSettingInfo);
+    }
+  }, [configResponse]);
 
   const handleTabChange = (key: string) => {
     setActiveTab(key as 'targeting' | 'validations');

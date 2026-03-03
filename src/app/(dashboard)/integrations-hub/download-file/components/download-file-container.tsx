@@ -2,46 +2,39 @@
 import { Spin, Text, Title } from '@/uicomponents';
 import { Flex, Space } from '@/uicomponents/layout';
 import { useSearchParams } from '@/lib/hooks/use-router';
-import { useEffect, useState } from 'react';
-import { deliveryFileDownload } from '../services/delivery-file-download';
+import { useEffect } from 'react';
+import { useDownloadFileQuery } from '../hooks';
 
 type DownloadStatus = 'idle' | 'loading' | 'success' | 'error' | 'no-token';
 
 export const DownloadFileContainer = () => {
   const searchParams = useSearchParams();
-  const [status, setStatus] = useState<DownloadStatus>('loading');
-  const [message, setMessage] = useState<string>('');
   const token = searchParams.get('token');
 
+  const { data, isLoading, isError } = useDownloadFileQuery(
+    token ?? '',
+    !!token,
+  );
+
+  // Trigger file download when data arrives
   useEffect(() => {
-    const initiateDownload = async () => {
-      if (!token) {
-        setStatus('no-token');
-        return;
-      }
+    if (data?.data?.url) {
+      const link = document.createElement('a');
+      link.href = data.data.url;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+  }, [data]);
 
-      try {
-        const { data } = await deliveryFileDownload(token);
-        if (data?.url) {
-          const link = document.createElement('a');
-          link.href = data.url;
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-          setStatus('success');
-          setMessage('File downloaded successfully');
-        } else {
-          setStatus('error');
-          setMessage('File download failed');
-        }
-      } catch (error: any) {
-        setStatus('error');
-        setMessage(error?.message || 'An unexpected error occurred');
-      }
-    };
+  const getStatus = (): DownloadStatus => {
+    if (!token) return 'no-token';
+    if (isLoading) return 'loading';
+    if (isError || !data?.data?.url) return 'error';
+    return 'success';
+  };
 
-    initiateDownload();
-  }, [token]);
+  const status = getStatus();
 
   const getTitle = () => {
     switch (status) {
@@ -63,9 +56,9 @@ export const DownloadFileContainer = () => {
       case 'loading':
         return 'Please wait while we prepare your file...';
       case 'success':
-        return message || 'Your file has been downloaded successfully';
+        return 'Your file has been downloaded successfully';
       case 'error':
-        return message || 'Unable to download the file. Please try again.';
+        return 'Unable to download the file. Please try again.';
       case 'no-token':
         return 'The download link is invalid or has expired';
       default:
@@ -73,8 +66,7 @@ export const DownloadFileContainer = () => {
     }
   };
 
-  const isLoading = status === 'loading';
-  const isError = status === 'error' || status === 'no-token';
+  const hasError = status === 'error' || status === 'no-token';
 
   return (
     <Flex
@@ -84,7 +76,7 @@ export const DownloadFileContainer = () => {
       <Space direction='vertical' align='center' size='large'>
         {isLoading && <Spin size='large' spinning={true} />}
         <Title level={3}>{getTitle()}</Title>
-        <Text type={isError ? 'danger' : undefined}>{getMessage()}</Text>
+        <Text type={hasError ? 'danger' : undefined}>{getMessage()}</Text>
       </Space>
     </Flex>
   );

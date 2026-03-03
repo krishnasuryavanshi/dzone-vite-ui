@@ -8,7 +8,7 @@ import { Filters } from '@/lib/utils/table';
 import { Button, Tooltip } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
 import { isEmpty } from 'lodash';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { ILead } from '../../../leads/lib/types';
 import { LeadStatusFileType } from '../../lib/enums';
 import { useLeadsStore } from '../../store';
@@ -20,6 +20,9 @@ import { LeadsPagination } from './leads-pagination';
 import { Refresh } from './refresh';
 import { ValidationStatusDropdown } from './validation-status-dropdown';
 import { useLeadsCountStore } from '../../../leads/store';
+import { useLeadsListQuery } from '../../../leads/hooks/use-leads-list-query';
+import { useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 
 interface IShowLeadsProps {
   lineItemId: string;
@@ -36,8 +39,6 @@ export const ShowLeads: FC<IShowLeadsProps> = ({
   const leadsData = useLeadsStore((state) => state.leadsData);
   const updateLeadsData = useLeadsStore((state) => state.updateLeadsData);
   const resetLeadsData = useLeadsStore((state) => state.resetLeadsData);
-  const fetchLeadsFromStore = useLeadsStore((state) => state.fetchLeads);
-  const totalFilteredLeads = useLeadsStore((state) => state.totalFilteredLeads);
   const allowMultiselect = usePermissionCheck([
     LeadActionsEnum.ReturnLeads,
     LeadActionsEnum.PublishLead,
@@ -45,50 +46,91 @@ export const ShowLeads: FC<IShowLeadsProps> = ({
     LeadActionsEnum.ArchiveLead,
   ]);
   const setStoreLeadsCount = useLeadsCountStore((state) => state.setTotalLeads);
+  const queryClient = useQueryClient();
 
-  const [filteredInfo, setFilteredInfo] = useState<Filters<ILead>>({});
   const setLeadsList = useLeadsStore((state) => state.setLeadsList);
+  const [filteredInfo, setFilteredInfo] = useState<Filters<ILead>>({});
 
-  const fetchLeads = () => {
-    if (tenantCode) {
-      fetchLeadsFromStore(
-        tenantCode,
-        lineItemId,
-        filteredInfo,
-        setStoreLeadsCount,
-      );
+  // Build extraParams from store leadsData + filteredInfo
+  const extraParams = useMemo(() => {
+    const params: Record<string, any> = {};
+
+    // Add lead status filter
+    if (leadsData.selectedLeadsStatus.length > 0) {
+      params.leadStatus = leadsData.selectedLeadsStatus.toString();
     }
-  };
 
-  // Clear leads when lineItemId changes
-  useEffect(() => {
-    // Clear the leads list immediately when lineItemId changes
-    setLeadsList([]);
-    setSelectedIds([]);
-    resetLeadsData();
+    // Add validation status filter
+    if (leadsData.selectedValidationStatus.length > 0) {
+      params.leadValidationStatus = leadsData.selectedValidationStatus.toString();
+    }
 
-    if (!tenantCode || !lineItemId) return;
-    fetchLeads();
-  }, [lineItemId]);
+    // Add filteredInfo to params
+    if (filteredInfo && Object.keys(filteredInfo).length) {
+      Object.keys(filteredInfo).forEach((key) => {
+        const values = filteredInfo[key] ?? [];
+        if (values[0]) {
+          if (
+            typeof values[0] === 'object' &&
+            values[0] !== null &&
+            ('from' in values[0] || 'to' in values[0])
+          ) {
+            const dateRange = values[0] as { from?: string; to?: string };
+            if (dateRange.from) params[`${key}From`] = dateRange.from;
+            if (dateRange.to) params[`${key}To`] = dateRange.to;
+          } else {
+            params[key] = values[0];
+          }
+        }
+      });
+    }
 
-  // Fetch leads when filters change
-  useEffect(() => {
-    if (!tenantCode || !lineItemId) return;
-    fetchLeads();
-  }, [tenantCode, filteredInfo]);
+    // Add sorting parameters
+    if (leadsData.sortBy) {
+      params.sortBy = leadsData.sortBy;
+    }
+    if (leadsData.sortOrder) {
+      params.sortOrder = leadsData.sortOrder;
+    }
 
-  // Trigger fetch when leads data changes (pagination, status filters, sorting)
-  useEffect(() => {
-    if (!tenantCode || !lineItemId) return;
-    fetchLeads();
+    return params;
   }, [
-    leadsData.currentPage,
-    leadsData.pageSize,
     leadsData.selectedLeadsStatus,
     leadsData.selectedValidationStatus,
     leadsData.sortBy,
     leadsData.sortOrder,
+    filteredInfo,
   ]);
+
+  const { data } = useLeadsListQuery(
+    leadsData.currentPage - 1,
+    leadsData.pageSize,
+    tenantCode,
+    lineItemId,
+    extraParams,
+    !!lineItemId && !!tenantCode && show,
+  );
+
+  const leadsList = data?.data ?? [];
+  const totalFilteredLeads = data?.total ?? 0;
+
+  // Sync leads list to store for child components
+  useEffect(() => {
+    setLeadsList(leadsList);
+  }, [leadsList]);
+
+  // Update leads count store when total changes
+  useEffect(() => {
+    if (data?.total !== undefined) {
+      setStoreLeadsCount(data.total);
+    }
+  }, [data?.total]);
+
+  // Clear leads when lineItemId changes
+  useEffect(() => {
+    setSelectedIds([]);
+    resetLeadsData();
+  }, [lineItemId]);
 
   const handleLeadsStatusChange = (data: string[]) => {
     updateLeadsData({ selectedLeadsStatus: data });
@@ -108,7 +150,7 @@ export const ShowLeads: FC<IShowLeadsProps> = ({
 
   const refreshLeadsList = () => {
     if (leadsData.currentPage === 1) {
-      fetchLeads();
+      queryClient.invalidateQueries({ queryKey: queryKeys.leads.lists() });
     } else {
       goToFirstPage();
     }
@@ -119,24 +161,21 @@ export const ShowLeads: FC<IShowLeadsProps> = ({
   };
 
   const handleFiltersChange = (filters: Record<string, any> = {}) => {
-    // Extract sorting from filters if present
     const { sortBy, sortOrder, ...actualFilters } = filters;
 
     setFilteredInfo(actualFilters);
 
-    // Handle sorting if present
     if (sortBy && sortOrder) {
       updateLeadsData({
         sortBy: sortBy[0],
         sortOrder: sortOrder[0] as 'asc' | 'desc',
-        currentPage: 1, // Reset to first page on sort change
+        currentPage: 1,
       });
     } else if (
       !sortBy &&
       !sortOrder &&
       (leadsData.sortBy || leadsData.sortOrder)
     ) {
-      // Clear sorting if it was removed
       updateLeadsData({
         sortBy: null,
         sortOrder: null,
@@ -155,8 +194,7 @@ export const ShowLeads: FC<IShowLeadsProps> = ({
 
   const refresh = () => {
     resetLeadsData();
-    // Force re-fetch after reset
-    fetchLeads();
+    queryClient.invalidateQueries({ queryKey: queryKeys.leads.lists() });
   };
 
   if (!show) {

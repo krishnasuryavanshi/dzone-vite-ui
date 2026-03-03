@@ -5,6 +5,8 @@ import { Text } from '@/uicomponents/text';
 import { EyeOutlined, FileOutlined, DownloadOutlined } from '@ant-design/icons';
 import { DownloadIcon } from '@/uicomponents/icons/svgs';
 import React, { useState, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 import { TargetingAttributeValuesDrawer } from './targeting-attribute-values-drawer';
 import { MapFunction } from '@/components/shared';
 import { fileDownload } from '@/services/file-download';
@@ -42,6 +44,7 @@ export const ShowTargetingFileAttribute = ({
   isEditing = false,
   isFirst = false,
 }: ShowTargetingFileAttributeProps) => {
+  const queryClient = useQueryClient();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isEditDrawerOpen, setIsEditDrawerOpen] = useState<boolean>(false);
   const [editedData, setEditedData] = useState<any[]>([]); // Initialize as empty array
@@ -141,8 +144,7 @@ export const ShowTargetingFileAttribute = ({
       });
 
       // Refresh the validation settings data from the backend
-      const { fetchConfiguration } = useValidationSettingStore.getState();
-      await fetchConfiguration();
+      await queryClient.invalidateQueries({ queryKey: queryKeys.validationSettings.all });
 
       // Note: We don't update local state for files since the refresh will provide the latest data
 

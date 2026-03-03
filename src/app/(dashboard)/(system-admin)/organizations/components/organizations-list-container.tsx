@@ -1,42 +1,54 @@
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { ScreenLoader } from '@/components/shared/loader';
 import { useQueryState } from '@/lib/hooks';
-import { showNotification } from '@/services/index';
 import { SimplePagination } from '@/uicomponents';
 import { WarningOutlined } from '@/uicomponents/icons';
 import { Modal } from '@/uicomponents/modal';
 import { Text } from '@/uicomponents/text';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { IOrganization } from '../lib/types';
-import { fetchOrganizations, updateOrganization } from '../services';
 import { Filters, Sorter } from '@/lib/utils/table';
 import { OrganizationList } from './organization-list';
 import { OrganizationsListHeader } from './organizations-list-header';
+import { useOrganizationsQuery } from '../hooks/use-organizations-query';
+import { useUpdateOrganizationMutation } from '../hooks/use-update-organization-mutation';
 
 export const OrganizationsListContainer = () => {
-  const [organizations, setOrganizations] = useState<IOrganization[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [pageSize, setPageSize] = useState<number>(25);
-  const [totalRecords, setTotalRecords] = useState<number>(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [filterInfo, setFilterInfo] = useState<Filters<IOrganization>>({});
   const [sorterInfo, setSorterInfo] = useState<Sorter<IOrganization>>({});
   const [modal, contextHolder] = Modal.useModal();
-  const filterInfoRef = useRef(filterInfo);
-  const sorterInfoRef = useRef(sorterInfo);
 
   const { queryState, setQueryState } = useQueryState();
 
+  const hasValidPagination = currentPage > 0 && pageSize > 0;
+
+  const { data, isLoading } = useOrganizationsQuery(
+    currentPage - 1,
+    pageSize,
+    filterInfo,
+    sorterInfo,
+    hasValidPagination,
+  );
+
+  const organizations = (data?.data ?? []).map((organization: IOrganization) => ({
+    ...organization,
+    key: organization.id,
+  }));
+  const totalRecords = data?.total ?? 0;
+
+  const updateOrgMutation = useUpdateOrganizationMutation();
+
   useEffect(() => {
     if (queryState) {
-      let { page, pageSize, roleId } = queryState;
+      let { page, pageSize } = queryState;
       const pageNo = Number(page);
       const size = Number(pageSize);
 
       if (pageNo && size) {
         setCurrentPage(pageNo);
         setPageSize(size);
-        fetchOrganizationList(pageNo, size);
       } else {
         setQueryState([
           { name: 'page', value: pageNo || 1 },
@@ -53,35 +65,15 @@ export const OrganizationsListContainer = () => {
     ]);
   };
 
-  const isInitialMount = useRef(true);
-
   const handleFiltersChange = (filters: Filters<IOrganization>) => {
     setFilterInfo(filters);
-    filterInfoRef.current = filters;
+    handlePageChange(1, pageSize);
   };
 
   const handleSorterChange = (sorter: Sorter<IOrganization>) => {
     setSorterInfo(sorter);
-    sorterInfoRef.current = sorter;
+    handlePageChange(1, pageSize);
   };
-
-  // Re-fetch when filters or sorter change
-  useEffect(() => {
-    // Skip initial mount - queryState useEffect handles initial fetch
-    if (isInitialMount.current) {
-      isInitialMount.current = false;
-      return;
-    }
-
-    if (pageSize) {
-      fetchOrganizationList(1, pageSize);
-      setCurrentPage(1);
-      setQueryState([
-        { name: 'page', value: 1 },
-        { name: 'pageSize', value: pageSize },
-      ]);
-    }
-  }, [filterInfo, sorterInfo]);
 
   const confirm = (id: string, name: string) => {
     modal.confirm({
@@ -100,75 +92,27 @@ export const OrganizationsListContainer = () => {
       cancelText: 'Cancel',
       okButtonProps: { danger: true },
       onOk: () => {
-        updateOrganizationStatus({ id } as IOrganization, 'INACTIVE');
+        updateOrgMutation.mutate({
+          data: { status: 'INACTIVE' },
+          organizationId: id,
+        });
       },
     });
   };
 
-  const fetchOrganizationList = async (
-    currentPage: number,
-    pageSize: number,
-  ) => {
-    // setIsLoading(true);
-    const { data, total } = await fetchOrganizations(
-      currentPage - 1,
-      pageSize,
-      filterInfoRef.current,
-      sorterInfoRef.current,
-    );
-    setOrganizations(
-      data.map((organization: IOrganization) => ({
-        ...organization,
-        key: organization.id,
-      })),
-    );
-    setTotalRecords(total);
-    // setIsLoading(false);
-  };
-
   const toggleStatus = (organization: IOrganization) => {
     const status = organization.status?.name;
-    try {
-      if (status === 'INACTIVE') {
-        updateOrganizationStatus(organization, 'ACTIVE');
-      } else {
-        confirm(organization.id as string, organization.name);
-      }
-    } catch (error) {}
-  };
-
-  const updateOrganizationStatus = async (
-    organization: IOrganization,
-    status: string,
-  ) => {
-    try {
-      const data = await updateOrganization(
-        { status },
-        organization.id as string,
-      );
-      showNotification({
-        type: 'success',
-        message: data?.message,
+    if (status === 'INACTIVE') {
+      updateOrgMutation.mutate({
+        data: { status: 'ACTIVE' },
+        organizationId: organization.id as string,
       });
-      handleRefreshList(data?.data);
-    } catch (error) {}
-  };
-
-  const handleRefreshList = (organization: IOrganization) => {
-    const organizationsList = [...organizations];
-    const index = organizationsList.findIndex(
-      (org) => org.id === organization.id,
-    );
-    if (index !== -1) {
-      organizationsList[index] = {
-        ...organizationsList[index],
-        ...organization,
-      };
+    } else {
+      confirm(organization.id as string, organization.name);
     }
-    setOrganizations(organizationsList);
   };
 
-  if (isLoading) return <ScreenLoader />;
+  if (isLoading && !data) return <ScreenLoader />;
 
   return (
     <>

@@ -1,15 +1,10 @@
 
-import { ICampaign } from '@/app/(dashboard)/campaign-management/campaigns/lib/types';
 import { DzScrollContainer } from '@/components/layout/v1';
 import { Flex } from '@/uicomponents/layout';
 import { FC, useMemo } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { queryKeys } from '@/lib/query';
-import { fetchCampaignDetails } from '../services';
 import { LineItemsContainer } from './line-items-container';
 import { ViewCampaignBreadcrumb } from './view-campaign-breadcrumb';
 import { CampaignSummaryViewFields } from '../lib/constants';
-import { prepareViewData } from '../lib/utils';
 import { CampaignField } from '../lib/enums';
 import { useRestrictedAccess } from '@/lib/hooks';
 import { RestrictedAccessKeys } from '@/lib/enums';
@@ -17,7 +12,7 @@ import { usePermissions } from '@/lib/hooks/use-auth';
 import CampaignDetailsSchema from '../lib/schemas/campaign-form.json';
 import { IShowItemDetailsProps } from '../../lib/types';
 import { ShowItemDetails } from '../../components/show-page';
-import { fetchFileDetails } from '../../line-items/services';
+import { useCampaignDetailViewQuery } from '../hooks';
 
 interface IViewCampaignContainerProps {
   campaignId: string;
@@ -39,32 +34,20 @@ export const ViewCampaignContainer: FC<IViewCampaignContainerProps> = ({
     RestrictedAccessKeys.BookedRevenueFieldInCampaignDetails,
   );
 
-  const restrictedFields = useMemo(
+  const restrictedFields: (string | false)[] = useMemo(
     () => [
       isIONumberRestricted && CampaignField.IoNumber,
-      isUploadIOFileRestricted,
+      isUploadIOFileRestricted && CampaignField.UploadIoFile,
       isBookedRevenueRestricted && CampaignField.BookedRevenue,
     ],
     [isBookedRevenueRestricted, isUploadIOFileRestricted, isIONumberRestricted],
   );
 
-  const { data: campaignDetails } = useQuery({
-    queryKey: [...queryKeys.campaigns.detail(campaignId), { restrictedFields }],
-    queryFn: async () => {
-      const data = await fetchCampaignDetails(campaignId);
-      if (!data) throw new Error('Failed to fetch campaign details');
-
-      let ioFileDetails = {};
-      if (data?.data?.ioFileId) {
-        const ioFileResponse = await fetchFileDetails(data.data.ioFileId);
-        ioFileDetails = ioFileResponse;
-      }
-
-      const viewData = prepareViewData(data?.data, { restrictedFields });
-      return { ...viewData, ioFileId: ioFileDetails } as ICampaign;
-    },
-    enabled: !!campaignId && !!roles?.length && restrictedFields.length > 0,
-  });
+  const { data: campaignDetails } = useCampaignDetailViewQuery(
+    campaignId,
+    restrictedFields,
+    !!campaignId && !!roles?.length && restrictedFields.length > 0,
+  );
 
   const detailsSectionProps: IShowItemDetailsProps = useMemo(
     () =>

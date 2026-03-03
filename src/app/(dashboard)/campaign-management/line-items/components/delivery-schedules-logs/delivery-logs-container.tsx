@@ -1,9 +1,9 @@
 
-import { useEffect } from 'react';
 import { useSearchParams } from '@/lib/hooks/use-router';
 import { DeliveryLogsHeader } from './delivery-logs-header';
 import { DeliveryLogsList } from './delivery-logs-list';
 import { useDeliveryLogsStore } from './use-delivery-logs-store';
+import { useDeliveryLogsQuery } from '../../hooks';
 import { TableWithPaginationLayout, Hideable } from '@/components/shared';
 import { SimplePagination } from '@/uicomponents';
 
@@ -18,24 +18,23 @@ export const DeliveryLogsContainer = ({
 }: DeliveryLogsContainerProps) => {
   const searchParams = useSearchParams();
   const scheduleId = searchParams.get('scheduleId');
-  const { fetchLogs, resetFilters, pagination, setPagination } =
-    useDeliveryLogsStore();
+  const { filters, pagination, setPagination } = useDeliveryLogsStore();
 
-  useEffect(() => {
-    if (scheduleId) {
-      resetFilters();
-      fetchLogs(scheduleId);
-    }
-  }, [scheduleId, resetFilters, fetchLogs]);
+  const { data: logsResponse, isLoading } = useDeliveryLogsQuery(
+    scheduleId,
+    pagination.currentPage,
+    pagination.perPage,
+    filters,
+  );
+
+  const logs = logsResponse?.data ?? [];
+  const total = logsResponse?.total ?? 0;
 
   const handlePageChange = (page: number, pageSize?: number) => {
     setPagination({
       currentPage: page,
       ...(pageSize && { perPage: pageSize }),
     });
-    if (scheduleId) {
-      fetchLogs(scheduleId);
-    }
   };
 
   return (
@@ -43,12 +42,18 @@ export const DeliveryLogsContainer = ({
       header={
         <DeliveryLogsHeader scheduleId={scheduleId} lineItemId={lineItemId} />
       }
-      table={<DeliveryLogsList scheduleId={scheduleId} />}
+      table={
+        <DeliveryLogsList
+          scheduleId={scheduleId}
+          logs={logs}
+          isLoading={isLoading}
+        />
+      }
       pagination={
-        <Hideable show={pagination.total > 0}>
+        <Hideable show={total > 0}>
           <SimplePagination
             current={pagination.currentPage}
-            total={pagination.total}
+            total={total}
             pageSize={pagination.perPage}
             onChange={handlePageChange}
           />

@@ -1,74 +1,57 @@
-import { useEffect, useState } from 'react';
+import { useMemo } from 'react';
 import { useDashboardReportStore } from '../../store/use-dashboard-report-store';
-import { fetchReportChartsData, fetchReportCountsData } from '../../services';
+import { useReportChartQuery } from '../../hooks/use-report-chart-query';
+import { useReportCountQuery } from '../../hooks/use-report-count-query';
 import { ExecutiveReportType } from '../enums';
+
+function createFilteredData(filters: any, type: string) {
+  switch (type) {
+    case ExecutiveReportType.Bookings:
+    case ExecutiveReportType.WaitingToGoLive:
+      return {
+        unit: filters.unit || '',
+        timeframe: filters.timeframe || '',
+      };
+    default:
+      return {
+        campaigns: filters.campaigns,
+        range: {
+          startDate: filters.range.startDate,
+          endDate: filters.range.endDate,
+        },
+      };
+  }
+}
 
 export function useFetchReportData<T>(
   initialValue: T | T[],
   type: string,
   category: 'chart' | 'count' = 'chart',
 ): [T | T[], boolean] {
-  const [reportData, setReportData] = useState<T | T[]>(initialValue);
-  const { filters, progress, updateProgress } = useDashboardReportStore();
+  const { filters } = useDashboardReportStore();
 
-  useEffect(() => {
-    updateProgress({ [type]: 'loading' });
-    if (filters && Object.keys(filters).length > 0) {
-      fetchReportCharts();
-    }
-  }, [filters]);
+  const hasFilters = !!filters && Object.keys(filters).length > 0;
 
-  function createFilteredData(filters: any, type: string) {
-    switch (type) {
-      case ExecutiveReportType.Bookings:
-      case ExecutiveReportType.WaitingToGoLive:
-        return {
-          unit: filters.unit || '',
-          timeframe: filters.timeframe || '',
-        };
-      default:
-        return {
-          campaigns: filters.campaigns,
-          range: {
-            startDate: filters.range.startDate,
-            endDate: filters.range.endDate,
-          },
-        };
-    }
-  }
+  const filteredData = useMemo(
+    () => (hasFilters ? createFilteredData(filters, type) : {}),
+    [filters, type, hasFilters],
+  );
 
-  const fetchReportCharts = async () => {
-    try {
-      const filteredData = createFilteredData(filters, type);
-      if (category === 'chart' && filters && Object.keys(filters).length > 0) {
-        let data;
+  const chartQuery = useReportChartQuery(
+    filteredData,
+    type,
+    category === 'chart' && hasFilters,
+  );
 
-        data = await fetchReportChartsData(filteredData, type);
+  const countQuery = useReportCountQuery(
+    filteredData,
+    type,
+    category === 'count' && hasFilters,
+  );
 
-        setReportData(data);
-      } else if (
-        category === 'count' &&
-        filters &&
-        Object.keys(filters).length > 0
-      ) {
-        let data;
-        if (
-          type === ExecutiveReportType.Bookings ||
-          type === ExecutiveReportType.WaitingToGoLive
-        ) {
-          data = await fetchReportCountsData(filteredData, type);
-        } else {
-          data = await fetchReportCountsData(filteredData, type);
-        }
+  const query = category === 'chart' ? chartQuery : countQuery;
+  const data = query.data ?? initialValue;
+  const isLoaded = !query.isLoading && hasFilters;
 
-        setReportData(data);
-      }
-
-      updateProgress({ [type]: 'loaded' });
-    } catch (error) {
-      updateProgress({ [type]: 'loaded' });
-    }
-  };
-
-  return [reportData, progress[type] === 'loaded'];
+  return [data as T | T[], isLoaded];
 }

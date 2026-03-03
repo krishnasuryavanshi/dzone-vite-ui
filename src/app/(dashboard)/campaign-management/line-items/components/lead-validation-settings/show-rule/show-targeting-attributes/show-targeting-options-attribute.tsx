@@ -3,6 +3,8 @@ import { DzRecord } from '@/lib/types';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
 import React, { useState, useEffect } from 'react';
+import { useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 import { DrawerShowList } from '@/components/shared/text/drawer-list-view';
 import { MapFunction } from '@/components/shared';
 import { EditICon } from '@/uicomponents/icons/svgs';
@@ -43,6 +45,7 @@ export const ShowTargetingOptionsAttribute = ({
   onUpdate,
   isEditing = false,
 }: ShowTargetingOptionsAttributeProps) => {
+  const queryClient = useQueryClient();
   const [isDrawerOpen, setIsDrawerOpen] = useState<boolean>(false);
   const [isEditDrawerOpen, setIsEditDrawerOpen] = useState<boolean>(false);
   const [editedData, setEditedData] = useState<any>({ selectedValues: [] });
@@ -214,8 +217,7 @@ export const ShowTargetingOptionsAttribute = ({
       setCurrentValues(normalizedValues);
 
       // Refresh the validation settings data from the backend
-      const { fetchConfiguration } = useValidationSettingStore.getState();
-      await fetchConfiguration();
+      await queryClient.invalidateQueries({ queryKey: queryKeys.validationSettings.all });
 
       // Call parent callback if provided
       if (onUpdate) {

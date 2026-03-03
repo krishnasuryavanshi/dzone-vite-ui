@@ -23,7 +23,7 @@ export const SummaryGrid: FC<ISummaryGridProps> = ({
   pacingType,
   showDelivered,
 }) => {
-  const { sortOrder, statusFilter, setSortOrder, setStatusFilter, isLoading } =
+  const { sortOrder, statusFilter, setSortOrder, setStatusFilter } =
     usePacingSummaryStore();
 
   const [isPending, startTransition] = useTransition();
@@ -162,7 +162,7 @@ export const SummaryGrid: FC<ISummaryGridProps> = ({
       className='table dz-table pacing-summary-grid'
       columns={columns as any}
       dataSource={dataSource as any}
-      loading={isLoading || isPending}
+      loading={isPending}
       pagination={false}
       scroll={{ x: 'max-content', y: scrollableTableHeight }}
       sticky

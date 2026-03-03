@@ -1,6 +1,6 @@
 
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { SupplierFilterDropdowns } from './filter-manager/supplier-filter-dropdowns';
 import { SupplierCard } from './cards/supplier-card';
 import { Col, Row } from '@/uicomponents/layout/grid';
@@ -8,10 +8,7 @@ import { ChartsContainer } from './supplier-charts-container';
 import { SupplierCardSparkline } from './cards/supplier-card-sparkline';
 import './suppliers-container.scss';
 import { SupplierGrids } from './supplier-grid/supplier-grid';
-import { showNotification } from '@/services/notification';
 import { supplierDashboardDataResponse } from '../types/supplier-dashboard';
-import { fetchSupplierDashboardData } from '../services/fetch-supplier-dashboard-data';
-import { fetchSupplierMasterFilterList } from '../services/fetch-supplier-master-filter';
 import OutlineBlueButton from '@/app/(dashboard)/components/outline-button/outline-button';
 import {
   buildMarketerData,
@@ -24,6 +21,7 @@ import {
 } from '@/app/(dashboard)/analytics/store/filter-dashboard-store/use-filter-dashboard-store';
 import { Skeleton } from '@/uicomponents/layout/skeleton';
 import { Button } from '@/uicomponents/button';
+import { useSupplierMasterFilterQuery, useSupplierDashboardQuery } from '../hooks';
 
 interface ISupplierProps {
   data?: string;
@@ -46,8 +44,6 @@ type supplierMasterFilterList = {
 export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
   const reset = 0;
   const submit = 0;
-  const [loading, setLoading] = useState<boolean>(true);
-  const [dashboardData, setDashboardData] = useState<any>();
   const [filteredData, setFilteredData] = useState<any>(null);
   const [riskCount, setRiskCount] = useState<{
     atRiskToReason: number;
@@ -77,11 +73,57 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
   const handleSelection = (data: any) => {
     // Removed console.log to fix lint error
   };
-  // Use riskLineItemList as the initial data for the table
-  const [lineItemList, setLineItemList] = useState<any>([]);
-  const [marketerList, setMarketerList] = useState<any>([]);
-  const [campaignList, setCompaignList] = useState<any>([]);
-  const [tableData, setTableData] = useState<any>([]);
+
+  // Master filter query
+  const { data: masterFilterData } = useSupplierMasterFilterQuery();
+
+  const lineItemList = useMemo(() => {
+    if (!masterFilterData?.length) return [];
+    const items = buildLineItemData(masterFilterData);
+    items.sort((a, b) => a.label.localeCompare(b.label));
+    return items;
+  }, [masterFilterData]);
+
+  const marketerList = useMemo(() => {
+    if (!masterFilterData?.length) return [];
+    const items = buildMarketerData(masterFilterData);
+    items.sort((a, b) => a.label.localeCompare(b.label));
+    return items;
+  }, [masterFilterData]);
+
+  const campaignList = useMemo(() => {
+    if (!masterFilterData?.length) return [];
+    const items = buildCampaignData(masterFilterData);
+    items.sort((a, b) => a.label.localeCompare(b.label));
+    return items;
+  }, [masterFilterData]);
+
+  // Dashboard data query
+  const dashboardParams = useMemo(
+    () => ({
+      startDate: filterValues?.dateRange?.startDate,
+      endDate: filterValues?.dateRange?.endDate,
+      listItemList: filterValues?.selectedLineItems,
+      marketerList: filterValues?.selectedMarketers,
+      campaignList: filterValues?.selectedCompaigns,
+    }),
+    [
+      filterValues?.dateRange,
+      filterValues?.selectedMarketers,
+      filterValues?.selectedLineItems,
+      filterValues?.selectedCompaigns,
+      filterValues?.reset,
+    ],
+  );
+
+  const { data: dashboardData, isLoading: loading } =
+    useSupplierDashboardQuery(dashboardParams);
+
+  const tableData = useMemo(
+    () => (dashboardData as supplierDashboardDataResponse)?.at_risk ?? [],
+    [dashboardData],
+  );
+
   // set Pie chart data
   const setPieData = (filtered: any) => {
     let returnReason = [];
@@ -119,144 +161,21 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
     setSupplierBarData(validationReason);
   };
 
-  // Get the master supplier filter list
-  const getMasterSupplierFilterList = async () => {
-    try {
-      const data: supplierMasterFilterList[] =
-        await fetchSupplierMasterFilterList();
-      if (data?.length > 0) {
-        setLineItemFilterData(data);
-        setMarketerFilterData(data);
-        setCampaignFilterData(data);
-      } else {
-        setLineItemFilterData([]);
-        setMarketerFilterData([]);
-        setCampaignFilterData([]);
-      }
-    } catch (error: any) {
-      showNotification({
-        message: error.message || 'Failed to fetch data',
-        type: 'error',
-      });
-    }
-  };
-
-  const setLineItemFilterData = (data: any) => {
-    try {
-      // Convert Map values to array
-      const lineItemsData = buildLineItemData(data);
-      if (lineItemsData.length > 0) {
-        // Sort by label (supplier_name) for better usability
-        lineItemsData.sort((a, b) => a.label.localeCompare(b.label));
-        setLineItemList(lineItemsData);
-      } else {
-        setLineItemList([]);
-      }
-    } catch (error: any) {
-      showNotification({
-        message: error.message || 'Failed to fetch data',
-        type: 'error',
-      });
-    }
-  };
-
-  const setMarketerFilterData = (data: any) => {
-    try {
-      // Convert Map values to array
-      const marketerData = buildMarketerData(data);
-
-      if (marketerData.length > 0) {
-        // Sort by label (marketer_name) for better usability
-        marketerData.sort((a, b) => a.label.localeCompare(b.label));
-        setMarketerList(marketerData);
-      } else {
-        setMarketerList([]);
-      }
-    } catch (error: any) {
-      showNotification({
-        message: error.message || 'Failed to fetch data',
-        type: 'error',
-      });
-    }
-  };
-
-  const setCampaignFilterData = (data: any) => {
-    try {
-      // Convert Map values to array
-      const campaignData = buildCampaignData(data);
-      if (campaignData.length > 0) {
-        // Sort by label (supplier_name) for better usability
-        campaignData.sort((a, b) => a.label.localeCompare(b.label));
-        setCompaignList(campaignData);
-      } else {
-        setCompaignList([]);
-      }
-    } catch (error: any) {
-      showNotification({
-        message: error.message || 'Failed to fetch data',
-        type: 'error',
-      });
-    }
-  };
-
-  // Get Supplier dashboard data
-  const getSupplierData = async ({ ...props }) => {
-    // Simulate an API call to fetch marketer data
-    setLoading(true);
-    try {
-      const data = await fetchSupplierDashboardData({ ...props });
-      const dashboardData: supplierDashboardDataResponse = data;
-      if (dashboardData) {
-        setDashboardData(dashboardData);
-        setTableData(dashboardData.at_risk);
-        setFilteredData(dashboardData.at_risk);
-        setPieData(dashboardData.validation_breakdown.validation_data);
-        setTopReasonData(
-          dashboardData.validation_breakdown.top_invalid_reasons,
-        );
-        setBarData(dashboardData.return_reasons_breakdown);
-      } else {
-        setDashboardData(null);
-        setFilteredData(null);
-        setPieData(null);
-        setTopReasonData(null);
-        setBarData(null);
-      }
-      setLoading(false);
-    } catch (err: any) {
-      setLoading(false);
-      showNotification({
-        message: err.message || 'Failed to fetch data',
-        type: 'error',
-      });
-      setDashboardData(null);
+  // Sync chart data when dashboard data arrives
+  useEffect(() => {
+    if (dashboardData) {
+      const typedData = dashboardData as supplierDashboardDataResponse;
+      setFilteredData(typedData.at_risk);
+      setPieData(typedData.validation_breakdown?.validation_data);
+      setTopReasonData(typedData.validation_breakdown?.top_invalid_reasons);
+      setBarData(typedData.return_reasons_breakdown);
+    } else if (dashboardData === null) {
       setFilteredData(null);
       setPieData(null);
       setTopReasonData(null);
       setBarData(null);
     }
-  };
-
-  const getAtRiskCounts = () => {
-    let atRiskToReasonCount = 0;
-    tableData?.forEach((item: any) => {
-      if (item?.at_risk_reason) {
-        atRiskToReasonCount += 1;
-      }
-    });
-    setRiskCount({
-      atRiskToReason: atRiskToReasonCount,
-    });
-  };
-  const filterTableDataByAtRisk = () => {
-    const atRiskFilteredData = tableData?.filter((item: any) => {
-      return item?.at_risk_reason;
-    });
-    setFilteredData(atRiskFilteredData);
-  };
-  const handleReset = () => {
-    setFilteredData(tableData);
-  };
+  }, [dashboardData]);
 
   useEffect(() => {
     if (
@@ -274,30 +193,32 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
     }
   }, [filterValues]);
 
-  // Date range filter
-  useEffect(() => {
-    getSupplierData({
-      startDate: filterValues?.dateRange?.startDate,
-      endDate: filterValues?.dateRange?.endDate,
-      listItemList: filterValues?.selectedLineItems,
-      marketerList: filterValues?.selectedMarketers,
-      campaignList: filterValues?.selectedCompaigns,
+  const getAtRiskCounts = () => {
+    let atRiskToReasonCount = 0;
+    tableData?.forEach((item: any) => {
+      if (item?.at_risk_reason) {
+        atRiskToReasonCount += 1;
+      }
     });
-  }, [
-    filterValues?.dateRange,
-    filterValues?.selectedMarketers,
-    filterValues?.selectedLineItems,
-    filterValues?.selectedCompaigns,
-    filterValues?.reset,
-  ]);
+    setRiskCount({
+      atRiskToReason: atRiskToReasonCount,
+    });
+  };
 
   useEffect(() => {
     getAtRiskCounts();
   }, [tableData]);
 
-  useEffect(() => {
-    getMasterSupplierFilterList();
-  }, []);
+  const filterTableDataByAtRisk = () => {
+    const atRiskFilteredData = tableData?.filter((item: any) => {
+      return item?.at_risk_reason;
+    });
+    setFilteredData(atRiskFilteredData);
+  };
+  const handleReset = () => {
+    setFilteredData(tableData);
+  };
+
   return (
     <DzBox className='dz-page-content dashboard-container'>
       <DzScrollContainer vertical>
@@ -312,13 +233,8 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
             allComparison={allComparison}
             activeTab={activeTab}
             onRefresh={(filters) => {
-              getSupplierData({
-                startDate: filters?.dateRange?.startDate,
-                endDate: filters?.dateRange?.endDate,
-                listItemList: filters?.selectedLineItems,
-                marketerList: filters?.selectedMarketers,
-                campaignList: filters?.selectedCompaigns,
-              });
+              // Query will auto-refetch when filter values in the store change
+              // This callback is kept for compatibility with the filter dropdown component
             }}
           />
         </DzScrollContainer.Sticky>

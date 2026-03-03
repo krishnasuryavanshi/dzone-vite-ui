@@ -5,22 +5,27 @@ import { SimplePagination } from '@/uicomponents';
 import { TemplateListHeader } from './template-list-header';
 import { ITemplateRow } from '../lib/types';
 import { useQueryState } from '@/lib/hooks';
-import { fetchTemplates } from '../services';
 import { useRouter } from '@/lib/hooks/use-router';
+import { useTemplatesListQuery } from '../hooks';
+
 interface ITemplateListContainerProps {}
 
 export const TemplateListContainer: FC<ITemplateListContainerProps> = ({}) => {
   const router = useRouter();
-  const [templateList, setTemplateList] = useState<ITemplateRow[]>([]);
   const { queryState, setQueryState } = useQueryState();
 
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
-  const [totalRecords, setTotalRecords] = useState(0);
 
-  useEffect(() => {
-    fetchTemplateList();
-  }, [pageSize, currentPage]);
+  const hasValidPagination = currentPage > 0 && pageSize > 0;
+  const { data } = useTemplatesListQuery(
+    currentPage - 1,
+    pageSize,
+    hasValidPagination,
+  );
+
+  const templateList = data?.data ?? [];
+  const totalRecords = data?.total ?? 0;
 
   useEffect(() => {
     if (queryState) {
@@ -44,14 +49,6 @@ export const TemplateListContainer: FC<ITemplateListContainerProps> = ({}) => {
       { name: 'page', value: page },
       { name: 'pageSize', value: pageSize },
     ]);
-  };
-
-  const fetchTemplateList = async () => {
-    const data = await fetchTemplates(currentPage - 1, pageSize);
-    if (data) {
-      setTotalRecords(data?.total);
-      setTemplateList(data.data);
-    }
   };
 
   const getTemplateHref = (template: ITemplateRow) =>

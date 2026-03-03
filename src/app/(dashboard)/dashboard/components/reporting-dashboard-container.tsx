@@ -12,7 +12,7 @@ interface IReportingDashboardContainerProps {}
 export const ReportingDashboardContainer: FC<
   IReportingDashboardContainerProps
 > = ({}) => {
-  const { updateFilters, resetProgress } = useDashboardReportStore();
+  const { updateFilters, resetFilters } = useDashboardReportStore();
 
   const { queryState, setQueryState } = useQueryState();
   const initialTab = queryState.report || ReportType.Executive;
@@ -24,7 +24,7 @@ export const ReportingDashboardContainer: FC<
   }, [queryState]);
 
   const handleTabChange = (key: string) => {
-    resetProgress();
+    resetFilters();
     setQueryState([{ name: 'report', value: key }]);
   };
   const handleSubmit = (

@@ -6,24 +6,26 @@ import { useQueryState } from '@/lib/hooks';
 import { useRouter } from '@/lib/hooks/use-router';
 import { useEffect, useState } from 'react';
 import { IValidationSettingRow } from '../../lib/types';
-import { fetchAllLeadValidationSettings } from '../../services';
+import { useValidationSettingsQuery } from '../../hooks';
 import { ValidationSettingList } from './validation-setting-list';
 import { ValidationSettingListPagination } from './validation-setting-list-pagination';
 import { CreateNewValidationSettingAction } from './create-new-validation-setting-action';
 
 export const ValidationSettingListContainer = () => {
   const router = useRouter();
-  const [validationSettingsList, setValidationSettingsList] = useState<
-    IValidationSettingRow[]
-  >([]);
   const { queryState, setQueryState } = useQueryState();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
-  const [totalRecords, setTotalRecords] = useState(0);
 
-  useEffect(() => {
-    fetchLeadValidationSettingsList();
-  }, [pageSize, currentPage]);
+  const hasValidPagination = currentPage > 0 && pageSize > 0;
+  const { data } = useValidationSettingsQuery(
+    currentPage - 1,
+    pageSize,
+    hasValidPagination,
+  );
+
+  const validationSettingsList = data?.data ?? [];
+  const totalRecords = data?.total ?? 0;
 
   useEffect(() => {
     if (queryState) {
@@ -47,17 +49,6 @@ export const ValidationSettingListContainer = () => {
       { name: 'page', value: page },
       { name: 'pageSize', value: pageSize },
     ]);
-  };
-
-  const fetchLeadValidationSettingsList = async () => {
-    const data = await fetchAllLeadValidationSettings(
-      currentPage - 1,
-      pageSize,
-    );
-    if (data) {
-      setTotalRecords(data?.total);
-      setValidationSettingsList(data.data);
-    }
   };
 
   const getSettingHref = (setting: IValidationSettingRow) =>

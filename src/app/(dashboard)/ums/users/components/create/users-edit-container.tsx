@@ -1,9 +1,8 @@
-import React, { FC, useEffect, useState } from 'react';
-import { IUser } from '../../lib/types';
-import { fetchUser } from '../../services';
+import React, { FC } from 'react';
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
 import { CreateUserHeader } from './create-user-header';
 import { UserForm } from './user-form';
+import { useUserDetailQuery } from '../../hooks';
 
 interface IUsersEditContainerProps {
   userId: string;
@@ -12,22 +11,8 @@ interface IUsersEditContainerProps {
 export const UsersEditContainer: FC<IUsersEditContainerProps> = ({
   userId,
 }) => {
-  const [user, setUser] = useState<IUser | null>(null);
-
-  useEffect(() => {
-    if (userId) {
-      fetchUserDetails();
-    } else {
-      setUser(null);
-    }
-  }, [userId]);
-
-  const fetchUserDetails = async () => {
-    try {
-      const { data } = await fetchUser(userId);
-      setUser(data);
-    } catch (error) {}
-  };
+  const { data } = useUserDetailQuery(userId, !!userId);
+  const user = data?.data ?? null;
 
   if (!user) {
     return null;
