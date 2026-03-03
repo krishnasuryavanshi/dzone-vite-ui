@@ -1,10 +1,9 @@
-'use client';
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
 import { showNotification } from '@/services/notification';
 import { useForm, useWatch } from '@/uicomponents/form';
 import { Flex } from '@/uicomponents/layout';
 import { debounce, isEqual } from 'lodash';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { FC, useEffect, useState } from 'react';
 import { RolePermissioBreadcrumb } from '../components';
 import { RolePermissionsForm } from '../components/create';

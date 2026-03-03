@@ -1,4 +1,3 @@
-'use client';
 import { Tooltip } from '@/uicomponents';
 import { InfoCircleOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';

@@ -1,4 +1,3 @@
-'use client';
 
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { JobMonitoringService } from '@/lib/constants';
@@ -10,7 +9,7 @@ import {
   disconnectSSE,
 } from '@/services/sse-service';
 import { SimplePagination } from '@/uicomponents';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import { FC, useEffect, useRef, useState } from 'react';
 import { IJob, IJobSSEUpdate } from '../lib/types';
 import { fetchJobMonitoringJobs } from '../services';

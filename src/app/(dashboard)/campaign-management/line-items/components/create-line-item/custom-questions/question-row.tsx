@@ -1,4 +1,3 @@
-'use client';
 import { DzBox } from '@/components/layout/v1';
 import { MapFunction } from '@/components/shared';
 import { DeleteOutlined } from '@/uicomponents/icons';

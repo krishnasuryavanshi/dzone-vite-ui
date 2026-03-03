@@ -1,4 +1,3 @@
-'use client';
 
 import { HasPermission } from '@/components/auth/has-permission';
 import { DzBox } from '@/components/layout/v1/dz-box';
@@ -19,7 +18,7 @@ import { Button, Spin, Text } from '@/uicomponents';
 import { WebformIcon } from '@/uicomponents/icons/svgs/webform';
 import { Flex, Space } from '@/uicomponents/layout';
 import { Col, Row } from '@/uicomponents/layout/grid';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { Integration, IntegrationType } from '../lib/types/integration';
 import { fetchIntegrations, fetchIntegrationTypes } from '../services';
@@ -331,7 +330,7 @@ export const IntegrationsList: React.FC = () => {
                     </HasPermission>
                     <HasPermission permissions={IntegrationsActionsEnum.View}>
                       <Link
-                        href={`/integrations-hub/integrations/${integration.id}`}>
+                        to={`/integrations-hub/integrations/${integration.id}`}>
                         <Button type='link' className={styles.viewDetailsLink}>
                           View Details
                         </Button>

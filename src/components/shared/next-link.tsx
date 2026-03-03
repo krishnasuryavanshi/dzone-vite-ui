@@ -1,7 +1,6 @@
-'use client';
 import { UnsavedDataWarningContext } from '@/contexts/unsaved-data-warning';
-import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { Link } from 'react-router-dom';
+import { useRouter } from '@/lib/hooks/use-router';
 import { FC, MouseEvent, useContext, useState } from 'react';
 import { Translate } from '../i18n';
 import { UnsavedDataWarningConfirmDialog } from './unsaved-data-warning-confirm-dialog';
@@ -51,7 +50,7 @@ export const NextLink: FC<INextLinkProps> = ({
 
   return (
     <>
-      <Link onClick={handleClick} href={link}>
+      <Link onClick={handleClick} to={link}>
         <Translate i18nKey={label} />
       </Link>
       <UnsavedDataWarningConfirmDialog

@@ -1,4 +1,3 @@
-"use client";
 import { Digitalzone } from "@/components/brands";
 import React from "react";
 

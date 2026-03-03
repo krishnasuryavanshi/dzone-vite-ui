@@ -1,4 +1,3 @@
-'use client';
 
 import { DzBox } from '@/components/layout/v1';
 import { Hideable } from '@/components/shared';

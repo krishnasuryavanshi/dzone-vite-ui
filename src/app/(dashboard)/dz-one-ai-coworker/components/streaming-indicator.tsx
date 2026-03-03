@@ -1,4 +1,3 @@
-'use client';
 
 import { Flex } from '@/uicomponents/layout';
 import { ChatWidgetIcon } from '@/uicomponents/icons/svgs';

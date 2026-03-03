@@ -1,7 +1,7 @@
 import { Hideable } from '@/components/shared';
 import { ArrowLeft } from '@/uicomponents/icons/svgs';
 import { Flex, Space } from '@/uicomponents/layout';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { FC } from 'react';
 import { TemplateStep } from '../../lib/enums';
 import { useTemplateStore } from '../../stores';
@@ -35,7 +35,7 @@ export const TemplateHeader: FC<ITemplateHeaderProps> = ({
       style={{ padding: '0.5rem 1rem', paddingBottom: '0' }}>
       <Flex gap='0.5rem' align='center'>
         <Hideable show={!isFieldMappingStep}>
-          <Link href='/integrations-hub/templates' onClick={resetStore}>
+          <Link to='/integrations-hub/templates' onClick={resetStore}>
             <Flex
               align='center'
               justify='center'

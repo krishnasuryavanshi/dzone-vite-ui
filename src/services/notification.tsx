@@ -1,4 +1,3 @@
-'use client';
 
 import { CheckCircleOutlined, WarningOutlined } from '@/uicomponents/icons';
 import { notification } from '@/uicomponents/notification';

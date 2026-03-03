@@ -1,4 +1,3 @@
-'use client';
 
 import { TableProps } from '@/lib/types/uicomponents';
 import { createColumn, Filters, Sorter } from '@/lib/utils/table';

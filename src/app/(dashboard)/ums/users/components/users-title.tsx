@@ -1,4 +1,3 @@
-'use client';
 import { CLR_BLACK } from '@/lib/constants';
 import { Space } from '@/uicomponents/layout';
 import { Translate } from '@/components/i18n';

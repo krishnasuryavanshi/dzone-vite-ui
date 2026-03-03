@@ -1,4 +1,3 @@
-'use client';
 
 import { Tooltip, Button } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';

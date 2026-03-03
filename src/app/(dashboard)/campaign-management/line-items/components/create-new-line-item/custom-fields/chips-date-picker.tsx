@@ -1,4 +1,3 @@
-'use client';
 import { showNotification } from '@/services';
 import { DatePicker } from '@/uicomponents/form/input';
 import { Flex } from '@/uicomponents/layout';

@@ -1,4 +1,3 @@
-'use client';
 import { IFileUploadMetaData } from '@/app/(dashboard)/campaign-management/line-items/lib/types';
 import { Translate } from '@/components/i18n';
 import { DzBox } from '@/components/layout/v1';

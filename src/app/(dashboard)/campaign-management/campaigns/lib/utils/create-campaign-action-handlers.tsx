@@ -1,4 +1,3 @@
-'use client';
 import { StepsProgress, StorageKey } from '@/lib/enums';
 import { normalizeDates } from '@/lib/utils';
 import { getCombinedDataFromCookies } from '@/lib/utils/get-combined-data-from-cookies';
@@ -8,7 +7,7 @@ import {
 } from '@/services/cookie-stepper-form';
 import { showNotification } from '@/services/notification';
 import { FormInstance } from '@/uicomponents/form';
-import { AppRouterInstance } from 'next/dist/shared/lib/app-router-context.shared-runtime';
+import { AppRouterInstance } from '@/lib/hooks/use-router';
 import { formatCampaignFormData, getChangedData } from '../../../lib/utils';
 import { createCampaign, putCreateCampaign } from '../../services';
 import { CampaignField } from '../enums';

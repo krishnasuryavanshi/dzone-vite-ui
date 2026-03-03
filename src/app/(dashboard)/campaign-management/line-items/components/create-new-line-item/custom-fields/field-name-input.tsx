@@ -1,4 +1,3 @@
-'use client';
 import { FormInstance, FormItem } from '@/uicomponents/form';
 import { TextArea } from '@/uicomponents/form/input';
 import { FC } from 'react';

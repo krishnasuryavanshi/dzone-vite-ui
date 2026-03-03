@@ -1,4 +1,3 @@
-'use client';
 import { useState } from 'react';
 import { Flex } from '@/uicomponents/layout';
 import { DzRecord } from '@/lib/types';

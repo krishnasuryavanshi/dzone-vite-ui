@@ -1,4 +1,3 @@
-'use client';
 import { FC } from 'react';
 import { ChartCard } from './charts/marketer-chart-card';
 import { ResponsiveContainer } from 'recharts';

@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, useEffect } from 'react';
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
 import { ICampaign } from '../lib/types';

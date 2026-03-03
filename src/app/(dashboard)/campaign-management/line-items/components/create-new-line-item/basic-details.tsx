@@ -1,4 +1,3 @@
-'use client';
 
 import React, { FC, useEffect, useRef, useState } from 'react';
 import { Form, FormItem, useForm, useWatch } from '@/uicomponents/form';
@@ -21,7 +20,7 @@ import {
 import { ICampaign } from '../../../campaigns/lib/types';
 import { fetchCampaignsByMarketer } from '../../services/fetch-campaigns-by-marketer';
 import { debounce } from 'lodash';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { dateObject, formatDate, sanitizeData } from '@/lib/utils';
 import { showNotification } from '@/services/notification';
 import { createLineItem } from '../../services/create-line-item';

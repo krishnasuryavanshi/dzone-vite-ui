@@ -10,7 +10,7 @@ import { Flex } from '@/uicomponents/layout';
 import { FC, useEffect } from 'react';
 import { MenuProps } from '@/lib/types/uicomponents';
 import { FilterDropdownAssignedUser } from '../components';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import { HasPermission } from '@/components/auth';
 import {
   CampaignActionsEnum,
@@ -18,7 +18,7 @@ import {
 } from '@/lib/enums/permissions';
 import { usePermissionCheck } from '@/lib/hooks';
 import { CLR_BLACK, DZONE_CLR_BLACK, DZONE_CLR_GRAY_2 } from '@/lib/constants';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 interface ICammpainFiltersProps {
   handleAssignedToFilterChange: (assignedTo: string) => void;
@@ -142,7 +142,7 @@ export const CammpainFilters: FC<ICammpainFiltersProps> = ({
           disabled={isRefreshDisabled}
           /> */}
         <HasPermission permissions={CampaignActionsEnum.Create}>
-          <Link href='/campaign-management/campaigns/create?step=0'>
+          <Link to='/campaign-management/campaigns/create?step=0'>
             <Button
               style={{
                 display: 'flex',

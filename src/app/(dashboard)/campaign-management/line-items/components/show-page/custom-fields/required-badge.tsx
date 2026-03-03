@@ -1,4 +1,3 @@
-'use client';
 import { DzBox } from '@/components/layout/v1';
 import { Text } from '@/uicomponents/text';
 import { FC } from 'react';

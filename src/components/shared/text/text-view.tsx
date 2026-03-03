@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, useState } from 'react';
 import { TruncatedText } from './truncated-text';
 import { Drawer } from '@/uicomponents/drawers';

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { IOrganization } from '../../lib/types';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { Form, FormItem, useForm, useWatch } from '@/uicomponents/form';
 import {
   createOrganization,

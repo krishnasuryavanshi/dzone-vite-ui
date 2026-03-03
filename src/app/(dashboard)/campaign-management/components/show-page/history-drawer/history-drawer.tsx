@@ -1,4 +1,3 @@
-'use client';
 import { DrawerCloseButton } from '@/app/(dashboard)/components';
 import { Drawer } from '@/uicomponents/drawers';
 import { Text, Spin } from '@/uicomponents';

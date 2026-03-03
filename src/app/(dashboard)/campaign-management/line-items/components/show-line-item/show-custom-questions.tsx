@@ -1,4 +1,3 @@
-'use client';
 import { Link } from '@/uicomponents';
 import { FC, useState } from 'react';
 import { ICustomQuestion } from '../../lib/types';

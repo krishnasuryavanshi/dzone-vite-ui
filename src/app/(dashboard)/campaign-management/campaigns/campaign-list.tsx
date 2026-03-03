@@ -1,9 +1,8 @@
-'use client';
 import { BasicTable } from '@/components/table';
 import { useScrollableTableHeight } from '@/lib/hooks';
 import { Filters } from '@/lib/utils/table';
 import { cloneDeep } from 'lodash';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { FC } from 'react';
 import { useListColumns } from '../lib/hooks';
 import { useCampaignFilterOptions } from './lib/hooks';

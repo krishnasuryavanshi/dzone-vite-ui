@@ -1,7 +1,7 @@
 import { Translate } from '@/components/i18n';
 import { DZONE_CLR_BLACK } from '@/lib/constants';
 import { Button } from '@/uicomponents/index';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import React, { FC } from 'react';
 
 const CreateNewTemplateLink = '/integrations-hub/templates/create';
@@ -12,7 +12,7 @@ export const CreateNewTemplateAction: FC<
   ICreateNewTemplateActionProps
 > = ({}) => {
   return (
-    <Link href={CreateNewTemplateLink}>
+    <Link to={CreateNewTemplateLink}>
       <Button
         style={{
           display: 'flex',

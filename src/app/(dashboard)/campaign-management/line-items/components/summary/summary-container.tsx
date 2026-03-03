@@ -1,4 +1,3 @@
-'use client';
 
 import { FC, useCallback, useContext, useEffect } from 'react';
 import { Title } from '@/uicomponents/title';

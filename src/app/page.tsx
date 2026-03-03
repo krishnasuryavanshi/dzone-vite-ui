@@ -1,16 +1,13 @@
-"use client";
-
 import { Suspense } from "react";
-
-import { Authenticated } from "@refinedev/core";
-import { NavigateToResource } from "@refinedev/nextjs-router";
+import { Navigate } from "react-router-dom";
+import { AuthGuard } from "../auth/auth-guard";
 
 export default function IndexPage() {
   return (
     <Suspense>
-      <Authenticated key="home-page">
-        <NavigateToResource />
-      </Authenticated>
+      <AuthGuard>
+        <Navigate to="/organizations" replace />
+      </AuthGuard>
     </Suspense>
   );
 }

@@ -1,4 +1,3 @@
-"use client";
 
 import { StorageKey } from "@/lib/enums";
 import Cookies from "js-cookie";

@@ -2,7 +2,7 @@ import { DzBox } from '@/components/layout/v1';
 import { showNotification } from '@/services';
 import { Button, Text } from '@/uicomponents/index';
 import { Flex } from '@/uicomponents/layout';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { useState } from 'react';
 import { validateLineItem } from '../../services';
 import { LeadValidationSettingsRules } from './lead-validation-settings-rules';

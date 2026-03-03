@@ -1,4 +1,3 @@
-'use client';
 
 import { Button } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';

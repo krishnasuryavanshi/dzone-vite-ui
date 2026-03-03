@@ -1,4 +1,3 @@
-'use client';
 import { StepsProgress, StorageKey } from '@/lib/enums';
 import { normalizeDates, sanitizeData } from '@/lib/utils';
 import { getCombinedDataFromCookies } from '@/lib/utils/get-combined-data-from-cookies';

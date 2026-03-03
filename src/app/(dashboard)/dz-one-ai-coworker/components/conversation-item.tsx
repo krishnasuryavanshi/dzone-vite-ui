@@ -1,4 +1,3 @@
-'use client';
 
 import { ClockCircleOutlined, MessageOutlined } from '@ant-design/icons';
 import { Tooltip } from '@/uicomponents';

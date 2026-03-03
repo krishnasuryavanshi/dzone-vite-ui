@@ -1,4 +1,3 @@
-'use client';
 
 import React, { useState } from 'react';
 import { Upload, Typography, Progress, message } from 'antd';

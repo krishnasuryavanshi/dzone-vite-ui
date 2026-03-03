@@ -1,7 +1,6 @@
-'use client';
 
 import { useEffect, useRef } from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import { useAiAgentStore } from '../store/use-ai-agent-store';
 import { AiAgentContainer } from './ai-agent-container';
 import { fetchOrganizationsByType } from '../../(system-admin)/organizations/services';

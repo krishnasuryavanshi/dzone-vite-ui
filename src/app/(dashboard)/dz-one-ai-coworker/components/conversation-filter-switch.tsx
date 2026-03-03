@@ -1,4 +1,3 @@
-'use client';
 
 import { Switch } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';

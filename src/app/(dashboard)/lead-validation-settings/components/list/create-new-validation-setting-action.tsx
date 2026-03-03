@@ -1,8 +1,8 @@
 import { fetchOrganizationsByType } from '@/app/(dashboard)/(system-admin)/organizations/services';
 import { Translate } from '@/components/i18n';
 import { Button, Form, FormItem, Modal, Title, useForm } from '@/uicomponents';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useSession } from '@/lib/hooks/use-session';
+import { useRouter } from '@/lib/hooks/use-router';
 import { FC, useEffect, useState } from 'react';
 import { useValidationSettingStore } from '../../store';
 import { Flex } from '@/uicomponents/layout';

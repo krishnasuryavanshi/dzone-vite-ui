@@ -1,4 +1,4 @@
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from '@/lib/hooks/use-router';
 import { useCallback, useEffect, useState } from 'react';
 
 export function useQueryState() {

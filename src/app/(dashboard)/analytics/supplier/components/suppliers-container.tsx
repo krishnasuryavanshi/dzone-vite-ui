@@ -1,4 +1,3 @@
-'use client';
 
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
 import { FC, useEffect, useState } from 'react';

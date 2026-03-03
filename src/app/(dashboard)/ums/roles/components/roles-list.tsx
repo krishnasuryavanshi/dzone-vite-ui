@@ -1,11 +1,10 @@
-'use client';
 import { UserStatus } from '@/app/(dashboard)/components';
 import { BasicTable } from '@/components/table';
 import { FormatDate } from '@/components/util';
 import { useScrollableTableHeight } from '@/lib/hooks';
 import { TableProps } from '@/lib/types/uicomponents';
 import { createColumn } from '@/lib/utils/table';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { FC } from 'react';
 import { Status } from '../lib/enums';
 import { IRoles, IStatus } from '../lib/types';

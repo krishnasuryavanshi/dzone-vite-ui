@@ -1,12 +1,10 @@
-'use client';
 import { useAllowedResources } from '@/lib/hooks';
 import { Menu } from '@/uicomponents/menu';
-import { useResource } from '@refinedev/core';
 import { FC, useEffect, useState } from 'react';
 
-import { customResources } from '@/config/resources';
+import { customResources, resources as allResources } from '@/config/resources';
 import { getResourceName } from '@/lib/utils/get-resource-name';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/lib/hooks/use-router';
 import { MenuLink } from './menu-link';
 import './navigation-menu.scss';
 
@@ -17,26 +15,19 @@ interface INavigationMenuProps {
 export const NavigationMenu: FC<INavigationMenuProps> = ({ isCollapsed }) => {
   const pathname = usePathname();
   const { resources } = useAllowedResources();
-  const { resource, select } = useResource();
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const [openKeys, setOpenKeys] = useState<string[]>([]);
 
   useEffect(() => {
-    let selectedResource = null;
-    if (!resource) {
-      const resourceName = getResourceName(pathname, customResources);
-      const res = select(resourceName as string);
-      selectedResource = res?.resource;
-    } else {
-      selectedResource = resource;
-    }
+    const resourceName = getResourceName(pathname, customResources);
+    const selectedResource = allResources.find((r) => r.name === resourceName);
     setOpenKeys(
       selectedResource?.meta?.parent && !isCollapsed
         ? [selectedResource?.meta?.parent]
         : [],
     );
-    setSelectedKeys([selectedResource?.name]);
-  }, [resource]);
+    setSelectedKeys(selectedResource ? [selectedResource.name] : []);
+  }, [pathname, isCollapsed]);
 
   if (!resources?.length) return null;
 

@@ -1,4 +1,3 @@
-'use client';
 import { BasicTable } from '@/components/table';
 import { useScrollableTableHeight } from '@/lib/hooks';
 import { createColumn, Filters } from '@/lib/utils/table';

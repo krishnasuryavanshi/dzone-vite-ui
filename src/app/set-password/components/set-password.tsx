@@ -9,7 +9,7 @@ import React, { FC, useState } from 'react';
 import { ValidationMessages } from './validation-messages';
 import { setPassword } from '../services';
 import { showNotification } from '@/services/notification';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 
 type SetPasswordPropsType = {
   token: string;

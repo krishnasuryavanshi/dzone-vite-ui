@@ -1,4 +1,3 @@
-'use client';
 
 import { Input } from '@/uicomponents/form/input';
 import { TextArea } from '@/uicomponents/form/input/textarea';

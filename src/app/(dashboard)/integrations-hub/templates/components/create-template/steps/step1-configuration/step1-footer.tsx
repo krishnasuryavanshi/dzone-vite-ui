@@ -1,4 +1,3 @@
-'use client';
 
 import { showNotification } from '@/services/notification';
 import { Button } from '@/uicomponents';

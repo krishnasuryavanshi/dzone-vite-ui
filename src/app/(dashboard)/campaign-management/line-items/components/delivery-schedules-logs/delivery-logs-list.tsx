@@ -1,4 +1,3 @@
-'use client';
 
 import { BasicTable } from '@/components/table';
 import { FormatDate } from '@/components/util';

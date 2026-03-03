@@ -1,4 +1,3 @@
-'use client';
 
 import { Drawer } from '@/uicomponents/drawers/drawer';
 import { Timeline } from 'antd';

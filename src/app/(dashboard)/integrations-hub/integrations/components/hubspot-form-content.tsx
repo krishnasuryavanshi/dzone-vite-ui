@@ -1,4 +1,3 @@
-'use client';
 
 import { Input, InputPassword, Select } from '@/uicomponents/form/input';
 import { IntegrationLabel } from '@/lib/enums';

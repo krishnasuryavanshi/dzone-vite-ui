@@ -1,7 +1,6 @@
-'use client';
 
 import { useEffect } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from '@/lib/hooks/use-router';
 import { DeliveryLogsHeader } from './delivery-logs-header';
 import { DeliveryLogsList } from './delivery-logs-list';
 import { useDeliveryLogsStore } from './use-delivery-logs-store';

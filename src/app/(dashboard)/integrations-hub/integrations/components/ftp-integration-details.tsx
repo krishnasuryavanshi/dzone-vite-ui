@@ -1,4 +1,3 @@
-'use client';
 
 import { Text } from '@/uicomponents';
 import styles from './integrations-list.module.css';

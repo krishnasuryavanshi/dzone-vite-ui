@@ -1,11 +1,10 @@
-'use client';
 import { Flex } from '@/uicomponents/layout';
 import React, { FC } from 'react';
 import { LineItemsActions } from './line-items-actions';
 import { Translate } from '@/components/i18n';
 import { CLR_BLACK } from '@/lib/constants';
 import { Text } from '@/uicomponents/text';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 
 interface ILineItemsFiltersProps {
   clearFilters: () => void;

@@ -1,14 +1,14 @@
 /**
- * Shim for `next/navigation`.
- * Maps Next.js navigation hooks to React Router equivalents.
+ * Router hook — replaces next/navigation useRouter.
+ * Wraps react-router-dom to provide the same API as the Next.js shim.
  */
+import { useMemo } from 'react';
 import {
   useNavigate,
   useLocation,
   useSearchParams as useRRSearchParams,
   useParams as useRRParams,
 } from 'react-router-dom';
-import { useMemo } from 'react';
 
 export function useRouter() {
   const navigate = useNavigate();
@@ -44,13 +44,4 @@ export function useParams<T extends Record<string, string> = Record<string, stri
   return useRRParams() as T;
 }
 
-export function redirect(url: string) {
-  window.location.href = url;
-}
-
-export function notFound() {
-  throw new Response('Not Found', { status: 404 });
-}
-
-// Re-export ReadonlyURLSearchParams type for compatibility
-export type ReadonlyURLSearchParams = URLSearchParams;
+export type AppRouterInstance = ReturnType<typeof useRouter>;

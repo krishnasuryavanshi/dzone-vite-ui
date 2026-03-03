@@ -1,9 +1,9 @@
 import { renderHook } from '@testing-library/react';
-import { usePermissions } from '@refinedev/core';
+import { usePermissions } from '@/lib/hooks/use-auth';
 import { useAccess } from '@/lib/hooks/use-access';
 
-// Mock the refinedev/core dependency
-jest.mock('@refinedev/core', () => ({
+// Mock the use-auth dependency
+jest.mock('../../../lib/hooks/use-auth', () => ({
   usePermissions: jest.fn(),
 }));
 

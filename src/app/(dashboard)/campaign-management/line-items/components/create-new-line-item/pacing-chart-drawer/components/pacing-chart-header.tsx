@@ -1,4 +1,3 @@
-'use client';
 
 import React from 'react';
 import { InfoCircleOutlined, LoadingOutlined } from '@ant-design/icons';

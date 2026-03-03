@@ -1,4 +1,3 @@
-'use client';
 import { FormProps } from 'antd/lib/form';
 import { Form as AntdForm, FormInstance } from 'antd';
 import React, { FC } from 'react';

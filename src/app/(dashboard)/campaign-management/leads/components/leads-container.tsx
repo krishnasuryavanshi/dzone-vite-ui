@@ -1,4 +1,3 @@
-'use client';
 
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { SimplePagination } from '@/uicomponents';
@@ -9,7 +8,7 @@ import { LeadsFiltersManager } from './leads-filters-manager';
 import { LeadsList } from './leads-list';
 import { Filters } from '@/lib/utils/table';
 import { isEmpty } from 'lodash';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from '@/lib/hooks/use-router';
 import { useLeadsStore } from '../../line-items/store';
 interface IleadsContainerProps {
   batchId?: string;

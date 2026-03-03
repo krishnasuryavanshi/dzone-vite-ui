@@ -1,4 +1,3 @@
-'use client';
 
 import { CloudUploadOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';

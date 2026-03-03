@@ -1,4 +1,3 @@
-'use client';
 import { FilterDropdownProps } from '@/lib/types/uicomponents';
 import { FilterOutlined } from '@/uicomponents/icons';
 import { FilterDropdown } from './filter-dropdown';

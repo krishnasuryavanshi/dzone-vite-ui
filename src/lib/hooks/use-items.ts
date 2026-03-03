@@ -1,13 +1,17 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { BaseRecord, HttpError, useList } from "@refinedev/core";
 import { useEffect, useState } from "react";
 import { IError, ILoader } from "../types";
+import type { BaseRecord, HttpError } from "../types/resource.types";
 
 export interface IUseItemsParams<T> {
   resource: string;
   queryOptions: any; // TODO: fix type
 }
 
+/**
+ * Generic list hook. Previously relied on Refine's useList (which was a no-op stub).
+ * Consumers should migrate to direct service calls instead.
+ */
 export function useItems<T extends BaseRecord, E extends HttpError>({
   resource,
   queryOptions,
@@ -16,15 +20,11 @@ export function useItems<T extends BaseRecord, E extends HttpError>({
   const [loader, setLoader] = useState<ILoader | null>({isLoading: true} as ILoader);
   const [error, setError] = useState<IError | null>(null);
 
-  const {
-    data: items,
-    isLoading,
-    isError,
-    refetch
-  } = useList<T, E, T>({
-    resource,
-    queryOptions,
-  });
+  // No-op: useList was a stub that always returned empty data.
+  const items = { data: [] as T[], total: 0 };
+  const isLoading = false;
+  const isError = false;
+  const refetch = () => Promise.resolve();
 
   useEffect(() => {
     if (isError) {
@@ -60,7 +60,7 @@ export function useItems<T extends BaseRecord, E extends HttpError>({
       setError(null);
       setLoader(null);
     }
-  }, [items]);
+  }, []);
 
   return { data, loader, error, refetch };
 }

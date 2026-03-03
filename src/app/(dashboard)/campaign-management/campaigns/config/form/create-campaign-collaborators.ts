@@ -1,4 +1,3 @@
-'use client';
 import { FieldType, OptionsType } from '@/lib/enums';
 import { OptionsKeys } from '@/lib/enums/options-keys.enum';
 import { ReactNode } from 'react';

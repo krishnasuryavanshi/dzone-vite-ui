@@ -14,7 +14,7 @@ import {
 import CampaignDetailsSchema from '../schemas/campaign-form.json';
 import { showNotification } from '@/services/notification';
 import debounce from 'lodash/debounce';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { fetchFileDetails } from '../../../line-items/services';
 import { UploadFile } from '@/lib/types/uicomponents';
 import { uploadIOFile } from '@/app/api/file-upload/service';

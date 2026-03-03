@@ -3,7 +3,7 @@ import { Flex, Space } from '@/uicomponents/layout';
 import { Link } from '@/uicomponents/link';
 import { useState } from 'react';
 import { showNotification } from '@/services';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { validateCampaign } from '../../campaigns/services';
 import { LoadingOutlined } from '@/uicomponents/icons';
 import { validateLineItem } from '../../line-items/services';

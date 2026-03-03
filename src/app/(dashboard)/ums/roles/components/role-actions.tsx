@@ -1,9 +1,8 @@
-'use client';
 import { Translate } from '@/components/i18n';
 import { MenuProps } from '@/lib/types/uicomponents';
 import { Button } from '@/uicomponents/button';
 import { Dropdown } from '@/uicomponents/dropdown';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { MoreOutlined } from '@ant-design/icons';
 import { FC } from 'react';
 import { CLR_GRAY_1 } from '@/lib/constants';
@@ -38,7 +37,7 @@ export const RoleActions: FC<IRoleActionsProps> = ({
       }}
       title={<Translate i18nKey='pages.users.label.changeStatus' />}>
       <Link
-        href='#'
+        to='#'
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -63,7 +62,7 @@ export const RoleActions: FC<IRoleActionsProps> = ({
         key: '1',
         label: (
           <Link
-            href='#'
+            to='#'
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -85,7 +84,7 @@ export const RoleActions: FC<IRoleActionsProps> = ({
         key: '2',
         label: (
           <Link
-            href={`/ums/roles/${record.id}`}
+            to={`/ums/roles/${record.id}`}
             onClick={(e) => {
               e.stopPropagation();
             }}>
@@ -99,7 +98,7 @@ export const RoleActions: FC<IRoleActionsProps> = ({
           link
         ) : (
           <Link
-            href='#'
+            to='#'
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();

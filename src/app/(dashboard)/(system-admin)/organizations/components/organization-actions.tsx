@@ -4,7 +4,7 @@ import { UserActionsEnum } from '@/lib/enums/permissions';
 import { MenuProps } from '@/lib/types/uicomponents';
 import { MoreOutlined } from '@/uicomponents/icons';
 import { Button, Dropdown } from '@/uicomponents';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { FC } from 'react';
 import { IOrganization } from '../lib/types';
 import { ThreeDotsActionsIcon } from '@/uicomponents/icons/svgs';
@@ -29,7 +29,7 @@ export const OrganizationActions: FC<IOrganizationActionsProps> = ({
         key: '1',
         label: (
           <Link
-            href='#'
+            to='#'
             onClick={(e) => {
               e.stopPropagation();
               toggleStatus(record);
@@ -42,7 +42,7 @@ export const OrganizationActions: FC<IOrganizationActionsProps> = ({
         key: '2',
         label: (
           <Link
-            href={`/ums/users?org=${record.id}&orgName=${encodeURIComponent(record.name)}`}
+            to={`/ums/users?org=${record.id}&orgName=${encodeURIComponent(record.name)}`}
             onClick={(e) => {
               e.stopPropagation();
             }}>
@@ -54,7 +54,7 @@ export const OrganizationActions: FC<IOrganizationActionsProps> = ({
         key: '3',
         label: (
           <Link
-            href={`/organizations/${record.id}`}
+            to={`/organizations/${record.id}`}
             onClick={(e) => {
               e.stopPropagation();
             }}>

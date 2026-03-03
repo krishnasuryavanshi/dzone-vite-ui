@@ -1,4 +1,3 @@
-'use client';
 
 import { ColorModeContext } from '@/contexts';
 import React, { FC, PropsWithChildren, useContext, useEffect } from 'react';

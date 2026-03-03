@@ -1,4 +1,3 @@
-'use client';
 import { Digitalzone } from '@/components/brands';
 import { DzBox } from '@/components/layout/v1';
 import { Flex } from '@/uicomponents/layout';

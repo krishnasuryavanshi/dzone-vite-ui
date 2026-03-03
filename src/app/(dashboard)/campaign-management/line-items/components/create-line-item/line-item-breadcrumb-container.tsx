@@ -7,7 +7,7 @@ import {
 } from './line-item-breadcrumbs';
 import { ArrowLeft } from '@/uicomponents/icons/svgs';
 import { DZONE_CLR_GRAY_DARK } from '@/lib/constants';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 interface LineItemBreadCrumbContainer extends ICreateLineItemBreadcrumbsProps {}
 
@@ -23,7 +23,7 @@ export const LineItemBreadCrumbContainer: FC<LineItemBreadCrumbContainer> = ({
       style={{ padding: '0.5rem', paddingBottom: '0rem' }}>
       <LineItemBreadcrumbs {...{ campaignData, id, lineItemId }} />
       <Flex gap='0.5rem' align='center'>
-        <Link href='/campaign-management/line-items'>
+        <Link to='/campaign-management/line-items'>
           <Flex
             align='center'
             justify='center'

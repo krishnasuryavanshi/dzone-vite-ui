@@ -1,4 +1,3 @@
-'use client';
 import { DzBox } from '@/components/layout/v1';
 import { CLR_BLUE_LIGHT } from '@/lib/constants';
 import { CampaignActionsEnum } from '@/lib/enums/permissions';
@@ -16,7 +15,7 @@ import { fetchCampaignStatuses, putCreateCampaign } from '../services';
 import { CampaignStatus } from '../../components/campaign-status';
 import { ALLOWED_STATUS } from '../lib/constants';
 import { ConfirmationModal } from './status-confirmation-modal';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 
 // Simple module-level cache to prevent multiple API calls
 let statusesCache: IStatus[] | null = null;

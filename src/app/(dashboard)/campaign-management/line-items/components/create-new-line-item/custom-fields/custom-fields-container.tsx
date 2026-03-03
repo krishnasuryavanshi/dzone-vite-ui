@@ -1,11 +1,10 @@
-'use client';
 import { DzRecord } from '@/lib/types';
 import { showNotification } from '@/services/index';
 import { Form, useForm } from '@/uicomponents/form';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
 import { FC } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { ILineItem } from '../../../lib/types';
 import { formatCustomFieldsPayload } from '../../../lib/utils/custom-fields';
 import { updateLineItemCustomFields } from '../../../services';

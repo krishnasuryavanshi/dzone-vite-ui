@@ -1,4 +1,3 @@
-'use client';
 import { Drawer, Button, Title, Text } from '@/uicomponents';
 import { ICustomQuestion } from '../../lib/types';
 import { Translate } from '@/components/i18n';

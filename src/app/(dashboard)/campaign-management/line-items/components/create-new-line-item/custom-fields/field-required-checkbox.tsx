@@ -1,4 +1,3 @@
-'use client';
 import { FormItem } from '@/uicomponents/form';
 import { Checkbox } from '@/uicomponents/form/input';
 import { FC } from 'react';

@@ -1,4 +1,3 @@
-'use client';
 import { Form, FormItem } from '@/uicomponents/form';
 import { FC } from 'react';
 import { renderField } from '../../components';

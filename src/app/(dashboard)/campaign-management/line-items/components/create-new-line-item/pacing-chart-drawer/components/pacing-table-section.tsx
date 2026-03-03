@@ -1,4 +1,3 @@
-'use client';
 
 import React, { useCallback, useMemo, useRef, useEffect } from 'react';
 import { Pacing } from '../../../../lib/enums/pacing.enum';
@@ -402,7 +401,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
       )}
 
       {pacingSchedule !== Pacing.DAILY && (
-        <Table
+        <Table<PacingPeriod>
           className={styles.pacingTable}
           columns={getPeriodColumns()}
           dataSource={filteredData}
@@ -439,7 +438,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
 
               return (
                 <Flex vertical>
-                  <Table
+                  <Table<ScheduleItem>
                     columns={getExpandedColumns()}
                     className={styles.expandedTable}
                     dataSource={childTableData}

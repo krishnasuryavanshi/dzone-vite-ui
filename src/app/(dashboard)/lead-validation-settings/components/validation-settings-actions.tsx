@@ -5,8 +5,8 @@ import { Form, FormItem, Modal, Title, useForm } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
 import { Input, Select } from '@/uicomponents/form/input';
 import { fetchOrganizationsByType } from '../../(system-admin)/organizations/services';
-import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
+import { useSession } from '@/lib/hooks/use-session';
+import { useRouter } from '@/lib/hooks/use-router';
 import { formatPayload, getNavigationUrl } from '../lib/utils';
 import { DzRecord } from '@/lib/types';
 import {

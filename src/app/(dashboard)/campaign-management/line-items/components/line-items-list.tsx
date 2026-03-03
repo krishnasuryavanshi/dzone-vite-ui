@@ -1,8 +1,7 @@
-'use client';
 import { BasicTable } from '@/components/table';
 import { useScrollableTableHeight } from '@/lib/hooks';
 import { Filters } from '@/lib/utils/table';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { FC } from 'react';
 import { useLineItemFilterOptions } from '../lib/hooks';
 import { ILineItem } from '../lib/types';

@@ -1,4 +1,3 @@
-'use client';
 
 import { Flex } from '@/uicomponents/layout';
 import { ChatHeader } from './chat-header';

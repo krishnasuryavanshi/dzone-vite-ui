@@ -1,4 +1,3 @@
-'use client';
 
 import { SendOutlined } from '@/uicomponents/icons';
 import { Hideable } from '@/components/shared';

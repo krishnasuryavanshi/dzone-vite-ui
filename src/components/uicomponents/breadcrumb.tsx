@@ -1,4 +1,3 @@
-'use client';
 import React, { FC } from 'react';
 import { BreadcrumbProps } from 'antd/lib/breadcrumb';
 import { Breadcrumb as AntdBreadcrumb } from 'antd';

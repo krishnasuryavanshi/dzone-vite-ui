@@ -1,9 +1,8 @@
-'use client';
 import { Translate } from '@/components/i18n';
 import { MenuProps } from '@/lib/types/uicomponents';
 import { Button, Dropdown } from '@/uicomponents';
 import { MoreOutlined } from '@ant-design/icons';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { FC } from 'react';
 import { IUser } from '../lib/types';
 import { usePermissionCheck } from '@/lib/hooks';
@@ -39,7 +38,7 @@ export const UsersActions: FC<IUserActionsProps> = ({
         key: '1',
         label: (
           <Link
-            href='#'
+            to='#'
             onClick={(e) => {
               e.stopPropagation();
               toggleStatus(record);
@@ -52,7 +51,7 @@ export const UsersActions: FC<IUserActionsProps> = ({
         key: '2',
         label: (
           <Link
-            href='#'
+            to='#'
             onClick={(e) => {
               e.stopPropagation();
               resendSetPasswordLink(record);
@@ -65,7 +64,7 @@ export const UsersActions: FC<IUserActionsProps> = ({
         key: '3',
         label: (
           <Link
-            href={`/ums/users/${record.id}`}
+            to={`/ums/users/${record.id}`}
             onClick={(e) => {
               e.stopPropagation();
             }}>

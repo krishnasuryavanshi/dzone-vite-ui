@@ -1,10 +1,9 @@
-'use client';
 
 import { Button, Form, FormItem, useForm, Text } from '@/uicomponents';
 import { RangePicker, Select } from '@/uicomponents/form/input';
 import { Flex } from '@/uicomponents/layout';
 import { useDeliveryLogsStore } from './use-delivery-logs-store';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import dayjs from 'dayjs';
 import styles from './delivery-logs-header.module.css';
 

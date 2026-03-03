@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, useState } from 'react';
 import { Row } from '@/uicomponents/layout/grid';
 import { FormControlItemContent } from '@/app/(dashboard)/campaign-management/components';

@@ -4,7 +4,7 @@ import { BasicTable } from '@/components/table';
 import { TableProps } from '@/lib/types/uicomponents';
 import { FormatDate } from '@/components/util';
 import { UsersStatus } from '@/app/(dashboard)/ums/users/components/users-status';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { useScrollableTableHeight } from '@/lib/hooks';
 import { OrganizationActions } from './organization-actions';
 import { Filters, Sorter, createColumn } from '@/lib/utils/table';

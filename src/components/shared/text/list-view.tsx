@@ -1,4 +1,3 @@
-'use client';
 import { Translate } from '@/components/i18n';
 import { Link, Modal } from '@/uicomponents/index';
 import { List, ListItem } from '@/uicomponents/layout/list';

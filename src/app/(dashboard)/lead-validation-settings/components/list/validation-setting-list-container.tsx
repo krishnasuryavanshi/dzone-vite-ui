@@ -1,10 +1,9 @@
-'use client';
 
 import { TableWithPaginationLayout } from '@/components/shared';
 import { HasPermission } from '@/components/auth';
 import { LeadValidationSettingsActionsEnum } from '@/lib/enums/permissions';
 import { useQueryState } from '@/lib/hooks';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { useEffect, useState } from 'react';
 import { IValidationSettingRow } from '../../lib/types';
 import { fetchAllLeadValidationSettings } from '../../services';

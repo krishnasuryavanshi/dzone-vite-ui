@@ -1,4 +1,3 @@
-'use client';
 import { Hideable } from '@/components/shared';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';

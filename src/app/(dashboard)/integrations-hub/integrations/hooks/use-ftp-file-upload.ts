@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { UploadFile, UploadProps } from '@/lib/types/uicomponents';
 import { fetchFileUploadMetadata } from '@/services/file-upload';
 import { showNotification } from '@/services/notification';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import { uploadSingleFile } from '@/app/(dashboard)/campaign-management/line-items/services/upload-single-file';
 
 const FILE_TYPE_NAME = 'private-key-file';

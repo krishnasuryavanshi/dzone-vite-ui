@@ -1,4 +1,3 @@
-'use client';
 
 import { FC, useEffect, useRef, useState, useCallback } from 'react';
 import { Button } from '@/uicomponents';

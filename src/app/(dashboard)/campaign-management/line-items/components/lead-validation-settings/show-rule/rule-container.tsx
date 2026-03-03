@@ -1,4 +1,3 @@
-'use client';
 import { DzBox } from '@/components/layout/v1';
 import { Hideable, MapFunction } from '@/components/shared';
 import { Flex } from '@/uicomponents/layout';

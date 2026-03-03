@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, useEffect, useState } from 'react';
 import { UserProfile } from '../../user-profile';
 import { HeaderPanel } from './header-panel';

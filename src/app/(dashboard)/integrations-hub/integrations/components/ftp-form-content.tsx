@@ -1,4 +1,3 @@
-'use client';
 
 import { Input, InputPassword, InputNumber } from '@/uicomponents/form/input';
 import { FormItem } from '@/uicomponents/form';

@@ -1,4 +1,3 @@
-'use client';
 import { Button, Dropdown, Text, Tooltip } from '@/uicomponents';
 import {
   DZENT_BG_SELECTED,

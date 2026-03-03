@@ -1,4 +1,3 @@
-'use client';
 
 import { DzBox } from '@/components/layout/v1/dz-box';
 import { BasicTable } from '@/components/table';
@@ -8,7 +7,7 @@ import { createColumn } from '@/lib/utils/table/create-columns';
 import { Breadcrumb, Button, Spin, Text } from '@/uicomponents';
 import { ArrowLeftOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import React, { useEffect, useState } from 'react';
 import { fetchIntegrationDetails } from '../services';
 import styles from './integration-details.module.css';

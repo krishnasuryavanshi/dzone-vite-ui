@@ -1,4 +1,3 @@
-'use client';
 import { Hideable } from '@/components/shared';
 import { useQueryState } from '@/lib/hooks';
 import { FC, useEffect, useState } from 'react';

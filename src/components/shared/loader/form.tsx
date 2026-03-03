@@ -1,4 +1,3 @@
-'use client';
 import React, { FC } from 'react';
 import { Input, InputPassword } from '@/uicomponents/form/input';
 import { Form, FormItem } from '@/uicomponents/form';

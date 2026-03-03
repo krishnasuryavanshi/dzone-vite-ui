@@ -1,4 +1,3 @@
-'use client';
 import { FC } from 'react';
 import { createColumn, Filters } from '@/lib/utils/table';
 import { BasicTable } from '@/components/table';

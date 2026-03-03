@@ -1,4 +1,3 @@
-'use client';
 
 import { REQUIRED_FIELD } from '@/app/(dashboard)/campaign-management/lib/constants';
 import { Translate } from '@/components/i18n';

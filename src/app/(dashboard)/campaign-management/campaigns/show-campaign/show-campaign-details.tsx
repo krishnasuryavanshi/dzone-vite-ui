@@ -3,7 +3,7 @@ import { Translate } from '@/components/i18n';
 import { DzBox } from '@/components/layout/v1';
 import { Text } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/lib/hooks/use-router';
 import { FC, useEffect, useState } from 'react';
 import { ShowDetailsSectionFooterAction } from '../../components/show-page';
 import { CampaignStep } from '../lib/enums';

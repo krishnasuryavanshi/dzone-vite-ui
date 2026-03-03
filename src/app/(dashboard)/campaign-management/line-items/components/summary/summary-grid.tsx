@@ -1,4 +1,3 @@
-'use client';
 
 import { FC, useState, useCallback, useMemo } from 'react';
 import { Table } from '@/uicomponents/table';
@@ -156,14 +155,14 @@ export const SummaryGrid: FC<ISummaryGridProps> = ({
   return (
     <Table
       className='table dz-table pacing-summary-grid'
-      columns={columns}
-      dataSource={dataSource}
+      columns={columns as any}
+      dataSource={dataSource as any}
       loading={isLoading}
       pagination={false}
       scroll={{ x: 'max-content', y: scrollableTableHeight }}
       sticky
       onChange={handleTableChange}
-      expandable={expandable}
+      expandable={expandable as any}
     />
   );
 };

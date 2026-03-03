@@ -1,4 +1,3 @@
-'use client';
 import { Translate } from '@/components/i18n';
 import { Hideable } from '@/components/shared/hideable';
 import { MenuProps } from '@/lib/types/uicomponents';
@@ -11,14 +10,14 @@ import {
 import { Flex } from '@/uicomponents/layout';
 import { FC, useEffect } from 'react';
 import { FilterDropdownAssignedUser } from '../../components';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import {
   LineItemActionsEnum,
   ViewLineItemPermissions,
 } from '@/lib/enums/permissions';
 import { usePermissionCheck } from '@/lib/hooks';
 import { HasPermission } from '@/components/auth';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { CLR_BLACK, DZONE_CLR_BLACK, DZONE_CLR_GRAY_2 } from '@/lib/constants';
 
 interface ILineItemsActionsProps {
@@ -119,7 +118,7 @@ export const LineItemsActions: FC<ILineItemsActionsProps> = ({
       /> */}
       <Flex gap='0.75rem' align='center'>
         <HasPermission permissions={LineItemActionsEnum.Create}>
-          <Link href='/campaign-management/line-items/create'>
+          <Link to='/campaign-management/line-items/create'>
             <Button
               style={{
                 display: 'flex',

@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, useEffect, useState } from 'react';
 import { Form, Checkbox, Button } from 'antd';
 import { CheckboxChangeEvent } from 'antd/es/checkbox';
@@ -6,7 +5,7 @@ import { TextArea } from '@/uicomponents/form/input';
 import { FormItem } from '@/uicomponents/form';
 import { ILineItem } from '../../lib/types';
 import { updateLineItem } from '../../services/update-line-item';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { Flex } from '@/uicomponents/layout';
 import { Translate } from '@/components/i18n';
 import { Row } from '@/uicomponents/layout/grid';

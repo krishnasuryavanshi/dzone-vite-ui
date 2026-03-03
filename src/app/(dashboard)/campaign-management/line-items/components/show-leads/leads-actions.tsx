@@ -309,7 +309,7 @@ export const LeadsActions: FC<ILeadsActionsProps> = ({
 
   return (
     <Flex gap='1rem' align='center'>
-      {/* <Link href={viewMoreLeadsLink}> // Not needed now might be in future, so commented it
+      {/* <Link to={viewMoreLeadsLink}> // Not needed now might be in future, so commented it
         <Translate i18nKey='viewMore' /> 
       </Link> */}
       {/* Validation might be used later, so commenting it out for now. Currently, validation is performed during upload. */}

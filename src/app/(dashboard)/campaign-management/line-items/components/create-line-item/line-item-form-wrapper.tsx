@@ -1,4 +1,3 @@
-'use client';
 import { FC } from 'react';
 import { DzBox } from '@/components/layout/v1';
 import { Flex } from 'antd';

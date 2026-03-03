@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, useEffect, useState } from 'react';
 import { ILeadStatus } from '../../leads/lib/types';
 import { fetchLeadStatusList } from '../../leads/services/fetch-lead-status-list';

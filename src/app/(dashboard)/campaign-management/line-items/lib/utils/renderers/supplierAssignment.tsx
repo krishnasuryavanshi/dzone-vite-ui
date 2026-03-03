@@ -1,4 +1,3 @@
-'use client';
 import { ShowSupplier } from '../../../components/show-supplier';
 import { ILineItem } from '../../types';
 

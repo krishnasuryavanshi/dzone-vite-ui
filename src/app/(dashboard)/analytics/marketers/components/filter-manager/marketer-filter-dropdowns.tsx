@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { Tooltip } from '@/uicomponents';
 import {

@@ -1,4 +1,3 @@
-'use client';
 
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
 import { RestrictedAccessKeys } from '@/lib/enums';

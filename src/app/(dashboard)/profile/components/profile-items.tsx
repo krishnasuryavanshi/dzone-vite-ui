@@ -1,4 +1,3 @@
-'use client';
 
 import { DzBox } from '@/components/layout/v1';
 import { Flex, Space } from '@/uicomponents/layout';

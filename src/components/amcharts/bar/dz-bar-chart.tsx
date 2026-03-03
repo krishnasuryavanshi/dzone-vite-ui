@@ -1,4 +1,3 @@
-'use client';
 
 import { useLayoutEffect, useRef } from 'react';
 import * as am5 from '@amcharts/amcharts5';

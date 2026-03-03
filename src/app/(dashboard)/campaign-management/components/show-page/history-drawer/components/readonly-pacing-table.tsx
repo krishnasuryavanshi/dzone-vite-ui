@@ -1,4 +1,3 @@
-'use client';
 
 import React from 'react';
 import { Table } from '@/uicomponents/table';
@@ -140,7 +139,7 @@ export const ReadonlyPacingTable: React.FC<ReadonlyPacingTableProps> = ({
 
     return (
       <Flex vertical>
-        <Table
+        <Table<ScheduleItem>
           columns={getExpandedColumns()}
           className={styles.expandedTable}
           dataSource={childTableData}
@@ -156,10 +155,10 @@ export const ReadonlyPacingTable: React.FC<ReadonlyPacingTableProps> = ({
   // For daily pacing, show flat table
   if (pacingSchedule === 'Daily' && data[0] && !data[0].schedules) {
     return (
-      <Table
+      <Table<ScheduleItem>
         className={styles.pacingTable}
         columns={getDailyColumns()}
-        dataSource={data}
+        dataSource={data as any}
         rowKey='id'
         size='small'
         pagination={false}
@@ -169,7 +168,7 @@ export const ReadonlyPacingTable: React.FC<ReadonlyPacingTableProps> = ({
 
   // For other pacing types with expandable rows
   return (
-    <Table
+    <Table<PacingPeriod>
       className={styles.pacingTable}
       columns={getPeriodColumns()}
       dataSource={data}
@@ -182,7 +181,7 @@ export const ReadonlyPacingTable: React.FC<ReadonlyPacingTableProps> = ({
         expandedRowRender,
         expandedRowClassName: () => styles.expandedRow,
         rowExpandable: (record) =>
-          record.schedules && record.schedules.length > 0,
+          !!(record.schedules && record.schedules.length > 0),
         expandIcon: ({ expanded, onExpand, record }) =>
           expanded ? (
             <CaretUpOutlined

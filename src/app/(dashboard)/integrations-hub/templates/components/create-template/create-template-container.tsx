@@ -1,4 +1,3 @@
-'use client';
 
 import { DzRecord } from '@/lib/types';
 import { Flex } from '@/uicomponents/layout';

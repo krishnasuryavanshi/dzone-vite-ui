@@ -1,4 +1,3 @@
-'use client';
 import { Live } from '@/components/status';
 import { DZONE_CLR_BLACK } from '@/lib/constants';
 import {

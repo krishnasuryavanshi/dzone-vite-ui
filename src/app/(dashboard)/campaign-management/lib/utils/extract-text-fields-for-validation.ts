@@ -1,4 +1,3 @@
-'use client';
 import { FieldType } from '@/lib/enums';
 import { CampaignStepSectionsType } from '../../campaigns/lib/types';
 

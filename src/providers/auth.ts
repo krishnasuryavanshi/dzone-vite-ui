@@ -1,7 +1,6 @@
-'use client';
 
 import { Store, showNotification } from '@/services';
-import { AuthBindings } from '@refinedev/core';
+import { AuthBindings } from '@/lib/types/auth.types';
 import { encrypt } from '@/lib/utils';
 import { StorageKey } from '@/lib/enums';
 import { login as authLogin, logout as authLogout } from '../auth/auth-service';

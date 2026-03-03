@@ -4,7 +4,7 @@ import { Dropdown } from '@/uicomponents/dropdown';
 import { Button } from '@/uicomponents/button';
 import { IExcecutiveGrids } from '../types';
 import { ThreeDotsActionsIcon } from '@/uicomponents/icons/svgs';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export const ExecutiveGridActions: FC<{ executive: IExcecutiveGrids }> = ({
   executive,
@@ -16,7 +16,7 @@ export const ExecutiveGridActions: FC<{ executive: IExcecutiveGrids }> = ({
       {
         key: '1',
         label: (
-          <Link href={baseLink} onClick={stopPropagation}>
+          <Link to={baseLink} onClick={stopPropagation}>
             View Campaign
           </Link>
         ),

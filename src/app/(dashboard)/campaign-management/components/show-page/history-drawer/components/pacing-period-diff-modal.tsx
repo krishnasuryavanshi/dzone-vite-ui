@@ -1,4 +1,3 @@
-'use client';
 
 import { FC, useMemo } from 'react';
 import { Modal } from '@/uicomponents/modal';

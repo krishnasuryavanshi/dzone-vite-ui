@@ -1,4 +1,3 @@
-'use client';
 
 import { FormItem } from '@/uicomponents/form';
 import { Select } from '@/uicomponents/form/input/select';

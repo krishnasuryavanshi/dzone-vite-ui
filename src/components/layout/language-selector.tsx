@@ -1,6 +1,6 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-import { useGetLocale, useSetLocale } from "@refinedev/core";
+import { useGetLocale, useSetLocale } from "@/lib/hooks/use-i18n";
 import { Space } from "@/uicomponents/layout";
 import { Avatar, Button, Dropdown } from "@/uicomponents";
 import { Menu, MenuItem } from "@/uicomponents/menu";

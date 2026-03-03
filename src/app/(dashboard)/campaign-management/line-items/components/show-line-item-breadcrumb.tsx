@@ -1,4 +1,3 @@
-'use client';
 import { Translate } from '@/components/i18n';
 import { ItemType } from '@/lib/types/uicomponents';
 import { Breadcrumb } from '@/uicomponents';

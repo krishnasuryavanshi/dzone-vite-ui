@@ -1,4 +1,3 @@
-'use client';
 import { FC } from 'react';
 import { AddQuestionButton } from './add-question-button';
 import { FormInstance, FormList } from '@/uicomponents/form';

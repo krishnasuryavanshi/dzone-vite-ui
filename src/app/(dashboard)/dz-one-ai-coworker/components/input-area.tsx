@@ -1,4 +1,3 @@
-'use client';
 
 import { WarningOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';

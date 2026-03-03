@@ -1,11 +1,10 @@
-'use client';
 
 import React from 'react';
 import { ExclamationCircleOutlined } from '@/uicomponents/icons';
 import { Title, Button } from '@/uicomponents';
 import { Flex, Space } from '@/uicomponents/layout';
 import { Card } from '@/uicomponents/layout/card';
-import { useLogout } from '@refinedev/core';
+import { useLogout } from '@/lib/hooks/use-auth';
 
 export const UnauthorizedContainer = () => {
   const { mutate: logout } = useLogout();

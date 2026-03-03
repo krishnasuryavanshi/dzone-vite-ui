@@ -19,7 +19,7 @@ export const DaterangePickerAction = ({
   form,
 }: DaterangePickerActionProps) => {
   const handleRangeChange = (
-    dates: [Dayjs | null, Dayjs | null],
+    dates: [Dayjs | null, Dayjs | null] | null,
     dateStrings: [string, string],
   ) => {
     form.setFieldValue(name, {

@@ -1,4 +1,3 @@
-'use client';
 
 import { Form, useForm } from '@/uicomponents/form';
 import { Flex } from '@/uicomponents/layout';

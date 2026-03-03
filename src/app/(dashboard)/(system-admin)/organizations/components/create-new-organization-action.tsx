@@ -1,7 +1,7 @@
 import { Translate } from '@/components/i18n';
 import { CLR_BLACK } from '@/lib/constants';
 import { Button } from '@/uicomponents';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import React, { FC } from 'react';
 
 interface ICreateNewOrganizationActionProps {}
@@ -10,7 +10,7 @@ export const CreateNewOrganizationAction: FC<
   ICreateNewOrganizationActionProps
 > = ({}) => {
   return (
-    <Link href='/organizations/create'>
+    <Link to='/organizations/create'>
       <Button
         style={{
           display: 'flex',

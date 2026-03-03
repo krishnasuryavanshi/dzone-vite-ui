@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import { FC } from 'react';
 import { IUser } from '../lib/types';
 import { DzBox } from '@/components/layout/v1';
@@ -19,7 +19,7 @@ export const Roles: FC<IRolesProps> = ({ record }) => {
             <Text key={role.id}>
               <Link
                 key={role.id}
-                href={`/ums/roles/${role.id}`}
+                to={`/ums/roles/${role.id}`}
                 onClick={(e) => e.stopPropagation()}>
                 {role.name}
               </Link>

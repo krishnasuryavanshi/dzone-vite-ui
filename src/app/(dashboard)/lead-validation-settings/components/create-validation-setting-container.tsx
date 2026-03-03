@@ -1,4 +1,3 @@
-'use client';
 import { DzBox } from '@/components/layout/v1';
 import { CreateValidationSettingHeader } from './create-validation-setting-header';
 import { Flex } from '@/uicomponents/layout';

@@ -1,4 +1,3 @@
-'use client';
 import { saveFileFromBlob } from '@/lib/utils';
 import { Filters } from '@/lib/utils/table';
 import { showNotification } from '@/services';

@@ -1,10 +1,9 @@
-'use client';
 
 import { FC, useEffect, useState } from 'react';
 import { Card, Col, Row, Typography, Tag, Space, Descriptions } from 'antd';
 import { fetchUser } from '../../ums/users/services';
 import { ScreenLoader } from '@/components/shared/loader';
-import { User } from 'next-auth';
+import { User } from '@/lib/types/auth.types';
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
 import { ProfileItems } from './profile-items';
 import { CLR_BLACK } from '@/lib/constants';

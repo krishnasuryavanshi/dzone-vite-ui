@@ -3,7 +3,7 @@ import { FC, useEffect, useState } from 'react';
 import { Translate } from '@/components/i18n';
 import { Text } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
-import { usePathname } from 'next/navigation';
+import { usePathname } from '@/lib/hooks/use-router';
 import { ShowDetailsSectionFooterAction } from './show-details-section-footer-actions';
 import { ILineItem } from '../../line-items/lib/types';
 import { ShowItemFields } from './show-item-fields';

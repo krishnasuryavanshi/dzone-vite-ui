@@ -1,4 +1,3 @@
-'use client';
 
 import { ICampaign } from '@/app/(dashboard)/campaign-management/campaigns/lib/types';
 import { DzScrollContainer } from '@/components/layout/v1';
@@ -14,7 +13,7 @@ import { CampaignField } from '../lib/enums';
 import { useRestrictedAccess } from '@/lib/hooks';
 import { RestrictedAccessKeys } from '@/lib/enums';
 import { debounce } from 'lodash';
-import { usePermissions } from '@refinedev/core';
+import { usePermissions } from '@/lib/hooks/use-auth';
 import CampaignDetailsSchema from '../lib/schemas/campaign-form.json';
 import { IShowItemDetailsProps } from '../../lib/types';
 import { ShowItemDetails } from '../../components/show-page';

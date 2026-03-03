@@ -1,9 +1,8 @@
-'use client';
 import { DzBox } from '@/components/layout/v1';
 import { Text } from '@/uicomponents';
 import { ArrowLeft } from '@/uicomponents/icons/svgs';
 import { Flex } from '@/uicomponents/layout';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { useValidationSettingStore } from '../store';
 import { useQueryState } from '@/lib/hooks/use-query-state';
 import { getNavigationUrl } from '../lib/utils';

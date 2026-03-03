@@ -3,7 +3,7 @@ import { MoreOutlined } from "@/uicomponents/icons";
 import React, { FC } from "react";
 
 import "./record-actions.scss";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 
 interface ILeadsRecordActionsProps {
   lineItemId: string;
@@ -21,7 +21,7 @@ export const LeadsRecordActions: FC<ILeadsRecordActionsProps> = ({
       key: "1",
       label: (
         <Link
-          href={`/campaign-management/clients/${clientId}/campaigns/${campaignId}/line-items/${lineItemId}`}
+          to={`/campaign-management/clients/${clientId}/campaigns/${campaignId}/line-items/${lineItemId}`}
         >
           View Line Item
         </Link>

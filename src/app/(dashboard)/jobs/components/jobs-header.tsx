@@ -1,4 +1,3 @@
-'use client';
 
 import { hasActiveFilters } from '@/lib/utils';
 import { Filters } from '@/lib/utils/table';

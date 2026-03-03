@@ -1,4 +1,3 @@
-'use client';
 import { Input, Select } from '@/uicomponents/form/input';
 import { Flex, Space } from '@/uicomponents/layout';
 import { IActiveCampaignList } from '../lib/types';

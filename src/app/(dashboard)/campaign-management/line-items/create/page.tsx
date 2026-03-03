@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import { CreateNewLineItem } from '../components/create-new-line-item';
 
 export default function CreateLineItemPage() {

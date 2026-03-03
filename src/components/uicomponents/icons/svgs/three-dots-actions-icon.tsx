@@ -1,9 +1,8 @@
 import React from 'react';
-import Image from 'next/image';
 
 export const ThreeDotsActionsIcon = () => {
   return (
-    <Image
+    <img
       src='/icons/three-dots-actions.png'
       alt='Actions'
       width={20}

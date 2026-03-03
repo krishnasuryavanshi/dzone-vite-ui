@@ -1,4 +1,3 @@
-'use client';
 import { StepperFormFooter } from '@/components/modals/form/stepper-form-footer';
 import { UnsavedDataWarningContext } from '@/contexts';
 import { OptionsKeys, RestrictedAccessKeys, StorageKey } from '@/lib/enums';
@@ -8,7 +7,7 @@ import { getFormDataFromCookie } from '@/services/cookie-stepper-form';
 import { Form } from '@/uicomponents/form';
 import useForm from 'antd/lib/form/hooks/useForm';
 import { cloneDeep, debounce } from 'lodash';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import {
   FC,
   useCallback,
@@ -77,7 +76,7 @@ export const LineItemForm: FC<ILineItemForm> = ({
 }) => {
   const router = useRouter();
   const { updateQueryParams } = useUpdateQueryState();
-  const previousMarketerCodeRef = useRef<string | undefined>();
+  const previousMarketerCodeRef = useRef<string | undefined>(undefined);
 
   const [loading, setLoading] = useState(false);
   const {

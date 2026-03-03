@@ -1,4 +1,3 @@
-'use client';
 import { DzBox } from '@/components/layout/v1';
 import { Col, Row } from '@/uicomponents/layout/grid';
 import { CSSProperties } from 'react';

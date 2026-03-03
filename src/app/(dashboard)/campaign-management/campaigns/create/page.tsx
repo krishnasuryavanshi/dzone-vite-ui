@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import { CreateCampaignForm } from './create-campaign-form';
 // import { CreateCampaign } from './create-campaign';
 

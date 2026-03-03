@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, useEffect } from 'react';
 import { CreateOrganizationContainer } from './create-organization-container';
 import { IOrganization } from '../../lib/types';

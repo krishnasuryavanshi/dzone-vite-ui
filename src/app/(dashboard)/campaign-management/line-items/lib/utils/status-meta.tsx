@@ -1,4 +1,4 @@
-'use client';
+import React from 'react';
 import { LineItemStatus } from '../enums';
 import { Live } from '@/components/status';
 import {
@@ -21,7 +21,7 @@ interface IStatusData {
   [key: string]: {
     backgroundColor: string;
     color: string;
-    icon: JSX.Element | null;
+    icon: React.ReactElement | null;
   };
 }
 

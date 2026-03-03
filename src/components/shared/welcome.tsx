@@ -1,4 +1,3 @@
-'use client';
 
 import { Space } from '@/uicomponents/layout';
 import React from 'react';

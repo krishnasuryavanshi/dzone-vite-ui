@@ -1,4 +1,4 @@
-import { ResourceProps } from "@refinedev/core";
+import { ResourceProps } from "../types/resource.types";
 import { Roles } from "../enums";
 
 export function roleBasedResources(resources: ResourceProps[], roles: Roles[]) {

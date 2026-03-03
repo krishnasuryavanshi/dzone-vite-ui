@@ -1,4 +1,3 @@
-'use client';
 import { DZONE_CLR_BLACK } from '@/lib/constants';
 import { Button } from '@/uicomponents/button';
 import { Text } from '@/uicomponents/text';

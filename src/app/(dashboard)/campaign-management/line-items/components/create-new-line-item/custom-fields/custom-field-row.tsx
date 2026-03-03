@@ -1,4 +1,3 @@
-'use client';
 import { DzBox } from '@/components/layout/v1';
 import { FormInstance } from '@/uicomponents/form';
 import { Flex } from '@/uicomponents/layout';

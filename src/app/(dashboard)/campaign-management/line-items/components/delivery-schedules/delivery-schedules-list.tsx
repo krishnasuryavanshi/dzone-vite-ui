@@ -1,4 +1,3 @@
-'use client';
 
 import { BasicTable } from '@/components/table';
 import { FormatDate } from '@/components/util';
@@ -10,7 +9,7 @@ import { MoreOutlined, WarningOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
 import { showNotification } from '@/services';
 import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import {
   fetchDeliverySchedules,
   updateDeliveryScheduleStatus,

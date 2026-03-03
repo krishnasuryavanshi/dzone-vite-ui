@@ -1,4 +1,3 @@
-'use client';
 
 import { Title } from '@/uicomponents';
 import React, { FC, PropsWithChildren } from 'react';

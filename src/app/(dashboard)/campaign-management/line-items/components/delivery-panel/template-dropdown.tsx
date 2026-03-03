@@ -1,4 +1,3 @@
-'use client';
 import { FC, useEffect, useState } from 'react';
 import { fetchDeliveryTemplatesByMarketer } from '../../../../integrations-hub/templates/services';
 import { DefaultOptionType, Select } from '@/uicomponents/form/input';

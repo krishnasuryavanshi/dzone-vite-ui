@@ -1,4 +1,3 @@
-'use client';
 import { Drawer as AntDrawer, DrawerProps } from 'antd';
 import React, { FC } from 'react';
 import './drawer.scss';

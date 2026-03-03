@@ -1,4 +1,3 @@
-'use client';
 import { FC, useEffect, useState } from 'react';
 import { useUpdateQueryState } from '../../../lib/hooks';
 import { ICampaign } from '../../../campaigns/lib/types';

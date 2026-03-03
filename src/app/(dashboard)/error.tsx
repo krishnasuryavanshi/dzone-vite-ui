@@ -1,4 +1,3 @@
-"use client";
 
 import React from "react";
 import { ErrorContainer } from "@/components/shared";

@@ -1,4 +1,3 @@
-'use client';
 
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { ScreenLoader } from '@/components/shared/loader';

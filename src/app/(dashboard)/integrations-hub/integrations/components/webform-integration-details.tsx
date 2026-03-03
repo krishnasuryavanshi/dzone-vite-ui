@@ -1,4 +1,3 @@
-'use client';
 
 import { Link, Text, Tooltip } from '@/uicomponents';
 import styles from './integrations-list.module.css';

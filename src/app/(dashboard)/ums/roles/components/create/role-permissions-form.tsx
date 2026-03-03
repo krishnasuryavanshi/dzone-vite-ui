@@ -1,4 +1,3 @@
-'use client';
 import { Flex } from '@/uicomponents/layout';
 import { BasicDetailsForm } from './basic-details-form';
 import { DzBox } from '@/components/layout/v1';

@@ -1,4 +1,3 @@
-'use client';
 import { DrawerShowList } from '@/components/shared/text';
 import { Badge } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';

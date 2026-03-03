@@ -1,4 +1,3 @@
-'use client';
 import { UnsavedDataWarningContext } from '@/contexts';
 import { StorageKey } from '@/lib/enums';
 import { createCookieForExistingRecord } from '@/services/cookie-stepper-form';

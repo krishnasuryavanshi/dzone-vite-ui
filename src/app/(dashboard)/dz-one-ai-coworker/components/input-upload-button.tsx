@@ -1,4 +1,3 @@
-'use client';
 
 import { PaperClipOutlined } from '@/uicomponents/icons';
 import { Upload } from '@/uicomponents/upload';

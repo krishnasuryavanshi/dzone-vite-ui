@@ -1,4 +1,3 @@
-'use client';
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { RolesList } from './roles-list';
 import { fetchRolesList } from '../services/fetch-roles-list';

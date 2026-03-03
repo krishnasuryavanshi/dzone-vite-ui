@@ -8,7 +8,7 @@ import { ShowLineItemsTabsContent } from './show-line-items-tabs-content';
 import { usePermissionCheck } from '@/lib/hooks';
 import { LeadActionsEnum } from '@/lib/enums/permissions';
 import { ViewJobPermissions } from '@/lib/enums/permissions';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from '@/lib/hooks/use-router';
 import { LineItemContext } from '../contexts/line-item';
 
 interface IShowLineItemTabsProps {

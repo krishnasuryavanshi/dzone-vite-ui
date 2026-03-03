@@ -1,4 +1,3 @@
-'use client';
 import { showNotification } from '@/services/notification';
 import { Input } from '@/uicomponents/form/input';
 import { Flex } from '@/uicomponents/layout';

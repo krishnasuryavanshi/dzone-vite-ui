@@ -1,9 +1,8 @@
-import Image from 'next/image';
 import { FC } from 'react';
 
 export const NoRecommendationsIcon: FC = () => {
   return (
-    <Image
+    <img
       src='/images/no-suggestions.svg'
       alt='No suggestions'
       width={100}

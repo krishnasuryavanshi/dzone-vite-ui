@@ -1,8 +1,7 @@
-'use client';
 
 import { Spin, Text, Title } from '@/uicomponents';
 import { Flex, Space } from '@/uicomponents/layout';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from '@/lib/hooks/use-router';
 import { useEffect, useState } from 'react';
 import { deliveryFileDownload } from '../services/delivery-file-download';
 

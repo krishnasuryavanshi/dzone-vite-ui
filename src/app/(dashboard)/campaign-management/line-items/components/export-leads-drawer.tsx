@@ -1,4 +1,3 @@
-'use client';
 import { FC } from 'react';
 import { Drawer } from '@/uicomponents/drawers';
 import { DrawerCloseButton } from '@/app/(dashboard)/components';

@@ -1,4 +1,3 @@
-'use client';
 import { FormInstance, FormList } from '@/uicomponents/form';
 import { FC } from 'react';
 import { canEditCustomFieldDefinition } from '../../../lib/utils/custom-fields';

@@ -1,4 +1,3 @@
-'use client';
 
 import { FC, useState, useCallback, useMemo } from 'react';
 import { Table } from '@/uicomponents/table';

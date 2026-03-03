@@ -1,4 +1,3 @@
-'use client';
 import { pick } from 'lodash';
 import { UnsavedLineItemSourceFields } from '../constants';
 

@@ -1,4 +1,3 @@
-'use client';
 import { DeleteOutlined } from '@/uicomponents/icons';
 import { Tooltip } from '@/uicomponents';
 import { FC } from 'react';

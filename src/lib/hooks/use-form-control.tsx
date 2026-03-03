@@ -1,4 +1,3 @@
-'use client';
 import { FileUpload } from '@/components/shared/file-upload';
 import {
   Checkbox,

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import { ViewCampaignContainer } from '@/app/(dashboard)/campaign-management/campaigns/show-campaign';
 import React from 'react';
 

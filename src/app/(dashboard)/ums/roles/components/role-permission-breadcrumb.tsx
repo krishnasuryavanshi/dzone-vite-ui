@@ -1,4 +1,3 @@
-'use client';
 import { Translate } from '@/components/i18n';
 import { CLR_BLACK, CLR_WHITE, DZONE_CLR_BLACK } from '@/lib/constants';
 import { ItemType } from '@/lib/types/uicomponents';

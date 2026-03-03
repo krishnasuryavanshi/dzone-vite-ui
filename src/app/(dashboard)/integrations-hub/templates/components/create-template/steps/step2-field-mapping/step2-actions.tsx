@@ -1,11 +1,10 @@
-'use client';
 
 import { Translate } from '@/components/i18n';
 import { showNotification } from '@/services/notification';
 import { Button } from '@/uicomponents';
 import { LoadingOutlined } from '@/uicomponents/icons';
 import { Space } from '@/uicomponents/layout';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { FC, useEffect, useState } from 'react';
 import { createTemplate, updateTemplateDetails } from '../../../../services';
 import { useTemplateStore } from '../../../../stores';

@@ -1,4 +1,3 @@
-'use client';
 import { FieldType, OptionsKeys, OptionsType } from '@/lib/enums';
 import { LineItemFields, LineItemSections } from '../../lib/enums';
 import {

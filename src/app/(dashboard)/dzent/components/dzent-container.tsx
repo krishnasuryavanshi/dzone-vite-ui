@@ -1,6 +1,5 @@
-'use client';
 import { Hideable } from '@/components/shared';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import { useContext, useEffect } from 'react';
 import { useDzentStore } from '../store';
 import { DzentWrapper } from './dzent-wrapper';

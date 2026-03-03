@@ -1,4 +1,3 @@
-'use client';
 
 import { FC, useMemo } from 'react';
 import { Table } from '@/uicomponents/table';
@@ -46,13 +45,13 @@ export const JobsList: FC<JobsListProps> = ({
   };
 
   return (
-    <Table
+    <Table<IJob>
       className='dz-table'
       columns={columns}
       dataSource={jobs}
       rowKey='id'
       pagination={false}
-      onChange={handleChange}
+      onChange={handleChange as any}
       scroll={{ x: 'max-content', y: scrollableTableHeight }}
       onRow={(record) => ({
         onClick: () => onRowClick(record),

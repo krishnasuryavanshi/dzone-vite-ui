@@ -1,4 +1,3 @@
-'use client';
 
 import { FC, ReactNode } from 'react';
 import { Flex } from '@/uicomponents/layout';

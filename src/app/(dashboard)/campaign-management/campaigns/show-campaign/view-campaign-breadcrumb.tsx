@@ -1,4 +1,3 @@
-'use client';
 import { Translate } from '@/components/i18n';
 import { Breadcrumb } from '@/uicomponents';
 import React, { FC } from 'react';

@@ -1,4 +1,3 @@
-'use client';
 import { FC, useState } from 'react';
 import { BasicTable } from '@/components/table';
 import { useScrollableTableHeight } from '@/lib/hooks';

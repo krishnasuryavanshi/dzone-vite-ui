@@ -1,4 +1,3 @@
-'use client';
 import { DzBox } from '@/components/layout/v1';
 import { CLR_BLUE_LIGHT } from '@/lib/constants';
 import { LineItemActionsEnum } from '@/lib/enums/permissions';

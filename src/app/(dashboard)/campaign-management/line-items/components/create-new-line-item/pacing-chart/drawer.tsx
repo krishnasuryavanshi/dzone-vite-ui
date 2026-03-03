@@ -1,4 +1,3 @@
-'use client';
 import React, { FC } from 'react';
 import { CLR_BLUE_LIGHT, DZONE_CLR_BLACK } from '@/lib/constants';
 import { Drawer } from '@/uicomponents/drawers';

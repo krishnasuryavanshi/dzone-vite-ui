@@ -1,9 +1,10 @@
 import React from 'react';
-import { useGetIdentity, useLogout, useTranslate } from '@refinedev/core';
+import { useGetIdentity, useLogout } from '@/lib/hooks/use-auth';
+import { useTranslate } from '@/lib/hooks/use-i18n';
 import { Avatar, Popover, Button, Text, Divider } from '@/uicomponents';
 import { ApiOutlined, LogoutOutlined } from '@/uicomponents/icons';
 import { Space } from '@/uicomponents/layout';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import './user-profile.scss';
 import { Settings, UserIcon } from '@/uicomponents/icons/svgs';
 import { HasPermission } from '@/components/auth/has-permission';
@@ -35,7 +36,7 @@ export const UserProfile = () => {
         </Text>
       </Button>
 
-      <Link href='/profile'>
+      <Link to='/profile'>
         <Button className='user-profile-menu-item' type='text' block>
           <UserIcon />
           <Text className='user-profile-menu-item-text'>

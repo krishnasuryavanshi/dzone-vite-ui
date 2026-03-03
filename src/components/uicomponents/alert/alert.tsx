@@ -1,4 +1,3 @@
-'use client';
 
 import { Alert as AntAlert, AlertProps } from 'antd';
 import React, { FC } from 'react';

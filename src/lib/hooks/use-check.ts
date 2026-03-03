@@ -1,4 +1,4 @@
-import { useIsAuthenticated } from "@refinedev/core";
+import { useIsAuthenticated } from './use-auth';
 
 export function useCheck() {
   const {

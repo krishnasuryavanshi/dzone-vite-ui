@@ -1,4 +1,3 @@
-'use client';
 import { LineItemRecordActions } from '../../../components';
 import { ILineItem } from '../../types';
 

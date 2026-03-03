@@ -1,4 +1,3 @@
-'use client';
 
 import { Col } from '@/uicomponents/layout/grid';
 import { FC, PropsWithChildren, useState } from 'react';

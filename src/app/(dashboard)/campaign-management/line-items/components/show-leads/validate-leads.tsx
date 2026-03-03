@@ -1,4 +1,3 @@
-'use client';
 import { FC, useState } from 'react';
 import { Button } from '@/uicomponents/button';
 import { validateLeads } from '@/app/(dashboard)/campaign-management/leads/services/validate-leads';

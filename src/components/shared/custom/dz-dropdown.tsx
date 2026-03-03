@@ -10,7 +10,7 @@ import { DzSerachDropdown } from './dz-serach-dropdown';
 
 export interface IDzDropdownProps extends PropsWithChildren {
   className?: string;
-  items: MenuProps['items'];
+  items: MenuProps['items'] | any[];
   selectedItems?: string[];
   label?: string;
   multiple?: boolean;
@@ -75,7 +75,7 @@ export const DzDropdown: FC<IDzDropdownProps> = ({
             />
           </DzScrollContainer.Sticky>
           <DzScrollContainer.Scroll>
-            {React.cloneElement(menus as React.ReactElement, {
+            {React.cloneElement(menus as React.ReactElement<any>, {
               style: menuStyle,
             })}
           </DzScrollContainer.Scroll>

@@ -1,4 +1,3 @@
-'use client';
 
 import { AccessKeys, RestrictedAccessKeys } from '@/lib/enums';
 import { useRestrictedAccess } from '@/lib/hooks';

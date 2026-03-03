@@ -1,4 +1,3 @@
-'use client';
 import { FC } from 'react';
 import { IExcecutiveGrids } from '../types';
 import { createColumn, Filters } from '@/lib/utils/table';
@@ -9,7 +8,7 @@ import { IStatus } from '@/app/(dashboard)/campaign-management/lib/types';
 import { ExecutiveGridActions } from './executive-actions';
 import { useCampaignFilterOptions } from '@/app/(dashboard)/campaign-management/campaigns/lib/hooks';
 import { CampaignStatus } from '@/app/(dashboard)/campaign-management/components';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 
 interface IExecutiveListsProps {
   lists: IExcecutiveGrids[];

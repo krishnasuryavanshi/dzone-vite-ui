@@ -1,4 +1,3 @@
-'use client';
 import { Resource } from '@/lib/enums';
 import {
   CampaignActionsEnum,
@@ -29,7 +28,7 @@ import {
   UmsIcon,
   ValidationSettingsIcon,
 } from '@/uicomponents/icons/svgs';
-import { IResourceItem } from '@refinedev/core';
+import { IResourceItem } from '@/lib/types/resource.types';
 
 export const resources: IResourceItem[] = [
   {

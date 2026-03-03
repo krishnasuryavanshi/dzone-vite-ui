@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, useEffect, useState } from 'react';
 import { IUser } from '../../lib/types';
 import { fetchUser } from '../../services';

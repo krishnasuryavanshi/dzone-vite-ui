@@ -1,4 +1,3 @@
-'use client';
 
 import { Input, TextArea } from '@/uicomponents/form/input';
 import styles from './create-integration-modal.module.css';

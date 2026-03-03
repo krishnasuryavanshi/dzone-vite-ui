@@ -1,4 +1,3 @@
-'use client';
 import { Modal } from '@/uicomponents/modal';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { ModalHeader } from './modal-header';
@@ -8,7 +7,7 @@ import { cloneLineItem, fetchCampaignsByMarketer } from '../../services';
 import { IActiveCampaignList } from '../../lib/types';
 import { showNotification } from '@/services/index';
 import { useQueryState } from '@/lib/hooks';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from '@/lib/hooks/use-router';
 
 interface ICloneLineItemContainerProps {
   lineItemId: string;

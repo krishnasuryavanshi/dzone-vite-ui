@@ -1,4 +1,3 @@
-'use client';
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
 import React, { FC } from 'react';
 import { CreateUserHeader } from './create-user-header';

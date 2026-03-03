@@ -1,4 +1,3 @@
-'use client';
 
 import { FC, useMemo, useRef, useEffect } from 'react';
 import { Spin } from '@/uicomponents';

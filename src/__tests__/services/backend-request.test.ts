@@ -1,4 +1,4 @@
-import { signOut } from 'next-auth/react';
+import { signOut } from '@/lib/hooks/use-session';
 import { HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { IApiRequestConfig } from '@/lib/types';
@@ -9,7 +9,7 @@ import { showNotification } from '@/services';
 // Mock dependencies
 jest.mock('../../services/back-end-manager');
 jest.mock('../../services/notification');
-jest.mock('next-auth/react');
+jest.mock('../../lib/hooks/use-session');
 
 describe('nextBackendRequest', () => {
   // Mock window.location

@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, SyntheticEvent, useContext } from 'react';
 import { Button, Dropdown, Link } from '@/uicomponents';
 import { MoreOutlined } from '@/uicomponents/icons';
@@ -11,13 +10,13 @@ import {
 } from './services';
 import { showNotification } from '@/services';
 import { usePermissionCheck, useQueryState } from '@/lib/hooks';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { CampaignContext } from './context';
 import {
   CampaignActionsEnum,
   LineItemActionsEnum,
 } from '@/lib/enums/permissions';
-import NextJsLink from 'next/link';
+import { Link as NextJsLink } from 'react-router-dom';
 import { ThreeDotsActionsIcon } from '@/uicomponents/icons/svgs';
 
 interface ICampaignRowActionsProps {
@@ -102,7 +101,7 @@ export const CampaignRowActions: FC<ICampaignRowActionsProps> = ({
     >
   > = {
     [CampaignActionsEnum.View]: (campaign, stopPropagation) => (
-      <NextJsLink href={viewCampaignLink} onClick={(e) => e.stopPropagation()}>
+      <NextJsLink to={viewCampaignLink} onClick={(e) => e.stopPropagation()}>
         View Campaign
       </NextJsLink>
     ),
@@ -125,7 +124,7 @@ export const CampaignRowActions: FC<ICampaignRowActionsProps> = ({
       </Link>
     ),
     [LineItemActionsEnum.View]: (campaign, stopPropagation) => (
-      <NextJsLink href={listOfLineItemLink} onClick={stopPropagation}>
+      <NextJsLink to={listOfLineItemLink} onClick={stopPropagation}>
         View Line Items
       </NextJsLink>
     ),

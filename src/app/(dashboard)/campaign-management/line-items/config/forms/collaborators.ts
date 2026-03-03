@@ -1,4 +1,3 @@
-'use client';
 import { FieldType, OptionsKeys, OptionsType } from '@/lib/enums';
 import { ReactNode } from 'react';
 import { assignedToNamesRenderer } from '../../../lib/utils/renderers';

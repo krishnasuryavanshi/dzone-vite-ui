@@ -1,4 +1,3 @@
-'use client';
 import { Col, Row } from '@/uicomponents/layout/grid';
 import { DzBox } from '@/components/layout/v1';
 import { FieldSkeltonRow } from '@/app/(dashboard)/components';

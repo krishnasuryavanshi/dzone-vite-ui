@@ -1,4 +1,3 @@
-"use client";
 import { DzTheme } from "@/components/layout/v1";
 import React, { FC, PropsWithChildren } from "react";
 

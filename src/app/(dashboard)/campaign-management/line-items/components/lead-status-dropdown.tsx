@@ -1,4 +1,3 @@
-'use client';
 import { DzCheckboxDropdown } from '@/components/shared/custom';
 import React, { FC, useEffect, useState } from 'react';
 import { ILeadStatus } from '../../leads/lib/types';

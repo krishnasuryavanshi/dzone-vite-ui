@@ -1,4 +1,3 @@
-'use client';
 import React, { useContext, useEffect } from 'react';
 import { DzentContainer, DZentContainerProps } from './dzent-container';
 import { useDzentStore } from '../store';

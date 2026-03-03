@@ -1,4 +1,3 @@
-'use client';
 import { Tag } from '@/uicomponents/tag';
 import { FC } from 'react';
 

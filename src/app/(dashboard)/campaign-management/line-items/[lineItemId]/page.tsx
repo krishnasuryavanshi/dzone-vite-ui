@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import { ShowLineItemContainer } from '@/app/(dashboard)/campaign-management/line-items/components/show-line-item';
 import React from 'react';
 

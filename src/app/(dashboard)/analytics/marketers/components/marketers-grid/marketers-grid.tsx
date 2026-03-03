@@ -1,4 +1,3 @@
-'use client';
 import { Filters } from '@/lib/utils/table';
 import { useEffect, useState } from 'react';
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';

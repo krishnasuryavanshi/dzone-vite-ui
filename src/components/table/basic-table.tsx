@@ -4,7 +4,7 @@ import { Table } from '@/uicomponents/table';
 import { useResizableColumns } from './use-resizable-columns';
 import './basic-table.scss';
 
-export interface ITableProps<T> {
+export interface ITableProps<T extends Record<string, any>> {
   style?: React.CSSProperties;
   className?: string;
   basicDetailsClassName?: string;
@@ -22,7 +22,7 @@ export interface ITableProps<T> {
   emptyText?: React.ReactNode;
 }
 
-export function BasicTable<T>({
+export function BasicTable<T extends Record<string, any>>({
   style,
   columns: initialColumns,
   className,
@@ -68,10 +68,10 @@ export function BasicTable<T>({
   };
 
   return (
-    <Table
+    <Table<T>
       className={`table dz-table ${className || ''} ${basicDetailsClassName || ''} ${resizable ? 'resizable-columns' : ''}`}
       style={style}
-      columns={processedColumns}
+      columns={processedColumns as TableProps<T>['columns']}
       components={components}
       dataSource={data}
       pagination={hasPagination}

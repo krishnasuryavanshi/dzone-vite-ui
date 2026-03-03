@@ -1,7 +1,7 @@
 import { Hideable } from '@/components/shared';
 import { Button } from '@/uicomponents/index';
 import { Flex } from '@/uicomponents/layout';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { LeadValidationSettingsContainer } from '../lead-validation-settings';
 
 type ValidationSettingsContainerProps = {

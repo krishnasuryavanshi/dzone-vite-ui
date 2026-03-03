@@ -1,4 +1,3 @@
-'use client';
 
 import { Spin } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';

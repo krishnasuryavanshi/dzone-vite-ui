@@ -1,4 +1,3 @@
-'use client';
 import { ReactNode, createContext, useEffect, useState } from 'react';
 import { ILineItem, ILineItemContext, IStatusPicklist } from '../lib/types';
 import { fetchStatusPicklist } from '../services';

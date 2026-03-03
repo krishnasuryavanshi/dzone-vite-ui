@@ -1,4 +1,3 @@
-'use client';
 import { Button } from '@/uicomponents';
 import { PlusOutlined } from '@/uicomponents/icons';
 import { FC } from 'react';

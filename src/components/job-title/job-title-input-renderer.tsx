@@ -1,4 +1,3 @@
-'use client';
 import { Input } from 'antd';
 import { FC, useMemo } from 'react';
 import { TagItem } from './tag-item';

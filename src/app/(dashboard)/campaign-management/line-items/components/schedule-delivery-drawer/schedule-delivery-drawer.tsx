@@ -1,4 +1,3 @@
-'use client';
 import { PreviewLink } from '@/app/(dashboard)/integrations-hub/templates/components/create-template/preview-link';
 import React, { FC, useEffect, useState } from 'react';
 import { DeliveryType } from '@/app/(dashboard)/integrations-hub/templates/lib/enums';

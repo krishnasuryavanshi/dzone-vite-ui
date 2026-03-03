@@ -1,10 +1,10 @@
 import { useEffect, useState, useRef } from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import { usePermissionsStore } from '@/stores/permissions-store';
 import { fetchPermissions } from '@/services/fetch-permissions';
 import { roleBasedResources, checkPermission } from '../utils';
 import { resources } from '@/config/resources';
-import { IResourceItem } from '@refinedev/core';
+import { IResourceItem } from '../types/resource.types';
 import { AdminRoleEnum, Resource } from '../enums';
 
 export function useAllowedResources() {

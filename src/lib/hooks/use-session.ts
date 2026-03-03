@@ -1,26 +1,10 @@
 /**
- * Shim for `next-auth/react`.
- * Maps useSession, signIn, signOut, getSession, SessionProvider
- * to client-side Zustand auth stores.
+ * Session hook — replaces next-auth/react useSession.
+ * Reads from Zustand auth + token stores.
  */
-import React, { useMemo } from 'react';
-import { useAuthStore, useTokenStore, usePermissionsStore } from '../auth/stores';
-
-export type SessionStatus = 'authenticated' | 'unauthenticated' | 'loading';
-
-export interface Session {
-  accessToken: string;
-  apiUrl: string;
-  roles: any[];
-  tenantCode: string[];
-  isDzoneUser: boolean;
-  user: any;
-  tenantType: string;
-  modules: Record<string, boolean>;
-  moduleAccessList: any[];
-  permissions: string[];
-  error: string;
-}
+import { useMemo } from 'react';
+import { useAuthStore, useTokenStore } from '../../auth/stores';
+import type { Session, SessionStatus } from '../types/auth.types';
 
 const noop = () => {};
 
@@ -95,42 +79,16 @@ export async function getSession(): Promise<Session | null> {
   };
 }
 
-export async function signIn(
-  _provider?: string,
-  credentials?: { email: string; password: string; redirect?: boolean },
-) {
-  if (!credentials) return { ok: false, error: 'No credentials' };
-
-  try {
-    // Dynamic import to avoid circular dependency
-    const { login } = await import('../auth/auth-service');
-    await login(credentials.email, credentials.password);
-    return { ok: true, error: null };
-  } catch (error: any) {
-    return { ok: false, error: error?.message || 'Login failed' };
-  }
-}
-
 export async function signOut(options?: { redirect?: boolean }) {
   try {
-    const { logout } = await import('../auth/auth-service');
+    const { logout } = await import('../../auth/auth-service');
     await logout();
   } catch {
-    // Clear stores even if the API call fails
     useAuthStore.getState().clear();
     useTokenStore.getState().clearToken();
-    usePermissionsStore.getState().clearPermissions();
   }
 
   if (options?.redirect !== false) {
     window.location.href = '/login';
   }
-}
-
-/**
- * SessionProvider — no-op passthrough.
- * Auth state lives in Zustand stores, not React context.
- */
-export function SessionProvider({ children }: { children: React.ReactNode }) {
-  return children;
 }

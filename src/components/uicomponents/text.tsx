@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, PropsWithChildren } from 'react';
 import { Typography } from 'antd';
 import { TextProps } from 'antd/lib/typography/Text';

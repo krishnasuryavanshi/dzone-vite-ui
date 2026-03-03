@@ -1,11 +1,10 @@
-'use client';
 import { TableProps } from '@/lib/types/uicomponents';
 import { Filters, createColumn } from '@/lib/utils/table';
 import { pick } from 'lodash';
 import { useEffect, useState } from 'react';
 import { checkPermission } from '@/lib/utils';
 import { usePermissionsStore } from '@/stores/permissions-store';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import { LineItemFields } from '../../line-items/lib/enums';
 import { CampaignField } from '../../campaigns/lib/enums';
 import {

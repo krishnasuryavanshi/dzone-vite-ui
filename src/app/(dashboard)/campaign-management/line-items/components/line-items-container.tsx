@@ -1,4 +1,3 @@
-'use client';
 
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { ScreenLoader } from '@/components/shared/loader';
@@ -12,7 +11,7 @@ import { ILineItem } from '../lib/types';
 import { fetchLineItems } from '../services';
 import { LineItemsFiltersManager } from './line-items-filters-manager';
 import { LineItemsList } from './line-items-list';
-import { useSearchParams } from 'next/navigation';
+import { useSearchParams } from '@/lib/hooks/use-router';
 
 interface ILineItemsContainerProps {}
 

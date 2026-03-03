@@ -1,4 +1,3 @@
-'use client';
 import { DrawerShowList } from '@/components/shared/text';
 import { Hideable } from '@/components/shared';
 import { DzBox } from '@/components/layout/v1';

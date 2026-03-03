@@ -1,12 +1,11 @@
-'use client';
 import { Translate } from '@/components/i18n';
 import { CLR_BLACK } from '@/lib/constants';
 import { Button } from '@/uicomponents/button';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 export const CreateNewRole = () => {
   return (
-    <Link href='/ums/roles/create'>
+    <Link to='/ums/roles/create'>
       <Button
         style={{
           display: 'flex',

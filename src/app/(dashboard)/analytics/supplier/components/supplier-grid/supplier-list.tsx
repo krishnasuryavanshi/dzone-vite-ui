@@ -1,4 +1,3 @@
-'use client';
 import { FC, useState } from 'react';
 import { Filters } from '@/lib/utils/table';
 import { BasicTable } from '@/components/table';

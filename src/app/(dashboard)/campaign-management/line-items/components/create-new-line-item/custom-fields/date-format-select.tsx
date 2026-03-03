@@ -1,4 +1,3 @@
-'use client';
 import { FormInstance, FormItem, useWatch } from '@/uicomponents/form';
 import { Select } from '@/uicomponents/form/input';
 import { FC } from 'react';

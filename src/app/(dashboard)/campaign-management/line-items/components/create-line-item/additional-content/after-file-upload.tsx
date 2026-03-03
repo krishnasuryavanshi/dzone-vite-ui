@@ -1,4 +1,3 @@
-'use client';
 import { DzBox } from '@/components/layout/v1';
 import { Text, Tooltip, Title } from '@/uicomponents';
 import { InfoCircleOutlined } from '@/uicomponents/icons';

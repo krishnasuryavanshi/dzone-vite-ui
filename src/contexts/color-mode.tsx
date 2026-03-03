@@ -1,4 +1,3 @@
-'use client';
 
 import { App as AntdApp, ConfigProvider, theme } from 'antd';
 import Cookies from 'js-cookie';

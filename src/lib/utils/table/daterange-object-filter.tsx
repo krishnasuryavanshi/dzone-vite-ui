@@ -1,4 +1,3 @@
-'use client';
 import { DzBox } from '@/components/layout/v1';
 import { FilterDropdownProps } from '@/lib/types/uicomponents';
 import { RangePicker } from '@/uicomponents/form/input/date-picker';

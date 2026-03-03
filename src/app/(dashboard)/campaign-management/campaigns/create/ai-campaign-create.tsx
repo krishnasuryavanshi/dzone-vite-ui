@@ -6,7 +6,7 @@ import { DzentAiIcon } from '@/uicomponents/icons/svgs';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
 import { CloseOutlined } from '@ant-design/icons';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 
 export const AiCampaignCreate = () => {
@@ -40,7 +40,7 @@ export const AiCampaignCreate = () => {
                 </Text>
               </Flex>
               <Flex gap='0.5rem'>
-                <Link href='/dzent' onClick={() => setIsOpen(false)}>
+                <Link to='/dzent' onClick={() => setIsOpen(false)}>
                   <Button type='primary' style={{ boxShadow: 'none' }}>
                     <Translate i18nKey='Yes, switch to AI Assistant' />
                   </Button>

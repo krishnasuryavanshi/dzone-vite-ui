@@ -5,7 +5,7 @@ import { Flex } from 'antd';
 import { Text } from '@/uicomponents/text';
 import { ArrowLeft } from '@/uicomponents/icons/svgs';
 import { DZONE_CLR_GRAY_DARK } from '@/lib/constants';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 
 interface CreateCampaignBreadCrumbContainer {
   campaignId?: string;
@@ -23,7 +23,7 @@ export const BreadCrumbContainer: FC<CreateCampaignBreadCrumbContainer> = ({
       style={{ padding: '0.5rem', paddingBottom: '0rem' }}>
       <ShowCampaignBreadcrumb campaignId={campaignId} id={id} />
       <Flex gap='0.5rem' align='center'>
-        <Link href='/campaign-management/campaigns'>
+        <Link to='/campaign-management/campaigns'>
           <Flex
             align='center'
             justify='center'

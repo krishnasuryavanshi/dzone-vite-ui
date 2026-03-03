@@ -1,4 +1,3 @@
-'use client';
 
 import { Progress } from '@/uicomponents';
 import { CloseOutlined } from '@/uicomponents/icons';

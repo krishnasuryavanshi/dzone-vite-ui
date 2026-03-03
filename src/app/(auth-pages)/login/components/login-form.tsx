@@ -1,7 +1,6 @@
-'use client';
 
 import { Form as Login } from '@/uicomponents/form';
-import { useLogin } from '@refinedev/core';
+import { useLogin } from '@/lib/hooks/use-auth';
 import { FC, PropsWithChildren } from 'react';
 import { loginConfig } from '../config';
 import { IUserIdentity } from '../types';

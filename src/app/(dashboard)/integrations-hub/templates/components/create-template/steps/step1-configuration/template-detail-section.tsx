@@ -1,4 +1,3 @@
-'use client';
 
 import {
   REQUIRED_FIELD,

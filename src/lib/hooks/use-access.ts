@@ -1,4 +1,4 @@
-import { usePermissions } from '@refinedev/core';
+import { usePermissions } from './use-auth';
 import { isArray } from 'lodash';
 
 export function useAccess(roles: string | string[]) {

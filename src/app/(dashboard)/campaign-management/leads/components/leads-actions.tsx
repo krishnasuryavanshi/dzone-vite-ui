@@ -1,4 +1,3 @@
-'use client';
 import { HasPermission } from '@/components/auth';
 import { Translate } from '@/components/i18n';
 import { Hideable } from '@/components/shared/hideable';

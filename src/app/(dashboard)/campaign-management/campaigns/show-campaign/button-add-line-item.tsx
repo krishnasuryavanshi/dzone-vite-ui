@@ -1,7 +1,7 @@
 import { Translate } from '@/components/i18n';
 import { showNotification } from '@/services';
 import { Button } from '@/uicomponents';
-import { useParams, useRouter } from 'next/navigation';
+import { useParams, useRouter } from '@/lib/hooks/use-router';
 import { FC, useState } from 'react';
 import { validateCreateLineItemsAction } from '../services';
 import { LoadingOutlined } from '@/uicomponents/icons';

@@ -3,7 +3,7 @@ import { DZONE_CLR_GRAY_DARK } from '@/lib/constants';
 import { ArrowLeft } from '@/uicomponents/icons/svgs';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
-import Link from 'next/link';
+import { Link } from 'react-router-dom';
 import React, { FC } from 'react';
 
 interface IBackNavigationProps {
@@ -13,7 +13,7 @@ interface IBackNavigationProps {
 export const BackNavigation: FC<IBackNavigationProps> = ({ isEditing }) => {
   return (
     <Flex gap={'0.5rem'}>
-      <Link href='/organizations'>
+      <Link to='/organizations'>
         <Flex
           align='center'
           justify='center'

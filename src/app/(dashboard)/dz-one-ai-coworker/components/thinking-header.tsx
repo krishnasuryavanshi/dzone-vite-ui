@@ -1,4 +1,3 @@
-'use client';
 
 import { ThunderboltOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';

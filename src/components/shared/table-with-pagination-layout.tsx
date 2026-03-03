@@ -1,4 +1,3 @@
-'use client';
 
 import { DzScrollContainer } from '@/components/layout/v1';
 import { ReactNode, CSSProperties } from 'react';

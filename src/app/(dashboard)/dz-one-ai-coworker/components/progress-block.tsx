@@ -1,4 +1,3 @@
-'use client';
 
 import { Collapse } from '@/uicomponents';
 import { CheckCircleOutlined, LoadingOutlined } from '@/uicomponents/icons';

@@ -1,4 +1,3 @@
-'use client';
 
 import { formatDate } from '@/lib/utils';
 import { isObject, pick } from 'lodash';

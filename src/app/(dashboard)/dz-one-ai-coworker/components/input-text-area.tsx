@@ -1,4 +1,3 @@
-'use client';
 
 import { TextArea } from '@/uicomponents/form/input';
 import { DEFAULT_TEXT } from '../lib/constants';

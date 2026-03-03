@@ -1,4 +1,3 @@
-'use client';
 import { DzBox } from '@/components/layout/v1';
 import { showNotification } from '@/services/notification';
 import { Flex } from '@/uicomponents/layout';

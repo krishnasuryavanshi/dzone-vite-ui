@@ -9,7 +9,7 @@ import { Checkbox, Input, Select } from '@/uicomponents/form/input';
 import { Flex, Space } from '@/uicomponents/layout';
 import { Col, Row } from '@/uicomponents/layout/grid';
 import { Modal } from '@/uicomponents/modal';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useTenantTypeStore } from '@/stores/tenant-store';
 import { TenantType } from '../../../../components';

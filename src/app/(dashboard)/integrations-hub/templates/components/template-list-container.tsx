@@ -1,4 +1,3 @@
-'use client';
 import React, { FC, useEffect, useState } from 'react';
 import { TemplateList } from './template-list';
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
@@ -7,7 +6,7 @@ import { TemplateListHeader } from './template-list-header';
 import { ITemplateRow } from '../lib/types';
 import { useQueryState } from '@/lib/hooks';
 import { fetchTemplates } from '../services';
-import { useRouter } from 'next/navigation';
+import { useRouter } from '@/lib/hooks/use-router';
 interface ITemplateListContainerProps {}
 
 export const TemplateListContainer: FC<ITemplateListContainerProps> = ({}) => {

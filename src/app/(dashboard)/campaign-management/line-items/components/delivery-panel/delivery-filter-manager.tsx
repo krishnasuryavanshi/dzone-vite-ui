@@ -1,4 +1,3 @@
-'use client';
 import { Flex } from '@/uicomponents/layout';
 import { FC } from 'react';
 import { TemplateDropdown } from './template-dropdown';

@@ -1,4 +1,3 @@
-'use client';
 import { FormInstance, FormItem, useWatch } from '@/uicomponents/form';
 import { Tooltip } from '@/uicomponents';
 import { FC } from 'react';

@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { useSession } from 'next-auth/react';
+import { useSession } from '@/lib/hooks/use-session';
 import { CreateTemplate } from '../../components/create-template';
 
 export default function UpdateTemplatePage() {
