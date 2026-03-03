@@ -21,7 +21,6 @@ import { Col, Row } from '@/uicomponents/layout/grid';
 import { Link } from 'react-router';
 import React, { useEffect, useState } from 'react';
 import { Integration, IntegrationType } from '../lib/types/integration';
-import { fetchIntegrations, fetchIntegrationTypes } from '../services';
 import { CreateIntegrationModal } from './create-integration-modal';
 import { HubSpotIntegrationDetails } from './hubspot-integration-details';
 import styles from './integrations-list.module.css';
@@ -29,6 +28,9 @@ import { WebFormIntegrationDetails } from './webform-integration-details';
 import { ZapierIntegrationDetails } from './zapier-integration-details';
 import { FtpIntegrationDetails } from './ftp-integration-details';
 import { DeliveryType } from '@/app/(dashboard)/integrations-hub/templates/lib/enums';
+import { useIntegrationsQuery, useIntegrationTypesQuery } from '../hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 
 const DefaultLogo = () => (
   <svg width='32' height='32' viewBox='0 0 32 32' fill='none'>
@@ -65,12 +67,23 @@ const getIntegrationLogo = (type?: string, name?: string): React.ReactNode => {
 };
 
 export const IntegrationsList: React.FC = () => {
-  const [integrations, setIntegrations] = useState<Integration[]>([]);
-  const [integrationTypes, setIntegrationTypes] = useState<IntegrationType[]>(
-    [],
-  );
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const queryClient = useQueryClient();
+  const {
+    data: integrationsResponse,
+    isLoading: integrationsLoading,
+    error: integrationsError,
+  } = useIntegrationsQuery();
+  const {
+    data: typesResponse,
+    isLoading: typesLoading,
+    error: typesError,
+  } = useIntegrationTypesQuery();
+
+  const loading = integrationsLoading || typesLoading;
+  const error = integrationsError || typesError;
+  const integrations = integrationsResponse?.data ?? [];
+  const integrationTypes = typesResponse?.data ?? [];
+
   const [disconnecting, setDisconnecting] = useState<string | null>(null);
   const [createModalOpen, setCreateModalOpen] = useState(false);
   const [selectedIntegrationType, setSelectedIntegrationType] =
@@ -78,29 +91,19 @@ export const IntegrationsList: React.FC = () => {
   const [modalMode, setModalMode] = useState<'create' | 'retry'>('create');
   const [selectedIntegration, setSelectedIntegration] =
     useState<Integration | null>(null);
+
+  // Show error notification when error occurs
   useEffect(() => {
-    loadData();
-  }, []);
-
-  const loadData = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-
-      // Load both integrations and integration types in parallel
-      const [integrationsResponse, typesResponse] = await Promise.all([
-        fetchIntegrations(),
-        fetchIntegrationTypes(),
-      ]);
-
-      setIntegrations(integrationsResponse.data || []);
-      setIntegrationTypes(typesResponse.data || []);
-    } catch (err) {
-      setError('Failed to load integrations. Please try again later.');
-      // console.error('Error loading integrations:', err);
-    } finally {
-      setLoading(false);
+    if (error) {
+      showNotification({
+        message: 'Failed to load integrations. Please try again later.',
+        type: 'error',
+      });
     }
+  }, [error]);
+
+  const invalidateIntegrations = () => {
+    queryClient.invalidateQueries({ queryKey: queryKeys.integrations.all });
   };
 
   const handleUpdateStatus = async (
@@ -122,8 +125,7 @@ export const IntegrationsList: React.FC = () => {
         type: 'success',
       });
 
-      // Reload the integrations list
-      await loadData();
+      invalidateIntegrations();
     } catch (error) {
       const action = newStatus === 'Active' ? 'connect' : 'disconnect';
       showNotification({
@@ -161,18 +163,8 @@ export const IntegrationsList: React.FC = () => {
     setSelectedIntegrationType('');
     setSelectedIntegration(null);
     setModalMode('create');
-    loadData(); // Refresh the integrations list
+    invalidateIntegrations();
   };
-
-  // Show error notification when error occurs - must be before any returns
-  useEffect(() => {
-    if (error) {
-      showNotification({
-        message: error,
-        type: 'error',
-      });
-    }
-  }, [error]);
 
   if (loading) {
     return (
@@ -194,9 +186,9 @@ export const IntegrationsList: React.FC = () => {
         style={{ textAlign: 'center', padding: '40px' }}>
         <Text
           style={{ display: 'block', marginBottom: '16px', color: '#ff4d4f' }}>
-          {error}
+          Failed to load integrations. Please try again later.
         </Text>
-        <Button type='primary' onClick={loadData}>
+        <Button type='primary' onClick={invalidateIntegrations}>
           Retry
         </Button>
       </DzBox>

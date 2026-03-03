@@ -1,9 +1,9 @@
-import { fetchOrganizationsByType } from '@/app/(dashboard)/(system-admin)/organizations/services';
+import { useOrganizationsByTypeQuery } from '@/app/(dashboard)/(system-admin)/organizations/hooks';
 import { DzBox } from '@/components/layout/v1';
 import { Hideable } from '@/components/shared';
 import { LoadingOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { ILineItem } from '../../lib/types';
 import { NoSupplier } from './no-supplier';
 import { UpdateSupplier } from './update-supplier';
@@ -18,9 +18,22 @@ export const ShowSupplier: FC<IShowSupplierProps> = ({ lineItem }) => {
   const [mode, setMode] = useState<'no-data' | 'view' | 'edit' | 'loading'>(
     'loading',
   );
-  const [suppliers, setSuppliers] = useState<
-    { label: string; value: string }[]
-  >([]);
+  const [fetchEnabled, setFetchEnabled] = useState(false);
+
+  const { data: orgData, refetch, isFetching } = useOrganizationsByTypeQuery(
+    'Supplier',
+    undefined,
+    fetchEnabled,
+  );
+
+  const suppliers = useMemo(
+    () =>
+      orgData?.data?.map((supplier: Record<string, string>) => ({
+        label: supplier.name,
+        value: supplier.code,
+      })) ?? [],
+    [orgData],
+  );
 
   useEffect(() => {
     if (lineItem?.supplier) {
@@ -38,19 +51,19 @@ export const ShowSupplier: FC<IShowSupplierProps> = ({ lineItem }) => {
     }
   }, [supplierName]);
 
+  useEffect(() => {
+    if (fetchEnabled && !isFetching && orgData) {
+      setMode('edit');
+    }
+  }, [fetchEnabled, isFetching, orgData]);
+
   const startEditing = async () => {
     setMode('loading');
-    try {
-      const { data } = await fetchOrganizationsByType('Supplier');
-      setSuppliers(
-        data.map((supplier: Record<string, string>) => ({
-          label: supplier.name,
-          value: supplier.code,
-        })),
-      );
+    if (orgData) {
       setMode('edit');
-    } catch (e) {
-      setMode('no-data');
+    } else {
+      setFetchEnabled(true);
+      refetch();
     }
   };
 

@@ -1,14 +1,13 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC } from 'react';
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
-import { ICampaign } from '../lib/types';
 import { BreadCrumbContainer } from './breadcrumb-container';
 import { Flex } from '@/uicomponents/layout';
 import { FormContainer } from './form-container';
-import { fetchCampaignDetails } from '../services';
 import { Hideable } from '@/components/shared/hideable';
 import { AiCampaignCreate } from './ai-campaign-create';
 import { HasPermission } from '@/components/auth/has-permission';
 import { DzentActionsEnum } from '@/lib/enums/permissions';
+import { useCampaignDetailQuery } from '../hooks/use-campaign-detail-query';
 
 interface ICreateCampaignFormProps {
   campaignUUId?: string;
@@ -23,19 +22,11 @@ export const CreateCampaignForm: FC<ICreateCampaignFormProps> = ({
   userDetails,
   isDzoneUser,
 }) => {
-  const [campaignData, setCampaignData] = React.useState<ICampaign | null>(
-    null,
+  const { data: campaignResponse } = useCampaignDetailQuery(
+    campaignUUId ?? '',
+    false,
   );
-
-  const fetchCampaign = async () => {
-    if (!campaignUUId) return;
-    const { data } = await fetchCampaignDetails(campaignUUId, false);
-    setCampaignData(data);
-  };
-
-  useEffect(() => {
-    fetchCampaign();
-  }, [campaignUUId]);
+  const campaignData = campaignResponse?.data ?? null;
 
   return (
     <>

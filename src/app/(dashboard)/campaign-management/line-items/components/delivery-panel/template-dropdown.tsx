@@ -1,5 +1,5 @@
-import { FC, useEffect, useState } from 'react';
-import { fetchDeliveryTemplatesByMarketer } from '../../../../integrations-hub/templates/services';
+import { FC, useMemo } from 'react';
+import { useDeliveryTemplatesByMarketerQuery } from '../../hooks';
 import { DefaultOptionType, Select } from '@/uicomponents/form/input';
 import { Translate } from '@/components/i18n';
 import { Flex } from '@/uicomponents/layout';
@@ -23,29 +23,21 @@ export const TemplateDropdown: FC<ITemplateDropdownProps> = ({
   tenantCode,
   lineItemId,
 }) => {
-  const [templateListOptions, setTemplateListOptions] = useState<
-    DefaultOptionType[]
-  >([]);
-  const [templatesData, setTemplatesData] = useState<ITemplateRow[]>([]);
+  const { data: templatesResponse } = useDeliveryTemplatesByMarketerQuery(
+    tenantCode,
+    lineItemId,
+  );
 
-  useEffect(() => {
-    if (tenantCode) {
-      fetchTemplateList(tenantCode, lineItemId);
-    }
-  }, [tenantCode, lineItemId]);
+  const templatesData = templatesResponse?.data ?? [];
 
-  const fetchTemplateList = async (tenantCode: string, lineItemId?: string) => {
-    const data = await fetchDeliveryTemplatesByMarketer(tenantCode, lineItemId);
-    if (data) {
-      setTemplatesData(data?.data);
-      setTemplateListOptions(
-        data?.data?.map((item: ITemplateRow) => ({
-          value: item.id,
-          label: item.name,
-        })),
-      );
-    }
-  };
+  const templateListOptions = useMemo(
+    () =>
+      templatesData.map((item: ITemplateRow) => ({
+        value: item.id,
+        label: item.name,
+      })),
+    [templatesData],
+  );
 
   const isTemplateSelected = Boolean(selectedTemplate);
 
@@ -68,7 +60,7 @@ export const TemplateDropdown: FC<ITemplateDropdownProps> = ({
   const handleSelectTemplate = (selectedId?: string) => {
     if (selectedId !== undefined) {
       const fullTemplate = templatesData.find(
-        (template) => template.id === selectedId,
+        (template: ITemplateRow) => template.id === selectedId,
       );
       if (fullTemplate) {
         onTemplateChange(fullTemplate);

@@ -1,6 +1,6 @@
 import { DzBox } from '@/components/layout/v1';
 import { Flex } from '@/uicomponents/layout';
-import { FC, useEffect, useState, useRef, useCallback } from 'react';
+import { FC, useState, useRef, useCallback } from 'react';
 import { DeliveryFilterManager } from './delivery-filter-manager';
 import { ITemplateInfo } from '@/app/(dashboard)/integrations-hub/templates/lib/types';
 import { showNotification } from '@/services/notification';
@@ -22,10 +22,7 @@ import { Pagination } from '@/uicomponents';
 import { IToastState } from '@/app/(dashboard)/lib/types';
 import { ToastManager } from '@/app/(dashboard)/components/toast-manager/toast-manager';
 import { ToastWithActionButton } from '@/app/(dashboard)/components/toast-manager/toast-with-action-button';
-import {
-  fetchTotalFilteredLeadsCount,
-  fetchTotalLeadsCount,
-} from '../../services';
+import { useLeadsCountQuery } from '../../hooks';
 import { DeliveryTransformAndExportButton } from './delivery-transform-and-export-button';
 import { Refresh } from '../show-leads/refresh';
 import {
@@ -50,7 +47,6 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
   );
   const [selectedTemplate, setSelectedTemplate] =
     useState<ITemplateInfo | null>(null);
-  const [totalFilteredLeads, setTotalFilteredLeads] = useState<number>(0);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tablePagination, setTablePagination] = useState({
@@ -66,6 +62,11 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
     message: '',
     statusCode: 0,
   });
+
+  const { data: totalFilteredLeads = 0 } = useLeadsCountQuery(
+    lineItemId,
+    selectedLeadStatuses,
+  );
 
   const closeModal = () => {
     setIsOpen(false);
@@ -98,24 +99,6 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
     return filters;
   }, [selectedLeadStatuses]);
 
-  const fetchFilteredLeads = useCallback(async () => {
-    const filters = createFilters();
-    const data = await fetchTotalFilteredLeadsCount(lineItemId, filters);
-    setTotalFilteredLeads(data?.leadCount);
-  }, [lineItemId, createFilters]);
-
-  const fetchLeads = useCallback(async () => {
-    const data = await fetchTotalLeadsCount(lineItemId);
-    setTotalFilteredLeads(data?.count);
-  }, [lineItemId]);
-
-  useEffect(() => {
-    if (selectedLeadStatuses.length > 0) {
-      fetchFilteredLeads();
-    } else {
-      fetchLeads();
-    }
-  }, [selectedLeadStatuses, fetchFilteredLeads, fetchLeads]);
   if (!show) {
     return null;
   }

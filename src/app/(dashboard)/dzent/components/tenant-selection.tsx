@@ -1,8 +1,8 @@
 import { DzRecord } from '@/lib/types';
 import { Form, FormItem, useForm } from '@/uicomponents/form';
 import { Button, Modal, Title } from '@/uicomponents/index';
-import { useEffect, useState } from 'react';
-import { fetchOrganizationsByType } from '../../(system-admin)/organizations/services';
+import { useEffect, useMemo, useState } from 'react';
+import { useOrganizationsByTypeQuery } from '../../(system-admin)/organizations/hooks';
 import { Flex } from '@/uicomponents/layout';
 import { Select } from '@/uicomponents/form/input';
 import { useDzentStore } from '../store';
@@ -13,26 +13,27 @@ type TenantSelectionProps = {
 
 export const TenantSelection = ({ userId }: TenantSelectionProps) => {
   const { setTenantCode, setMarketerList } = useDzentStore();
-  const [marketerList, setMarketerListState] = useState<DzRecord[]>([]);
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [form] = useForm();
 
-  useEffect(() => {
-    fetchMarketerList();
-    setIsModalOpened(true);
-  }, []);
+  const { data: orgData } = useOrganizationsByTypeQuery('Marketer', userId);
 
-  const fetchMarketerList = async () => {
-    try {
-      const { data } = await fetchOrganizationsByType('Marketer', userId);
-      const marketers = data?.map(({ id, name: label, code }: DzRecord) => ({
+  const marketerList = useMemo(() => {
+    const marketers =
+      orgData?.data?.map(({ id, name: label, code }: DzRecord) => ({
         label,
         value: code,
-      }));
-      setMarketerListState(marketers || []);
-      setMarketerList(marketers);
-    } catch (error) {}
-  };
+      })) ?? [];
+    return marketers;
+  }, [orgData]);
+
+  useEffect(() => {
+    setMarketerList(marketerList);
+  }, [marketerList, setMarketerList]);
+
+  useEffect(() => {
+    setIsModalOpened(true);
+  }, []);
 
   const handleStart = async () => {
     try {

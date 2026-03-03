@@ -1,7 +1,6 @@
 import { DzCheckboxDropdown } from '@/components/shared/custom';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useMemo } from 'react';
 import { ILeadStatus } from '../../leads/lib/types';
-import { fetchLeadStatusList } from '../../leads/services/fetch-lead-status-list';
 import { LeadStatusFileType } from '../lib/enums';
 import { DzSelectDropdown } from '@/components/shared/custom/dz-select-dropdown';
 import { Space } from '@/uicomponents/layout';
@@ -16,6 +15,7 @@ import {
   dropdownSpaceStyle,
   dropdownLabelSpaceStyle,
 } from '../lib/utils/dropdown-styles';
+import { useLeadStatusesQuery } from '../hooks';
 
 interface ILeadStatusDropdownProps {
   onLeadsStatusChange: (data: string[]) => void;
@@ -27,24 +27,15 @@ export const LeadStatusDropdown: FC<ILeadStatusDropdownProps> = ({
   selected,
   isFileType,
 }) => {
-  const [leadsStatusOptions, setLeadsStatusOptions] = useState<
-    { value: string; text: string }[]
-  >([]);
+  const { data } = useLeadStatusesQuery();
 
-  useEffect(() => {
-    fetchStatusData();
-  }, []);
-
-  const fetchStatusData = async () => {
-    const data = await fetchLeadStatusList();
-    if (data) {
-      const leadStatusOptionsList = data?.data?.map((item: ILeadStatus) => ({
-        value: item.name,
-        text: item.value,
-      }));
-      setLeadsStatusOptions(leadStatusOptionsList);
-    }
-  };
+  const leadsStatusOptions = useMemo(() => {
+    if (!data?.data) return [];
+    return data.data.map((item: ILeadStatus) => ({
+      value: item.name,
+      text: item.value,
+    }));
+  }, [data]);
 
   const DropdownComponent =
     isFileType === LeadStatusFileType.Leads

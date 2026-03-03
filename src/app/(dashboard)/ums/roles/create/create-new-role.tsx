@@ -9,8 +9,6 @@ import { RolePermissioBreadcrumb } from '../components';
 import { RolePermissionsForm } from '../components/create';
 import { DiscardModal } from '../components/modals';
 import { RolesAndPermissionsTitle } from '../components/roles-and-permissions-title';
-import { IRoleDetails } from '../lib/types';
-import { fetchPermissionsByRoleId } from '../services';
 import { saveRoleAndPermissions } from '../services/save-roles-and-permissions';
 import { updateRoleAndPermissionsByRoleId } from '../services/update-role-and-permissions-by-role-id';
 import {
@@ -25,6 +23,7 @@ import {
   getModulePermissionsAccess,
 } from '../lib/utils';
 import { useTenantTypeStore } from '@/stores/tenant-store';
+import { useRoleDetailQuery } from '../hooks';
 
 interface ICreateNewRoleProps {
   roleId?: string;
@@ -58,11 +57,12 @@ export const CreateNewRole: FC<ICreateNewRoleProps> = ({ roleId }) => {
 
   const { tenantTypes, fetchTenantTypes } = useTenantTypeStore();
 
-  const [roleDetails, setRoleDetails] = useState<IRoleDetails | null>();
+  const { data: roleResponse, isLoading } = useRoleDetailQuery(roleId);
+
+  const roleDetails = roleResponse?.data ?? null;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSaveButtonDisabled, setIsSaveButtonDisabled] =
     useState<boolean>(true);
   const [hasFormValueChanged, setHasFormValueChanged] =
@@ -84,16 +84,28 @@ export const CreateNewRole: FC<ICreateNewRoleProps> = ({ roleId }) => {
   useEffect(() => {
     if (roleId) {
       setIsEditing(true);
-      fetchRoleDetailsById(roleId);
     } else {
       setIsEditing(false);
       setIsEditAllowed(false);
     }
   }, [roleId]);
 
+  // Sync role details from query into stores
+  useEffect(() => {
+    if (roleDetails && roleId) {
+      const { actions, permissions } = createActionsPermissions(
+        roleDetails?.moduleAttributes,
+      );
+      setBulkSelectedActions(actions || {});
+      setBulkSelectedPermissions(permissions || {});
+      setOldSelectedActions(Object.values(actions).flat());
+      setOldSelectedPermissions(Object.values(permissions).flat());
+    }
+  }, [roleDetails, roleId]);
+
   useEffect(() => {
     if (!isEditing) {
-      setRoleDetails(null);
+      // roleDetails is derived from query, no need to reset state
     }
   }, [isEditing]);
 
@@ -145,25 +157,6 @@ export const CreateNewRole: FC<ICreateNewRoleProps> = ({ roleId }) => {
     resetSelectedPermissions();
     resetSelectedActions();
     resetOldSelectedStores();
-  };
-
-  const fetchRoleDetailsById = async (roleId: string) => {
-    setIsLoading(true);
-    try {
-      const { data } = await fetchPermissionsByRoleId(roleId);
-      const { actions, permissions } = createActionsPermissions(
-        data?.moduleAttributes,
-      );
-
-      setRoleDetails(data);
-      setBulkSelectedActions(actions || {});
-      setBulkSelectedPermissions(permissions || {});
-      setOldSelectedActions(Object.values(actions).flat());
-      setOldSelectedPermissions(Object.values(permissions).flat());
-    } catch (err) {
-    } finally {
-      setIsLoading(false);
-    }
   };
 
   const submitForm = async () => {

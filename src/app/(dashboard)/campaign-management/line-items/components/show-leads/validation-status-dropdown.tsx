@@ -1,7 +1,7 @@
 import { DzCheckboxDropdown } from '@/components/shared/custom';
-import { FC, useEffect, useState } from 'react';
+import { FC, useMemo } from 'react';
 import { ILeadStatus } from '../../../leads/lib/types';
-import { fetchLeadValidationStatusList } from '../../../leads/services';
+import { useLeadValidationStatusesQuery } from '../../hooks';
 import { Button } from '@/uicomponents/button';
 import { DownOutlined } from '@/uicomponents/icons';
 import { Typography } from 'antd';
@@ -26,23 +26,16 @@ export const ValidationStatusDropdown: FC<IValidationStatusDropdownProps> = ({
   selected,
   isFileType,
 }) => {
-  const [validationStatusOptions, setValidationStatusOptions] = useState([]);
+  const { data } = useLeadValidationStatusesQuery();
 
-  useEffect(() => {
-    fetchStatusData();
-  }, []);
-
-  const fetchStatusData = async () => {
-    const data = await fetchLeadValidationStatusList();
-    if (data) {
-      setValidationStatusOptions(
-        data.data.map((item: ILeadStatus) => ({
-          value: item.name,
-          text: item.value,
-        })),
-      );
-    }
-  };
+  const validationStatusOptions = useMemo(
+    () =>
+      data?.data?.map((item: ILeadStatus) => ({
+        value: item.name,
+        text: item.value,
+      })) ?? [],
+    [data],
+  );
 
   const hasSelected = selected && selected.length > 0;
 

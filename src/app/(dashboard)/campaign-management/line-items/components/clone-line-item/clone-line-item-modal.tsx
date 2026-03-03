@@ -1,13 +1,12 @@
 import { Modal } from '@/uicomponents/modal';
-import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { FC, SyntheticEvent, useMemo, useState } from 'react';
 import { ModalHeader } from './modal-header';
 import { ModalFooter } from './modal-footer';
 import { ModalBody } from './modal-body';
-import { fetchCampaignsByMarketer } from '../../services';
 import { IActiveCampaignList } from '../../lib/types';
 import { useQueryState } from '@/lib/hooks';
 import { usePathname, useRouter } from '@/lib/hooks/use-router';
-import { useCloneLineItemMutation } from '../../hooks';
+import { useCloneLineItemMutation, useCampaignsByMarketerQuery } from '../../hooks';
 
 interface ICloneLineItemContainerProps {
   lineItemId: string;
@@ -34,39 +33,33 @@ export const CloneLineItemModal: FC<ICloneLineItemContainerProps> = ({
   const { setQueryState } = useQueryState();
   const cloneMutation = useCloneLineItemMutation();
 
-  const [selectedActiveCampaign, setSelectedActiveCampaign] =
-    useState<string>('');
-  const [activeCampaignList, setActiveCampaignList] = useState<
-    IActiveCampaignList[]
-  >([]);
+  const { data: campaignsData } = useCampaignsByMarketerQuery(
+    marketerCode,
+    openModal,
+  );
 
-  const campaignList = async () => {
-    if (marketerCode) {
-      const data = await fetchCampaignsByMarketer(marketerCode);
-      setActiveCampaignList(data || []);
-    } else {
-      setActiveCampaignList([]);
-    }
-  };
+  const activeCampaignList: IActiveCampaignList[] = useMemo(
+    () => campaignsData ?? [],
+    [campaignsData],
+  );
 
-  const selectCampaign = (campaign: string) => {
-    setSelectedActiveCampaign(campaign);
-  };
+  const [selectedActiveCampaign, setSelectedActiveCampaign] = useState<string>(
+    '',
+  );
 
-  useEffect(() => {
-    if (openModal) {
-      campaignList();
-    }
-  }, [openModal]);
-
-  useEffect(() => {
-    if (activeCampaignList?.length > 0) {
+  // Auto-select campaign when list loads
+  useMemo(() => {
+    if (activeCampaignList.length > 0) {
       const selectedCampaign = activeCampaignList.find(
         (campaign) => campaign.id === campaignId,
       );
       setSelectedActiveCampaign(selectedCampaign?.id || '');
     }
   }, [campaignId, activeCampaignList]);
+
+  const selectCampaign = (campaign: string) => {
+    setSelectedActiveCampaign(campaign);
+  };
 
   const handleCancel = (e: SyntheticEvent) => {
     e.stopPropagation();
@@ -99,9 +92,6 @@ export const CloneLineItemModal: FC<ICloneLineItemContainerProps> = ({
       },
     );
   };
-
-  const loadingClone = cloneMutation.isPending && !cloneMutation.variables;
-  const loadingCloneEdit = cloneMutation.isPending;
 
   return (
     <Modal

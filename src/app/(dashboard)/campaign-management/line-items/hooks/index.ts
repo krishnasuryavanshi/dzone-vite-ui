@@ -27,3 +27,21 @@ export { useUpdateDeliveryScheduleMutation } from './use-update-delivery-schedul
 export { usePacingSummaryQuery } from './use-pacing-summary-query';
 export { usePacingSummaryDataQuery } from './use-pacing-summary-data-query';
 export { usePacingScheduleQuery } from './use-pacing-schedule-query';
+
+// Static data queries
+export { useLeadValidationStatusesQuery } from './use-lead-validation-statuses-query';
+export { useReturnReasonsQuery } from './use-return-reasons-query';
+
+// Delivery templates
+export { useDeliveryTemplatesByMarketerQuery } from './use-delivery-templates-by-marketer-query';
+
+// Delivery panel queries
+export { useTransformationHistoryQuery } from './use-transformation-history-query';
+export { useLeadsCountQuery } from './use-leads-count-query';
+
+// Additional data queries
+export { useCampaignsByMarketerQuery } from './use-campaigns-by-marketer-query';
+export { useLeadStatusesQuery } from './use-lead-statuses-query';
+export { usePrefilledListsBasicDetailsQuery } from './use-prefilled-lists-basic-details-query';
+export { useValidationTemplatesQuery } from './use-validation-templates-query';
+export { useFileUploadMetadataQuery } from './use-file-upload-metadata-query';

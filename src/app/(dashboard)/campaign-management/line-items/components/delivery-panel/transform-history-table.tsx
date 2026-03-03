@@ -1,8 +1,7 @@
 import {
-  useEffect,
   useState,
   useImperativeHandle,
-  useCallback,
+  useEffect,
 } from 'react';
 import { BasicTable } from '@/components/table/basic-table';
 import { Button, Tooltip } from '@/uicomponents';
@@ -11,11 +10,8 @@ import {
   TransformHistoryStatusBadge,
   TransformHistoryStatus,
 } from './transform-history-status-badge';
-import {
-  fetchTransformationHistory,
-  TransformationHistoryItem,
-} from '../../services/transformation-history';
-import { showNotification } from '@/services/notification';
+import { TransformationHistoryItem } from '../../services/transformation-history';
+import { useTransformationHistoryQuery } from '../../hooks';
 import { Space } from '@/uicomponents/layout';
 import { TableProps } from '@/lib/types/uicomponents';
 import { fileDownload } from '../../services';
@@ -37,59 +33,42 @@ export interface TransformHistoryTableRef {
 }
 
 export const TransformHistoryTable = ({ lineItemId, onPaginationChange, ref }: TransformHistoryTableProps) => {
-  const [data, setData] = useState<TransformationHistoryItem[]>([]);
-  const [pagination, setPagination] = useState({
-    current: 1,
-    pageSize: 10,
-    total: 0,
-  });
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
-  const fetchData = useCallback(
-    async (page: number = 1, pageSize: number = 10) => {
-      try {
-        const response = await fetchTransformationHistory(
-          lineItemId,
-          page,
-          pageSize,
-        );
-        if (response) {
-          setData(response.data);
-          const newPagination = {
-            current: response.page,
-            pageSize: response.size,
-            total: response.total,
-          };
-          setPagination(newPagination);
-          onPaginationChange?.(newPagination);
-        }
-      } catch (error) {
-        showNotification({
-          type: 'error',
-          message: 'Failed to fetch export logs',
-        });
-      }
-    },
-    [lineItemId, onPaginationChange],
+  const { data: response, refetch } = useTransformationHistoryQuery(
+    lineItemId,
+    page,
+    pageSize,
   );
 
-  useEffect(() => {
-    fetchData();
-  }, [fetchData]);
+  const data = response?.data ?? [];
+  const total = response?.total ?? 0;
 
-  const handlePageChange = (page: number, pageSize?: number) => {
-    const newPageSize = pageSize || pagination.pageSize;
-    fetchData(page, newPageSize);
+  useEffect(() => {
+    onPaginationChange?.({
+      current: response?.page ?? page,
+      pageSize: response?.size ?? pageSize,
+      total,
+    });
+  }, [response, total]);
+
+  const handlePageChange = (newPage: number, newPageSize?: number) => {
+    setPage(newPage);
+    if (newPageSize && newPageSize !== pageSize) {
+      setPageSize(newPageSize);
+    }
   };
 
   useImperativeHandle(
     ref,
     () => ({
       refreshData: () => {
-        fetchData(pagination.current, pagination.pageSize);
+        refetch();
       },
       handlePageChange,
     }),
-    [pagination, handlePageChange],
+    [refetch, pageSize],
   );
 
   const handleDownload = async (fileId: string) => {

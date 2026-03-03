@@ -1,5 +1,5 @@
 
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Form, FormItem, useForm, useWatch } from '@/uicomponents/form';
 import { Col, Row } from '@/uicomponents/layout/grid';
 import { Text } from '@/uicomponents/text';
@@ -14,16 +14,19 @@ import { PacingChangeConfirmation } from './pacing-change-confirmation';
 import {
   fetchFileDetails,
   fetchMultipleFileDetails,
-  fetchPrefilledListsBasicDetails,
-  fetchValidationTemplates,
 } from '../../services';
 import { ICampaign } from '../../../campaigns/lib/types';
-import { fetchCampaignsByMarketer } from '../../services/fetch-campaigns-by-marketer';
 import { debounce } from 'lodash';
 import { useRouter } from '@/lib/hooks/use-router';
 import { dateObject, formatDate, sanitizeData } from '@/lib/utils';
 import { showNotification } from '@/services/notification';
-import { useCreateLineItemMutation, useUpdateLineItemMutation } from '../../hooks';
+import {
+  useCreateLineItemMutation,
+  useUpdateLineItemMutation,
+  usePrefilledListsBasicDetailsQuery,
+  useCampaignsByMarketerQuery,
+  useValidationTemplatesQuery,
+} from '../../hooks';
 import {
   formatLineItemFormData,
   processFieldPermissions,
@@ -78,7 +81,6 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
   const updateMutation = useUpdateLineItemMutation();
   const [form] = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [lists, setLists] = useState<Record<string, any[]>>({});
   const [disabledFields, setDisabledFields] = useState<Record<string, boolean>>(
     {},
   );
@@ -107,6 +109,36 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
   const pacingSchedule = allFields?.pacingSchedule;
   const pacingType = allFields?.pacing;
 
+  // TanStack Query hooks for server state
+  const { data: prefilledListsData } = usePrefilledListsBasicDetailsQuery(userId);
+  const { data: campaignsRawData } = useCampaignsByMarketerQuery(
+    marketerCode,
+    !!marketerCode,
+  );
+  const { data: validationData } = useValidationTemplatesQuery(marketerCode);
+
+  const lists = useMemo<Record<string, any[]>>(() => {
+    const base = prefilledListsData ? { ...(prefilledListsData as Record<string, any[]>) } : {};
+
+    if (campaignsRawData) {
+      base.campaigns = campaignsRawData.map((campaign: ICampaign) => ({
+        label: campaign.name,
+        value: campaign.id,
+        campaignId: campaign.campaignId,
+      }));
+    }
+
+    if (validationData?.data) {
+      base.validationTemplates = validationData.data.map((item: any) => ({
+        label: item.name,
+        value: item.id,
+        tenant: item.tenant,
+      }));
+    }
+
+    return base;
+  }, [prefilledListsData, campaignsRawData, validationData]);
+
   useEffect(() => {
     // If only one marketer, auto-select and disable
     if (lists.marketers && lists.marketers.length === 1) {
@@ -123,8 +155,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
         tenantCode: true,
       }));
       previousMarketerCode.current = marketer.tenantCode;
-      fetchAndFilterCampaigns(marketer.tenantCode);
-      fetchValidationSettings(marketer.tenantCode);
+      // Campaigns and validation templates are fetched reactively via TanStack Query
       return;
     }
 
@@ -153,8 +184,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
         });
       }
 
-      fetchAndFilterCampaigns(marketerCode);
-      fetchValidationSettings(marketerCode);
+      // Campaigns and validation templates are fetched reactively via TanStack Query
     }
   }, [lists.marketers, marketerCode, form]);
 
@@ -785,46 +815,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
 
   const handleSubmit = debounce(handleFinish, 500);
 
-  const fetchLists = async () => {
-    try {
-      const fetchedLists = await fetchPrefilledListsBasicDetails(userId);
-      setLists({ ...fetchedLists } as any);
-    } catch (error) {}
-  };
-
-  const fetchAndFilterCampaigns = async (marketerCode: string) => {
-    try {
-      const allCampaigns = await fetchCampaignsByMarketer(marketerCode);
-      const mapped = allCampaigns?.map((campaign: ICampaign) => ({
-        label: campaign.name,
-        value: campaign.id,
-        campaignId: campaign.campaignId,
-      }));
-      setLists((prevLists) => ({
-        ...prevLists,
-        ['campaigns']: mapped,
-      }));
-
-      return mapped;
-    } catch (error) {
-      return [];
-    }
-  };
-
-  const fetchValidationSettings = async (marketerCode: string) => {
-    const data = await fetchValidationTemplates(marketerCode);
-    if (data?.data) {
-      const settings = data.data.map((item: any) => ({
-        label: item.name,
-        value: item.id,
-        tenant: item.tenant,
-      }));
-      setLists((prevLists) => ({
-        ...prevLists,
-        ['validationTemplates']: settings || [],
-      }));
-    }
-  };
+  // Data fetching is now handled by TanStack Query hooks (prefilledListsData, campaignsRawData, validationData)
 
   useEffect(() => {
     if (lists?.validationTemplates?.length && !lineItemId) {
@@ -852,27 +843,37 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
     {} as Record<string, any[]>,
   );
 
-  const prefillFormWithCampaignData = async () => {
-    await fetchLists();
-
+  // Prefill form with campaign data (create-from-campaign flow)
+  useEffect(() => {
     if (campaignData && campaignUuid) {
-      const marketerCode = campaignData.tenantCode;
+      const campaignMarketerCode = campaignData.tenantCode;
 
       form.setFieldsValue({
-        marketerCode: marketerCode,
+        marketerCode: campaignMarketerCode,
         marketer: campaignData.marketer,
-        tenantCode: marketerCode,
+        tenantCode: campaignMarketerCode,
       });
 
-      previousMarketerCode.current = marketerCode;
+      previousMarketerCode.current = campaignMarketerCode;
 
-      const filteredCampaigns = await fetchAndFilterCampaigns(marketerCode);
-      fetchValidationSettings(marketerCode);
+      const updatedDisabledFields = {
+        marketerCode: !!campaignMarketerCode,
+        marketer: !!campaignData.marketer,
+        tenantCode: !!campaignMarketerCode,
+        campaignId: !!campaignData.id,
+        campaignName: !!campaignData.name,
+        campaignIdNumber: !!campaignData.campaignId,
+      };
+      setDisabledFields(updatedDisabledFields);
+    }
+  }, [campaignData, campaignUuid]);
 
-      const matchedCampaign = filteredCampaigns?.find(
+  // Match campaign from campaignData once campaigns list is available
+  useEffect(() => {
+    if (campaignData && lists.campaigns?.length) {
+      const matchedCampaign = lists.campaigns.find(
         (c: { value: any }) => c.value === campaignData.id,
       );
-
       if (matchedCampaign) {
         form.setFieldsValue({
           campaignId: matchedCampaign.value,
@@ -880,22 +881,8 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
           campaignIdNumber: matchedCampaign.campaignId,
         });
       }
-
-      const updatedDisabledFields = {
-        marketerCode: !!marketerCode,
-        marketer: !!campaignData.marketer,
-        tenantCode: !!marketerCode,
-        campaignId: !!campaignData.id,
-        campaignName: !!campaignData.name,
-        campaignIdNumber: !!campaignData.campaignId,
-      };
-      setDisabledFields(updatedDisabledFields);
     }
-  };
-
-  useEffect(() => {
-    prefillFormWithCampaignData();
-  }, [campaignData, campaignUuid]);
+  }, [lists.campaigns, campaignData]);
 
   // Handle pacing field change to open drawer when Custom Pacing is selected
   const handlePacingChange = (value: string) => {

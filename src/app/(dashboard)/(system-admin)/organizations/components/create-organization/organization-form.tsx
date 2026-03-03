@@ -1,10 +1,9 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import { IOrganization } from '../../lib/types';
 import { useRouter } from '@/lib/hooks/use-router';
 import { Form, FormItem, useForm, useWatch } from '@/uicomponents/form';
 import {
   createOrganization,
-  fetchOrganizationType,
   updateOrganization,
 } from '../../services';
 import { showNotification } from '@/services/index';
@@ -16,6 +15,7 @@ import { Col, Row } from '@/uicomponents/layout/grid';
 import { Checkbox, Input, Radio, RadioGroup } from '@/uicomponents/form/input';
 import './organization-form.scss';
 import { Translate } from '@/components/i18n';
+import { useOrganizationTypesQuery } from '../../hooks';
 
 interface IOrganizationFormProps {
   isEditing?: boolean;
@@ -29,15 +29,18 @@ export const OrganizationForm: FC<IOrganizationFormProps> = ({
   organization,
 }) => {
   const router = useRouter();
-  const [organizationTypes, setOrganizationTypes] = useState<
-    { label: string; value: string }[]
-  >([]);
   const [form] = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  useEffect(() => {
-    fetchOrganizationTypes();
-  }, []);
+  const { data: orgTypesResponse } = useOrganizationTypesQuery();
+
+  const organizationTypes: { label: string; value: string }[] = useMemo(() => {
+    if (!orgTypesResponse?.data?.length) return [];
+    return orgTypesResponse.data.map((orgType: Record<string, string>) => ({
+      label: orgType.name,
+      value: orgType.id,
+    }));
+  }, [orgTypesResponse]);
 
   const orgTypeId = useWatch(['organizationTypeId'], form);
 
@@ -59,20 +62,6 @@ export const OrganizationForm: FC<IOrganizationFormProps> = ({
       });
     }
   }, [organization]);
-
-  const fetchOrganizationTypes = async () => {
-    const { data } = await fetchOrganizationType();
-    if (data?.length) {
-      setOrganizationTypes(
-        data.map((orgType: Record<string, string>) => ({
-          label: orgType.name,
-          value: orgType.id,
-        })),
-      );
-    } else {
-      setOrganizationTypes([]);
-    }
-  };
 
   const onFinish = async (values: IOrganization) => {
     setIsSubmitting(true);

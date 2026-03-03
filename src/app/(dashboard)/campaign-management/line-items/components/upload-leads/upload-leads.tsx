@@ -1,7 +1,7 @@
 import { UploadFile, UploadProps } from '@/lib/types/uicomponents';
 import { showNotification } from '@/services/notification';
 import { Button } from '@/uicomponents';
-import { FC, useEffect, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { IDialogState } from '../../lib/types';
 import { getUploadProps, handleUploadApi } from '../../lib/utils';
 import { UploadButtonIcon } from './upload-button-icon';
@@ -9,7 +9,7 @@ import { UploadDialog } from './upload-dialog';
 import { UploadSuccessContent } from './upload-success-content';
 import { FileUploadModal } from '@/app/(dashboard)/components/file-upload-modal-component/file-upload-modal';
 import { FileTypeSelection } from '@/app/(dashboard)/lib/enums';
-import { fetchFileUploadMetadata } from '@/services/file-upload';
+import { useFileUploadMetadataQuery } from '../../hooks';
 
 interface IUploadLeadsProps {
   lineItemId: string;
@@ -33,12 +33,10 @@ export const UploadLeads: FC<IUploadLeadsProps> = ({
     message: '',
   });
 
-  const [uploadProps, setUploadProps] = useState<UploadProps>({});
   const [selectedFile, setSelectedFile] = useState<UploadFile>(
     {} as UploadFile,
   );
   const [selectedType, setSelectedType] = useState<string>('');
-  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
 
@@ -56,23 +54,17 @@ export const UploadLeads: FC<IUploadLeadsProps> = ({
     setDialogState((state) => ({ ...state, isDialogOpen: false }));
   };
 
-  useEffect(() => {
-    fetchFileUploadMeta();
-  }, []);
+  const { data: metadataResponse, isLoading } =
+    useFileUploadMetadataQuery('lead-file');
 
-  const fetchFileUploadMeta = async () => {
-    try {
-      const response = await fetchFileUploadMetadata('lead-file');
-      if (response?.data) {
-        setUploadProps(
-          getUploadProps(response?.data, handleDialogState, handleSelectedFile),
-        );
-      }
-    } catch (error) {
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const uploadProps: UploadProps = useMemo(() => {
+    if (!metadataResponse?.data) return {};
+    return getUploadProps(
+      metadataResponse.data,
+      handleDialogState,
+      handleSelectedFile,
+    );
+  }, [metadataResponse]);
 
   const handleTypeSelection = (type: string) => {
     setSelectedType(type);

@@ -1,9 +1,9 @@
-import { fetchOrganizationsByType } from '@/app/(dashboard)/(system-admin)/organizations/services';
+import { useOrganizationsByTypeQuery } from '@/app/(dashboard)/(system-admin)/organizations/hooks';
 import { Translate } from '@/components/i18n';
 import { Button, Form, FormItem, Modal, Title, useForm } from '@/uicomponents';
 import { useSession } from '@/lib/hooks/use-session';
 import { useRouter } from '@/lib/hooks/use-router';
-import { FC, useEffect, useState } from 'react';
+import { FC, useMemo, useState } from 'react';
 import { useValidationSettingStore } from '../../store';
 import { Flex } from '@/uicomponents/layout';
 import { Input, Select } from '@/uicomponents/form/input';
@@ -15,32 +15,24 @@ const CreateNewValidationSettingLink = '/lead-validation-settings/create';
 export const CreateNewValidationSettingAction: FC = () => {
   const router = useRouter();
   const { data: userData } = useSession();
-  const [marketerList, setMarketerList] = useState<
-    { label: string; value: string }[]
-  >([]);
   const [isModalOpened, setIsModalOpened] = useState(false);
   const { setSettingMetadata, resetAll } = useValidationSettingStore();
 
   const [form] = useForm();
 
-  useEffect(() => {
-    fetchMarketerList();
-  }, []);
+  const { data: orgData } = useOrganizationsByTypeQuery(
+    'Marketer',
+    (userData?.user as any)?.userId,
+  );
 
-  const fetchMarketerList = async () => {
-    try {
-      const { data } = await fetchOrganizationsByType(
-        'Marketer',
-        (userData?.user as any).userId,
-      );
-      const marketers = data?.map(({ id, name: label, code }: any) => ({
+  const marketerList = useMemo(
+    () =>
+      orgData?.data?.map(({ id, name: label, code }: any) => ({
         label,
         value: code,
-      }));
-
-      setMarketerList(marketers || []);
-    } catch (error) {}
-  };
+      })) ?? [],
+    [orgData],
+  );
 
   const handleOpen = () => {
     form.resetFields();

@@ -14,6 +14,8 @@ export const queryKeys = {
     detailView: (id: string, restrictedFields: (string | false)[]) =>
       [...queryKeys.campaigns.details(), 'detailView', id, restrictedFields] as const,
     statuses: () => [...queryKeys.campaigns.all, 'statuses'] as const,
+    campaignsByMarketer: (tenantCode: string) =>
+      [...queryKeys.campaigns.all, 'byMarketer', tenantCode] as const,
   },
   lineItems: {
     all: ['lineItems'] as const,
@@ -37,6 +39,13 @@ export const queryKeys = {
       [...queryKeys.leads.all, 'reviewFormConfig', type, lineItemId] as const,
     reviewList: (lineItemId: string, filters?: Record<string, any>[]) =>
       [...queryKeys.leads.all, 'reviewList', lineItemId, filters] as const,
+    validationStatuses: () => [...queryKeys.leads.all, 'validationStatuses'] as const,
+    returnReasons: () => [...queryKeys.leads.all, 'returnReasons'] as const,
+    leadStatuses: () => [...queryKeys.leads.all, 'leadStatuses'] as const,
+    totalCount: (lineItemId: string) =>
+      [...queryKeys.leads.all, 'totalCount', lineItemId] as const,
+    totalFilteredCount: (lineItemId: string, filters: Record<string, any>[]) =>
+      [...queryKeys.leads.all, 'totalFilteredCount', lineItemId, filters] as const,
   },
   deliverySchedules: {
     all: ['deliverySchedules'] as const,
@@ -80,6 +89,9 @@ export const queryKeys = {
       [...queryKeys.organizations.lists(), params] as const,
     details: () => [...queryKeys.organizations.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.organizations.details(), id] as const,
+    byType: (type: string, userId?: string) =>
+      [...queryKeys.organizations.all, 'byType', type, userId] as const,
+    types: () => [...queryKeys.organizations.all, 'types'] as const,
   },
   dashboard: {
     all: ['dashboard'] as const,
@@ -115,6 +127,7 @@ export const queryKeys = {
     lists: () => [...queryKeys.integrations.all, 'list'] as const,
     config: (id: string) =>
       [...queryKeys.integrations.all, 'config', id] as const,
+    types: () => [...queryKeys.integrations.all, 'types'] as const,
   },
   templates: {
     all: ['templates'] as const,
@@ -126,6 +139,8 @@ export const queryKeys = {
     reservedNames: () => [...queryKeys.templates.all, 'reservedNames'] as const,
     destinationFields: (params: Record<string, any>) =>
       [...queryKeys.templates.all, 'destinationFields', params] as const,
+    byMarketer: (marketerCode: string, lineItemId?: string) =>
+      [...queryKeys.templates.all, 'byMarketer', marketerCode, lineItemId] as const,
   },
   deliveryFile: {
     all: ['deliveryFile'] as const,
@@ -141,10 +156,30 @@ export const queryKeys = {
     marketerDashboard: (params: Record<string, any>) =>
       [...queryKeys.analytics.all, 'marketerDashboard', params] as const,
   },
+  transformHistory: {
+    all: ['transformHistory'] as const,
+    list: (lineItemId: string, params: { page: number; size: number }) =>
+      [...queryKeys.transformHistory.all, 'list', lineItemId, params] as const,
+  },
   dzent: {
     all: ['dzent'] as const,
     conversations: () => [...queryKeys.dzent.all, 'conversations'] as const,
     organizations: (type: string) =>
       [...queryKeys.dzent.all, 'organizations', type] as const,
+  },
+  fileUpload: {
+    all: ['fileUpload'] as const,
+    metadata: (fileTypeName: string) =>
+      [...queryKeys.fileUpload.all, 'metadata', fileTypeName] as const,
+  },
+  prefilledLists: {
+    all: ['prefilledLists'] as const,
+    basicDetails: (userId?: string) =>
+      [...queryKeys.prefilledLists.all, 'basicDetails', userId] as const,
+  },
+  validationTemplates: {
+    all: ['validationTemplates'] as const,
+    byOrg: (orgCode: string) =>
+      [...queryKeys.validationTemplates.all, 'byOrg', orgCode] as const,
   },
 };
