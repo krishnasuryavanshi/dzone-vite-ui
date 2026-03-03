@@ -1,4 +1,6 @@
 export * from './error-container';
+export * from './error-fallback';
+export * from './not-found';
 export * from './map-function';
 export * from './permission-denied';
 export * from './dz-icon';

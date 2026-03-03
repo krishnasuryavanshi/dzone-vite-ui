@@ -1,0 +1,10 @@
+.stackTrace {
+  max-height: 18.75rem;
+  overflow: auto;
+  padding: var(--dzone-spacing-2xl);
+  background: var(--dzone-color-bg-light);
+  border-radius: var(--dzone-radius-md);
+  font-size: var(--dzone-font-size-sm);
+  white-space: pre-wrap;
+  word-break: break-word;
+}

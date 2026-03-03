@@ -1,10 +1,5 @@
-
-import React from "react";
-import { Space } from "@/uicomponents/layout";
-import { ExclamationCircleOutlined } from "@/uicomponents/icons";
-import { Title, Text, Button } from "@/uicomponents";
-import { Card } from "@/uicomponents/layout/card";
-
+import React from 'react';
+import { Result, Button, Collapse, Text } from '@/uicomponents';
 
 export const ErrorContainer = ({
   error,
@@ -14,16 +9,26 @@ export const ErrorContainer = ({
   reset: () => void;
 }) => {
   return (
-    <Card bordered={false} style={{ width: "100%", backgroundColor: '#ff5555' }}>
-      <Space direction="vertical">
-        <Title level={5}>
-          <ExclamationCircleOutlined /> An error occurred!
-        </Title>
-        <Text>{error.message}</Text>
-        <Button type="link" onClick={reset}>
-          Retry
+    <Result
+      status="error"
+      title="Something went wrong"
+      subTitle="An unexpected error occurred. Please try again."
+      extra={
+        <Button type="primary" onClick={reset}>
+          Try Again
         </Button>
-      </Space>
-    </Card>
+      }
+    >
+      <Collapse
+        ghost
+        items={[
+          {
+            key: 'details',
+            label: <Text type="secondary">Technical Details</Text>,
+            children: <Text strong>{error.message}</Text>,
+          },
+        ]}
+      />
+    </Result>
   );
 };

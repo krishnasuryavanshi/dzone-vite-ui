@@ -2,6 +2,8 @@ import React, { lazy } from 'react';
 import { createBrowserRouter, Navigate } from 'react-router';
 import { AppLayout } from './layout/app-layout';
 import { AuthLayout } from './layout/auth-layout';
+import { ErrorFallback } from './components/shared/error-fallback';
+import { NotFound } from './components/shared/not-found';
 
 // ── Auth pages ──
 const LoginPage = lazy(
@@ -203,6 +205,7 @@ export const router = createBrowserRouter([
   // ── Auth routes ──
   {
     element: <AuthLayout />,
+    errorElement: <ErrorFallback />,
     children: [
       { path: '/login', element: <LoginPage /> },
       { path: '/forgot-password', element: <ForgotPasswordPage /> },
@@ -216,6 +219,7 @@ export const router = createBrowserRouter([
   // ── Dashboard routes (auth required) ──
   {
     element: <AppLayout />,
+    errorElement: <ErrorFallback />,
     children: [
       // Root redirects to organizations
       { index: true, element: <Navigate to="/organizations" replace /> },
@@ -330,4 +334,7 @@ export const router = createBrowserRouter([
       { path: '/jobs', element: <JobsPage /> },
     ],
   },
+
+  // ── Catch-all 404 ──
+  { path: '*', element: <NotFound /> },
 ]);
