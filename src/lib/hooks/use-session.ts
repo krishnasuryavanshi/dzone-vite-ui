@@ -3,21 +3,38 @@
  * Reads from Zustand auth + token stores.
  */
 import { useMemo } from 'react';
+import { useShallow } from 'zustand/react/shallow';
 import { useAuthStore, useTokenStore } from '../../auth/stores';
 import type { Session, SessionStatus } from '../types/auth.types';
 
 const noop = () => {};
 
 export function useSession() {
-  const auth = useAuthStore();
-  const token = useTokenStore();
+  const {
+    isLoading, isAuthenticated, user, roles, tenantCode,
+    isDzoneUser, tenantType, modules, moduleAccessList,
+  } = useAuthStore(
+    useShallow((s) => ({
+      isLoading: s.isLoading,
+      isAuthenticated: s.isAuthenticated,
+      user: s.user,
+      roles: s.roles,
+      tenantCode: s.tenantCode,
+      isDzoneUser: s.isDzoneUser,
+      tenantType: s.tenantType,
+      modules: s.modules,
+      moduleAccessList: s.moduleAccessList,
+    }))
+  );
+
+  const accessToken = useTokenStore((s) => s.accessToken);
 
   return useMemo(() => {
-    if (auth.isLoading) {
+    if (isLoading) {
       return { data: null, status: 'loading' as SessionStatus, update: noop };
     }
 
-    if (!auth.isAuthenticated || !auth.user) {
+    if (!isAuthenticated || !user) {
       return {
         data: null,
         status: 'unauthenticated' as SessionStatus,
@@ -26,15 +43,15 @@ export function useSession() {
     }
 
     const session: Session = {
-      accessToken: token.accessToken || '',
+      accessToken: accessToken || '',
       apiUrl: import.meta.env.VITE_API_URL || '',
-      roles: auth.roles || [],
-      tenantCode: auth.tenantCode || [],
-      isDzoneUser: auth.isDzoneUser || false,
-      user: auth.user,
-      tenantType: auth.tenantType || '',
-      modules: auth.modules || {},
-      moduleAccessList: auth.moduleAccessList || [],
+      roles: roles || [],
+      tenantCode: tenantCode || [],
+      isDzoneUser: isDzoneUser || false,
+      user: user,
+      tenantType: tenantType || '',
+      modules: modules || {},
+      moduleAccessList: moduleAccessList || [],
       permissions: [],
       error: '',
     };
@@ -44,18 +61,7 @@ export function useSession() {
       status: 'authenticated' as SessionStatus,
       update: noop,
     };
-  }, [
-    auth.isLoading,
-    auth.isAuthenticated,
-    auth.user,
-    auth.roles,
-    auth.tenantCode,
-    auth.isDzoneUser,
-    auth.tenantType,
-    auth.modules,
-    auth.moduleAccessList,
-    token.accessToken,
-  ]);
+  }, [isLoading, isAuthenticated, user, roles, tenantCode, isDzoneUser, tenantType, modules, moduleAccessList, accessToken]);
 }
 
 export async function getSession(): Promise<Session | null> {

@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [react()],
   resolve: {
     alias: {
@@ -38,8 +38,19 @@ export default defineConfig({
     },
   },
   define: {
-    // Remaining process.env references (service-specific auth tokens, etc.)
-    // are server-side only — they resolve to undefined which is fine.
-    'process.env.NODE_ENV': JSON.stringify('development'),
+    'process.env.NODE_ENV': JSON.stringify(mode),
   },
-});
+  build: {
+    outDir: 'dist',
+    sourcemap: mode !== 'production',
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+          'vendor-antd': ['antd', '@ant-design/icons'],
+          'vendor-utils': ['lodash', 'zustand', 'axios', 'i18next'],
+        },
+      },
+    },
+  },
+}));
