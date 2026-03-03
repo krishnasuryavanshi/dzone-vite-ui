@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import * as Sentry from '@sentry/react';
 import { useRouteError, isRouteErrorResponse, useNavigate } from 'react-router';
 import { Result, Button, Collapse, Text } from '@/uicomponents';
 import { logError } from '@/services/logger';
@@ -10,6 +11,9 @@ export const ErrorFallback = () => {
 
   useEffect(() => {
     logError(error);
+    if (error instanceof Error) {
+      Sentry.captureException(error);
+    }
   }, [error]);
 
   if (isRouteErrorResponse(error)) {

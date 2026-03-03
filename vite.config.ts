@@ -42,24 +42,26 @@ export default defineConfig(({ mode }) => ({
   },
   build: {
     outDir: 'dist',
-    sourcemap: mode !== 'production',
+    sourcemap: true,
     chunkSizeWarningLimit: 2000,
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (!id.includes('node_modules')) return;
 
-          // @ant-design/icons — separate chunk for cache longevity
-          if (id.includes('@ant-design/icons')) return 'vendor-antd-icons';
-
-          // Antd core + ALL internal deps (rc-component, cssinjs, babel/runtime, etc.)
+          // Ant Design — icons, core, and all internal deps in one chunk.
+          // antd <-> @ant-design/icons are tightly coupled (mutual imports
+          // via @ant-design/colors, @ant-design/icons-svg, @rc-component/*)
+          // so they must share a chunk to avoid circular chunks.
+          // NOTE: @babel/runtime is intentionally left in vendor-misc —
+          // it's a universal runtime used across all chunks, and pinning it
+          // here would create a vendor-antd <-> vendor-misc cycle.
           if (
             id.includes('/antd/') ||
-            id.includes('/@rc-component/') ||
             id.includes('/@ant-design/') ||
+            id.includes('/@rc-component/') ||
             id.includes('/scroll-into-view-if-needed/') ||
-            id.includes('/throttle-debounce/') ||
-            id.includes('/@babel/runtime/')
+            id.includes('/throttle-debounce/')
           )
             return 'vendor-antd';
 
@@ -98,6 +100,8 @@ export default defineConfig(({ mode }) => ({
           if (id.includes('/lodash')) return 'vendor-lodash';
 
           // Markdown rendering (dzent AI pages)
+          // Includes transitive deps (vfile, devlop, bail, etc.) that would
+          // otherwise fall to vendor-misc and create a circular chunk.
           if (
             id.includes('/react-markdown/') ||
             id.includes('/remark-') ||
@@ -107,7 +111,30 @@ export default defineConfig(({ mode }) => ({
             id.includes('/mdast-') ||
             id.includes('/unist-') ||
             id.includes('/hast-') ||
-            id.includes('/dompurify/')
+            id.includes('/dompurify/') ||
+            id.includes('/vfile') ||
+            id.includes('/devlop/') ||
+            id.includes('/bail/') ||
+            id.includes('/trough/') ||
+            id.includes('/property-information/') ||
+            id.includes('/comma-separated-tokens/') ||
+            id.includes('/space-separated-tokens/') ||
+            id.includes('/decode-named-character-reference/') ||
+            id.includes('/character-entities') ||
+            id.includes('/ccount/') ||
+            id.includes('/parse-entities/') ||
+            id.includes('/stringify-entities/') ||
+            id.includes('/longest-streak/') ||
+            id.includes('/zwitch/') ||
+            id.includes('/markdown-table/') ||
+            id.includes('/trim-lines/') ||
+            id.includes('/html-url-attributes/') ||
+            id.includes('/escape-string-regexp/') ||
+            id.includes('/is-plain-obj/') ||
+            id.includes('/extend/') ||
+            id.includes('/style-to-js/') ||
+            id.includes('/estree-util-') ||
+            id.includes('/@ungap/structured-clone/')
           )
             return 'vendor-markdown';
 

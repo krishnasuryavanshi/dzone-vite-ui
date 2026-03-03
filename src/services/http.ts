@@ -4,6 +4,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from 'axios';
+import * as Sentry from '@sentry/react';
 import { logHttpRequest } from './logger';
 const onRequest = (
   config: InternalAxiosRequestConfig,
@@ -24,6 +25,13 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 const onResponseError = (error: AxiosError): Promise<AxiosError> => {
   logResponse(error, true);
   const { statusText, status, data } = (error.response as AxiosResponse) ?? {};
+
+  Sentry.addBreadcrumb({
+    category: 'http',
+    message: `${error.config?.method?.toUpperCase()} ${error.config?.url} — ${status}`,
+    level: status && status >= 500 ? 'error' : 'warning',
+    data: { status, statusText, url: error.config?.url },
+  });
 
   return Promise.reject({ error, statusText, status, data });
 };

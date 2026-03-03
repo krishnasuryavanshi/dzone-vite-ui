@@ -2,6 +2,7 @@
  * Client-side auth service.
  * Authenticates directly against the RBAC service (no NextAuth proxy).
  */
+import * as Sentry from '@sentry/react';
 import { pick } from 'lodash';
 import { ApiHost } from '@/lib/constants';
 import { ApiResources, HttpMethod } from '@/lib/enums';
@@ -88,6 +89,8 @@ export async function login(email: string, password: string) {
   usePermissionsStore.getState().setAccesses(permissionsObject);
   usePermissionsStore.getState().setModules(data.modules || []);
 
+  Sentry.setUser({ id: data.userId, email: data.email, username: data.username });
+
   logger.info('Auth: login success', { userId: data.userId });
 
   return data;
@@ -113,6 +116,7 @@ export async function logout() {
   useAuthStore.getState().clear();
   useTokenStore.getState().clearToken();
   usePermissionsStore.getState().clearPermissions();
+  Sentry.setUser(null);
 
   logger.info('Auth: logout complete — stores cleared');
 }
