@@ -2,7 +2,7 @@ import { Translate } from '@/components/i18n';
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
 import { TabsProps } from '@/lib/types/uicomponents';
 import { Tabs } from '@/uicomponents/tabs';
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useEffect, useTransition } from 'react';
 import { LineItemsTabType } from '../lib/enums/line-items-tabs.enum';
 import { ShowLineItemsTabsContent } from './show-line-items-tabs-content';
 import { usePermissionCheck } from '@/lib/hooks';
@@ -39,6 +39,7 @@ export const ShowLineItemTabs: FC<IShowLineItemTabsProps> = ({
         : LineItemsTabType.Files;
 
   const [activeTab, setActiveTab] = useState<string>(initialTab);
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     const tab = searchParams.get('tab');
@@ -88,7 +89,9 @@ export const ShowLineItemTabs: FC<IShowLineItemTabsProps> = ({
   ];
 
   const handleTabChange = (key: string) => {
-    setActiveTab(key);
+    startTransition(() => {
+      setActiveTab(key);
+    });
   };
 
   if (items.length === 0) {
@@ -110,12 +113,14 @@ export const ShowLineItemTabs: FC<IShowLineItemTabsProps> = ({
           />
         </DzBox>
       </DzScrollContainer.Sticky>
-      <ShowLineItemsTabsContent
-        activeTab={activeTab}
-        lineItemId={lineItemId}
-        tenantCode={tenantCode}
-        sessionTenantCode={sessionTenantCode}
-      />
+      <div style={{ opacity: isPending ? 0.7 : 1, transition: 'opacity 0.2s' }}>
+        <ShowLineItemsTabsContent
+          activeTab={activeTab}
+          lineItemId={lineItemId}
+          tenantCode={tenantCode}
+          sessionTenantCode={sessionTenantCode}
+        />
+      </div>
     </DzScrollContainer>
   );
 };

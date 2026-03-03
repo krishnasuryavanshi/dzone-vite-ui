@@ -2,7 +2,7 @@ import { BasicTable } from '@/components/table';
 import { useScrollableTableHeight } from '@/lib/hooks';
 import { createColumn, Filters } from '@/lib/utils/table';
 import { TableRowSelection } from 'antd/es/table/interface';
-import React, { FC, useEffect, useState, useMemo } from 'react';
+import React, { FC, useEffect, useState, useMemo, useTransition } from 'react';
 import { HIDE_LEADS_COLUMNS } from '../lib/constants';
 import {
   useViewLeadsPermissions,
@@ -52,6 +52,7 @@ export const LeadsList: FC<ILeadsListProps> = ({
 }) => {
   const { scrollableTableHeight } =
     useScrollableTableHeight(fixedContentHeight);
+  const [isPending, startTransition] = useTransition();
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
   const column = createColumn(hasFilters, filterInfo);
@@ -158,31 +159,31 @@ export const LeadsList: FC<ILeadsListProps> = ({
   }, [enhancedColumns, permissionsResult, lineItemId, hiddenColumns, column]);
 
   const handleChange = (data: any) => {
-    onFiltersChange && onFiltersChange(data.filters);
+    startTransition(() => {
+      onFiltersChange && onFiltersChange(data.filters);
 
-    // Handle sorting
-    if (data.sorter) {
-      const sorter = data.sorter;
-      if (sorter.field && sorter.order) {
-        // Convert antd sort order to API sort order
-        const sortOrder = sorter.order === 'ascend' ? 'asc' : 'desc';
-        const sortBy = Array.isArray(sorter.field)
-          ? sorter.field.join('.')
-          : sorter.field;
-        // We need to pass this up to the parent component
-        // For now, we'll include it in the filters as special keys
-        onFiltersChange &&
-          onFiltersChange({
-            ...data.filters,
-            sortBy: [sortBy],
-            sortOrder: [sortOrder],
-          });
-      } else {
-        // Clear sorting
-        const { sortBy, sortOrder, ...newFilters } = data.filters;
-        onFiltersChange && onFiltersChange(newFilters);
+      // Handle sorting
+      if (data.sorter) {
+        const sorter = data.sorter;
+        if (sorter.field && sorter.order) {
+          // Convert antd sort order to API sort order
+          const sortOrder = sorter.order === 'ascend' ? 'asc' : 'desc';
+          const sortBy = Array.isArray(sorter.field)
+            ? sorter.field.join('.')
+            : sorter.field;
+          onFiltersChange &&
+            onFiltersChange({
+              ...data.filters,
+              sortBy: [sortBy],
+              sortOrder: [sortOrder],
+            });
+        } else {
+          // Clear sorting
+          const { sortBy, sortOrder, ...newFilters } = data.filters;
+          onFiltersChange && onFiltersChange(newFilters);
+        }
       }
-    }
+    });
   };
 
   const className = `${highlightCurrentRow ? 'row-hover-highlight ' : ''} ${

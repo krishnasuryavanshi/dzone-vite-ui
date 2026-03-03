@@ -4,9 +4,12 @@ import { DzBox } from '@/components/layout/v1';
 
 const MarketersPage = () => {
   return (
-    <DzBox style={{ height: 'calc(100vh - 100px)', overflowY: 'auto' }}>
-      <MarketersContainer />
-    </DzBox>
+    <>
+      <title>Marketer Analytics | DZ One</title>
+      <DzBox style={{ height: 'calc(100vh - 100px)', overflowY: 'auto' }}>
+        <MarketersContainer />
+      </DzBox>
+    </>
   );
 };
 

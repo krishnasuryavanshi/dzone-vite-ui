@@ -2,7 +2,7 @@
 import { Input, InputPassword, InputNumber } from '@/uicomponents/form/input';
 import { FormItem } from '@/uicomponents/form';
 import { Space } from '@/uicomponents/layout';
-import { useEffect, forwardRef, useImperativeHandle } from 'react';
+import { useEffect, useImperativeHandle } from 'react';
 import styles from './create-integration-modal.module.css';
 import autofillStyles from './ftp-form-autofill-override.module.css';
 import { ftpFormValidationRules } from '../lib/validations';
@@ -14,16 +14,14 @@ interface FtpFormContentProps {
   mode?: 'create' | 'retry';
   form?: any;
   open?: boolean;
+  ref?: React.Ref<FtpFormContentRef>;
 }
 
 export interface FtpFormContentRef {
   resetFiles: () => void;
 }
 
-export const FtpFormContent = forwardRef<
-  FtpFormContentRef,
-  FtpFormContentProps
->(({ mode = 'create', form, open }, ref) => {
+export const FtpFormContent = ({ mode = 'create', form, open, ref }: FtpFormContentProps) => {
   const {
     fileList,
     isUploading,
@@ -243,6 +241,4 @@ export const FtpFormContent = forwardRef<
       </FormItem>
     </div>
   );
-});
-
-FtpFormContent.displayName = 'FtpFormContent';
+};

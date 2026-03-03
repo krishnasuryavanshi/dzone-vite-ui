@@ -1,5 +1,10 @@
 import { OrganizationsListContainer } from './components';
 
 export default function OrganizationsPage() {
-  return <OrganizationsListContainer />;
+  return (
+    <>
+      <title>Organizations | DZ One</title>
+      <OrganizationsListContainer />
+    </>
+  );
 }

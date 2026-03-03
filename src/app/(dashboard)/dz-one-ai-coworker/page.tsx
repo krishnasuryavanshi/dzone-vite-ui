@@ -1,5 +1,10 @@
 import { AiAgentContainerHost } from './components/ai-agent-container-host';
 
 export default function DZoneAiAgentPage() {
-  return <AiAgentContainerHost />;
+  return (
+    <>
+      <title>AI Coworker | DZ One</title>
+      <AiAgentContainerHost />
+    </>
+  );
 }

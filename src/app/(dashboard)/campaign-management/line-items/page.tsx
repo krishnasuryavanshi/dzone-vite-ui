@@ -10,7 +10,12 @@ const LineItemsPage = () => {
     return () => reset();
   }, []);
 
-  return <LineItemsContainer />;
+  return (
+    <>
+      <title>Line Items | DZ One</title>
+      <LineItemsContainer />
+    </>
+  );
 };
 
 export default LineItemsPage;

@@ -7,11 +7,14 @@ export default function CreateTemplatePage() {
   const isDzoneUser = session?.isDzoneUser;
   const sessionTenantCode = session?.tenantCode;
   return (
-    <CreateTemplate
-      existingTemplate={false}
-      userDetails={userDetails}
-      isDzoneUser={isDzoneUser}
-      tenantCode={sessionTenantCode ?? ''}
-    />
+    <>
+      <title>Create Template | DZ One</title>
+      <CreateTemplate
+        existingTemplate={false}
+        userDetails={userDetails}
+        isDzoneUser={isDzoneUser}
+        tenantCode={sessionTenantCode ?? ''}
+      />
+    </>
   );
 }

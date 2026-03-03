@@ -8,6 +8,9 @@ export default function LineItemDetailsPage() {
   const { data: session } = useSession();
   const sessionTenantCode = session?.tenantCode;
   return (
-    <ShowLineItemContainer lineItemId={lineItemId!} campaignId={campaignId!} sessionTenantCode={sessionTenantCode} />
+    <>
+      <title>Line Item Details | DZ One</title>
+      <ShowLineItemContainer lineItemId={lineItemId!} campaignId={campaignId!} sessionTenantCode={sessionTenantCode} />
+    </>
   );
 }

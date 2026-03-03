@@ -2,7 +2,12 @@ import { LeadsContainer } from '@/app/(dashboard)/campaign-management/leads/comp
 import React from 'react';
 
 const LeadsByLineItem = () => {
-  return <LeadsContainer />;
+  return (
+    <>
+      <title>Line Item Leads | DZ One</title>
+      <LeadsContainer />
+    </>
+  );
 };
 
 export default LeadsByLineItem;

@@ -9,10 +9,13 @@ export default function CreateCampaignsTempPage() {
   const userDetails = session?.user;
   const isDzoneUser = session?.isDzoneUser || false;
   return (
-    <CreateCampaignForm
-      tenantCode={tenantCode}
-      userDetails={userDetails}
-      isDzoneUser={isDzoneUser}
-    />
+    <>
+      <title>Create Campaign | DZ One</title>
+      <CreateCampaignForm
+        tenantCode={tenantCode}
+        userDetails={userDetails}
+        isDzoneUser={isDzoneUser}
+      />
+    </>
   );
 }

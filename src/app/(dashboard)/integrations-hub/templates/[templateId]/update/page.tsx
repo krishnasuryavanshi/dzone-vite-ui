@@ -9,12 +9,15 @@ export default function UpdateTemplatePage() {
   const isDzoneUser = session?.isDzoneUser;
   const sessionTenantCode = session?.tenantCode;
   return (
-    <CreateTemplate
-      templateId={templateId!}
-      userDetails={userDetails}
-      isDzoneUser={isDzoneUser}
-      tenantCode={sessionTenantCode ?? ''}
-      existingTemplate
-    />
+    <>
+      <title>Update Template | DZ One</title>
+      <CreateTemplate
+        templateId={templateId!}
+        userDetails={userDetails}
+        isDzoneUser={isDzoneUser}
+        tenantCode={sessionTenantCode ?? ''}
+        existingTemplate
+      />
+    </>
   );
 }

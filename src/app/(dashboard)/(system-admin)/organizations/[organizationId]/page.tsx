@@ -4,7 +4,12 @@ import { EditOrganizationContainer } from '../components/create-organization/edi
 
 const EditOrganizationPage = () => {
   const { organizationId } = useParams<{ organizationId: string }>();
-  return <EditOrganizationContainer organizationId={organizationId!} />;
+  return (
+    <>
+      <title>Organization Details | DZ One</title>
+      <EditOrganizationContainer organizationId={organizationId!} />
+    </>
+  );
 };
 
 export default EditOrganizationPage;

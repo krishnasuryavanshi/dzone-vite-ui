@@ -8,10 +8,13 @@ export default function UpdateLineItemPage() {
   const userDetails = session?.user;
   const tenantCode = session?.tenantCode;
   return (
-    <UpdateLineItem
-      lineItemId={lineItemId!}
-      userDetails={userDetails}
-      tenantCode={tenantCode}
-    />
+    <>
+      <title>Edit Line Item | DZ One</title>
+      <UpdateLineItem
+        lineItemId={lineItemId!}
+        userDetails={userDetails}
+        tenantCode={tenantCode}
+      />
+    </>
   );
 }

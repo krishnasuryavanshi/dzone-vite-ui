@@ -4,5 +4,10 @@ import { IntegrationDetailsContainer } from './components/integration-details-co
 
 export default function IntegrationDetailsPage() {
   const { id } = useParams<{ id: string }>();
-  return <IntegrationDetailsContainer integrationId={id!} />;
+  return (
+    <>
+      <title>Integration Details | DZ One</title>
+      <IntegrationDetailsContainer integrationId={id!} />
+    </>
+  );
 }

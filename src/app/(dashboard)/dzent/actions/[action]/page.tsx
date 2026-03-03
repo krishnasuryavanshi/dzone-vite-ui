@@ -3,5 +3,10 @@ import { DzentContainerHost } from '../../components/dzent-container-host';
 
 export default function DZentActionPage() {
   const { action } = useParams<{ action: string }>();
-  return <DzentContainerHost action={action || ''} />;
+  return (
+    <>
+      <title>Dzent Actions | DZ One</title>
+      <DzentContainerHost action={action || ''} />
+    </>
+  );
 }

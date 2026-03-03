@@ -3,6 +3,9 @@ import { LoginFormContainer } from "./components";
 
 export default function Login() {
   return (
-    <LoginFormContainer />
+    <>
+      <title>Login | DZ One</title>
+      <LoginFormContainer />
+    </>
   );
 }

@@ -4,6 +4,9 @@ import { ForgotPasswordFormContainer } from "./components";
 
 export default function ForgotPassword() {
   return (
-    <ForgotPasswordFormContainer/>
+    <>
+      <title>Forgot Password | DZ One</title>
+      <ForgotPasswordFormContainer />
+    </>
   );
 }

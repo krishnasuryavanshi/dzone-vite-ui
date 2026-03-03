@@ -8,9 +8,12 @@ export default function CampaignDetailsPage() {
   const { data: session } = useSession();
   const isDzoneUser = session?.isDzoneUser;
   return (
-    <ViewCampaignContainer
-      campaignId={campaignId!}
-      isDzoneUser={isDzoneUser}
-    />
+    <>
+      <title>Campaign Details | DZ One</title>
+      <ViewCampaignContainer
+        campaignId={campaignId!}
+        isDzoneUser={isDzoneUser}
+      />
+    </>
   );
 }

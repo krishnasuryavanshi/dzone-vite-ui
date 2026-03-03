@@ -3,7 +3,12 @@ import { ViewRoleContainer } from '../components/view-role-container';
 
 const ViewPermissionPage = () => {
   const { roleId } = useParams<{ roleId: string }>();
-  return <ViewRoleContainer roleId={roleId!} />;
+  return (
+    <>
+      <title>Role Details | DZ One</title>
+      <ViewRoleContainer roleId={roleId!} />
+    </>
+  );
 };
 
 export default ViewPermissionPage;

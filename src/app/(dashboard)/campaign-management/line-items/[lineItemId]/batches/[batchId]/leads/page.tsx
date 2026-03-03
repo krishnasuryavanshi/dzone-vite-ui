@@ -4,7 +4,12 @@ import React from 'react';
 
 const LeadsByBatch = () => {
   const { batchId } = useParams<{ lineItemId: string; batchId: string }>();
-  return <LeadsContainer batchId={batchId!} />;
+  return (
+    <>
+      <title>Batch Leads | DZ One</title>
+      <LeadsContainer batchId={batchId!} />
+    </>
+  );
 };
 
 export default LeadsByBatch;

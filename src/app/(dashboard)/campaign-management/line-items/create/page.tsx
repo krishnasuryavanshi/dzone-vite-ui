@@ -11,11 +11,14 @@ export default function CreateLineItemPage() {
   const tenantCode = session?.tenantCode;
   const isDzoneUser = session?.isDzoneUser;
   return (
-    <CreateNewLineItem
-      tenantCode={tenantCode}
-      userDetails={userDetails}
-      isDzoneUser={isDzoneUser}
-      lineItemId={lineItemId}
-    />
+    <>
+      <title>Create Line Item | DZ One</title>
+      <CreateNewLineItem
+        tenantCode={tenantCode}
+        userDetails={userDetails}
+        isDzoneUser={isDzoneUser}
+        lineItemId={lineItemId}
+      />
+    </>
   );
 }

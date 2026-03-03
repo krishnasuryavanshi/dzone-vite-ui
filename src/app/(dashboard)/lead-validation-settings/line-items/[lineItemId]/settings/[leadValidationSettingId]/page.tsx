@@ -4,11 +4,14 @@ import { CreateValidationSettingContainer } from '@/app/(dashboard)/lead-validat
 const EditLineItemLeadValidationSettings = () => {
   const { leadValidationSettingId, lineItemId } = useParams<{ leadValidationSettingId: string; lineItemId: string }>();
   return (
-    <CreateValidationSettingContainer
-      leadValidationSettingId={leadValidationSettingId!}
-      lineItemId={lineItemId!}
-      isEditing={true}
-    />
+    <>
+      <title>Validation Setting | DZ One</title>
+      <CreateValidationSettingContainer
+        leadValidationSettingId={leadValidationSettingId!}
+        lineItemId={lineItemId!}
+        isEditing={true}
+      />
+    </>
   );
 };
 

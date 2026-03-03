@@ -8,9 +8,12 @@ export default function DeliveryLogsPage() {
   const sessionTenantCode = session?.tenantCode;
 
   return (
-    <DeliveryLogsContainer
-      lineItemId={lineItemId!}
-      sessionTenantCode={sessionTenantCode}
-    />
+    <>
+      <title>Delivery Logs | DZ One</title>
+      <DeliveryLogsContainer
+        lineItemId={lineItemId!}
+        sessionTenantCode={sessionTenantCode}
+      />
+    </>
   );
 }

@@ -2,7 +2,6 @@ import {
   useEffect,
   useState,
   useImperativeHandle,
-  forwardRef,
   useCallback,
 } from 'react';
 import { BasicTable } from '@/components/table/basic-table';
@@ -29,6 +28,7 @@ interface TransformHistoryTableProps {
     pageSize: number;
     total: number;
   }) => void;
+  ref?: React.Ref<TransformHistoryTableRef>;
 }
 
 export interface TransformHistoryTableRef {
@@ -36,10 +36,7 @@ export interface TransformHistoryTableRef {
   handlePageChange: (page: number, pageSize?: number) => void;
 }
 
-export const TransformHistoryTable = forwardRef<
-  TransformHistoryTableRef,
-  TransformHistoryTableProps
->(({ lineItemId, onPaginationChange }, ref) => {
+export const TransformHistoryTable = ({ lineItemId, onPaginationChange, ref }: TransformHistoryTableProps) => {
   const [data, setData] = useState<TransformationHistoryItem[]>([]);
   const [pagination, setPagination] = useState({
     current: 1,
@@ -212,6 +209,4 @@ export const TransformHistoryTable = forwardRef<
       style={{ tableLayout: 'fixed', width: '100%' }}
     />
   );
-});
-
-TransformHistoryTable.displayName = 'TransformHistoryTable';
+};

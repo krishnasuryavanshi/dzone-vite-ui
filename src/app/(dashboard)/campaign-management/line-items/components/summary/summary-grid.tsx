@@ -1,5 +1,5 @@
 
-import { FC, useState, useCallback, useMemo } from 'react';
+import { FC, useState, useCallback, useMemo, useTransition } from 'react';
 import { Table } from '@/uicomponents/table';
 import { Text } from '@/uicomponents/text';
 import { useScrollableTableHeight } from '@/lib/hooks';
@@ -26,6 +26,7 @@ export const SummaryGrid: FC<ISummaryGridProps> = ({
   const { sortOrder, statusFilter, setSortOrder, setStatusFilter, isLoading } =
     usePacingSummaryStore();
 
+  const [isPending, startTransition] = useTransition();
   const [expandedRowKeys, setExpandedRowKeys] = useState<string[]>([]);
   const { scrollableTableHeight } =
     useScrollableTableHeight(StaticContentHeight);
@@ -34,12 +35,16 @@ export const SummaryGrid: FC<ISummaryGridProps> = ({
     let newOrder: 'ASC' | 'DESC' | null = 'ASC';
     if (sortOrder === 'ASC') newOrder = 'DESC';
     else if (sortOrder === 'DESC') newOrder = null;
-    setSortOrder(newOrder);
+    startTransition(() => {
+      setSortOrder(newOrder);
+    });
   }, [sortOrder, setSortOrder]);
 
   const handleStatusFilter = useCallback(
     (values: string[]) => {
-      setStatusFilter(values);
+      startTransition(() => {
+        setStatusFilter(values);
+      });
     },
     [setStatusFilter],
   );
@@ -157,7 +162,7 @@ export const SummaryGrid: FC<ISummaryGridProps> = ({
       className='table dz-table pacing-summary-grid'
       columns={columns as any}
       dataSource={dataSource as any}
-      loading={isLoading}
+      loading={isLoading || isPending}
       pagination={false}
       scroll={{ x: 'max-content', y: scrollableTableHeight }}
       sticky

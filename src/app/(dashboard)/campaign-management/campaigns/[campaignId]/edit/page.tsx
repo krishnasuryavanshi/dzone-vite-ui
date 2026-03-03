@@ -9,11 +9,14 @@ export default function UpdateCampaignPage() {
   const isDzoneUser = session?.isDzoneUser;
   const userDetails = session?.user;
   return (
-    <CreateCampaignForm
-      tenantCode={tenantCode}
-      userDetails={userDetails}
-      isDzoneUser={isDzoneUser}
-      campaignUUId={campaignId}
-    />
+    <>
+      <title>Edit Campaign | DZ One</title>
+      <CreateCampaignForm
+        tenantCode={tenantCode}
+        userDetails={userDetails}
+        isDzoneUser={isDzoneUser}
+        campaignUUId={campaignId}
+      />
+    </>
   );
 }

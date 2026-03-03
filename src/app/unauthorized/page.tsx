@@ -4,7 +4,10 @@ import { UnauthorizedContainer } from "./components";
 
 const Unauthorized = () => {
   return (
-    <UnauthorizedContainer />
+    <>
+      <title>Unauthorized | DZ One</title>
+      <UnauthorizedContainer />
+    </>
   );
 };
 

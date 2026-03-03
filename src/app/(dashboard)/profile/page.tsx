@@ -5,5 +5,10 @@ import { ProfileContainer } from './components/profile-container';
 export default function ProfilePage() {
   const { data: session } = useSession();
   const userDetails = session?.user as User;
-  return <ProfileContainer userDetails={userDetails} />;
+  return (
+    <>
+      <title>Profile | DZ One</title>
+      <ProfileContainer userDetails={userDetails} />
+    </>
+  );
 }

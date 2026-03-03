@@ -4,7 +4,12 @@ import { UsersEditContainer } from '../components/create';
 
 const EditUserPage = () => {
   const { userId } = useParams<{ userId: string }>();
-  return <UsersEditContainer userId={userId!} />;
+  return (
+    <>
+      <title>User Details | DZ One</title>
+      <UsersEditContainer userId={userId!} />
+    </>
+  );
 };
 
 export default EditUserPage;

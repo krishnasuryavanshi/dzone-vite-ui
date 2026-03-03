@@ -1,5 +1,10 @@
 import { JobsContainer } from './components/jobs-container';
 
 export default function JobsPage() {
-  return <JobsContainer />;
+  return (
+    <>
+      <title>Jobs | DZ One</title>
+      <JobsContainer />
+    </>
+  );
 }
