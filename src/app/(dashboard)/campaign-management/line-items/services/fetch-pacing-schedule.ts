@@ -1,6 +1,6 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 
 export interface FetchPacingScheduleParams {
@@ -36,7 +36,7 @@ export const fetchPacingSchedule = async (
   params: FetchPacingScheduleParams,
 ) => {
   try {
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource: ApiResources.fetchPacingSchedules,
       apiHost: ApiHost.PlatformService,
       params: {

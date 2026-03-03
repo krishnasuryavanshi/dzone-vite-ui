@@ -1,7 +1,7 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { StatusPicklistData } from '@/public/mock/status-picklist';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchStatusPicklist = async () => {
   try {
@@ -16,7 +16,7 @@ export const fetchStatusPicklist = async () => {
       };
     }
 
-    const { data } = await nextBackendRequest({
+    const { data } = await authenticatedRequest({
       resource,
       apiHost: ApiHost.CampaignService,
     });

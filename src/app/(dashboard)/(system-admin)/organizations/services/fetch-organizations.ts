@@ -1,6 +1,6 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import {
   Filters,
   Sorter,
@@ -30,7 +30,7 @@ export const fetchOrganizations = async (
   if (sort) params.sort = sort;
 
   try {
-    return nextBackendRequest({
+    return authenticatedRequest({
       apiHost: ApiHost.RBACService,
       resource: ApiResources.FilteredOrganizations,
       method: HttpMethod.POST,

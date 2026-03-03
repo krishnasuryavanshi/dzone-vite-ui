@@ -1,7 +1,7 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { TenantTypeEnum } from '@/app/(dashboard)/ums/users/lib/enums';
 
 export const fetchOrganizationsByType = async (
@@ -16,7 +16,7 @@ export const fetchOrganizationsByType = async (
     if (types !== TenantTypeEnum.SUPPLIER) {
       params.userId = types === TenantTypeEnum.MARKETER && userId ? userId : '';
     }
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       apiHost: ApiHost.RBACService,
       resource,
       params,

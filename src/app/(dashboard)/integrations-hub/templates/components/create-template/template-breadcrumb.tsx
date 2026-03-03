@@ -1,5 +1,5 @@
 import { Translate } from '@/components/i18n';
-import { NextLink } from '@/components/shared';
+import { AppLink } from '@/components/shared';
 import { useQueryState } from '@/lib/hooks';
 import { ItemType } from '@/lib/types/uicomponents';
 import { Breadcrumb } from '@/uicomponents';
@@ -21,9 +21,9 @@ export const TemplateBreadcrumb: React.FC<ITemplateBreadcrumbProps> = ({
     },
     {
       title: (
-        <NextLink
+        <AppLink
           link={`/integrations-hub/templates`}
-          label='pages.templates.title'></NextLink>
+          label='pages.templates.title'></AppLink>
       ),
     },
     {

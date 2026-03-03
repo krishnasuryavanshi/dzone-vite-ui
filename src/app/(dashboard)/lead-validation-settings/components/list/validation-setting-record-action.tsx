@@ -1,4 +1,4 @@
-import { NextLink } from '@/components/shared';
+import { AppLink } from '@/components/shared';
 import { MenuProps } from '@/lib/types/uicomponents';
 import { Button, Dropdown } from '@/uicomponents';
 import { MoreOutlined } from '@/uicomponents/icons';
@@ -20,7 +20,7 @@ export const ValidationSettingRecordAction: FC<
       {
         key: '1',
         label: (
-          <NextLink
+          <AppLink
             link={baseLink}
             label='pages.leadValidationSettings.label.view'
             checkForUnsavedData={false}

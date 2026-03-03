@@ -1,10 +1,10 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const createLineItem = async (data: any) => {
   try {
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource: ApiResources.LineItems,
       apiHost: ApiHost.CampaignService,
       method: HttpMethod.POST,

@@ -1,7 +1,7 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 
 export async function fetchLineItemsLeadValidationSettingRule(
   lineItemId: string,
@@ -9,7 +9,7 @@ export async function fetchLineItemsLeadValidationSettingRule(
   ruleName: string,
 ) {
   try {
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource: transformPath(
         ApiResources.LineItemsLeadValidationSettingByRuleName,
         {

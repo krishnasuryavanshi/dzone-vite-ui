@@ -1,6 +1,5 @@
 /**
- * Auth hooks — replaces @refinedev/core auth hooks.
- * Reads directly from Zustand auth stores.
+ * Auth hooks — reads directly from Zustand auth stores.
  */
 import { useAuthStore } from '../../auth/stores';
 import { login, logout } from '../../auth/auth-service';

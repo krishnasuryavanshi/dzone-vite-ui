@@ -1,6 +1,6 @@
 import { ApiHost } from '@/lib/constants';
 import { ApiResources, HttpMethod } from '@/lib/enums';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 import { IExcecutiveGrids } from '../components/reporting-tabs/executive/types';
 import { Filters } from '@/lib/utils/table';
 
@@ -15,7 +15,7 @@ export async function fetchExecutiveGrid(
       requestData.status = status;
     }
 
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       apiHost: ApiHost.ReportingService,
       resource: ApiResources.DashboardExecutiveGrid,
       method: HttpMethod.POST,

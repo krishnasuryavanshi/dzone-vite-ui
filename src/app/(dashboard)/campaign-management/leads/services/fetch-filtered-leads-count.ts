@@ -1,12 +1,12 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 
 export const fetchFilteredLeadsCount = async (
   filters: Record<string, any>[] = [],
 ) => {
   try {
-    return nextBackendRequest({
+    return authenticatedRequest({
       method: HttpMethod.POST,
       resource: ApiResources.FilteredLeadsCount,
       apiHost: ApiHost.FileService,

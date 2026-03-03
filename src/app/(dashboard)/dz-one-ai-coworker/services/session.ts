@@ -1,6 +1,6 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 
 export interface SessionInitResponse {
@@ -18,7 +18,7 @@ export const initSession = async (
   conversationId?: string,
 ): Promise<SessionInitResponse> => {
   try {
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource: ApiResources.CoworkerSessionInit,
       apiHost: ApiHost.AICoworkerService,
       method: HttpMethod.POST,

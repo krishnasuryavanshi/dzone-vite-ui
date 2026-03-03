@@ -1,5 +1,5 @@
 import { Translate } from '@/components/i18n';
-import { NextLink } from '@/components/shared';
+import { AppLink } from '@/components/shared';
 import { ItemType } from '@/lib/types/uicomponents';
 import { Breadcrumb } from '@/uicomponents';
 import { useEffect, useState } from 'react';
@@ -35,9 +35,9 @@ export const ShowCampaignBreadcrumb: React.FC<IShowCampaignBreadcrumbProps> = ({
         {
           title: (
             <span className={`${styles.campaignId} ${styles.hoverUnderline}`}>
-              <NextLink
+              <AppLink
                 link={`/campaign-management/campaigns/${id}`}
-                label={campaignId}></NextLink>
+                label={campaignId}></AppLink>
             </span>
           ),
         },

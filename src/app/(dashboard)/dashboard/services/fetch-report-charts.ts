@@ -6,7 +6,7 @@ import {
 import { ApiHost } from '@/lib/constants';
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ChartsReports } from '@/public/mock/charts-reports';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 import { IExecutiveFilterDataPayload, IFilterDataPayload } from '../lib/utils';
 
 const ReportChartsResources = {
@@ -38,7 +38,7 @@ export async function fetchReportChartsData(
     return { data: ChartsReports[type as keyof typeof ChartsReports] };
   }
 
-  const data = await nextBackendRequest({
+  const data = await authenticatedRequest({
     apiHost: ApiHost.ReportingService,
     resource,
     method: HttpMethod.POST,

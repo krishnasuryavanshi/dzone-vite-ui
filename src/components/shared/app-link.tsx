@@ -5,13 +5,13 @@ import { FC, MouseEvent, useState } from 'react';
 import { Translate } from '../i18n';
 import { UnsavedDataWarningConfirmDialog } from './unsaved-data-warning-confirm-dialog';
 
-interface INextLinkProps {
+interface IAppLinkProps {
   link: string;
   label: string;
   checkForUnsavedData?: boolean;
 }
 
-export const NextLink: FC<INextLinkProps> = ({
+export const AppLink: FC<IAppLinkProps> = ({
   link,
   label,
   checkForUnsavedData = true,

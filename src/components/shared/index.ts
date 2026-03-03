@@ -6,7 +6,7 @@ export * from './permission-denied';
 export * from './dz-icon';
 export * from './no-data';
 export * from './loader-button';
-export * from './next-link';
+export * from './app-link';
 export * from './select-drawer';
 export * from './hideable';
 export * from './file-preview';

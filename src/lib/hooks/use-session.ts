@@ -1,6 +1,5 @@
 /**
- * Session hook — replaces next-auth/react useSession.
- * Reads from Zustand auth + token stores.
+ * Session hook — reads from Zustand auth + token stores.
  */
 import { useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';

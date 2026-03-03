@@ -1,6 +1,6 @@
 import { HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 
 const getApiHostFromUrl = (path: string): string => {
   if (path.includes('common-service')) return ApiHost.CommonService;
@@ -19,7 +19,7 @@ export const fetchFilterOptions = async (url: string): Promise<string[]> => {
     const apiHost = getApiHostFromUrl(url);
     const resource = getResourceFromUrl(url);
 
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       method: HttpMethod.GET,
       resource,
       apiHost,

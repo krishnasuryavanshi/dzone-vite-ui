@@ -1,12 +1,12 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string/transform-path';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchLeadDetailsById = async (id: number, tenantCode?: string) => {
   try {
     const resource = transformPath(ApiResources.LeadDetailsById, { id });
-    const { data } = await nextBackendRequest({
+    const { data } = await authenticatedRequest({
       resource,
       apiHost: ApiHost.PlatformService,
       params: {

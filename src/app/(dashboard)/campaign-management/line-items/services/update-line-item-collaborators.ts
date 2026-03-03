@@ -1,7 +1,7 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const updateLineItemCollaborators = async (
   data: Record<string, string[]>,
@@ -14,7 +14,7 @@ export const updateLineItemCollaborators = async (
         lineItemId,
       },
     );
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource,
       apiHost: ApiHost.CampaignService,
       method: HttpMethod.PUT,

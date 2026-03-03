@@ -13,7 +13,7 @@ import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { IntegrationsActionsEnum } from '@/lib/enums/permissions';
 import { showNotification } from '@/services';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { Button, Spin, Text } from '@/uicomponents';
 import { WebformIcon } from '@/uicomponents/icons/svgs/webform';
 import { Flex, Space } from '@/uicomponents/layout';
@@ -109,7 +109,7 @@ export const IntegrationsList: React.FC = () => {
   ) => {
     try {
       setDisconnecting(integrationId);
-      await nextBackendRequest({
+      await authenticatedRequest({
         resource: `${ApiResources.Integrations}/${integrationId}`,
         apiHost: ApiHost.PlatformService,
         method: HttpMethod.PUT,

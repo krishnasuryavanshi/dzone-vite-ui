@@ -1,10 +1,10 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchAllUsers = async () => {
   try {
-    const users = await nextBackendRequest({
+    const users = await authenticatedRequest({
       resource: ApiResources.AllUsers,
       apiHost: ApiHost.CampaignService,
     });

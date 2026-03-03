@@ -1,10 +1,10 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchRecommendations = async (type: string, value: string) => {
   try {
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource: ApiResources.JobTitleRecommendations,
       apiHost: ApiHost.RecommendationService,
       method: HttpMethod.POST,

@@ -1,6 +1,5 @@
 export * from './use-auth';
 export * from './use-i18n';
-export * from './use-items';
 export * from './use-access';
 export * from './use-allowed-resources';
 export * from './use-form-config';

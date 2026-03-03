@@ -1,11 +1,11 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 
 export async function validateLineItem(lineItemId: string) {
   try {
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource: transformPath(ApiResources.ValidateLineItemById, { lineItemId }),
       apiHost: ApiHost.CampaignService,
     });

@@ -1,7 +1,7 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 import { convertUTCTimeToLocal } from '../lib/utils/convert-time-to-local';
 import { DeliveryType } from '@/app/(dashboard)/integrations-hub/templates/lib/enums';
@@ -48,7 +48,7 @@ export const fetchDeliverySchedules = async (
     const resource = lineItemId
       ? transformPath(ApiResources.LineItemDeliverySchedulesList, { lineItemId })
       : ApiResources.LineItemDeliverySchedules;
-    const response = await nextBackendRequest({
+    const response = await authenticatedRequest({
       resource,
       apiHost: ApiHost.PlatformService,
       method: HttpMethod.GET,

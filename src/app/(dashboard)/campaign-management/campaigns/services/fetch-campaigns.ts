@@ -1,7 +1,7 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { Filters, processFiltersWithDateRange } from '@/lib/utils/table';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { ICampaign } from '../lib/types';
 import { logError } from '@/services/logger';
 
@@ -31,7 +31,7 @@ export const fetchCampaigns = async (
       data: requestBody,
     };
 
-    const data = await nextBackendRequest(requestConfig);
+    const data = await authenticatedRequest(requestConfig);
     data.data = data?.data.map((campaign: ICampaign) => ({
       ...campaign,
       campaignName: campaign.name,

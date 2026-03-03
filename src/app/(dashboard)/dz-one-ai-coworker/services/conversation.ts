@@ -1,6 +1,6 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 import { transformPath } from '@/lib/utils/string/transform-path';
 import {
@@ -33,7 +33,7 @@ export const fetchConversationList = async (
     }
     // When filter is 'all', don't pass tenantCode to get all conversations
 
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource: ApiResources.CoworkerConversations,
       apiHost: ApiHost.AICoworkerService,
       method: HttpMethod.GET,
@@ -56,7 +56,7 @@ export const fetchChatHistory = async (
       conversationId,
     });
 
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource,
       apiHost: ApiHost.AICoworkerService,
       method: HttpMethod.GET,

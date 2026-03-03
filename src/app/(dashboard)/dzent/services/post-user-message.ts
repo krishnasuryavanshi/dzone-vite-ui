@@ -1,11 +1,11 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { DzRecord } from '@/lib/types';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 
 export async function postUserMessage(requestData: DzRecord) {
   try {
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource: ApiResources.DzentPostUserMessage,
       apiHost: ApiHost.AICopilotService,
       method: HttpMethod.POST,

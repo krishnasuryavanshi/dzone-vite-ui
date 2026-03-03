@@ -1,6 +1,6 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 import { transformPath } from '@/lib/utils/string';
 import { DeliveryType } from '@/app/(dashboard)/integrations-hub/templates/lib/enums';
@@ -23,7 +23,7 @@ export const fetchDeliveryTemplateList = async (
     const resource = transformPath(ApiResources.DeliveryTemplateByDeliveryType, {
       deliveryType,
     });
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource,
       apiHost: ApiHost.CampaignDeliveryService,
       method: HttpMethod.GET,

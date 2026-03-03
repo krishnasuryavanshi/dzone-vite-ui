@@ -1,6 +1,5 @@
 /**
- * Replacement backend-request for Vite app.
- * Uses Axios directly + Zustand token store (no BFF proxy).
+ * Backend request wrapper with auth, error handling, and auto-logout.
  */
 import { ApiHost } from '@/lib/constants';
 import { HttpMethod } from '@/lib/enums';
@@ -11,15 +10,14 @@ import { showNotification } from './notification';
 import { useAuthStore, useTokenStore } from '../auth/stores';
 import { usePermissionsStore } from '../stores/permissions-store';
 
-export const nextBackendRequest = async ({
+export const authenticatedRequest = async ({
   method = HttpMethod.GET,
   isAuthenticated = true,
   apiHost = ApiHost.BackendService,
   apiVersion,
   ...rest
 }: IApiRequestConfig) => {
-  // In the Vite app, direct backend calls (non-default apiHost) don't need
-  // the '/api' prefix — that was only for Next.js BFF routes.
+  // Direct backend calls skip the /api prefix.
   if (apiVersion === undefined) {
     apiVersion = apiHost === ApiHost.BackendService ? '/api' : '';
   }

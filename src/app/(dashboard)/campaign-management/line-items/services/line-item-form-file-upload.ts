@@ -1,6 +1,6 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { LineItemFileUploadTypes } from '../lib/enums';
 
 const UploadFileResources: Record<string, string> = {
@@ -16,7 +16,7 @@ export const fetchLineItemFormFileUpload = async (formData: FormData) => {
   try {
     const type = formData.get('type') as string;
     const resource = UploadFileResources[type] || ApiResources.LineItemSingleFileUpload;
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource,
       apiHost: ApiHost.CampaignService,
       method: HttpMethod.POST,

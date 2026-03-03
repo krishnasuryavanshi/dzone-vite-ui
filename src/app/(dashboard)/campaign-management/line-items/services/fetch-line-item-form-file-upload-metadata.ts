@@ -1,6 +1,6 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { LineItemFileUploadTypes } from '../lib/enums';
 
 const LineItemFileUploadMetadataResources: Record<string, string> = {
@@ -18,7 +18,7 @@ export const fetchLineItemFormFileUploadMeta = async (
   try {
     const resource =
       LineItemFileUploadMetadataResources[type as keyof typeof LineItemFileUploadMetadataResources];
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource: resource || ApiResources.LineItemsFileUploadMetaData,
       apiHost: ApiHost.CampaignService,
       params: {

@@ -1,10 +1,10 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchLineItemStatuses = async () => {
   try {
-    const statuses = await nextBackendRequest({
+    const statuses = await authenticatedRequest({
       resource: ApiResources.LineItemStatusLookup,
       apiHost: ApiHost.CampaignService,
     });

@@ -1,7 +1,7 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchDestinationDropdownFields = async (
   type: string,
@@ -16,7 +16,7 @@ export const fetchDestinationDropdownFields = async (
     const params: Record<string, string> = {};
     if (formId) params.formId = formId;
     if (lineItemId) params.lineItemId = lineItemId;
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource,
       apiHost: ApiHost.PlatformService,
       params: Object.keys(params).length > 0 ? params : undefined,

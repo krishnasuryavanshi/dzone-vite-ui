@@ -1,13 +1,13 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const leadsStatusUpdate = async (
   leadUpdates: Array<{ leadStatus: string; id: number }>,
   tenantCode?: string,
 ) => {
   try {
-    return await nextBackendRequest({
+    return await authenticatedRequest({
       resource: ApiResources.UpdateLeadsStatus,
       apiHost: ApiHost.PlatformService,
       method: HttpMethod.PUT,

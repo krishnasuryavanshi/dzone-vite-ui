@@ -1,7 +1,7 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string/transform-path';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 interface IRequestData extends Record<string, unknown> {
   lineItemId: string;
@@ -13,7 +13,7 @@ export const publishLeads = async (data: IRequestData) => {
     const resource = transformPath(ApiResources.PublishLeads, {
       lineItemId: data.lineItemId,
     });
-    const result = await nextBackendRequest({
+    const result = await authenticatedRequest({
       resource,
       apiHost: ApiHost.PlatformService,
       method: HttpMethod.POST,

@@ -1,13 +1,13 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { ITransformAndExportLeads } from '../lib/types';
 
 export const transformAndExportLeads = async (
   requestPayload: ITransformAndExportLeads,
 ) => {
   try {
-    const response = await nextBackendRequest({
+    const response = await authenticatedRequest({
       resource: ApiResources.TransformAndExportLeads,
       apiHost: ApiHost.TransformationService,
       method: HttpMethod.POST,

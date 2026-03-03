@@ -1,6 +1,6 @@
 import { HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest, showNotification } from '@/services';
+import { authenticatedRequest, showNotification } from '@/services';
 import { handleApiError } from '../../lib/utils';
 
 export const exportFilteredLeads = async (
@@ -8,7 +8,7 @@ export const exportFilteredLeads = async (
   filters: Record<string, any>[] = [],
 ) => {
   try {
-    const response = await nextBackendRequest({
+    const response = await authenticatedRequest({
       resource,
       apiHost: ApiHost.FileService,
       method: HttpMethod.POST,

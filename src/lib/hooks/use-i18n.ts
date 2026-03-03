@@ -1,6 +1,5 @@
 /**
- * i18n hooks — replaces @refinedev/core i18n hooks.
- * Uses react-i18next directly.
+ * i18n hooks — uses react-i18next directly.
  */
 import { useTranslation } from 'react-i18next';
 

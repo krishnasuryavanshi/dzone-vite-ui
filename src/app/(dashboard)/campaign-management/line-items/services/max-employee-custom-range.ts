@@ -1,10 +1,10 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const maxEmployeeCustomRange = async () => {
   try {
-    const { data } = await nextBackendRequest({
+    const { data } = await authenticatedRequest({
       resource: ApiResources.LineItemEmployeeCustomRange,
       apiHost: ApiHost.CampaignService,
     });

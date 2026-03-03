@@ -1,6 +1,6 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { MarketerDataParams } from '../types/supplier-dashboard';
 
 export const fetchMarketerDashboardData = async ({
@@ -12,7 +12,7 @@ export const fetchMarketerDashboardData = async ({
   tenantCodes = [],
 }: MarketerDataParams = {}) => {
   try {
-    return nextBackendRequest({
+    return authenticatedRequest({
       method: HttpMethod.GET,
       resource: ApiResources.MarketersDashboardDataUrl,
       apiHost: ApiHost.AnalyticsService,

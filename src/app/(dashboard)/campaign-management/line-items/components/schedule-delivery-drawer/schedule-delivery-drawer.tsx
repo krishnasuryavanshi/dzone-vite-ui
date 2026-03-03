@@ -162,7 +162,7 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
         setDeliveryTemplateTypes(response?.data?.data || []);
       }
     } catch (error) {
-      // Error is handled by nextBackendRequest
+      // Error is handled by authenticatedRequest
     }
   };
 
@@ -199,7 +199,7 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
         }
       }
     } catch (error) {
-      // Error is handled by nextBackendRequest
+      // Error is handled by authenticatedRequest
       setDeliveryTemplates([]);
     } finally {
       setLoadingTemplates(false);
@@ -275,7 +275,7 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
         onClose();
       }
     } catch (error) {
-      // Error is handled by nextBackendRequest
+      // Error is handled by authenticatedRequest
     } finally {
       setIsSubmitting(false);
     }

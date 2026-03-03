@@ -1,6 +1,6 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest, showNotification } from '@/services';
+import { authenticatedRequest, showNotification } from '@/services';
 import { logError } from '@/services/logger';
 import { transformPath } from '@/lib/utils/string/transform-path';
 
@@ -9,7 +9,7 @@ export const exportPacingSummary = async (lineItemId: string) => {
     const resource = transformPath(ApiResources.PacingPerformanceExport, {
       lineItemId,
     });
-    const { data } = await nextBackendRequest({ resource, apiHost: ApiHost.PlatformService });
+    const { data } = await authenticatedRequest({ resource, apiHost: ApiHost.PlatformService });
     if (data?.url) {
       const link = document.createElement('a');
       link.href = data.url;

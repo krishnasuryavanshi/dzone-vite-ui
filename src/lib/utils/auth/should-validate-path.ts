@@ -1,5 +1,4 @@
 // Do not change default export
-// if required, move the file next ti middleware.ts
 
 const shouldValidatePath = (path: string) => {
   let parent = '';

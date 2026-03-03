@@ -1,6 +1,6 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { LineItemPicklistMappings } from '../../line-items/lib/enums';
 
 const StepsPrefilledListResources: Record<string, ApiResources> = {
@@ -16,19 +16,19 @@ export const fetchStepsPrefilledSteps = async (lookupKey: string) => {
       return { data: {} };
     }
 
-    const stepFetch = await nextBackendRequest({
+    const stepFetch = await authenticatedRequest({
       resource,
       apiHost: ApiHost.CampaignService,
     });
 
     if (lookupKey === 'delivery') {
       const [deliveryDaysFetch, deliveryMethodsFetch] = await Promise.all([
-        nextBackendRequest({
+        authenticatedRequest({
           resource: ApiResources.Lookups,
           apiHost: ApiHost.CampaignService,
           params: { source: LineItemPicklistMappings.DeliveryDays },
         }),
-        nextBackendRequest({
+        authenticatedRequest({
           resource: ApiResources.Lookups,
           apiHost: ApiHost.CampaignService,
           params: { source: LineItemPicklistMappings.DeliveryMethods },

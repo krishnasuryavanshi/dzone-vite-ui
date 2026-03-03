@@ -1,10 +1,10 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const pushAnalyticsLogs = async (data: Record<string, any>) => {
   try {
-    nextBackendRequest({
+    authenticatedRequest({
       resource: ApiResources.AnalyticsLogsJobTitleRecommendations,
       apiHost: ApiHost.AuditService,
       method: HttpMethod.POST,

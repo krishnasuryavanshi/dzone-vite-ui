@@ -1,6 +1,6 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchLeadReviewFormConfig = async (
   type: string,
@@ -13,7 +13,7 @@ export const fetchLeadReviewFormConfig = async (
       params.lineItemId = lineItemId;
     }
 
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource: ApiResources.LeadReviewFormConfig,
       apiHost: ApiHost.PlatformService,
       params,

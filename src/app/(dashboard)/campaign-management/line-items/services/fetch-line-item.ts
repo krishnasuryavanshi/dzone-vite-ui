@@ -1,13 +1,13 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string/transform-path';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 import { JobTitleTokenType } from '../lib/enums';
 
 export const fetchLineItem = async (lineItemId?: string) => {
   try {
     const resource = transformPath(ApiResources.LineItemById, { lineItemId });
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource,
       apiHost: ApiHost.CampaignService,
     });

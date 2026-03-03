@@ -1,6 +1,5 @@
 /**
  * Client-side auth service.
- * Authenticates directly against the RBAC service (no NextAuth proxy).
  */
 import * as Sentry from '@sentry/react';
 import { pick } from 'lodash';
@@ -13,7 +12,6 @@ import { usePermissionsStore } from '../stores/permissions-store';
 
 /**
  * Flatten modules array from the login response into a permissions object.
- * Mirrors the JWT callback logic from dzone-ui's NextAuth options.ts.
  */
 function flattenPermissions(
   modules: { module: { name: string; access: string | string[] } }[],

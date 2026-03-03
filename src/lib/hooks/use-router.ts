@@ -1,6 +1,5 @@
 /**
- * Router hook — replaces next/navigation useRouter.
- * Wraps react-router to provide the same API as the Next.js shim.
+ * Router hook — wraps react-router for convenience.
  */
 import { useMemo } from 'react';
 import {

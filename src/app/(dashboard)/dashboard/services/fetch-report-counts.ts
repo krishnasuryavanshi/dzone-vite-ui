@@ -6,7 +6,7 @@ import {
 import { ApiHost } from '@/lib/constants';
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { StatsReports } from '@/public/mock/stats-reports';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 import { IExecutiveFilterDataPayload, IFilterDataPayload } from '../lib/utils';
 
 const ReportCountResources = {
@@ -42,7 +42,7 @@ export async function fetchReportCountsData(
     return { data: StatsReports[type as keyof typeof StatsReports] };
   }
 
-  const data = await nextBackendRequest({
+  const data = await authenticatedRequest({
     apiHost: ApiHost.ReportingService,
     resource,
     method: HttpMethod.POST,

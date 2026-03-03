@@ -1,7 +1,7 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string/transform-path';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchLeadValidationHistory = async (
   lineItemId: string,
@@ -12,7 +12,7 @@ export const fetchLeadValidationHistory = async (
     const resource = transformPath(ApiResources.LeadValidationHistory, {
       lineItemId,
     });
-    return await nextBackendRequest({
+    return await authenticatedRequest({
       resource,
       apiHost: ApiHost.CampaignService,
       params: {

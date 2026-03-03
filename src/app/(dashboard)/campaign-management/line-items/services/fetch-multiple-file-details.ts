@@ -1,11 +1,11 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest, showNotification } from '@/services';
+import { authenticatedRequest, showNotification } from '@/services';
 import { handleApiError } from '../../lib/utils';
 
 export const fetchMultipleFileDetails = async (fileIds: string[]) => {
   try {
-    const response = await nextBackendRequest({
+    const response = await authenticatedRequest({
       resource: ApiResources.MultipleFileDetails,
       apiHost: ApiHost.FileService,
       method: HttpMethod.POST,

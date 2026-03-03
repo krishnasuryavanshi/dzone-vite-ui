@@ -1,11 +1,11 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 import { IValidateLeads } from '../lib/types';
 
 export const validateLeads = async (requestPayload: IValidateLeads) => {
   try {
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource: ApiResources.LeadsValidation,
       apiHost: ApiHost.LeadOrchestrationService,
       method: HttpMethod.POST,

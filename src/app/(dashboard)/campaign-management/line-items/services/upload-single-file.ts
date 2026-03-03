@@ -1,9 +1,9 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 
 export const uploadSingleFile = async (formData: FormData) => {
-  const data = await nextBackendRequest({
+  const data = await authenticatedRequest({
     resource: ApiResources.LineItemSingleFileUpload,
     apiHost: ApiHost.FileService,
     method: HttpMethod.POST,

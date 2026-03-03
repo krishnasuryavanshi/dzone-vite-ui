@@ -1,7 +1,7 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchZapierIntegrationLabels = async (
   integrationType: string,
@@ -12,7 +12,7 @@ export const fetchZapierIntegrationLabels = async (
       integration_type: integrationType,
       label,
     });
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource,
       apiHost: ApiHost.PlatformService,
     });

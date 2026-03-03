@@ -1,6 +1,6 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 
 export interface TransformationHistoryItem {
@@ -30,7 +30,7 @@ export const fetchTransformationHistory = async (
   size: number = 10,
 ): Promise<TransformationHistoryResponse | null> => {
   try {
-    const response = await nextBackendRequest({
+    const response = await authenticatedRequest({
       resource: ApiResources.TranformationHistory,
       apiHost: ApiHost.TransformationService,
       method: HttpMethod.GET,

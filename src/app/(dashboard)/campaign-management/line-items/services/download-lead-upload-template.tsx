@@ -1,6 +1,6 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest, showNotification } from '@/services';
+import { authenticatedRequest, showNotification } from '@/services';
 import { handleApiError } from '../../lib/utils';
 
 export const downloadLeadUploadTemplate = async (
@@ -9,7 +9,7 @@ export const downloadLeadUploadTemplate = async (
   tenantCode: string,
 ) => {
   try {
-    const response = await nextBackendRequest({
+    const response = await authenticatedRequest({
       resource: ApiResources.DownloadLeadUploadTemplate,
       apiHost: ApiHost.FileService,
       params: { lineItemId, validationSettingId, tenantCode },

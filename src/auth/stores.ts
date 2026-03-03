@@ -1,6 +1,5 @@
 /**
  * Client-side auth stores — persisted to localStorage.
- * These replace NextAuth's server-side session management.
  */
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
@@ -134,7 +133,7 @@ export const useTokenStore = create<TokenState>()(
           error: null,
         }),
 
-      // In the Vite app, tokens come from login — no BFF fetch needed
+      // Tokens come from login response
       fetchToken: async () => {
         return get().accessToken;
       },
@@ -147,5 +146,4 @@ export const useTokenStore = create<TokenState>()(
 );
 
 // ── Re-export the existing permissions store ──
-// (It will be copied from dzone-ui, but we also export from here for shim access)
 export { usePermissionsStore } from '../stores/permissions-store';

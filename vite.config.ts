@@ -23,7 +23,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     port: 3001,
     proxy: {
-      // Forward all /api/* requests to the Next.js backend on port 3000
+      // Forward /api/* requests to the backend on port 3000
       '/api': {
         target: 'http://localhost:3000',
         changeOrigin: true,

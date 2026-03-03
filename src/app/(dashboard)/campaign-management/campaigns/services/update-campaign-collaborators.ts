@@ -1,13 +1,13 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const updateCampaignCollaborators = async (
   data: Record<string, string[]>,
   campaignId: string,
 ) => {
   try {
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource: ApiResources.UpdateCampaignCollaborators,
       apiHost: ApiHost.CampaignService,
       method: HttpMethod.PUT,

@@ -1,11 +1,11 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest, showNotification } from '@/services';
+import { authenticatedRequest, showNotification } from '@/services';
 import { handleApiError } from '../../lib/utils';
 
 export const fetchFileDetails = async (fileId: string) => {
   try {
-    const { data } = await nextBackendRequest({
+    const { data } = await authenticatedRequest({
       resource: ApiResources.FileDetails,
       apiHost: ApiHost.FileService,
       params: { fileId },

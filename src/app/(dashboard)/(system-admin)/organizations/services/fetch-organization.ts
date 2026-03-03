@@ -1,11 +1,11 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchOrganization = async (organizationId: string) => {
   try {
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       apiHost: ApiHost.RBACService,
       resource: transformPath(ApiResources.OrganizationsById, {
         organizationId,

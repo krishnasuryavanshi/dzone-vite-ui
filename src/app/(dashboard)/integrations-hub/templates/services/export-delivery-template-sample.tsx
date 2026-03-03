@@ -2,11 +2,11 @@ import { handleApiError } from '@/app/(dashboard)/campaign-management/lib/utils'
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
-import { nextBackendRequest, showNotification } from '@/services';
+import { authenticatedRequest, showNotification } from '@/services';
 
 export const exportDeliveryTemplateSample = async (templateId: string) => {
   try {
-    const response = await nextBackendRequest({
+    const response = await authenticatedRequest({
       resource: transformPath(ApiResources.ExportSampleDeliveryTemplate, {
         templateId,
       }),

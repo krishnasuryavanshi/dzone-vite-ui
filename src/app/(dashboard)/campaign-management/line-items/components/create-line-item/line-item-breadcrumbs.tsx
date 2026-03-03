@@ -3,7 +3,7 @@ import { ItemType } from '@/lib/types/uicomponents';
 import { Breadcrumb } from '@/uicomponents';
 import { useEffect, useState } from 'react';
 import { ILineItem } from '../../lib/types';
-import { NextLink } from '@/components/shared';
+import { AppLink } from '@/components/shared';
 import { ICampaign } from '../../../campaigns/lib/types';
 import styles from './line-item-breadcrumbs.module.css';
 
@@ -34,17 +34,17 @@ export const LineItemBreadcrumbs: React.FC<ICreateLineItemBreadcrumbsProps> = ({
         },
         {
           title: (
-            <NextLink
+            <AppLink
               link={`/campaign-management/campaigns/${campaignId}`}
-              label={campaignId}></NextLink>
+              label={campaignId}></AppLink>
           ),
         },
         {
           title: (
             <span className={`${styles.lineItemId} ${styles.hoverUnderline}`}>
-              <NextLink
+              <AppLink
                 link={`/campaign-management/line-items/${id}`}
-                label={lineItemId}></NextLink>
+                label={lineItemId}></AppLink>
             </span>
           ),
         },
@@ -59,9 +59,9 @@ export const LineItemBreadcrumbs: React.FC<ICreateLineItemBreadcrumbsProps> = ({
         },
         {
           title: (
-            <NextLink
+            <AppLink
               link={`/campaign-management/campaigns/${campaignData?.id}`}
-              label={campaignId!}></NextLink>
+              label={campaignId!}></AppLink>
           ),
         },
         {
@@ -76,9 +76,9 @@ export const LineItemBreadcrumbs: React.FC<ICreateLineItemBreadcrumbsProps> = ({
         {
           title: (
             <span className={`${styles.lineItemId} ${styles.hoverUnderline}`}>
-              <NextLink
+              <AppLink
                 link={`/campaign-management/line-items/${id}`}
-                label={lineItemId}></NextLink>
+                label={lineItemId}></AppLink>
             </span>
           ),
         },

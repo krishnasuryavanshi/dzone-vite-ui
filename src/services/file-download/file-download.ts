@@ -1,11 +1,11 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string/transform-path';
-import { nextBackendRequest, showNotification } from '@/services';
+import { authenticatedRequest, showNotification } from '@/services';
 
 export const fileDownload = async (fileId: string) => {
   try {
-    const { data } = await nextBackendRequest({
+    const { data } = await authenticatedRequest({
       resource: transformPath(ApiResources.DownloadFile, { fileId }),
       apiHost: ApiHost.FileService,
     });

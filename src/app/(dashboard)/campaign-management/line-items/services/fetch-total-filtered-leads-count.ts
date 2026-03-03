@@ -1,7 +1,7 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string/transform-path';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchTotalFilteredLeadsCount = async (
   lineItemId: string,
@@ -11,7 +11,7 @@ export const fetchTotalFilteredLeadsCount = async (
     const resource = transformPath(ApiResources.TotalFilteredLeadsCount, {
       lineItemId,
     });
-    const { data } = await nextBackendRequest({
+    const { data } = await authenticatedRequest({
       method: HttpMethod.POST,
       resource,
       apiHost: ApiHost.CampaignService,

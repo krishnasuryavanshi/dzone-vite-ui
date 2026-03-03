@@ -55,7 +55,7 @@ export const DeliverySchedulesList: React.FC<DeliverySchedulesListProps> = ({
         }
       }
     } catch (err) {
-      // Error is handled by nextBackendRequest
+      // Error is handled by authenticatedRequest
     } finally {
       setLoading(false);
     }

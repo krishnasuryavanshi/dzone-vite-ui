@@ -1,6 +1,5 @@
 /**
- * Replacement back-end-manager for Vite app.
- * Uses Zustand stores for token/user instead of server session.
+ * Low-level backend request handler with Zustand auth integration.
  */
 import { HttpMethod } from '@/lib/enums';
 import { IApiRequestConfig, IRequestConfig } from '@/lib/types';

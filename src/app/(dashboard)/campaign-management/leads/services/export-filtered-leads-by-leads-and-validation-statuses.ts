@@ -1,6 +1,6 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest, showNotification } from '@/services';
+import { authenticatedRequest, showNotification } from '@/services';
 import { transformPath } from '@/lib/utils/string/transform-path';
 import { handleApiError } from '../../lib/utils';
 
@@ -13,7 +13,7 @@ export const exportLeadsFilteredByLeadAndValidationStatuses = async (
       ApiResources.ExportFilteredLeadsByStatusAndValidationStatuses,
       { lineItemId },
     );
-    const response = await nextBackendRequest({
+    const response = await authenticatedRequest({
       resource,
       apiHost: ApiHost.FileService,
       method: HttpMethod.POST,

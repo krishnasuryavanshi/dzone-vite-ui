@@ -1,6 +1,6 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 import { Integration } from '../lib/types/integration';
 
@@ -16,7 +16,7 @@ export const updateIntegration = async (
   payload: UpdateIntegrationPayload,
 ): Promise<Integration | null> => {
   try {
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource: `${ApiResources.Integrations}/${id}`,
       apiHost: ApiHost.PlatformService,
       method: HttpMethod.PUT,

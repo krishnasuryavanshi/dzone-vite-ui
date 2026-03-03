@@ -1,10 +1,10 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 
 export async function fetchInitialActions() {
   try {
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource: ApiResources.DzentInitialActions,
       apiHost: ApiHost.PlatformService,
     });

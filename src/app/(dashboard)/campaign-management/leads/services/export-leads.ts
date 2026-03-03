@@ -1,11 +1,11 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest, showNotification } from '@/services';
+import { authenticatedRequest, showNotification } from '@/services';
 import { AxiosHeaders } from 'axios';
 
 export const exportLeads = async () => {
   try {
-    const response = await nextBackendRequest({
+    const response = await authenticatedRequest({
       resource: ApiResources.ExportLeads,
       apiHost: ApiHost.CampaignService,
       responseType: 'arraybuffer',

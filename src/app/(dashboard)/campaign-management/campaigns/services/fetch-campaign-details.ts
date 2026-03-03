@@ -1,11 +1,11 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 
 export const fetchCampaignDetails = async (campaignId: string, view = true) => {
   try {
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource: transformPath(ApiResources.CampaignsById, { campaignId }),
       apiHost: ApiHost.CampaignService,
     });

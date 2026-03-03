@@ -1,9 +1,9 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 
 export const validateUserEmail = async (email: string) => {
-  return await nextBackendRequest({
+  return await authenticatedRequest({
     resource: ApiResources.ValidateUser,
     apiHost: ApiHost.RBACService,
     isAuthenticated: false,

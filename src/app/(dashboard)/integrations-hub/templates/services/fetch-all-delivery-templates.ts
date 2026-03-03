@@ -1,14 +1,14 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchDeliveryTemplatesByMarketer = async (
   marketerCode: string,
   lineItemId?: string,
 ) => {
   try {
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource: transformPath(ApiResources.DeliveryTemplatesByMarketer, {
         marketerCode,
       }),

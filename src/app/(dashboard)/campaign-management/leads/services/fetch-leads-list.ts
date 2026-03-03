@@ -1,6 +1,6 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 import { transformPath } from '@/lib/utils/string/transform-path';
 
 export const fetchLeadsList = async (
@@ -21,7 +21,7 @@ export const fetchLeadsList = async (
       size,
       ...Object.assign({}, ...extraParams),
     };
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource,
       apiHost: ApiHost.PlatformService,
       params,

@@ -3,7 +3,7 @@ import { HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { IApiRequestConfig } from '@/lib/types';
 import { backendRequest } from '@/services/back-end-manager';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { showNotification } from '@/services';
 
 // Mock dependencies
@@ -11,7 +11,7 @@ jest.mock('../../services/back-end-manager');
 jest.mock('../../services/notification');
 jest.mock('../../lib/hooks/use-session');
 
-describe('nextBackendRequest', () => {
+describe('authenticatedRequest', () => {
   // Mock window.location
   const originalLocation = window.location;
   beforeAll(() => {
@@ -35,7 +35,7 @@ describe('nextBackendRequest', () => {
     const mockResponse = { data: { success: true } };
     (backendRequest as jest.Mock).mockResolvedValue(mockResponse);
 
-    const result = await nextBackendRequest({
+    const result = await authenticatedRequest({
       resource: 'test',
     });
 
@@ -57,7 +57,7 @@ describe('nextBackendRequest', () => {
     };
     (backendRequest as jest.Mock).mockResolvedValue(mockResponse);
 
-    const result = await nextBackendRequest({
+    const result = await authenticatedRequest({
       resource: 'test',
       includeResponseHeaders: true,
     } as IApiRequestConfig);
@@ -75,7 +75,7 @@ describe('nextBackendRequest', () => {
     (backendRequest as jest.Mock).mockRejectedValue(error);
 
     await expect(
-      nextBackendRequest({
+      authenticatedRequest({
         resource: '/test',
       }),
     ).rejects.toEqual('Test error message');
@@ -92,7 +92,7 @@ describe('nextBackendRequest', () => {
     (backendRequest as jest.Mock).mockRejectedValue(error);
 
     await expect(
-      nextBackendRequest({
+      authenticatedRequest({
         resource: '/test',
       }),
     ).rejects.toEqual(error);

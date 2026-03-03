@@ -1,13 +1,13 @@
 import { ApiHost } from '@/lib/constants';
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { logger, logError } from './logger';
-import { nextBackendRequest } from './backend-request';
+import { authenticatedRequest } from './backend-request';
 
 export const fetchPermissions = async (request: { roleIds: string[] }) => {
   logger.debug('Permissions: fetching', { roleCount: request.roleIds.length });
 
   try {
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       apiHost: ApiHost.RBACService,
       resource: ApiResources.Permissions,
       method: HttpMethod.POST,

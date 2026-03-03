@@ -2,7 +2,7 @@ import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { Filters } from '@/lib/utils/table';
 import { processFiltersWithDateRange } from '@/lib/utils/table';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 import { ILineItem } from '../lib/types';
 import { logError } from '@/services/logger';
 
@@ -32,7 +32,7 @@ export const fetchLineItems = async (
       data: requestBody,
     };
 
-    const data = await nextBackendRequest(requestConfig);
+    const data = await authenticatedRequest(requestConfig);
     data.data = data.data.map((lineItem: ILineItem) => ({
       ...lineItem,
       campaignName: lineItem.campaign.name,

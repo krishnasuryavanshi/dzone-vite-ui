@@ -1,5 +1,5 @@
 /**
- * Resource-related types — extracted from Refine shims.
+ * Resource-related types.
  */
 import React from 'react';
 

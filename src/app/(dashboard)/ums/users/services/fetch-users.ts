@@ -1,6 +1,6 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 
 export const fetchUsers = (
   page: number,
@@ -20,7 +20,7 @@ export const fetchUsers = (
     params.org = org;
   }
   try {
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource: ApiResources.PaginatedUsers,
       params,
       apiHost: ApiHost.RBACService,

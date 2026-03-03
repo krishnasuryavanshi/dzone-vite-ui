@@ -1,7 +1,7 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string/transform-path';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 
 export const fetchConversationById = async (conversationId: string) => {
@@ -10,7 +10,7 @@ export const fetchConversationById = async (conversationId: string) => {
       conversationId,
     });
 
-    return nextBackendRequest({
+    return authenticatedRequest({
       resource,
       apiHost: ApiHost.PlatformService,
       method: HttpMethod.GET,

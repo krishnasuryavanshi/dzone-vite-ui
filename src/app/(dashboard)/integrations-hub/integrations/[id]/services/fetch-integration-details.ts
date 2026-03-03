@@ -1,7 +1,7 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { DzRecord } from '@/lib/types';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 
 interface IntegrationDetailsResponse {
@@ -12,7 +12,7 @@ export const fetchIntegrationDetails = async (
   id: string,
 ): Promise<IntegrationDetailsResponse> => {
   try {
-    const response = await nextBackendRequest({
+    const response = await authenticatedRequest({
       resource: ApiResources.DeliveryTemplatesByIntegration.replace(
         '{integrationId}',
         id,

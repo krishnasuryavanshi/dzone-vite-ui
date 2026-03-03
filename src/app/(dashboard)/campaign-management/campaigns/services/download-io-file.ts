@@ -1,12 +1,12 @@
 import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest, showNotification } from '@/services';
+import { authenticatedRequest, showNotification } from '@/services';
 import { handleApiError } from '../../lib/utils';
 
 export const downloadIOFile = async (campaignId: string, fileId: string) => {
   try {
     const resource = `${ApiResources.DownloadIOFile}/${campaignId}`;
-    const response = await nextBackendRequest({
+    const response = await authenticatedRequest({
       resource,
       apiHost: ApiHost.CampaignService,
       params: { fileId },

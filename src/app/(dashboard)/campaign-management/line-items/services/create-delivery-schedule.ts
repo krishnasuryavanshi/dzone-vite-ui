@@ -1,6 +1,6 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services/backend-request';
+import { authenticatedRequest } from '@/services/backend-request';
 import { logError } from '@/services/logger';
 import { DeliverySchedule } from './fetch-delivery-schedules';
 import { DeliveryType } from '@/app/(dashboard)/integrations-hub/templates/lib/enums';
@@ -24,7 +24,7 @@ export const createDeliverySchedule = async (
   payload: CreateDeliverySchedulePayload,
 ): Promise<CreateDeliveryScheduleResponse | null> => {
   try {
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource: ApiResources.LineItemDeliverySchedules,
       apiHost: ApiHost.PlatformService,
       method: HttpMethod.POST,

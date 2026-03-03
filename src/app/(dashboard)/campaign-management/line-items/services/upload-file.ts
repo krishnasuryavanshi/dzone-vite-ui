@@ -1,10 +1,10 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
-import { nextBackendRequest } from '@/services';
+import { authenticatedRequest } from '@/services';
 
 export const uploadFile = async (formData: FormData) => {
   try {
-    const data = await nextBackendRequest({
+    const data = await authenticatedRequest({
       resource: ApiResources.UploadFile,
       apiHost: ApiHost.PlatformService,
       method: HttpMethod.POST,
