@@ -8,10 +8,10 @@ import { Flex } from '@/uicomponents/layout';
 import { Modal } from '@/uicomponents/modal';
 import { Spin } from '@/uicomponents/spin';
 import { LoadingOutlined } from '@ant-design/icons';
-import { FC, SyntheticEvent, useContext, useEffect, useState } from 'react';
+import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { IStatus } from '../../lib/types';
 import { combinedStatusOptions } from '../../lib/utils';
-import { LineItemContext } from '../../line-items/contexts';
+import { useLineItemContextStore } from '../../line-items/store/use-line-item-context-store';
 import { LineItemStatus } from '../../line-items/lib/enums';
 import { ILineItem } from '../../line-items/lib/types';
 import { updateLineItemStatus } from '../../line-items/services';
@@ -24,8 +24,7 @@ interface IStatusActionProps {
 }
 
 export const StatusAction: FC<IStatusActionProps> = ({ record }) => {
-  const lineItem = useContext(LineItemContext);
-  const { setUpdateList, statusList }: any = lineItem;
+  const { setUpdateList, statusList } = useLineItemContextStore();
 
   const isUpdateStatusAllowed = usePermissionCheck(LineItemActionsEnum.Update);
 

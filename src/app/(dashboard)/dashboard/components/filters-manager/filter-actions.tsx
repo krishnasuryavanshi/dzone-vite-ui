@@ -1,8 +1,8 @@
 import { Translate } from '@/components/i18n';
 import { Button } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
-import React, { FC, useContext, useEffect, useState } from 'react';
-import { DashboardReportContext } from '../../contexts';
+import React, { FC, useEffect, useState } from 'react';
+import { useDashboardReportStore } from '../../store/use-dashboard-report-store';
 import {
   BillingReportType,
   ExecutiveReportType,
@@ -22,7 +22,7 @@ export const FilterActions: FC<IFilterActionsProps> = ({
   submit,
   activeTab,
 }) => {
-  const { progress } = useContext(DashboardReportContext);
+  const progress = useDashboardReportStore((s) => s.progress);
 
   const [loading, setLoading] = useState(true);
 

@@ -1,7 +1,7 @@
-import { UnsavedDataWarningContext } from '@/contexts/unsaved-data-warning';
+import { useUnsavedDataStore } from '@/stores/unsaved-data-store';
 import { Link } from 'react-router';
 import { useRouter } from '@/lib/hooks/use-router';
-import { FC, MouseEvent, useContext, useState } from 'react';
+import { FC, MouseEvent, useState } from 'react';
 import { Translate } from '../i18n';
 import { UnsavedDataWarningConfirmDialog } from './unsaved-data-warning-confirm-dialog';
 
@@ -19,9 +19,8 @@ export const NextLink: FC<INextLinkProps> = ({
   const router = useRouter();
   const [openUnsavedDataWarningModal, setOpenUnsavedDataWarningModal] =
     useState(false);
-  const { actions, actionsData, hasUnsavedData, clear } = useContext(
-    UnsavedDataWarningContext,
-  );
+  const { actions, actionsData, hasUnsavedData, clear } =
+    useUnsavedDataStore();
 
   const handleClick = async (e: MouseEvent<HTMLAnchorElement>) => {
     // Allow modifier keys and non-primary clicks to pass through for native browser behavior

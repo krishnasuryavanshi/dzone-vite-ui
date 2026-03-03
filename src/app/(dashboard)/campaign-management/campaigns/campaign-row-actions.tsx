@@ -1,6 +1,5 @@
-import React, { FC, SyntheticEvent, useContext } from 'react';
+import React, { FC, SyntheticEvent } from 'react';
 import { Button, Dropdown, Link } from '@/uicomponents';
-import { MoreOutlined } from '@/uicomponents/icons';
 import { ICampaign } from './lib/types';
 import { generateCampaignLinks } from './lib/utils';
 import {
@@ -11,13 +10,13 @@ import {
 import { showNotification } from '@/services';
 import { usePermissionCheck, useQueryState } from '@/lib/hooks';
 import { useRouter } from '@/lib/hooks/use-router';
-import { CampaignContext } from './context';
 import {
   CampaignActionsEnum,
   LineItemActionsEnum,
 } from '@/lib/enums/permissions';
 import { Link as NextJsLink } from 'react-router';
 import { ThreeDotsActionsIcon } from '@/uicomponents/icons/svgs';
+import { useCampaignListStore } from './store/use-campaign-list-store';
 
 interface ICampaignRowActionsProps {
   campaign: ICampaign;
@@ -35,7 +34,7 @@ export const CampaignRowActions: FC<ICampaignRowActionsProps> = ({
   campaign,
 }) => {
   const { setQueryState } = useQueryState();
-  const { showLoader }: any = useContext(CampaignContext);
+  const showLoader = useCampaignListStore((s) => s.showLoader);
   const permissions: Partial<Record<PermissionKeys, boolean>> = {
     [CampaignActionsEnum.View]: usePermissionCheck(CampaignActionsEnum.View),
     [CampaignActionsEnum.Edit]: usePermissionCheck(CampaignActionsEnum.Edit),

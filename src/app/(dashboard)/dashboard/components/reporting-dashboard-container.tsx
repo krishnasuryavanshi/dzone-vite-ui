@@ -1,6 +1,6 @@
 import { Flex } from '@/uicomponents/layout';
-import { FC, useContext, useEffect, useState } from 'react';
-import { DashboardReportContext } from '../contexts';
+import { FC, useEffect, useState } from 'react';
+import { useDashboardReportStore } from '../store/use-dashboard-report-store';
 import { IExecutiveFilterDataPayload, IFilterDataPayload } from '../lib/utils';
 import { ReportingFiltersManager } from './filters-manager';
 import { ReportingTabs } from './reporting-tabs';
@@ -12,7 +12,7 @@ interface IReportingDashboardContainerProps {}
 export const ReportingDashboardContainer: FC<
   IReportingDashboardContainerProps
 > = ({}) => {
-  const { updateFilters, resetProgress } = useContext(DashboardReportContext);
+  const { updateFilters, resetProgress } = useDashboardReportStore();
 
   const { queryState, setQueryState } = useQueryState();
   const initialTab = queryState.report || ReportType.Executive;

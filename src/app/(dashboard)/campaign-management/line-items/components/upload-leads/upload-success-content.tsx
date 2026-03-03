@@ -1,8 +1,8 @@
 import { Translate } from '@/components/i18n';
 import { transformPath } from '@/lib/utils/string';
 import { Button } from '@/uicomponents';
-import React, { FC, useContext } from 'react';
-import { LineItemContext } from '../../contexts';
+import React, { FC } from 'react';
+import { useLineItemContextStore } from '../../store/use-line-item-context-store';
 
 interface IUploadSuccessContentProps {
   show: boolean;
@@ -17,7 +17,7 @@ export const UploadSuccessContent: FC<IUploadSuccessContentProps> = ({
   info,
   onClickViewLeads,
 }) => {
-  const { value } = useContext(LineItemContext);
+  const value = useLineItemContextStore((s) => s.value);
 
   if (!show) {
     return null;

@@ -1,11 +1,11 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { DzentContainer, DZentContainerProps } from './dzent-container';
 import { useDzentStore } from '../store';
-import { UnsavedDataWarningContext } from '@/contexts/unsaved-data-warning';
+import { useUnsavedDataStore } from '@/stores/unsaved-data-store';
 
 export const DzentContainerHost = ({ action }: DZentContainerProps) => {
   const { resetAll } = useDzentStore();
-  const { clear } = useContext(UnsavedDataWarningContext);
+  const clear = useUnsavedDataStore((s) => s.clear);
   const [isReady, setReady] = React.useState(false);
 
   useEffect(() => {

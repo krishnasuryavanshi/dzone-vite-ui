@@ -6,7 +6,7 @@ import { Flex } from '@/uicomponents/layout';
 import { FC, PropsWithChildren, useEffect, useState } from 'react';
 import BasicDetails from '../../lib/schemas/basic-details.json';
 import CustomQuestions from '../../lib/schemas/custom-questions.json';
-import { LineItemContextProvider } from '../../contexts';
+import { useLineItemContextStore } from '../../store/use-line-item-context-store';
 import { LineItemSummaryViewFields } from '../../lib/constants';
 import { LineItemFields } from '../../lib/enums';
 import { ILineItem } from '../../lib/types';
@@ -34,6 +34,13 @@ export const ShowLineItemContainer: FC<IShowLineItemContainerProps> = ({
   campaignId,
   sessionTenantCode,
 }) => {
+  const { fetchStatusData, reset } = useLineItemContextStore();
+
+  useEffect(() => {
+    fetchStatusData();
+    return () => reset();
+  }, []);
+
   const isTargetCplRestricted = useRestrictedAccess(
     RestrictedAccessKeys.CplFieldInLineItemDetails,
   );
@@ -89,7 +96,7 @@ export const ShowLineItemContainer: FC<IShowLineItemContainerProps> = ({
   };
 
   return (
-    <LineItemContextProvider>
+    <>
       <ShowLineItemWrapper
         lineItemId={lineItemId}
         campaignId={campaignId}
@@ -118,6 +125,6 @@ export const ShowLineItemContainer: FC<IShowLineItemContainerProps> = ({
           </DzScrollContainer.Scroll>
         </DzScrollContainer>
       </ShowLineItemWrapper>
-    </LineItemContextProvider>
+    </>
   );
 };

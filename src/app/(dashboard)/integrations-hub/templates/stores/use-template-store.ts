@@ -39,6 +39,7 @@ interface TemplateStoreState {
 
   // Delivery type state
   deliveryType: string;
+  zapierType: string;
   formFieldMappingOptions: { label: string; value: string }[];
   integrationsList: Record<string, { id: string; name: string }[]>;
   masterFieldMappings: IMasterFieldMapping[];
@@ -80,6 +81,7 @@ interface TemplateStoreActions {
 
   // Delivery type actions
   setDeliveryType: (type: string) => void;
+  setZapierType: (type: string) => void;
   updateFormFieldMappingOptions: (
     options: { label: string; value: string }[],
   ) => void;
@@ -119,6 +121,7 @@ const initialState: TemplateStoreState = {
   isFieldDrawerOpen: false,
   selectedFieldIndex: -1,
   deliveryType: '',
+  zapierType: '',
   formFieldMappingOptions: [],
   integrationsList: {},
   masterFieldMappings: [],
@@ -463,6 +466,19 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
 
   // Delivery type actions
   setDeliveryType: (type) => set({ deliveryType: type }),
+
+  setZapierType: (type) => {
+    const state = get();
+    set({
+      zapierType: type,
+      updatedTemplateData: state.updatedTemplateData
+        ? {
+            ...state.updatedTemplateData,
+            type: type as ITemplateResponse['type'],
+          }
+        : state.updatedTemplateData,
+    });
+  },
 
   updateFormFieldMappingOptions: (options) =>
     set({ formFieldMappingOptions: options }),

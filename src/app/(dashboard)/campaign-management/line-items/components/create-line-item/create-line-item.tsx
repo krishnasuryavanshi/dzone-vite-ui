@@ -1,7 +1,7 @@
-import { UnsavedDataWarningContext } from '@/contexts';
+import { useUnsavedDataStore } from '@/stores/unsaved-data-store';
 import { StorageKey } from '@/lib/enums';
 import { createCookieForExistingRecord } from '@/services/cookie-stepper-form';
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useUpdateQueryState } from '../../../lib/hooks';
 import { LineItemFormContainer } from './line-item-form-container';
 import { ICampaign } from '../../../campaigns/lib/types';
@@ -20,7 +20,7 @@ export const CreateLineItem: FC<ICreateLineItemProps> = ({
 }) => {
   const [loading, setLoading] = useState<boolean>(true);
   const { queryState, updateQueryParams } = useUpdateQueryState();
-  const { setSourceObject } = useContext(UnsavedDataWarningContext);
+  const setSourceObject = useUnsavedDataStore((s) => s.setSourceObject);
   const [campaignData, setCampaignData] = useState<ICampaign>({} as ICampaign);
   const fetchCampaignId = async () => {
     try {

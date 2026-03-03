@@ -1,8 +1,8 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import { ShowLineItems } from './show-line-items';
 import { FilesContainer } from './files-container';
 import { ShowCampaignTabsType } from '../lib/enums';
-import { LineItemContextProvider } from '../../line-items/contexts';
+import { useLineItemContextStore } from '../../line-items/store/use-line-item-context-store';
 
 interface IShowCampaignTabs {
   activeKey: string;
@@ -15,14 +15,21 @@ export const ShowCampaignTabsContent: FC<IShowCampaignTabs> = ({
   campaignUuId,
   campaignId,
 }) => {
+  const { fetchStatusData, reset } = useLineItemContextStore();
+
+  useEffect(() => {
+    fetchStatusData();
+    return () => reset();
+  }, []);
+
   return (
-    <LineItemContextProvider>
+    <>
       <ShowLineItems
         campaignId={campaignId}
         show={activeKey === ShowCampaignTabsType.LineItems}
         campaignUuId={campaignUuId}
       />
       <FilesContainer show={activeKey === ShowCampaignTabsType.Files} />
-    </LineItemContextProvider>
+    </>
   );
 };

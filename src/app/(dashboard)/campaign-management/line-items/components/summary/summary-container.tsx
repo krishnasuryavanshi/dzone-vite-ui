@@ -1,11 +1,11 @@
 
-import { FC, useCallback, useContext, useEffect } from 'react';
+import { FC, useCallback, useEffect } from 'react';
 import { Title } from '@/uicomponents/title';
 import { Flex } from '@/uicomponents/layout';
 import { Button } from '@/uicomponents/button';
 import { DownloadOutlined } from '@/uicomponents/icons';
 import { DZONE_CLR_BLACK } from '@/lib/constants';
-import { LineItemContext } from '../../contexts/line-item';
+import { useLineItemContextStore } from '../../store/use-line-item-context-store';
 import { usePacingSummaryStore } from '../../store';
 import { exportPacingSummary } from '../../services';
 import { SummaryCards } from './summary-cards';
@@ -21,7 +21,7 @@ export const SummaryContainer: FC<ISummaryContainerProps> = ({
   show,
   lineItemId,
 }) => {
-  const { lineItem } = useContext(LineItemContext);
+  const lineItem = useLineItemContextStore((s) => s.lineItem);
   const { summary, gridData, showDelivered, fetchSummary, fetchData, reset } =
     usePacingSummaryStore();
 

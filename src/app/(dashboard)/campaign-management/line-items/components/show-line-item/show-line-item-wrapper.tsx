@@ -1,5 +1,5 @@
-import { FC, useContext, useEffect } from 'react';
-import { LineItemContext } from '../../contexts';
+import { FC, useEffect } from 'react';
+import { useLineItemContextStore } from '../../store/use-line-item-context-store';
 import { IShowLineItemContainerProps } from './show-line-item-container';
 
 export const ShowLineItemWrapper: FC<IShowLineItemContainerProps> = ({
@@ -8,10 +8,10 @@ export const ShowLineItemWrapper: FC<IShowLineItemContainerProps> = ({
   lineItemDetails,
   children,
 }) => {
-  const { setValue, setLineItem } = useContext(LineItemContext);
+  const { setValue, setLineItem } = useLineItemContextStore();
 
   useEffect(() => {
-    setValue((prev: Record<string, any>) => ({
+    setValue((prev: Record<string, string>) => ({
       ...prev,
       lineItemId,
       campaignId,

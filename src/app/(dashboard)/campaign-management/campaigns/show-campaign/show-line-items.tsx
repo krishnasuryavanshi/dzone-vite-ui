@@ -2,10 +2,10 @@ import { LineItemsList } from '@/app/(dashboard)/campaign-management/line-items/
 import { fetchLineItems } from '@/app/(dashboard)/campaign-management/line-items/services';
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { SimplePagination } from '@/uicomponents';
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { ILineItem } from '../../line-items/lib/types';
 import { LineItemHeader } from './line-item-header';
-import { LineItemContext } from '../../line-items/contexts';
+import { useLineItemContextStore } from '../../line-items/store/use-line-item-context-store';
 import { useQueryState } from '@/lib/hooks';
 import { Filters } from '@/lib/utils/table';
 
@@ -20,7 +20,7 @@ export const ShowLineItems: FC<IShowLineItemsProps> = ({
   campaignUuId,
   show,
 }) => {
-  const { updateList } = useContext(LineItemContext);
+  const updateList = useLineItemContextStore((s) => s.updateList);
   const [campaignLineItems, setCampaignLineItems] = useState<ILineItem[]>([]);
   const [showCreateLineItem, setShowCreateLineItem] = useState<boolean>(false);
   const [refreshId, setRefreshId] = useState<string>('');

@@ -5,8 +5,8 @@ import { useQueryState } from '@/lib/hooks';
 import { hasActiveFilters } from '@/lib/utils';
 import { Filters } from '@/lib/utils/table';
 import { SimplePagination } from '@/uicomponents';
-import { FC, useContext, useEffect, useState } from 'react';
-import { LineItemContext } from '../contexts';
+import { FC, useEffect, useState } from 'react';
+import { useLineItemContextStore } from '../store/use-line-item-context-store';
 import { ILineItem } from '../lib/types';
 import { fetchLineItems } from '../services';
 import { LineItemsFiltersManager } from './line-items-filters-manager';
@@ -18,7 +18,7 @@ interface ILineItemsContainerProps {}
 export const LineItemsContainer: FC<ILineItemsContainerProps> = ({}) => {
   const searchParams = useSearchParams();
   const campaignId = searchParams.get('campaignId') || '';
-  const { isLoading, updateList } = useContext(LineItemContext);
+  const { isLoading, updateList } = useLineItemContextStore();
   const [lineItemsList, setLineItemsList] = useState<ILineItem[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(0);

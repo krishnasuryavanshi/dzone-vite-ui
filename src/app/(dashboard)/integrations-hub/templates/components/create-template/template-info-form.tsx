@@ -17,8 +17,8 @@ import { Col, Row } from '@/uicomponents/layout/grid';
 import { Text } from '@/uicomponents/text';
 import { Tooltip } from '@/uicomponents/tooltip';
 import { debounce, pick } from 'lodash';
-import { FC, useContext, useEffect, useState } from 'react';
-import { CreateTemplateContext } from '../../contexts';
+import { FC, useEffect, useState } from 'react';
+import { useTemplateStore } from '../../stores/use-template-store';
 import { DeliveryTypeOptions } from '../../lib/constants';
 import { DeliveryType } from '../../lib/enums';
 import { ITemplateResponse } from '../../lib/types';
@@ -64,7 +64,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
     setDeliveryType,
     zapierType,
     setZapierType,
-  } = useContext(CreateTemplateContext);
+  } = useTemplateStore();
 
   const [form] = useForm();
   const [integrationOptions, setIntegrationOptions] = useState<

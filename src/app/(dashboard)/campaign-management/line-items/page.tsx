@@ -1,13 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LineItemsContainer } from './components';
-import { LineItemContextProvider } from './contexts';
+import { useLineItemContextStore } from './store/use-line-item-context-store';
 
 const LineItemsPage = () => {
-  return (
-    <LineItemContextProvider>
-      <LineItemsContainer />
-    </LineItemContextProvider>
-  );
+  const { fetchStatusData, reset } = useLineItemContextStore();
+
+  useEffect(() => {
+    fetchStatusData();
+    return () => reset();
+  }, []);
+
+  return <LineItemsContainer />;
 };
 
 export default LineItemsPage;

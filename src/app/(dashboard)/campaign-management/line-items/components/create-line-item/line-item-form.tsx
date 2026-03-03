@@ -1,5 +1,5 @@
 import { StepperFormFooter } from '@/components/modals/form/stepper-form-footer';
-import { UnsavedDataWarningContext } from '@/contexts';
+import { useUnsavedDataStore } from '@/stores/unsaved-data-store';
 import { OptionsKeys, RestrictedAccessKeys, StorageKey } from '@/lib/enums';
 import { useRestrictedAccess } from '@/lib/hooks';
 import { sanitizeData } from '@/lib/utils';
@@ -11,7 +11,6 @@ import { useRouter } from '@/lib/hooks/use-router';
 import {
   FC,
   useCallback,
-  useContext,
   useEffect,
   useRef,
   useState,
@@ -96,9 +95,8 @@ export const LineItemForm: FC<ILineItemForm> = ({
     useState<Record<string, any>>();
   const [form] = useForm();
   const [requiredFormFields, setrequiredFormFields] = useState<string[]>([]);
-  const { updateTargetObject, clear: clearUnsavedData } = useContext(
-    UnsavedDataWarningContext,
-  );
+  const { updateTargetObject, clear: clearUnsavedData } =
+    useUnsavedDataStore();
 
   const isTargetCplCreateRestricted = useRestrictedAccess(
     RestrictedAccessKeys.CplFieldInLineItemCreate,

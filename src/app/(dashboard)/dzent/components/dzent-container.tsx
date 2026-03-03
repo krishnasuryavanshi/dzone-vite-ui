@@ -1,10 +1,10 @@
 import { Hideable } from '@/components/shared';
 import { useSession } from '@/lib/hooks/use-session';
-import { useContext, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDzentStore } from '../store';
 import { DzentWrapper } from './dzent-wrapper';
 import { TenantSelection } from './tenant-selection';
-import { UnsavedDataWarningContext } from '@/contexts/unsaved-data-warning';
+import { useUnsavedDataStore } from '@/stores/unsaved-data-store';
 import { DzRecord } from '@/lib/types';
 
 export type DZentContainerProps = {
@@ -17,7 +17,7 @@ export const DzentContainer = ({ action }: DZentContainerProps) => {
     setTargetObject,
     setActionsObject,
     setActionsDataObject,
-  } = useContext(UnsavedDataWarningContext);
+  } = useUnsavedDataStore();
 
   const {
     initiateChatSetup,

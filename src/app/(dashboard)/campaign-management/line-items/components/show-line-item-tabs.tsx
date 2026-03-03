@@ -2,14 +2,14 @@ import { Translate } from '@/components/i18n';
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
 import { TabsProps } from '@/lib/types/uicomponents';
 import { Tabs } from '@/uicomponents/tabs';
-import React, { FC, useState, useEffect, useContext } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { LineItemsTabType } from '../lib/enums/line-items-tabs.enum';
 import { ShowLineItemsTabsContent } from './show-line-items-tabs-content';
 import { usePermissionCheck } from '@/lib/hooks';
 import { LeadActionsEnum } from '@/lib/enums/permissions';
 import { ViewJobPermissions } from '@/lib/enums/permissions';
 import { useSearchParams } from '@/lib/hooks/use-router';
-import { LineItemContext } from '../contexts/line-item';
+import { useLineItemContextStore } from '../store/use-line-item-context-store';
 
 interface IShowLineItemTabsProps {
   lineItemId: string;
@@ -23,7 +23,7 @@ export const ShowLineItemTabs: FC<IShowLineItemTabsProps> = ({
   sessionTenantCode,
 }) => {
   const searchParams = useSearchParams();
-  const { lineItem } = useContext(LineItemContext);
+  const lineItem = useLineItemContextStore((s) => s.lineItem);
   const canViewLeads = usePermissionCheck(LeadActionsEnum.View);
   const hasPermissiontoTransformAndExport = usePermissionCheck(
     LeadActionsEnum.TransformAndExportLead,

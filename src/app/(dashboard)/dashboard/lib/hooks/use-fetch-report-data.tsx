@@ -1,5 +1,5 @@
-import { useContext, useEffect, useState } from 'react';
-import { DashboardReportContext } from '../../contexts';
+import { useEffect, useState } from 'react';
+import { useDashboardReportStore } from '../../store/use-dashboard-report-store';
 import { fetchReportChartsData, fetchReportCountsData } from '../../services';
 import { ExecutiveReportType } from '../enums';
 
@@ -9,9 +9,7 @@ export function useFetchReportData<T>(
   category: 'chart' | 'count' = 'chart',
 ): [T | T[], boolean] {
   const [reportData, setReportData] = useState<T | T[]>(initialValue);
-  const { filters, progress, updateProgress } = useContext(
-    DashboardReportContext,
-  );
+  const { filters, progress, updateProgress } = useDashboardReportStore();
 
   useEffect(() => {
     updateProgress({ [type]: 'loading' });

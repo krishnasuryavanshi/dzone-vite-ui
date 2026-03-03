@@ -1,11 +1,11 @@
 import { Button, Dropdown, Link } from '@/uicomponents';
 import { MoreOutlined } from '@/uicomponents/icons';
-import React, { FC, SyntheticEvent, useContext, useState } from 'react';
+import React, { FC, SyntheticEvent, useState } from 'react';
 
 import './record-actions.scss';
 import { validateLineItem } from '../services';
 import { showNotification } from '@/services/index';
-import { LineItemContext } from '../contexts';
+import { useLineItemContextStore } from '../store/use-line-item-context-store';
 import { useRouter } from '@/lib/hooks/use-router';
 import { CloneLineItemModal } from './clone-line-item';
 import { Space } from '@/uicomponents/layout';
@@ -35,7 +35,7 @@ export const LineItemRecordActions: FC<IRecordActionsProps> = ({
   tenantCode,
   marketerCode,
 }) => {
-  const { showLoader } = useContext(LineItemContext);
+  const showLoader = useLineItemContextStore((s) => s.showLoader);
 
   const router = useRouter();
 

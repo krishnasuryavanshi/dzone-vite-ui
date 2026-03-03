@@ -5,12 +5,12 @@ import { useQueryState } from '@/lib/hooks';
 import { hasActiveFilters } from '@/lib/utils';
 import { Filters } from '@/lib/utils/table';
 import { SimplePagination } from '@/uicomponents';
-import { FC, useCallback, useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { CammpainFilters } from './campaign-filters';
 import { CampaignList } from './campaign-list';
-import { CampaignContext } from './context';
 import { ICampaign } from './lib/types';
 import { fetchCampaigns } from './services';
+import { useCampaignListStore } from './store/use-campaign-list-store';
 
 interface ICampaignListContainerProps {
   isDzoneUser?: boolean;
@@ -23,7 +23,7 @@ export const CampaignListContainer: FC<ICampaignListContainerProps> = ({
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(0);
   const [totalRecords, setTotalRecords] = useState(0);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { isLoading, showLoader } = useCampaignListStore();
   const { queryState, setQueryState } = useQueryState();
   const [filterInfo, setFilterInfo] = useState<Filters<ICampaign>>({});
 
@@ -39,11 +39,6 @@ export const CampaignListContainer: FC<ICampaignListContainerProps> = ({
     setIsSearchDisabled(true);
   }, []);
 
-  const showLoader = useCallback((loading: boolean) => {
-    setIsLoading(loading);
-  }, []);
-
-  const contextValue = useMemo(() => ({ showLoader }), [showLoader]);
   useEffect(() => {
     if (queryState) {
       let { page, pageSize } = queryState;
@@ -108,8 +103,7 @@ export const CampaignListContainer: FC<ICampaignListContainerProps> = ({
   if (isLoading) return <ScreenLoader />;
 
   return (
-    <CampaignContext.Provider value={contextValue}>
-      <TableWithPaginationLayout
+    <TableWithPaginationLayout
         header={
           <CammpainFilters
             clearFilters={clearFilters}
@@ -142,6 +136,5 @@ export const CampaignListContainer: FC<ICampaignListContainerProps> = ({
           </Hideable>
         }
       />
-    </CampaignContext.Provider>
   );
 };

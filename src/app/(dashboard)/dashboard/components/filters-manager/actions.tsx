@@ -1,8 +1,8 @@
 import { Button } from '@/uicomponents';
 import { DownloadOutlined, ReloadOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
-import React, { FC, useContext, useEffect, useState } from 'react';
-import { DashboardReportContext } from '../../contexts';
+import React, { FC, useEffect, useState } from 'react';
+import { useDashboardReportStore } from '../../store/use-dashboard-report-store';
 
 import {
   BillingReportType,
@@ -25,7 +25,7 @@ export const Actions: FC<IActionsProps> = ({
   activeTab,
   isDownloadDisabled,
 }) => {
-  const { progress } = useContext(DashboardReportContext);
+  const progress = useDashboardReportStore((s) => s.progress);
   const [loading, setLoading] = useState(true);
 
   const isReportTypeKey = (key: string): boolean => {

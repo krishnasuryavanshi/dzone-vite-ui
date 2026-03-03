@@ -1,7 +1,6 @@
 import { Flex } from '@/uicomponents/layout';
 import {
   FC,
-  useContext,
   useEffect,
   useState,
   useRef,
@@ -12,7 +11,7 @@ import { ValidateLeads } from './validate-leads';
 import { LeadActionsEnum } from '@/lib/enums/permissions';
 import { usePermissionCheck } from '@/lib/hooks';
 import { HasPermission } from '@/components/auth';
-import { LineItemContext } from '../../contexts';
+import { useLineItemContextStore } from '../../store/use-line-item-context-store';
 import { useLeadsStore } from '../../store';
 import { PublishLeads } from './publish-leads';
 import { ReturnLeads } from './return-leads';
@@ -57,7 +56,7 @@ export const LeadsActions: FC<ILeadsActionsProps> = ({
   tenantCode,
   filteredInfo,
 }) => {
-  const { lineItem } = useContext(LineItemContext);
+  const lineItem = useLineItemContextStore((s) => s.lineItem);
   const selectedIds = useLeadsStore((state) => state.selectedIds);
   const leadsList = useLeadsStore((state) => state.leadsList);
   const leadsData = useLeadsStore((state) => state.leadsData);
