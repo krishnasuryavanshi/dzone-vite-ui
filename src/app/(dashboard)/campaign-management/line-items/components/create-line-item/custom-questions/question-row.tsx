@@ -6,7 +6,7 @@ import { Row } from '@/uicomponents/layout/grid';
 import { Text } from '@/uicomponents/text';
 import { FC, useState } from 'react';
 import { FormControlItemContent } from '../../../../components';
-import { sanitizeText } from '@/lib/utils/string/sanitiize-string';
+import { sanitizeText } from '@/lib/utils/string';
 
 interface IQuestionRowProps {
   field: any;

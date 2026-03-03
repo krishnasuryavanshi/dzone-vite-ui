@@ -2,7 +2,6 @@ export * from './access-keys.enum';
 export * from './api-resources.enum';
 export * from './auth-status.enum';
 export * from './http.enum';
-export * from './log-level.enum';
 export * from './resource.enum';
 export * from './role.enum';
 export * from './storage-keys.enum';

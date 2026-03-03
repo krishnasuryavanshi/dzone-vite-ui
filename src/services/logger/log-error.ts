@@ -1,4 +1,5 @@
-export const logError = (data: any) => {
-  // eslint-disable-next-line
-  console.error(data);
+import { appLogger } from './logger';
+
+export const logError = (data: unknown) => {
+  appLogger.logError(data);
 };

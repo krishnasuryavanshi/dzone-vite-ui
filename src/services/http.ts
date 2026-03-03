@@ -45,15 +45,11 @@ const logResponse = (
   isError = false,
 ) => {
   try {
-    const shouldLogRequest = requestResult.config?.headers?.['X-Request-Id'];
-    if (!shouldLogRequest) {
-      return false;
-    }
     const config = requestResult.config;
     const response = (
       isError ? (requestResult as AxiosError).response : requestResult
     ) as AxiosResponse;
-    let data = {
+    let data: Record<string, unknown> = {
       requestId: config?.headers?.['X-Request-Id'],
       baseURL: config?.baseURL,
       url: config?.url,
@@ -62,7 +58,7 @@ const logResponse = (
       time: new Date().toISOString(),
     };
 
-    if (import.meta.env.VITE_LOG_HTTP_RESPONSE_DETAILS === 'true') {
+    if (import.meta.env.VITE_LOG_HTTP_RESPONSE_DETAILS !== 'false') {
       const details = {
         responseHeaders: JSON.stringify(response?.headers),
         responseData: JSON.stringify(response?.data),
@@ -75,12 +71,7 @@ const logResponse = (
 
 const logRequest = (config: InternalAxiosRequestConfig) => {
   try {
-    const shouldLogRequest = config?.headers?.['X-Request-Id'];
-    if (!shouldLogRequest) {
-      return false;
-    }
-
-    let data: Record<string, any> = {
+    let data: Record<string, unknown> = {
       requestId: config?.headers?.['X-Request-Id'],
       baseURL: config?.baseURL,
       url: config?.url,
@@ -88,7 +79,7 @@ const logRequest = (config: InternalAxiosRequestConfig) => {
       time: new Date().toISOString(),
     };
 
-    if (import.meta.env.VITE_LOG_HTTP_REQUEST_DETAILS === 'true') {
+    if (import.meta.env.VITE_LOG_HTTP_REQUEST_DETAILS !== 'false') {
       data = {
         ...data,
         payload: JSON.stringify(config?.data),

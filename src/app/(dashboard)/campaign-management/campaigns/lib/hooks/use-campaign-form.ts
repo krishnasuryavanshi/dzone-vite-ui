@@ -17,7 +17,7 @@ import debounce from 'lodash/debounce';
 import { useRouter } from '@/lib/hooks/use-router';
 import { fetchFileDetails } from '../../../line-items/services';
 import { UploadFile } from '@/lib/types/uicomponents';
-import { uploadIOFile } from '@/app/api/file-upload/service';
+import { uploadIOFile } from '@/services/file-upload';
 import dayjs from 'dayjs';
 import { CampaignField } from '../enums';
 

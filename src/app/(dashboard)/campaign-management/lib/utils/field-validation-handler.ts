@@ -1,4 +1,4 @@
-import { sanitizeText } from '@/lib/utils/string/sanitiize-string';
+import { sanitizeText } from '@/lib/utils/string';
 
 export const fieldValidationHandler = (
   patchFormValues: Function,

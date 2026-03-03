@@ -1,7 +1,6 @@
 export * from './convert-to-bytes';
 export * from './encryption';
 export * from './table/filterable-column';
-export * from './http-error';
 export * from './role-based-resources';
 export * from './save-file-from-blob';
 export * from './date-util';

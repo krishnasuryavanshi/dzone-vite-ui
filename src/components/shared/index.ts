@@ -1,5 +1,3 @@
-export * from './welcome';
-export * from './dynamic-route';
 export * from './error-container';
 export * from './map-function';
 export * from './permission-denied';
@@ -9,6 +7,5 @@ export * from './loader-button';
 export * from './next-link';
 export * from './select-drawer';
 export * from './hideable';
-export * from './coming-soon';
 export * from './file-preview';
 export * from './table-with-pagination-layout';
