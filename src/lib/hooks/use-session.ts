@@ -5,6 +5,7 @@
 import { useMemo } from 'react';
 import { useShallow } from 'zustand/react/shallow';
 import { useAuthStore, useTokenStore } from '../../auth/stores';
+import { logout } from '../../auth/auth-service';
 import type { Session, SessionStatus } from '../types/auth.types';
 
 const noop = () => {};
@@ -87,7 +88,6 @@ export async function getSession(): Promise<Session | null> {
 
 export async function signOut(options?: { redirect?: boolean }) {
   try {
-    const { logout } = await import('../../auth/auth-service');
     await logout();
   } catch {
     useAuthStore.getState().clear();

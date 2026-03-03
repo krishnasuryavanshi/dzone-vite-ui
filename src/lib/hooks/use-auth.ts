@@ -3,6 +3,9 @@
  * Reads directly from Zustand auth stores.
  */
 import { useAuthStore } from '../../auth/stores';
+import { login, logout } from '../../auth/auth-service';
+import { router } from '../../router';
+import { showNotification } from '../../services/notification';
 import { usePermissionsStore } from '../../stores/permissions-store';
 
 export function useIsAuthenticated() {
@@ -38,13 +41,10 @@ export function useLogin() {
   return {
     mutate: async (params: { email: string; password: string }) => {
       try {
-        const { login } = await import('../../auth/auth-service');
         const result = await login(params.email, params.password);
-        const { router } = await import('../../router');
         router.navigate('/organizations', { replace: true });
         return result;
       } catch (error: any) {
-        const { showNotification } = await import('../../services/notification');
         showNotification({
           message: error?.message || 'Login failed. Please check your credentials.',
           type: 'error',
@@ -57,7 +57,6 @@ export function useLogin() {
 export function useLogout() {
   return {
     mutate: async () => {
-      const { logout } = await import('../../auth/auth-service');
       return logout();
     },
   };
