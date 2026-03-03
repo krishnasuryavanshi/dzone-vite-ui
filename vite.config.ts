@@ -80,7 +80,9 @@ export default defineConfig(({ mode }) => ({
             id.includes('/scheduler/') ||
             id.includes('/use-sync-external-store/') ||
             id.includes('/zustand/') ||
-            id.includes('/immer/')
+            id.includes('/immer/') ||
+            id.includes('/@tanstack/react-query/') ||
+            id.includes('/@tanstack/query-core/')
           )
             return 'vendor-react';
 

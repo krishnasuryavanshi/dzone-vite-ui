@@ -2,7 +2,6 @@ import { DzBox } from '@/components/layout/v1';
 import { CLR_BLUE_LIGHT } from '@/lib/constants';
 import { LineItemActionsEnum } from '@/lib/enums/permissions';
 import { usePermissionCheck } from '@/lib/hooks';
-import { showNotification } from '@/services/notification';
 import { Select } from '@/uicomponents/form/input';
 import { Flex } from '@/uicomponents/layout';
 import { Modal } from '@/uicomponents/modal';
@@ -11,10 +10,9 @@ import { LoadingOutlined } from '@ant-design/icons';
 import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { IStatus } from '../../lib/types';
 import { combinedStatusOptions } from '../../lib/utils';
-import { useLineItemContextStore } from '../../line-items/store/use-line-item-context-store';
 import { LineItemStatus } from '../../line-items/lib/enums';
 import { ILineItem } from '../../line-items/lib/types';
-import { updateLineItemStatus } from '../../line-items/services';
+import { useUpdateLineItemStatusMutation, useLineItemStatusesQuery } from '../../line-items/hooks';
 import { CampaignStatus } from '../campaign-status';
 import { ConfirmationModal } from './confirmation-modal';
 import './status-action.scss';
@@ -24,14 +22,17 @@ interface IStatusActionProps {
 }
 
 export const StatusAction: FC<IStatusActionProps> = ({ record }) => {
-  const { setUpdateList, statusList } = useLineItemContextStore();
+  const { data: statusData } = useLineItemStatusesQuery();
+  const statusList = statusData ?? { data: [] };
+  const updateStatusMutation = useUpdateLineItemStatusMutation();
 
   const isUpdateStatusAllowed = usePermissionCheck(LineItemActionsEnum.Update);
 
   const [selectedStatus, setSelectedStatus] = useState<IStatus | null>();
   const [updateStatus, setUpdateStatus] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openCancelModal, setOpenCancelModal] = useState<boolean>(false);
+
+  const isLoading = updateStatusMutation.isPending;
 
   const handleChange = (value: string) => {
     const status = combinedOptions.find(
@@ -53,27 +54,26 @@ export const StatusAction: FC<IStatusActionProps> = ({ record }) => {
   };
 
   const fetchUpdatedData = async (statusData: IStatus, id: string) => {
-    try {
-      setIsLoading(true);
-      let updatedList;
-
-      updatedList = await updateLineItemStatus(id, {
-        type: statusData.type,
-        status: statusData.name,
-      });
-      if (updatedList?.data) {
-        setUpdateList(updatedList.data);
-        showNotification({
-          message: updatedList.message,
-        });
-      }
-    } catch (error) {
-      setSelectedStatus(null);
-    } finally {
-      setIsLoading(false);
-      setUpdateStatus(false);
-    }
+    updateStatusMutation.mutate(
+      {
+        lineItemId: id,
+        data: {
+          type: statusData.type,
+          status: statusData.name,
+        },
+      },
+      {
+        onSuccess: () => {
+          setUpdateStatus(false);
+        },
+        onError: () => {
+          setSelectedStatus(null);
+          setUpdateStatus(false);
+        },
+      },
+    );
   };
+
   const handleCancel = (event: SyntheticEvent) => {
     event.stopPropagation();
     setOpenCancelModal(false);

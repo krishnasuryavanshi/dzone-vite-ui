@@ -3,7 +3,7 @@ import { DzBox, DzScrollContainer } from '@/components/layout/v1';
 import { RestrictedAccessKeys } from '@/lib/enums';
 import { useRestrictedAccess } from '@/lib/hooks';
 import { Flex } from '@/uicomponents/layout';
-import { FC, PropsWithChildren, useEffect, useState } from 'react';
+import { FC, PropsWithChildren, useEffect, useMemo, useState } from 'react';
 import BasicDetails from '../../lib/schemas/basic-details.json';
 import CustomQuestions from '../../lib/schemas/custom-questions.json';
 import { useLineItemContextStore } from '../../store/use-line-item-context-store';
@@ -13,9 +13,9 @@ import { ILineItem } from '../../lib/types';
 import { prepareViewData } from '../../lib/utils/prepare-view-data';
 import {
   fetchFileDetails,
-  fetchLineItem,
   fetchMultipleFileDetails,
 } from '../../services';
+import { useLineItemDetailQuery } from '../../hooks';
 import { LeadsContainer } from '../leads-container';
 import { ShowLineItemBreadcrumb } from './../show-line-item-breadcrumb';
 import { ShowLineItemWrapper } from './show-line-item-wrapper';
@@ -34,16 +34,18 @@ export const ShowLineItemContainer: FC<IShowLineItemContainerProps> = ({
   campaignId,
   sessionTenantCode,
 }) => {
-  const { fetchStatusData, reset } = useLineItemContextStore();
+  const { reset } = useLineItemContextStore();
 
   useEffect(() => {
-    fetchStatusData();
     return () => reset();
   }, []);
 
   const isTargetCplRestricted = useRestrictedAccess(
     RestrictedAccessKeys.CplFieldInLineItemDetails,
   );
+
+  const { data: lineItemResponse } = useLineItemDetailQuery(lineItemId);
+
   const [lineItemDetails, setLineItemDetails] = useState<ILineItem>();
   const [detailsSectionProps, setDetailsSectionProps] =
     useState<IShowItemDetailsProps>({
@@ -54,28 +56,27 @@ export const ShowLineItemContainer: FC<IShowLineItemContainerProps> = ({
     } as IShowItemDetailsProps);
 
   useEffect(() => {
-    if (lineItemId) {
-      fetchLineItemDetails();
+    if (lineItemResponse?.data) {
+      fetchAdditionalDetails(lineItemResponse.data);
     }
-  }, [lineItemId]);
+  }, [lineItemResponse]);
 
-  const fetchLineItemDetails = async () => {
-    const data = await fetchLineItem(lineItemId);
+  const fetchAdditionalDetails = async (lineItemData: any) => {
     let assetFileIds = [];
-    if (data?.data?.assetFileIds?.length > 0) {
+    if (lineItemData?.assetFileIds?.length > 0) {
       const assetFileResponse = await fetchMultipleFileDetails(
-        data?.data?.assetFileIds,
+        lineItemData.assetFileIds,
       );
       assetFileIds = assetFileResponse?.data;
     }
     let deliveryTemplateDetails = {};
-    if (data?.data?.deliveryTemplateId) {
+    if (lineItemData?.deliveryTemplateId) {
       const deliveryTemplateResponse = await fetchFileDetails(
-        data?.data?.deliveryTemplateId,
+        lineItemData.deliveryTemplateId,
       );
       deliveryTemplateDetails = deliveryTemplateResponse;
     }
-    const viewData = prepareViewData(data?.data, {
+    const viewData = prepareViewData(lineItemData, {
       restrictedFields: [
         isTargetCplRestricted && LineItemFields.TargetCostPerLead,
       ],
@@ -89,10 +90,10 @@ export const ShowLineItemContainer: FC<IShowLineItemContainerProps> = ({
 
     setLineItemDetails(updatedLineItemDetails);
 
-    setDetailsSectionProps({
-      ...detailsSectionProps,
+    setDetailsSectionProps((prev) => ({
+      ...prev,
       itemDetails: updatedLineItemDetails,
-    });
+    }));
   };
 
   return (

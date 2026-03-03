@@ -3,10 +3,9 @@ import { LineItemsContainer } from './components';
 import { useLineItemContextStore } from './store/use-line-item-context-store';
 
 const LineItemsPage = () => {
-  const { fetchStatusData, reset } = useLineItemContextStore();
+  const { reset } = useLineItemContextStore();
 
   useEffect(() => {
-    fetchStatusData();
     return () => reset();
   }, []);
 

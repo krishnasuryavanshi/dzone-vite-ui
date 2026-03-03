@@ -1,4 +1,5 @@
 export * from './clone-line-item';
+export * from './create-line-item';
 export * from './download-lead-upload-template';
 export * from './download-line-item-files';
 export * from './fetch-active-campaign-list';
@@ -24,6 +25,7 @@ export * from './publish-leads';
 export * from './return-leads';
 export * from './update-lead-details';
 export * from './update-line-item-collaborators';
+export * from './update-line-item';
 export * from './update-line-item-status';
 export * from './update-line-item-custom-fields';
 export * from './upload-file';

@@ -23,8 +23,7 @@ import { debounce } from 'lodash';
 import { useRouter } from '@/lib/hooks/use-router';
 import { dateObject, formatDate, sanitizeData } from '@/lib/utils';
 import { showNotification } from '@/services/notification';
-import { createLineItem } from '../../services/create-line-item';
-import { updateLineItem } from '../../services/update-line-item';
+import { useCreateLineItemMutation, useUpdateLineItemMutation } from '../../hooks';
 import {
   formatLineItemFormData,
   processFieldPermissions,
@@ -75,6 +74,8 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
   const previousMarketerCode = useRef<string | undefined>(undefined);
 
   const router = useRouter();
+  const createMutation = useCreateLineItemMutation();
+  const updateMutation = useUpdateLineItemMutation();
   const [form] = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [lists, setLists] = useState<Record<string, any[]>>({});
@@ -486,9 +487,11 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
   ) => {
     // changedFields is already filtered for changes, no need to recalculate
     if (Object.keys(changedFields).length > 0) {
-      const data = await updateLineItem(sanitizeData(changedFields), id);
+      const data = await updateMutation.mutateAsync({
+        data: sanitizeData(changedFields),
+        lineItemId: id,
+      });
       if (data?.data) {
-        showNotification({ message: data?.message });
         onCreateSuccess?.(data.data.id);
         // Notify parent to fetch fresh data after update
         if (onUpdateSuccess) {
@@ -505,12 +508,11 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
   };
 
   const handleCreateLineItem = async (values: Record<string, any>) => {
-    const data = await createLineItem(sanitizeData(values));
+    const data = await createMutation.mutateAsync(sanitizeData(values));
     if (data?.data) {
-      showNotification({ message: data.message });
       onCreateSuccess?.(data.data.id);
     } else {
-      showNotification({ message: data.message, type: 'error' });
+      showNotification({ message: data?.message, type: 'error' });
     }
   };
 
@@ -1298,10 +1300,10 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
                         }
                       },
                       async (changedData: any, id: string) => {
-                        const result = await updateLineItem(
-                          sanitizeData(changedData),
-                          id,
-                        );
+                        const result = await updateMutation.mutateAsync({
+                          data: sanitizeData(changedData),
+                          lineItemId: id,
+                        });
                         // Notify parent to fetch fresh data
                         if (result?.data && onUpdateSuccess) {
                           onUpdateSuccess(result.data);
@@ -1368,10 +1370,10 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
                         }
                       },
                       async (changedData: any, id: string) => {
-                        const result = await updateLineItem(
-                          sanitizeData(changedData),
-                          id,
-                        );
+                        const result = await updateMutation.mutateAsync({
+                          data: sanitizeData(changedData),
+                          lineItemId: id,
+                        });
                         // Notify parent to fetch fresh data
                         if (result?.data && onUpdateSuccess) {
                           onUpdateSuccess(result.data);
@@ -1463,7 +1465,10 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
           setHasChanges(true);
         }}
         onApiSave={async (changedData: any, id: string) => {
-          const result = await updateLineItem(sanitizeData(changedData), id);
+          const result = await updateMutation.mutateAsync({
+            data: sanitizeData(changedData),
+            lineItemId: id,
+          });
 
           // After successful save, update the form with the latest data
           if (result?.data) {

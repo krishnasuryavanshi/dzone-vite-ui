@@ -1,11 +1,10 @@
 import { LineItemsList } from '@/app/(dashboard)/campaign-management/line-items/components/line-items-list';
-import { fetchLineItems } from '@/app/(dashboard)/campaign-management/line-items/services';
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { SimplePagination } from '@/uicomponents';
 import { FC, useEffect, useState } from 'react';
 import { ILineItem } from '../../line-items/lib/types';
 import { LineItemHeader } from './line-item-header';
-import { useLineItemContextStore } from '../../line-items/store/use-line-item-context-store';
+import { useLineItemsQuery } from '../../line-items/hooks';
 import { useQueryState } from '@/lib/hooks';
 import { Filters } from '@/lib/utils/table';
 
@@ -20,8 +19,6 @@ export const ShowLineItems: FC<IShowLineItemsProps> = ({
   campaignUuId,
   show,
 }) => {
-  const updateList = useLineItemContextStore((s) => s.updateList);
-  const [campaignLineItems, setCampaignLineItems] = useState<ILineItem[]>([]);
   const [showCreateLineItem, setShowCreateLineItem] = useState<boolean>(false);
   const [refreshId, setRefreshId] = useState<string>('');
   const { queryState } = useQueryState();
@@ -29,16 +26,22 @@ export const ShowLineItems: FC<IShowLineItemsProps> = ({
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
-  const [totalRecords, setTotalRecords] = useState(0);
   const [filterInfo, setFilterInfo] = useState<Filters<ILineItem>>({});
+
+  const { data } = useLineItemsQuery(
+    currentPage - 1,
+    pageSize,
+    campaignUuId,
+    filterInfo,
+    show,
+  );
+
+  const campaignLineItems = data?.data ?? [];
+  const totalRecords = data?.total ?? 0;
 
   const handelCreateLineItemForm = (isOpen: boolean) => {
     setShowCreateLineItem(isOpen);
   };
-
-  useEffect(() => {
-    fetchCampaignLineItems(currentPage, pageSize);
-  }, [campaignUuId, showCreateLineItem, refreshId, currentPage, pageSize]);
 
   useEffect(() => {
     if (queryState) {
@@ -49,32 +52,6 @@ export const ShowLineItems: FC<IShowLineItemsProps> = ({
       }
     }
   }, [queryState]);
-
-  useEffect(() => {
-    if (updateList) {
-      setCampaignLineItems((prevList) => {
-        const { id, status } = updateList;
-        const updatedList = prevList.map((lineItem) =>
-          lineItem?.id === id ? { ...lineItem, status } : lineItem,
-        );
-        if (!prevList.some((lineItem) => lineItem?.id === id)) {
-          updatedList.push(updateList);
-        }
-        return updatedList;
-      });
-    }
-  }, [updateList]);
-
-  const fetchCampaignLineItems = async (
-    page: number = 1,
-    size: number = 25,
-  ) => {
-    const data = await fetchLineItems(page - 1, size, campaignUuId, filterInfo);
-    if (data) {
-      setCampaignLineItems(data.data || []);
-      setTotalRecords(data.total || 0);
-    }
-  };
 
   const handlePageChange = (page: number, pageSize?: number) => {
     setCurrentPage(page);

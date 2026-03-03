@@ -3,11 +3,11 @@ import { FC, SyntheticEvent, useEffect, useState } from 'react';
 import { ModalHeader } from './modal-header';
 import { ModalFooter } from './modal-footer';
 import { ModalBody } from './modal-body';
-import { cloneLineItem, fetchCampaignsByMarketer } from '../../services';
+import { fetchCampaignsByMarketer } from '../../services';
 import { IActiveCampaignList } from '../../lib/types';
-import { showNotification } from '@/services/index';
 import { useQueryState } from '@/lib/hooks';
 import { usePathname, useRouter } from '@/lib/hooks/use-router';
+import { useCloneLineItemMutation } from '../../hooks';
 
 interface ICloneLineItemContainerProps {
   lineItemId: string;
@@ -32,14 +32,13 @@ export const CloneLineItemModal: FC<ICloneLineItemContainerProps> = ({
   const pathname = usePathname();
 
   const { setQueryState } = useQueryState();
+  const cloneMutation = useCloneLineItemMutation();
 
   const [selectedActiveCampaign, setSelectedActiveCampaign] =
     useState<string>('');
   const [activeCampaignList, setActiveCampaignList] = useState<
     IActiveCampaignList[]
   >([]);
-  const [loadingClone, setLoadingClone] = useState<boolean>(false);
-  const [loadingCloneEdit, setLoadingCloneEdit] = useState<boolean>(false);
 
   const campaignList = async () => {
     if (marketerCode) {
@@ -76,38 +75,33 @@ export const CloneLineItemModal: FC<ICloneLineItemContainerProps> = ({
 
   const handleClone = async (e: SyntheticEvent, isEditing: boolean) => {
     e.stopPropagation();
-    if (isEditing) {
-      setLoadingCloneEdit(true);
-    } else {
-      setLoadingClone(true);
-    }
-    try {
-      const data = await cloneLineItem(lineItemId, {
-        campaignId: selectedActiveCampaign!,
-      });
-      if (data?.data) {
-        showNotification({ message: data.message });
-        closeModal();
-        if (
-          pathname !== LINE_ITEM_SOURCE &&
-          selectedActiveCampaign !== campaignId
-        ) {
-          router.replace(LINE_ITEM_SOURCE);
-        } else if (isEditing) {
-          router.replace(editLineItemLink);
-        } else {
-          setQueryState([{ name: 'refresh_id', value: new Date().getTime() }]);
-        }
-      }
-    } catch (error) {
-    } finally {
-      if (isEditing) {
-        setLoadingCloneEdit(false);
-      } else {
-        setLoadingClone(false);
-      }
-    }
+    cloneMutation.mutate(
+      {
+        lineItemId,
+        data: { campaignId: selectedActiveCampaign! },
+      },
+      {
+        onSuccess: (data) => {
+          if (data?.data) {
+            closeModal();
+            if (
+              pathname !== LINE_ITEM_SOURCE &&
+              selectedActiveCampaign !== campaignId
+            ) {
+              router.replace(LINE_ITEM_SOURCE);
+            } else if (isEditing) {
+              router.replace(editLineItemLink);
+            } else {
+              setQueryState([{ name: 'refresh_id', value: new Date().getTime() }]);
+            }
+          }
+        },
+      },
+    );
   };
+
+  const loadingClone = cloneMutation.isPending && !cloneMutation.variables;
+  const loadingCloneEdit = cloneMutation.isPending;
 
   return (
     <Modal
@@ -117,8 +111,8 @@ export const CloneLineItemModal: FC<ICloneLineItemContainerProps> = ({
       title={<ModalHeader />}
       footer={
         <ModalFooter
-          loadingClone={loadingClone}
-          loadingCloneEdit={loadingCloneEdit}
+          loadingClone={cloneMutation.isPending}
+          loadingCloneEdit={cloneMutation.isPending}
           handleCancel={handleCancel}
           handleSubmit={handleClone}
         />

@@ -15,10 +15,9 @@ export const ShowCampaignTabsContent: FC<IShowCampaignTabs> = ({
   campaignUuId,
   campaignId,
 }) => {
-  const { fetchStatusData, reset } = useLineItemContextStore();
+  const { reset } = useLineItemContextStore();
 
   useEffect(() => {
-    fetchStatusData();
     return () => reset();
   }, []);
 

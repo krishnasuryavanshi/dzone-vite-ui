@@ -6,9 +6,8 @@ import { hasActiveFilters } from '@/lib/utils';
 import { Filters } from '@/lib/utils/table';
 import { SimplePagination } from '@/uicomponents';
 import { FC, useEffect, useState } from 'react';
-import { useLineItemContextStore } from '../store/use-line-item-context-store';
 import { ILineItem } from '../lib/types';
-import { fetchLineItems } from '../services';
+import { useLineItemsQuery } from '../hooks';
 import { LineItemsFiltersManager } from './line-items-filters-manager';
 import { LineItemsList } from './line-items-list';
 import { useSearchParams } from '@/lib/hooks/use-router';
@@ -18,11 +17,8 @@ interface ILineItemsContainerProps {}
 export const LineItemsContainer: FC<ILineItemsContainerProps> = ({}) => {
   const searchParams = useSearchParams();
   const campaignId = searchParams.get('campaignId') || '';
-  const { isLoading, updateList } = useLineItemContextStore();
-  const [lineItemsList, setLineItemsList] = useState<ILineItem[]>([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [pageSize, setPageSize] = useState(0);
-  const [totalRecords, setTotalRecords] = useState(0);
   const { queryState, setQueryState } = useQueryState();
   const [filterInfo, setFilterInfo] = useState<Filters<ILineItem>>({});
 
@@ -30,6 +26,19 @@ export const LineItemsContainer: FC<ILineItemsContainerProps> = ({}) => {
   const [isRefreshDisabled, setIsRefreshDisabled] = useState<boolean>(false);
   const [isDownloadDisabled, setIsDownloadDisabled] = useState<boolean>(false);
   const [assignedTo, setAssignedTo] = useState('all');
+
+  const hasValidPagination = currentPage > 0 && pageSize > 0;
+
+  const { data, isLoading } = useLineItemsQuery(
+    currentPage - 1,
+    pageSize,
+    campaignId,
+    filterInfo,
+    hasValidPagination,
+  );
+
+  const lineItemsList = data?.data ?? [];
+  const totalRecords = data?.total ?? 0;
 
   useEffect(() => {
     setIsDownloadDisabled(true);
@@ -45,7 +54,6 @@ export const LineItemsContainer: FC<ILineItemsContainerProps> = ({}) => {
       if (pageNo && size) {
         setCurrentPage(pageNo);
         setPageSize(size);
-        fetchData(pageNo, size);
       } else {
         setQueryState([
           { name: 'page', value: pageNo || 1 },
@@ -54,21 +62,6 @@ export const LineItemsContainer: FC<ILineItemsContainerProps> = ({}) => {
       }
     }
   }, [queryState]);
-
-  useEffect(() => {
-    if (updateList) {
-      setLineItemsList((prevList) => {
-        const { id, status } = updateList;
-        const updatedList = prevList.map((lineItem) =>
-          lineItem?.id === id ? { ...lineItem, status } : lineItem,
-        );
-        if (!prevList.some((lineItem) => lineItem?.id === id)) {
-          updatedList.push(updateList);
-        }
-        return updatedList;
-      });
-    }
-  }, [updateList]);
 
   const handlePageChange = (page: number, pageSize?: number) => {
     const updates = [{ name: 'page', value: page }];
@@ -80,12 +73,6 @@ export const LineItemsContainer: FC<ILineItemsContainerProps> = ({}) => {
 
   const goToFirstPage = () => {
     setQueryState([{ name: 'page', value: 0 }]);
-  };
-
-  const fetchData = async (page: number, size: number) => {
-    const data = await fetchLineItems(page - 1, size, campaignId, filterInfo);
-    setTotalRecords(data?.total);
-    setLineItemsList(data?.data);
   };
 
   const clearFilters = () => {
@@ -113,7 +100,7 @@ export const LineItemsContainer: FC<ILineItemsContainerProps> = ({}) => {
     }
   };
 
-  if (isLoading) return <ScreenLoader />;
+  if (isLoading && !data) return <ScreenLoader />;
 
   return (
     <TableWithPaginationLayout
