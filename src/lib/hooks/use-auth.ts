@@ -31,11 +31,12 @@ export function usePermissions<T = any>() {
 export function useGetIdentity<T = any>() {
   const user = useAuthStore((s) => s.user);
   if (!user) return { data: null };
+  const fullName = `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.name;
   return {
     data: {
-      name: `${user.firstName || ''} ${user.lastName || ''}`.trim() || user.name,
-      avatar: user.image,
       ...user,
+      name: fullName,
+      avatar: user.image,
     } as T,
   };
 }

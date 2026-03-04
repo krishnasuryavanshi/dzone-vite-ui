@@ -1,5 +1,4 @@
-import React, { FC } from 'react';
-import { ReactSVG } from 'react-svg';
+import React, { FC, useEffect, useState } from 'react';
 
 export interface IDzIconProps {
   src: string;
@@ -12,19 +11,25 @@ export interface IDzIconProps {
 export const DzIcon: FC<IDzIconProps> = ({
   src,
   customIconClassName,
-  wrapper = 'span',
+  wrapper: Wrapper = 'span',
   style,
   onClick,
-  ...rest
 }) => {
+  const [svgContent, setSvgContent] = useState<string>('');
+
+  useEffect(() => {
+    fetch(src)
+      .then((res) => (res.ok ? res.text() : ''))
+      .then((text) => setSvgContent(text))
+      .catch(() => setSvgContent(''));
+  }, [src]);
+
   return (
-    <ReactSVG
-      src={src}
+    <Wrapper
       className={customIconClassName}
-      wrapper={wrapper}
       style={style}
       onClick={onClick}
-      {...rest}
+      dangerouslySetInnerHTML={{ __html: svgContent }}
     />
   );
 };

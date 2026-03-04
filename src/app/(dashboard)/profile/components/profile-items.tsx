@@ -48,7 +48,7 @@ export const ProfileItems: FC<IProfileItemsProps> = ({ userProfile }) => {
             <Text className={styles.fieldLabel}>Email Address</Text>
           </Flex>
           <Space className={styles.fieldValue}>
-            <Text className={styles.fieldText}>{userProfile?.username}</Text>
+            <Text className={styles.fieldText}>{userProfile?.email || userProfile?.username}</Text>
           </Space>
         </Flex>
 

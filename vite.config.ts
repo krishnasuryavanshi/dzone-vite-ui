@@ -71,26 +71,13 @@ export default defineConfig(({ mode }) => ({
           )
             return 'vendor-antd';
 
-          // React ecosystem + state management (zustand/immer peer-depend on react)
-          if (
-            id.includes('/react/') ||
-            id.includes('/react-dom/') ||
-            id.includes('/react-router/') ||
-            id.includes('/react-is/') ||
-            id.includes('/scheduler/') ||
-            id.includes('/use-sync-external-store/') ||
-            id.includes('/zustand/') ||
-            id.includes('/immer/') ||
-            id.includes('/@tanstack/react-query/') ||
-            id.includes('/@tanstack/query-core/')
-          )
-            return 'vendor-react';
-
           // Charts: recharts + d3 deps
           if (
             id.includes('/recharts/') ||
             id.includes('/d3-') ||
-            id.includes('/victory-vendor/')
+            id.includes('/victory-vendor/') ||
+            id.includes('/react-redux/') ||
+            id.includes('/@reduxjs/toolkit/')
           )
             return 'vendor-charts';
 
@@ -107,47 +94,9 @@ export default defineConfig(({ mode }) => ({
           // Lodash
           if (id.includes('/lodash')) return 'vendor-lodash';
 
-          // Markdown rendering (dzent AI pages)
-          // Includes transitive deps (vfile, devlop, bail, etc.) that would
-          // otherwise fall to vendor-misc and create a circular chunk.
-          if (
-            id.includes('/react-markdown/') ||
-            id.includes('/remark-') ||
-            id.includes('/rehype-') ||
-            id.includes('/unified/') ||
-            id.includes('/micromark') ||
-            id.includes('/mdast-') ||
-            id.includes('/unist-') ||
-            id.includes('/hast-') ||
-            id.includes('/dompurify/') ||
-            id.includes('/vfile') ||
-            id.includes('/devlop/') ||
-            id.includes('/bail/') ||
-            id.includes('/trough/') ||
-            id.includes('/property-information/') ||
-            id.includes('/comma-separated-tokens/') ||
-            id.includes('/space-separated-tokens/') ||
-            id.includes('/decode-named-character-reference/') ||
-            id.includes('/character-entities') ||
-            id.includes('/ccount/') ||
-            id.includes('/parse-entities/') ||
-            id.includes('/stringify-entities/') ||
-            id.includes('/longest-streak/') ||
-            id.includes('/zwitch/') ||
-            id.includes('/markdown-table/') ||
-            id.includes('/trim-lines/') ||
-            id.includes('/html-url-attributes/') ||
-            id.includes('/escape-string-regexp/') ||
-            id.includes('/is-plain-obj/') ||
-            id.includes('/extend/') ||
-            id.includes('/style-to-js/') ||
-            id.includes('/estree-util-') ||
-            id.includes('/@ungap/structured-clone/')
-          )
-            return 'vendor-markdown';
-
-          // Everything else in node_modules
-          return 'vendor-misc';
+          // Everything else (React, state mgmt, sentry, markdown, etc.)
+          // Kept in one chunk to avoid circular dependency issues.
+          return 'vendor-core';
         },
       },
     },
