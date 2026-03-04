@@ -67,7 +67,6 @@ export const LeadsContainer: FC<IleadsContainerProps> = ({ batchId }) => {
     tenantCode,
     lineItemId,
     extraParams,
-    !!lineItemId,
   );
 
   const leadsList = data?.data ?? [];
