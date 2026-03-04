@@ -7,10 +7,7 @@ import { debounce } from 'lodash';
 interface ILineItemsDropdownProps {
   availableLineItems: IFilterLineItem[];
   selectedLineItems?: string[];
-  handleSelectionChange: (data: {
-    type: string;
-    selectedItems: string[];
-  }) => void;
+  handleSelectionChange: (data: { type: string; selectedItems: string[] }) => void;
 }
 
 export const LineItemsDropdown: FC<ILineItemsDropdownProps> = ({
@@ -24,9 +21,7 @@ export const LineItemsDropdown: FC<ILineItemsDropdownProps> = ({
     setLineItems(availableLineItems);
     if (!selectedLineItems?.includes('all')) {
       const lineItems = availableLineItems.map((lineItem) => lineItem.key);
-      const selectedItems = selectedLineItems?.filter((id) =>
-        lineItems.includes(id),
-      );
+      const selectedItems = selectedLineItems?.filter((id) => lineItems.includes(id));
       handleSelectionChange &&
         handleSelectionChange({
           type: 'selectedLineItems',
@@ -36,20 +31,15 @@ export const LineItemsDropdown: FC<ILineItemsDropdownProps> = ({
   }, [availableLineItems]);
 
   const handleLineItemsSelection = (data: any) => {
-    const selectedItems = getSelectedItems(
-      selectedLineItems as string[],
-      data.selectedKeys,
-    );
-    handleSelectionChange &&
-      handleSelectionChange({ type: 'selectedLineItems', selectedItems });
+    const selectedItems = getSelectedItems(selectedLineItems as string[], data.selectedKeys);
+    handleSelectionChange && handleSelectionChange({ type: 'selectedLineItems', selectedItems });
   };
 
   const handleSeach = (value: string) => {
     setLineItems(
       availableLineItems?.filter((lineItem) => {
         return (
-          lineItem.key === 'all' ||
-          lineItem?.name?.toLowerCase().includes(value.toLowerCase())
+          lineItem.key === 'all' || lineItem?.name?.toLowerCase().includes(value.toLowerCase())
         );
       }),
     );
@@ -64,7 +54,8 @@ export const LineItemsDropdown: FC<ILineItemsDropdownProps> = ({
       label='pages.lineItems.title'
       selectedItems={selectedLineItems}
       onSelect={handleLineItemsSelection}
-      handleSearch={debouncedSearch}>
+      handleSearch={debouncedSearch}
+    >
       {(selectedLineItems?.includes('all') && 'All Line Items') ||
         (selectedLineItems?.length === 0 && 'No Line Item') ||
         (selectedLineItems?.length === 1 && '1 Line Item') ||

@@ -8,9 +8,7 @@ interface IReturnReasonsModalProps {
   onCancel: () => void;
 }
 
-export const ReturnReasonsModalHeader: FC<IReturnReasonsModalProps> = ({
-  onCancel,
-}) => {
+export const ReturnReasonsModalHeader: FC<IReturnReasonsModalProps> = ({ onCancel }) => {
   return (
     <Flex
       align='center'
@@ -21,7 +19,8 @@ export const ReturnReasonsModalHeader: FC<IReturnReasonsModalProps> = ({
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
         position: 'relative',
-      }}>
+      }}
+    >
       <Title
         level={5}
         style={{
@@ -29,7 +28,8 @@ export const ReturnReasonsModalHeader: FC<IReturnReasonsModalProps> = ({
           margin: 0,
           fontWeight: 700,
           textAlign: 'center',
-        }}>
+        }}
+      >
         Select the reason for returning the lead.
       </Title>
       <Button
@@ -41,7 +41,8 @@ export const ReturnReasonsModalHeader: FC<IReturnReasonsModalProps> = ({
           fontWeight: 400,
           position: 'absolute',
           right: 16,
-        }}>
+        }}
+      >
         <CloseCircleTwoTone />
       </Button>
     </Flex>

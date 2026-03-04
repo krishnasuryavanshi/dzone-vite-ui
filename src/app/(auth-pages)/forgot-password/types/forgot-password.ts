@@ -1,3 +1,3 @@
 export interface ILinkSent {
-    isLinkSent? : boolean;
+  isLinkSent?: boolean;
 }

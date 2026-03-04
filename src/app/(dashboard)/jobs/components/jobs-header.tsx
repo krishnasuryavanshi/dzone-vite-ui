@@ -1,4 +1,3 @@
-
 import { hasActiveFilters } from '@/lib/utils';
 import { Filters } from '@/lib/utils/table';
 import { Button } from '@/uicomponents/button';
@@ -27,10 +26,7 @@ export const JobsHeader: FC<JobsHeaderProps> = ({
   }
 
   return (
-    <Flex
-      gap='0.75rem'
-      justify={showHeader ? 'space-between' : 'end'}
-      align='center'>
+    <Flex gap='0.75rem' justify={showHeader ? 'space-between' : 'end'} align='center'>
       <Hideable show={showHeader}>
         <Title level={4} style={{ margin: 0 }}>
           Jobs
@@ -38,7 +34,8 @@ export const JobsHeader: FC<JobsHeaderProps> = ({
       </Hideable>
       <Button
         onClick={() => onFiltersChange?.({})}
-        style={{ visibility: showClearFilters ? 'visible' : 'hidden' }}>
+        style={{ visibility: showClearFilters ? 'visible' : 'hidden' }}
+      >
         Clear Filters
       </Button>
     </Flex>

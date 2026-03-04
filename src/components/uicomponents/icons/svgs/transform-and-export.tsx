@@ -7,10 +7,7 @@ interface ITransformAndExportProps {
   disabled?: boolean;
 }
 
-export const TransformAndExport: FC<ITransformAndExportProps> = ({
-  style,
-  disabled,
-}) => {
+export const TransformAndExport: FC<ITransformAndExportProps> = ({ style, disabled }) => {
   const src = '/icons/transform-and-export.svg';
   return (
     <DzIcon

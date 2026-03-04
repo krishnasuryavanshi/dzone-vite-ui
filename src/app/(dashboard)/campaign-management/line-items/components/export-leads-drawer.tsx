@@ -27,13 +27,10 @@ export const ExportLeadsDrawer: FC<IExportLeadsDrawerProps> = ({
       placement='right'
       closeIcon={<DrawerCloseButton />}
       destroyOnClose
-      width='35rem'>
+      width='35rem'
+    >
       <DzBox>
-        <DeliveryPanel
-          show={true}
-          lineItemId={lineItemId || ''}
-          tenantCode={tenantCode}
-        />
+        <DeliveryPanel show={true} lineItemId={lineItemId || ''} tenantCode={tenantCode} />
       </DzBox>
     </Drawer>
   );

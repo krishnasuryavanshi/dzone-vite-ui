@@ -57,12 +57,7 @@ export const SetPassword: FC<SetPasswordPropsType> = ({ token }) => {
   return (
     <DzTheme theme='blueV2'>
       <Flex justify='center' align='center' style={{ height: '100%' }}>
-        <Flex
-          vertical
-          gap={'1.75rem'}
-          align='center'
-          justify='center'
-          style={{ width: '25rem' }}>
+        <Flex vertical gap={'1.75rem'} align='center' justify='center' style={{ width: '25rem' }}>
           <Title level={3} style={{ textAlign: 'center' }}>
             Set Up Your Password
           </Title>
@@ -76,7 +71,8 @@ export const SetPassword: FC<SetPasswordPropsType> = ({ token }) => {
                 width: '6.25rem',
                 borderRadius: '50%',
                 background: '#D7DCEA',
-              }}>
+              }}
+            >
               <SetPasswordIcon />
             </Flex>
           </DzBox>
@@ -87,7 +83,8 @@ export const SetPassword: FC<SetPasswordPropsType> = ({ token }) => {
             size='large'
             form={form}
             onFinish={onFinish}
-            variant='outlined'>
+            variant='outlined'
+          >
             <DzBox style={{ width: '100%' }}>
               <Flex vertical gap={'2rem'}>
                 <Flex vertical gap={'0.5rem'}>
@@ -98,45 +95,36 @@ export const SetPassword: FC<SetPasswordPropsType> = ({ token }) => {
                       ({ getFieldValue }) => ({
                         validator(_, value) {
                           if (!value) {
-                            return Promise.reject(
-                              new Error('Please enter your password!'),
-                            );
+                            return Promise.reject(new Error('Please enter your password!'));
                           }
 
                           const validations = { ...customValidation };
                           Object.keys(customValidation).forEach((key) => {
                             if (
-                              customValidation[
-                                key as keyof typeof customValidation
-                              ].regex.test(value)
+                              customValidation[key as keyof typeof customValidation].regex.test(
+                                value,
+                              )
                             ) {
-                              validations[
-                                key as keyof typeof customValidation
-                              ].isPassed = true;
+                              validations[key as keyof typeof customValidation].isPassed = true;
                             } else {
-                              validations[
-                                key as keyof typeof customValidation
-                              ].isPassed = false;
+                              validations[key as keyof typeof customValidation].isPassed = false;
                             }
                           });
                           setCustomValidation(validations);
                           const isInvalid = Object.keys(validations).some(
-                            (key) =>
-                              !validations[key as keyof typeof validations]
-                                .isPassed,
+                            (key) => !validations[key as keyof typeof validations].isPassed,
                           );
                           if (isInvalid) {
                             return Promise.reject(
-                              new Error(
-                                'Password does not meet the requirements!',
-                              ),
+                              new Error('Password does not meet the requirements!'),
                             );
                           }
 
                           return Promise.resolve();
                         },
                       }),
-                    ]}>
+                    ]}
+                  >
                     <InputPassword style={{ background: '#fff' }} />
                   </FormItem>
                   <ValidationMessages customValidation={customValidation} />
@@ -157,13 +145,12 @@ export const SetPassword: FC<SetPasswordPropsType> = ({ token }) => {
                           return Promise.resolve();
                         }
                         return Promise.reject(
-                          new Error(
-                            'The new password that you entered do not match!',
-                          ),
+                          new Error('The new password that you entered do not match!'),
                         );
                       },
                     }),
-                  ]}>
+                  ]}
+                >
                   <InputPassword style={{ background: '#fff' }} />
                 </FormItem>
                 <FormItem style={{ alignSelf: 'end' }}>

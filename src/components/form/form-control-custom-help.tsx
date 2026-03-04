@@ -9,9 +9,7 @@ interface IFormControlCustomHelpProps {
   customHelpText?: string;
 }
 
-export const FormControlCustomHelp: FC<IFormControlCustomHelpProps> = ({
-  customHelpText,
-}) => {
+export const FormControlCustomHelp: FC<IFormControlCustomHelpProps> = ({ customHelpText }) => {
   if (!customHelpText) return null;
   return (
     <DzBox style={{ width: '100%', marginTop: '0.5rem' }}>

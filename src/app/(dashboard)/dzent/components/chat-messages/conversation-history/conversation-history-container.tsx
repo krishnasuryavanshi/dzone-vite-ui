@@ -12,11 +12,7 @@ export const ConversationHistoryContainer = () => {
     switch (type) {
       case 'system':
         return (
-          <SystemMessage
-            message={message}
-            feedback={feedback}
-            feedbackGiven={feedbackGiven}
-          />
+          <SystemMessage message={message} feedback={feedback} feedbackGiven={feedbackGiven} />
         );
       case 'user':
         return <UserMessage message={message} />;

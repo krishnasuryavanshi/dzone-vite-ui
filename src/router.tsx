@@ -14,129 +14,68 @@ function DefaultRedirect() {
 }
 
 // ── Auth pages ──
-const LoginPage = lazy(
-  () => import('./app/(auth-pages)/login/page'),
-);
-const ForgotPasswordPage = lazy(
-  () => import('./app/(auth-pages)/forgot-password/page'),
-);
+const LoginPage = lazy(() => import('./app/(auth-pages)/login/page'));
+const ForgotPasswordPage = lazy(() => import('./app/(auth-pages)/forgot-password/page'));
 
 // ── Root pages (no layout) ──
-const SetPasswordPage = lazy(
-  () => import('./app/set-password/page'),
-);
-const UnauthorizedPage = lazy(
-  () => import('./app/unauthorized/page'),
-);
+const SetPasswordPage = lazy(() => import('./app/set-password/page'));
+const UnauthorizedPage = lazy(() => import('./app/unauthorized/page'));
 
 // ── Dashboard ──
-const DashboardPage = lazy(
-  () => import('./app/(dashboard)/dashboard/page'),
-);
-const ProfilePage = lazy(
-  () => import('./app/(dashboard)/profile/page'),
-);
-const UsersListPage = lazy(
-  () => import('./app/(dashboard)/users/page'),
-);
+const DashboardPage = lazy(() => import('./app/(dashboard)/dashboard/page'));
+const ProfilePage = lazy(() => import('./app/(dashboard)/profile/page'));
+const UsersListPage = lazy(() => import('./app/(dashboard)/users/page'));
 
 // ── Campaign Management ──
-const CampaignsPage = lazy(
-  () => import('./app/(dashboard)/campaign-management/campaigns/page'),
-);
+const CampaignsPage = lazy(() => import('./app/(dashboard)/campaign-management/campaigns/page'));
 const CampaignCreatePage = lazy(
   () => import('./app/(dashboard)/campaign-management/campaigns/create/page'),
 );
 const CampaignViewPage = lazy(
-  () =>
-    import(
-      './app/(dashboard)/campaign-management/campaigns/[campaignId]/page'
-    ),
+  () => import('./app/(dashboard)/campaign-management/campaigns/[campaignId]/page'),
 );
 const CampaignEditPage = lazy(
-  () =>
-    import(
-      './app/(dashboard)/campaign-management/campaigns/[campaignId]/edit/page'
-    ),
+  () => import('./app/(dashboard)/campaign-management/campaigns/[campaignId]/edit/page'),
 );
 
-const LineItemsPage = lazy(
-  () => import('./app/(dashboard)/campaign-management/line-items/page'),
-);
+const LineItemsPage = lazy(() => import('./app/(dashboard)/campaign-management/line-items/page'));
 const LineItemCreatePage = lazy(
   () => import('./app/(dashboard)/campaign-management/line-items/create/page'),
 );
 const LineItemViewPage = lazy(
-  () =>
-    import(
-      './app/(dashboard)/campaign-management/line-items/[lineItemId]/page'
-    ),
+  () => import('./app/(dashboard)/campaign-management/line-items/[lineItemId]/page'),
 );
 const LineItemEditPage = lazy(
-  () =>
-    import(
-      './app/(dashboard)/campaign-management/line-items/[lineItemId]/edit/page'
-    ),
+  () => import('./app/(dashboard)/campaign-management/line-items/[lineItemId]/edit/page'),
 );
 const LineItemLeadsPage = lazy(
-  () =>
-    import(
-      './app/(dashboard)/campaign-management/line-items/[lineItemId]/leads/page'
-    ),
+  () => import('./app/(dashboard)/campaign-management/line-items/[lineItemId]/leads/page'),
 );
 const LineItemDeliveryLogsPage = lazy(
-  () =>
-    import(
-      './app/(dashboard)/campaign-management/line-items/[lineItemId]/delivery-logs/page'
-    ),
+  () => import('./app/(dashboard)/campaign-management/line-items/[lineItemId]/delivery-logs/page'),
 );
 const BatchLeadsPage = lazy(
   () =>
-    import(
-      './app/(dashboard)/campaign-management/line-items/[lineItemId]/batches/[batchId]/leads/page'
-    ),
+    import('./app/(dashboard)/campaign-management/line-items/[lineItemId]/batches/[batchId]/leads/page'),
 );
 
-const LeadsPage = lazy(
-  () => import('./app/(dashboard)/campaign-management/leads/page'),
-);
+const LeadsPage = lazy(() => import('./app/(dashboard)/campaign-management/leads/page'));
 
 // ── UMS ──
-const UmsUsersPage = lazy(
-  () => import('./app/(dashboard)/ums/users/page'),
-);
-const UmsUserCreatePage = lazy(
-  () => import('./app/(dashboard)/ums/users/create/page'),
-);
-const UmsUserViewPage = lazy(
-  () => import('./app/(dashboard)/ums/users/[userId]/page'),
-);
-const UmsRolesPage = lazy(
-  () => import('./app/(dashboard)/ums/roles/page'),
-);
-const UmsRoleCreatePage = lazy(
-  () => import('./app/(dashboard)/ums/roles/create/page'),
-);
-const UmsRoleViewPage = lazy(
-  () => import('./app/(dashboard)/ums/roles/[roleId]/page'),
-);
+const UmsUsersPage = lazy(() => import('./app/(dashboard)/ums/users/page'));
+const UmsUserCreatePage = lazy(() => import('./app/(dashboard)/ums/users/create/page'));
+const UmsUserViewPage = lazy(() => import('./app/(dashboard)/ums/users/[userId]/page'));
+const UmsRolesPage = lazy(() => import('./app/(dashboard)/ums/roles/page'));
+const UmsRoleCreatePage = lazy(() => import('./app/(dashboard)/ums/roles/create/page'));
+const UmsRoleViewPage = lazy(() => import('./app/(dashboard)/ums/roles/[roleId]/page'));
 
 // ── Organizations (System Admin) ──
-const OrganizationsPage = lazy(
-  () =>
-    import('./app/(dashboard)/(system-admin)/organizations/page'),
-);
+const OrganizationsPage = lazy(() => import('./app/(dashboard)/(system-admin)/organizations/page'));
 const OrganizationCreatePage = lazy(
-  () =>
-    import(
-      './app/(dashboard)/(system-admin)/organizations/create/page'
-    ),
+  () => import('./app/(dashboard)/(system-admin)/organizations/create/page'),
 );
 const OrganizationViewPage = lazy(
-  () =>
-    import(
-      './app/(dashboard)/(system-admin)/organizations/[organizationId]/page'
-    ),
+  () => import('./app/(dashboard)/(system-admin)/organizations/[organizationId]/page'),
 );
 
 // ── Lead Validation Settings ──
@@ -148,29 +87,19 @@ const LeadValidationSettingsCreatePage = lazy(
 );
 const LeadValidationSettingsLineItemPage = lazy(
   () =>
-    import(
-      './app/(dashboard)/lead-validation-settings/line-items/[lineItemId]/settings/[leadValidationSettingId]/page'
-    ),
+    import('./app/(dashboard)/lead-validation-settings/line-items/[lineItemId]/settings/[leadValidationSettingId]/page'),
 );
 const LeadValidationSettingsOrgPage = lazy(
   () =>
-    import(
-      './app/(dashboard)/lead-validation-settings/organizations/[tenantCode]/settings/[leadValidationSettingId]/page'
-    ),
+    import('./app/(dashboard)/lead-validation-settings/organizations/[tenantCode]/settings/[leadValidationSettingId]/page'),
 );
 
 // ── Analytics ──
-const AnalyticsMarketersPage = lazy(
-  () => import('./app/(dashboard)/analytics/marketers/page'),
-);
-const AnalyticsSupplierPage = lazy(
-  () => import('./app/(dashboard)/analytics/supplier/page'),
-);
+const AnalyticsMarketersPage = lazy(() => import('./app/(dashboard)/analytics/marketers/page'));
+const AnalyticsSupplierPage = lazy(() => import('./app/(dashboard)/analytics/supplier/page'));
 
 // ── Integrations Hub ──
-const IntegrationsPage = lazy(
-  () => import('./app/(dashboard)/integrations-hub/integrations/page'),
-);
+const IntegrationsPage = lazy(() => import('./app/(dashboard)/integrations-hub/integrations/page'));
 const IntegrationViewPage = lazy(
   () => import('./app/(dashboard)/integrations-hub/integrations/[id]/page'),
 );
@@ -181,30 +110,19 @@ const IntegrationTemplateCreatePage = lazy(
   () => import('./app/(dashboard)/integrations-hub/templates/create/page'),
 );
 const IntegrationTemplateUpdatePage = lazy(
-  () =>
-    import(
-      './app/(dashboard)/integrations-hub/templates/[templateId]/update/page'
-    ),
+  () => import('./app/(dashboard)/integrations-hub/templates/[templateId]/update/page'),
 );
 const DownloadFilePage = lazy(
   () => import('./app/(dashboard)/integrations-hub/download-file/page'),
 );
 
 // ── Dzent / AI ──
-const DzentPage = lazy(
-  () => import('./app/(dashboard)/dzent/page'),
-);
-const DzentActionPage = lazy(
-  () => import('./app/(dashboard)/dzent/actions/[action]/page'),
-);
-const DzOneAICoworkerPage = lazy(
-  () => import('./app/(dashboard)/dz-one-ai-coworker/page'),
-);
+const DzentPage = lazy(() => import('./app/(dashboard)/dzent/page'));
+const DzentActionPage = lazy(() => import('./app/(dashboard)/dzent/actions/[action]/page'));
+const DzOneAICoworkerPage = lazy(() => import('./app/(dashboard)/dz-one-ai-coworker/page'));
 
 // ── Jobs ──
-const JobsPage = lazy(
-  () => import('./app/(dashboard)/jobs/page'),
-);
+const JobsPage = lazy(() => import('./app/(dashboard)/jobs/page'));
 
 // ── Madtech Reports ──
 // TODO: Add when page.tsx exists under madtech-reports

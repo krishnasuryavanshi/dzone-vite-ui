@@ -164,10 +164,7 @@ export const ShowTargetingFileAttribute = ({
   const renderFileDetails = (file: DzRecord) => {
     return (
       <DzBox style={DrawerItemStyle} key={file.id}>
-        <Flex
-          justify='space-between'
-          align='center'
-          style={{ marginTop: '0.25rem' }}>
+        <Flex justify='space-between' align='center' style={{ marginTop: '0.25rem' }}>
           <Text>{file.name}</Text>
           <DzBox
             style={{
@@ -176,7 +173,8 @@ export const ShowTargetingFileAttribute = ({
               padding: '0.25rem 0.5rem',
               border: '1px solid #ddd',
               cursor: 'pointer',
-            }}>
+            }}
+          >
             <DownloadOutlined onClick={() => handleDownloadFile(file.id)} />
           </DzBox>
         </Flex>
@@ -189,9 +187,7 @@ export const ShowTargetingFileAttribute = ({
       <DzBox>
         <Flex vertical>
           <DzBox style={{ paddingTop: isFirst ? '0.75rem' : 0 }}>
-            <Text
-              strong
-              style={{ fontSize: '0.875rem', marginLeft: '0.75rem' }}>
+            <Text strong style={{ fontSize: '0.875rem', marginLeft: '0.75rem' }}>
               {label}
             </Text>
           </DzBox>
@@ -203,7 +199,8 @@ export const ShowTargetingFileAttribute = ({
               borderRadius: '10px',
               padding: '0.5rem',
               margin: '0rem 0.75rem',
-            }}>
+            }}
+          >
             <DzBox>
               <Flex gap='0.5rem' align='center'>
                 <DzBox
@@ -212,16 +209,15 @@ export const ShowTargetingFileAttribute = ({
                     borderRadius: '5px',
                     padding: '0.25rem 0.5rem',
                     border: '1px solid #235AED29',
-                  }}>
+                  }}
+                >
                   <FileOutlined style={{ color: '#3D71FB' }} />
                 </DzBox>
                 <Text style={{ color: '#707070', fontSize: '0.875rem' }} strong>
                   {type === 'INCLUSION' ? 'Inclusion List' : 'Suppression List'}
                   {enabledFiles.length > 0 && (
                     <span style={{ fontWeight: 400, marginLeft: '0.5rem' }}>
-                      (
-                      {`${enabledFiles.length} File${enabledFiles.length > 1 ? 's' : ''}`}
-                      )
+                      ({`${enabledFiles.length} File${enabledFiles.length > 1 ? 's' : ''}`})
                     </span>
                   )}
                 </Text>
@@ -237,13 +233,13 @@ export const ShowTargetingFileAttribute = ({
                     border: '1px solid #ddd',
                     cursor: 'pointer',
                   }}
-                  onClick={handleDownloadAllFiles}>
+                  onClick={handleDownloadAllFiles}
+                >
                   <DownloadIcon />
                 </DzBox>
               </CustomTooltip>
               {isEditing && (
-                <HasPermission
-                  permissions={[LineItemActionsEnum.EditValidationSettings]}>
+                <HasPermission permissions={[LineItemActionsEnum.EditValidationSettings]}>
                   <CustomTooltip title='Edit'>
                     <DzBox
                       style={{
@@ -253,14 +249,14 @@ export const ShowTargetingFileAttribute = ({
                         border: '1px solid #ddd',
                         cursor: 'pointer',
                       }}
-                      onClick={handleEdit}>
+                      onClick={handleEdit}
+                    >
                       <EditICon />
                     </DzBox>
                   </CustomTooltip>
                 </HasPermission>
               )}
-              <HasPermission
-                permissions={[LineItemActionsEnum.ViewValidationSettings]}>
+              <HasPermission permissions={[LineItemActionsEnum.ViewValidationSettings]}>
                 <CustomTooltip title='View'>
                   <DzBox
                     style={{
@@ -270,7 +266,8 @@ export const ShowTargetingFileAttribute = ({
                       border: '1px solid #ddd',
                       cursor: 'pointer',
                     }}
-                    onClick={() => setIsDrawerOpen(true)}>
+                    onClick={() => setIsDrawerOpen(true)}
+                  >
                     <EyeOutlined />
                   </DzBox>
                 </CustomTooltip>
@@ -282,7 +279,8 @@ export const ShowTargetingFileAttribute = ({
       <TargetingAttributeValuesDrawer
         header={`${label} (${type === 'INCLUSION' ? 'Inclusion List' : 'Suppression List'})`}
         isOpen={isDrawerOpen}
-        handleClose={() => setIsDrawerOpen(false)}>
+        handleClose={() => setIsDrawerOpen(false)}
+      >
         <Flex vertical gap='0.5rem'>
           <MapFunction items={enabledFiles} renderItem={renderFileDetails} />
         </Flex>

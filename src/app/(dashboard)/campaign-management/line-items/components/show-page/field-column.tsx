@@ -35,21 +35,13 @@ const isRenderable = (value: any): boolean => {
   return true;
 };
 
-const isLongText = (value: any): boolean =>
-  typeof value === 'string' && value.length > 50;
+const isLongText = (value: any): boolean => typeof value === 'string' && value.length > 50;
 
-const SimpleExpandableText = ({
-  text,
-  label,
-}: {
-  text: string;
-  label: string;
-}) => {
+const SimpleExpandableText = ({ text, label }: { text: string; label: string }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const maxChars = 50;
 
-  const displayText =
-    text.length > maxChars ? `${text.substring(0, maxChars)}...` : text;
+  const displayText = text.length > maxChars ? `${text.substring(0, maxChars)}...` : text;
 
   const showDrawer = () => {
     setIsDrawerOpen(true);
@@ -61,14 +53,10 @@ const SimpleExpandableText = ({
 
   return (
     <>
-      <Text style={{ wordBreak: 'break-word', overflow: 'hidden' }}>
-        {displayText}
-      </Text>
+      <Text style={{ wordBreak: 'break-word', overflow: 'hidden' }}>{displayText}</Text>
       {text.length > maxChars && (
         <>
-          <Link
-            onClick={showDrawer}
-            style={{ marginLeft: '4px', fontSize: '0.85rem' }}>
+          <Link onClick={showDrawer} style={{ marginLeft: '4px', fontSize: '0.85rem' }}>
             more
           </Link>
 
@@ -78,7 +66,8 @@ const SimpleExpandableText = ({
             onClose={closeDrawer}
             open={isDrawerOpen}
             width={500}
-            closeIcon={null}>
+            closeIcon={null}
+          >
             <Button
               icon={<CloseOutlined />}
               onClick={closeDrawer}
@@ -98,7 +87,8 @@ const SimpleExpandableText = ({
                 wordBreak: 'break-word',
                 fontSize: '14px',
                 lineHeight: '1.6',
-              }}>
+              }}
+            >
               {text}
             </div>
           </Drawer>
@@ -108,11 +98,7 @@ const SimpleExpandableText = ({
   );
 };
 
-const renderValue = (
-  value: any,
-  label: string,
-  field?: string,
-): React.ReactNode | null => {
+const renderValue = (value: any, label: string, field?: string): React.ReactNode | null => {
   let textStyle: React.CSSProperties = {
     wordBreak: 'break-word',
   };
@@ -143,20 +129,14 @@ const renderValue = (
     return <Text style={textStyle}>{combined}</Text>;
   }
 
-  return typeof value === 'object' ? null : (
-    <Text style={textStyle}>{value}</Text>
-  );
+  return typeof value === 'object' ? null : <Text style={textStyle}>{value}</Text>;
 };
 
 const downloadFile = async (fileId: string) => {
   await fileDownload(fileId);
 };
 
-export const FieldColumn: FC<FieldColumnProps> = ({
-  data,
-  handleDownload,
-  itemDetails,
-}) => {
+export const FieldColumn: FC<FieldColumnProps> = ({ data, handleDownload, itemDetails }) => {
   if (!isRenderable(data?.value)) return null;
 
   const { label, value, field, tooltip } = data;
@@ -166,13 +146,12 @@ export const FieldColumn: FC<FieldColumnProps> = ({
         key={file?.id}
         vertical={field === 'deliveryTemplateId'}
         gap='0.5rem'
-        style={{ width: '100%' }}>
+        style={{ width: '100%' }}
+      >
         <Text style={{ wordBreak: 'break-word' }}>
           {file?.filename} {file?.fileSize && `(${file?.fileSize})`}
         </Text>
-        <Link
-          onClick={() => downloadFile(file?.id)}
-          style={{ display: 'inline-block' }}>
+        <Link onClick={() => downloadFile(file?.id)} style={{ display: 'inline-block' }}>
           Download
         </Link>
       </Flex>
@@ -182,17 +161,15 @@ export const FieldColumn: FC<FieldColumnProps> = ({
   return (
     <Col
       span={
-        field === 'assetFileIds'
-          ? 12
-          : field === 'additionalInstructions'
-            ? 24
-            : data?.span || 4
+        field === 'assetFileIds' ? 12 : field === 'additionalInstructions' ? 24 : data?.span || 4
       }
-      style={{ overflow: 'hidden' }}>
+      style={{ overflow: 'hidden' }}
+    >
       <Space
         direction='vertical'
         size={4}
-        style={{ width: '100%', overflow: 'hidden', wordBreak: 'break-word' }}>
+        style={{ width: '100%', overflow: 'hidden', wordBreak: 'break-word' }}
+      >
         <Space size={4} style={{ alignItems: 'center' }}>
           <Text type='secondary' style={{ fontSize: '0.875rem' }}>
             {label}
@@ -208,7 +185,8 @@ export const FieldColumn: FC<FieldColumnProps> = ({
                 fontSize: '0.75rem',
                 padding: '0.5rem',
                 wordBreak: 'break-word',
-              }}>
+              }}
+            >
               <InfoCircleOutlined
                 style={{
                   fontSize: '0.875rem',

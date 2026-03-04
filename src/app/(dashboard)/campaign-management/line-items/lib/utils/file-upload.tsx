@@ -33,12 +33,7 @@ export const getUploadProps = (
     showUploadList: false,
     name: 'file',
     onChange(info) {
-      debouncedHandleFileChange(
-        info,
-        fileMeta,
-        handleDialogState,
-        handleSelectedFile,
-      );
+      debouncedHandleFileChange(info, fileMeta, handleDialogState, handleSelectedFile);
     },
   };
 };
@@ -65,9 +60,7 @@ export const isValidFile = (
     message = `File name is invalid`;
   } else if (!fileMeta?.types.includes(extension.toUpperCase())) {
     hasError = true;
-    message = `Please upload a file with these extensions: ${fileMeta?.types?.join(
-      ', ',
-    )}`;
+    message = `Please upload a file with these extensions: ${fileMeta?.types?.join(', ')}`;
   } else if (size > allowedFileSize) {
     hasError = true;
     message = `File size should be less than ${fileMeta?.size}`;

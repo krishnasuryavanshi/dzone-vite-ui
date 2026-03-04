@@ -9,9 +9,7 @@ interface IChartsAdditionalProps {
 
 export const ChartsAdditional: FC<IChartsAdditionalProps> = ({ label }) => {
   return (
-    <Flex
-      gap="0.5rem"
-      align="center">
+    <Flex gap='0.5rem' align='center'>
       <div
         style={{
           height: '0.5rem',

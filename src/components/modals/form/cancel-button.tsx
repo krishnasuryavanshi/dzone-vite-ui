@@ -10,10 +10,8 @@ export interface ICancelButtonProps {
 export const CancelButton: FC<ICancelButtonProps> = ({ onCancel, show }) => {
   if (show === false) return null;
   return (
-    <Button
-      onClick={onCancel}
-      className="action cancel">
-      <Translate i18nKey="form.actions.cancel" />
+    <Button onClick={onCancel} className='action cancel'>
+      <Translate i18nKey='form.actions.cancel' />
     </Button>
   );
 };

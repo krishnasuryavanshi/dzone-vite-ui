@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { FilterMenuItemLabel } from '../../components/filters-manager/filter-menu-item-label';
-import {
-  IFilterCampaign,
-  IFilterClient,
-  IFilterLineItem,
-  ISelectedIds,
-} from '../types';
+import { IFilterCampaign, IFilterClient, IFilterLineItem, ISelectedIds } from '../types';
 import { mapSelectedItems } from '../utils';
 
 export interface IUseFilterDropdowns {
@@ -30,12 +25,8 @@ export function useFilterDropdowns({
   const [selectedDuration, setSelectedDuration] = useState<string[]>(['week']);
   const [selectedUnit, setSelectedUnit] = useState<string[]>(['Revenue']);
   const [selectedTimeFrame, setSelectedTimeFrame] = useState<string[]>(['MTD']);
-  const [availableCampaigns, setAvailableCampaigns] = useState<
-    IFilterCampaign[]
-  >([]);
-  const [availableLineItems, setAvailableLineItems] = useState<
-    IFilterLineItem[]
-  >([]);
+  const [availableCampaigns, setAvailableCampaigns] = useState<IFilterCampaign[]>([]);
+  const [availableLineItems, setAvailableLineItems] = useState<IFilterLineItem[]>([]);
 
   const submitAction = (iniatialState: boolean = false) => {
     handleSelection &&
@@ -104,10 +95,7 @@ export function useFilterDropdowns({
         availableLineItemsCopy = [...allLineItems];
       } else {
         availableLineItemsCopy = allLineItems.filter((lineItem) => {
-          return (
-            selectedCampaigns.includes(lineItem.campaignId) ||
-            lineItem.key === 'all'
-          );
+          return selectedCampaigns.includes(lineItem.campaignId) || lineItem.key === 'all';
         });
       }
       availableLineItemsCopy[0] = {
@@ -124,10 +112,7 @@ export function useFilterDropdowns({
     }
   }, [selectedCampaigns]);
 
-  const handleSelectionChange = (data: {
-    type: string;
-    selectedItems: string[];
-  }) => {
+  const handleSelectionChange = (data: { type: string; selectedItems: string[] }) => {
     const setMethod =
       (data.type === 'selectedLineItems' && setSelectedLineItems) ||
       (data.type === 'selectedCampaigns' && setSelectedCampaigns) ||
@@ -135,8 +120,7 @@ export function useFilterDropdowns({
       (data.type === 'selectedUnit' && setSelectedUnit) ||
       setSelectedDuration;
 
-    setMethod &&
-      setMethod(data?.selectedItems?.length ? data.selectedItems : ['all']);
+    setMethod && setMethod(data?.selectedItems?.length ? data.selectedItems : ['all']);
   };
 
   return {

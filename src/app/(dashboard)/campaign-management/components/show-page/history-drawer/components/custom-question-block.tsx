@@ -25,10 +25,7 @@ const QuestionList: FC<QuestionListProps> = ({ questions, type }) => (
             <Text type='secondary' style={{ fontSize: '0.875rem' }}>
               Question ({type}):
             </Text>
-            <RenderInputWithTooltip
-              value={q.question || '—'}
-              tooltipTitle={q.question || '—'}
-            />
+            <RenderInputWithTooltip value={q.question || '—'} tooltipTitle={q.question || '—'} />
             <Text type='secondary' style={{ fontSize: '0.875rem' }}>
               Accepted Answer ({type}):
             </Text>

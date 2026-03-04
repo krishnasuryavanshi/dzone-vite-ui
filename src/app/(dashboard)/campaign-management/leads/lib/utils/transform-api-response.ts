@@ -1,9 +1,4 @@
-import {
-  ApiFieldConfig,
-  ColumnDetail,
-  ColumnDetailsResponse,
-  ColumnExtra,
-} from '../types';
+import { ApiFieldConfig, ColumnDetail, ColumnDetailsResponse, ColumnExtra } from '../types';
 
 // Store filter URLs for columns that need dynamic options
 export const FILTER_URL_MAP: Record<string, string> = {};
@@ -11,9 +6,7 @@ export const FILTER_URL_MAP: Record<string, string> = {};
 /**
  * Transform API response to expected column format
  */
-export const transformApiResponseToColumns = (
-  apiData: any,
-): ColumnDetailsResponse => {
+export const transformApiResponseToColumns = (apiData: any): ColumnDetailsResponse => {
   const fields: ApiFieldConfig[] = apiData || [];
 
   const columns: ColumnDetail[] = fields.map((field) => {

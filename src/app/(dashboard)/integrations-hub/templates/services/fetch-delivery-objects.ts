@@ -3,10 +3,7 @@ import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { authenticatedRequest } from '@/services/backend-request';
 
-export const fetchDeliveryObjects = async (
-  type?: string,
-  integrationId?: string,
-) => {
+export const fetchDeliveryObjects = async (type?: string, integrationId?: string) => {
   try {
     const resource =
       type && integrationId

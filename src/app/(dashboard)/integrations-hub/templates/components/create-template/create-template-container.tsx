@@ -1,4 +1,3 @@
-
 import { Flex } from '@/uicomponents/layout';
 import { Spin } from '@/uicomponents/spin';
 import { FC, useEffect } from 'react';
@@ -39,9 +38,7 @@ export const CreateTemplateContainer: FC<ICreateTemplateContainerProps> = ({
 
   useEffect(() => {
     if (reservedNamesData?.data) {
-      updateReservedNames(
-        reservedNamesData.data.map(({ name }: { name: string }) => name),
-      );
+      updateReservedNames(reservedNamesData.data.map(({ name }: { name: string }) => name));
     }
   }, [reservedNamesData]);
 
@@ -103,16 +100,12 @@ export const CreateTemplateContainer: FC<ICreateTemplateContainerProps> = ({
 
   // For existing templates (edit mode), always show Step 2
   // For new templates, show based on current step
-  const shouldShowStep2 =
-    existingTemplate || currentStep === TemplateStep.FieldMapping;
+  const shouldShowStep2 = existingTemplate || currentStep === TemplateStep.FieldMapping;
 
   // Show full page loader while fetching dropdown options in edit mode
   if (isLoadingDropdownOptions) {
     return (
-      <Flex
-        align='center'
-        justify='center'
-        style={{ height: '100%', width: '100%' }}>
+      <Flex align='center' justify='center' style={{ height: '100%', width: '100%' }}>
         <Spin size='large' />
       </Flex>
     );

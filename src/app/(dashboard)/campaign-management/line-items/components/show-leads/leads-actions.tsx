@@ -1,11 +1,5 @@
 import { Flex } from '@/uicomponents/layout';
-import {
-  FC,
-  useEffect,
-  useState,
-  useRef,
-  useCallback,
-} from 'react';
+import { FC, useEffect, useState, useRef, useCallback } from 'react';
 import { UploadLeads } from '../upload-leads';
 import { ValidateLeads } from './validate-leads';
 import { LeadActionsEnum } from '@/lib/enums/permissions';
@@ -28,11 +22,7 @@ import { exportLeadsFilteredByLeadAndValidationStatuses } from '../../../leads/s
 import { showNotification } from '@/services/notification';
 import { DZONE_CLR_BLACK } from '@/lib/constants';
 import { Hideable } from '@/components/shared';
-import {
-  connectSSE,
-  disconnectSSE,
-  isSSEConnected,
-} from '@/services/sse-service';
+import { connectSSE, disconnectSSE, isSSEConnected } from '@/services/sse-service';
 import { JobMonitoringService } from '@/lib/constants/client-api-hosts';
 import { IJobSSEUpdate } from '@/app/(dashboard)/jobs/lib/types/job';
 
@@ -72,10 +62,7 @@ export const LeadsActions: FC<ILeadsActionsProps> = ({
     [LeadActionsEnum.View, LeadActionsEnum.Update],
     true,
   );
-  const hasPublishPermission = usePermissionCheck(
-    [LeadActionsEnum.PublishLead],
-    true,
-  );
+  const hasPublishPermission = usePermissionCheck([LeadActionsEnum.PublishLead], true);
   const [isLoading, setIsLoading] = useState(false);
   const [isValidating, setIsValidating] = useState(false);
   const [leadUploadProcessStatus, setLeadUploadProcessStatus] = useState<{
@@ -113,14 +100,8 @@ export const LeadsActions: FC<ILeadsActionsProps> = ({
         lineItem?.marketerCode || '',
       );
       if (data) {
-        const fileName = headers
-          .get('content-disposition')
-          .split('filename=')[1];
-        saveFileFromBlob(
-          data,
-          fileName.replaceAll('"', ''),
-          headers.get('content-type'),
-        );
+        const fileName = headers.get('content-disposition').split('filename=')[1];
+        saveFileFromBlob(data, fileName.replaceAll('"', ''), headers.get('content-type'));
       }
     } catch (error) {
     } finally {
@@ -142,8 +123,7 @@ export const LeadsActions: FC<ILeadsActionsProps> = ({
     .map((id) => leadsList.find((lead) => lead.id === id)?.leadStatus)
     .filter(Boolean);
   const uniqueStatuses = Array.from(new Set(selectedLeadsStatuses));
-  const isBulkStatusUpdateDisabled =
-    uniqueStatuses.length > 1 || selectedIds.length === 0;
+  const isBulkStatusUpdateDisabled = uniqueStatuses.length > 1 || selectedIds.length === 0;
 
   const createFilters = () => {
     const filters: Record<string, any>[] = [];
@@ -162,23 +142,16 @@ export const LeadsActions: FC<ILeadsActionsProps> = ({
     const filters = createFilters();
     try {
       setIsExporting(true);
-      const { data, headers } =
-        await exportLeadsFilteredByLeadAndValidationStatuses(
-          lineItemId,
-          filters,
-        );
+      const { data, headers } = await exportLeadsFilteredByLeadAndValidationStatuses(
+        lineItemId,
+        filters,
+      );
       if (data) {
         showNotification({
           message: 'Leads downloaded successfully.',
         });
-        const fileName = headers
-          .get('content-disposition')
-          .split('filename=')[1];
-        saveFileFromBlob(
-          data,
-          fileName.replaceAll('"', ''),
-          headers.get('content-type'),
-        );
+        const fileName = headers.get('content-disposition').split('filename=')[1];
+        saveFileFromBlob(data, fileName.replaceAll('"', ''), headers.get('content-type'));
       }
     } catch (e) {
     } finally {
@@ -212,10 +185,7 @@ export const LeadsActions: FC<ILeadsActionsProps> = ({
           const inValidationCount = data.inValidationCount;
           const validInvalidCount = data.validInvalidCount;
 
-          if (
-            typeof inValidationCount === 'number' &&
-            typeof validInvalidCount === 'number'
-          ) {
+          if (typeof inValidationCount === 'number' && typeof validInvalidCount === 'number') {
             // Counts available — show progress bar
             setTaskStatus(null);
             setIsValidating(true);
@@ -264,9 +234,7 @@ export const LeadsActions: FC<ILeadsActionsProps> = ({
     // Check if this specific line item has an in-progress upload
     const storedRequestId = getStoredRequestId(lineItemId);
     // Backward compat: also check old validation key from before this change
-    const storedValidationRequestId = getStoredRequestId(
-      `validation_${lineItemId}`,
-    );
+    const storedValidationRequestId = getStoredRequestId(`validation_${lineItemId}`);
 
     const jobId = storedRequestId || storedValidationRequestId;
 
@@ -288,8 +256,7 @@ export const LeadsActions: FC<ILeadsActionsProps> = ({
     };
   }, [lineItemId]);
 
-  const canUploadLeads =
-    isUploadAllowed && (hasUploadViewPermission || hasUpdateViewPermission);
+  const canUploadLeads = isUploadAllowed && (hasUploadViewPermission || hasUpdateViewPermission);
 
   // Show progress bar if task is in progress or validation is in progress
   if (
@@ -321,15 +288,10 @@ export const LeadsActions: FC<ILeadsActionsProps> = ({
         />
       </HasPermission> */}
       <HasPermission permissions={[LeadActionsEnum.ReturnLeads]}>
-        <ReturnLeads
-          leadIds={selectedIds}
-          lineItemId={lineItemId}
-          onSuccess={refreshLeadsList}
-        />
+        <ReturnLeads leadIds={selectedIds} lineItemId={lineItemId} onSuccess={refreshLeadsList} />
       </HasPermission>
 
-      <HasPermission
-        permissions={[LeadActionsEnum.DownloadLead, LeadActionsEnum.View]}>
+      <HasPermission permissions={[LeadActionsEnum.DownloadLead, LeadActionsEnum.View]}>
         {/* DZONE-5739 | changed to DownloadLead from Transform And Export */}
         {/* DZONE-4475 | point - 5 given a role has both 'View Leads' &
             'Download Leads' permissions; when user (mapped to the role)
@@ -376,7 +338,8 @@ export const LeadsActions: FC<ILeadsActionsProps> = ({
             justifyContent: 'center',
           }}
           disabled={isLoading}
-          onClick={handleDownloadtemplate}>
+          onClick={handleDownloadtemplate}
+        >
           {isLoading ? (
             <LoadingOutlined style={{ color: DZONE_CLR_BLACK }} />
           ) : (
@@ -384,10 +347,7 @@ export const LeadsActions: FC<ILeadsActionsProps> = ({
           )}
         </Link>
       </Hideable>
-      <Hideable
-        show={
-          isPublishAllowed && leadsList?.length > 0 && hasPublishPermission
-        }>
+      <Hideable show={isPublishAllowed && leadsList?.length > 0 && hasPublishPermission}>
         <PublishLeads
           lineItemId={lineItemId}
           onSuccess={refreshLeadsList}

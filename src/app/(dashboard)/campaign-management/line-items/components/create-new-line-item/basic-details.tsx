@@ -1,4 +1,3 @@
-
 import React, { FC, useEffect, useMemo, useRef, useState } from 'react';
 import { Form, FormItem, useForm, useWatch } from '@/uicomponents/form';
 import { Col, Row } from '@/uicomponents/layout/grid';
@@ -11,10 +10,7 @@ import BasicDetailsSchema from '../../lib/schemas/basic-details.json';
 import { renderField } from './render-field';
 import { PacingChartDrawer } from './pacing-chart-drawer';
 import { PacingChangeConfirmation } from './pacing-change-confirmation';
-import {
-  fetchFileDetails,
-  fetchMultipleFileDetails,
-} from '../../services';
+import { fetchFileDetails, fetchMultipleFileDetails } from '../../services';
 import { ICampaign } from '../../../campaigns/lib/types';
 import { debounce } from 'lodash';
 import { useRouter } from '@/lib/hooks/use-router';
@@ -27,19 +23,12 @@ import {
   useCampaignsByMarketerQuery,
   useValidationTemplatesQuery,
 } from '../../hooks';
-import {
-  formatLineItemFormData,
-  processFieldPermissions,
-} from '../../../lib/utils';
+import { formatLineItemFormData, processFieldPermissions } from '../../../lib/utils';
 import { ILineItem } from '../../lib/types';
 import dayjs from 'dayjs';
 import { LoaderButton } from '@/components/shared';
 import { UploadFile } from '@/lib/types/uicomponents';
-import {
-  DATE_FIELDS,
-  EXCLUDED_DATE_FIELDS,
-  PACING_KEYS,
-} from '../../lib/constants';
+import { DATE_FIELDS, EXCLUDED_DATE_FIELDS, PACING_KEYS } from '../../lib/constants';
 import { LineItemFields, PacingType, Pacing } from '../../lib/enums';
 import { InfoCircleOutlined } from '@/uicomponents/icons';
 import {
@@ -81,28 +70,19 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
   const updateMutation = useUpdateLineItemMutation();
   const [form] = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [disabledFields, setDisabledFields] = useState<Record<string, boolean>>(
-    {},
-  );
+  const [disabledFields, setDisabledFields] = useState<Record<string, boolean>>({});
   const [hasChanges, setHasChanges] = useState<boolean>(false);
   const [dateFieldRestrictions, setDateFieldRestrictions] = useState<any>({});
   const [originalTargetEndDate, setOriginalTargetEndDate] = useState<any>(null);
   const [pacingDrawerOpen, setPacingDrawerOpen] = useState(false);
-  const [originalPacingValue, setOriginalPacingValue] = useState<string | null>(
-    null,
-  ); // Original pacing value from backend
-  const [pacingDisabledPermanently, setPacingDisabledPermanently] =
-    useState<boolean>(false);
+  const [originalPacingValue, setOriginalPacingValue] = useState<string | null>(null); // Original pacing value from backend
+  const [pacingDisabledPermanently, setPacingDisabledPermanently] = useState<boolean>(false);
   const [isLineItemBeenLive, setIsLineItemBeenLive] = useState<boolean>(false);
-  const [showPacingConfirmation, setShowPacingConfirmation] =
-    useState<boolean>(false);
-  const [overflowDisabledPermanently, setOverflowDisabledPermanently] =
-    useState<boolean>(false);
-  const [pacingFieldsChanged, setPacingFieldsChanged] =
-    useState<boolean>(false);
+  const [showPacingConfirmation, setShowPacingConfirmation] = useState<boolean>(false);
+  const [overflowDisabledPermanently, setOverflowDisabledPermanently] = useState<boolean>(false);
+  const [pacingFieldsChanged, setPacingFieldsChanged] = useState<boolean>(false);
   const [pacingChangedFields, setPacingChangedFields] = useState<string[]>([]);
-  const [initialPacingFieldValues, setInitialPacingFieldValues] =
-    useState<any>(null);
+  const [initialPacingFieldValues, setInitialPacingFieldValues] = useState<any>(null);
 
   const allFields = useWatch([], form);
   const marketerCode = allFields?.marketerCode;
@@ -111,10 +91,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
 
   // TanStack Query hooks for server state
   const { data: prefilledListsData } = usePrefilledListsBasicDetailsQuery(userId);
-  const { data: campaignsRawData } = useCampaignsByMarketerQuery(
-    marketerCode,
-    !!marketerCode,
-  );
+  const { data: campaignsRawData } = useCampaignsByMarketerQuery(marketerCode, !!marketerCode);
   const { data: validationData } = useValidationTemplatesQuery(marketerCode);
 
   const lists = useMemo<Record<string, any[]>>(() => {
@@ -160,11 +137,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
     }
 
     // If marketerCode changes, update related fields and fetch campaigns/settings
-    if (
-      marketerCode &&
-      previousMarketerCode.current !== marketerCode &&
-      lists.marketers?.length
-    ) {
+    if (marketerCode && previousMarketerCode.current !== marketerCode && lists.marketers?.length) {
       previousMarketerCode.current = marketerCode;
 
       form.setFieldsValue({
@@ -246,10 +219,9 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
     if (lineItemDetails && lineItemId) {
       const formattedLineItemDetails = formatLineItemFormData(lineItemDetails);
       const formattedDates = {
-        lineItemTargetStartDate:
-          formattedLineItemDetails?.lineItemTargetStartDate
-            ? dayjs(formattedLineItemDetails?.lineItemTargetStartDate)
-            : null,
+        lineItemTargetStartDate: formattedLineItemDetails?.lineItemTargetStartDate
+          ? dayjs(formattedLineItemDetails?.lineItemTargetStartDate)
+          : null,
         lineItemTargetEndDate: formattedLineItemDetails?.lineItemTargetEndDate
           ? dayjs(formattedLineItemDetails?.lineItemTargetEndDate)
           : null,
@@ -265,10 +237,9 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
         actualStartDate: formattedLineItemDetails?.actualStartDate
           ? dateObject(formattedLineItemDetails?.actualStartDate)
           : null,
-        targetDeliveryStartDate:
-          formattedLineItemDetails?.targetDeliveryStartDate
-            ? dateObject(formattedLineItemDetails?.targetDeliveryStartDate)
-            : null,
+        targetDeliveryStartDate: formattedLineItemDetails?.targetDeliveryStartDate
+          ? dateObject(formattedLineItemDetails?.targetDeliveryStartDate)
+          : null,
       };
       const prefilledFields = {
         ...formattedLineItemDetails,
@@ -281,27 +252,21 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
         pacingSchedule: formattedLineItemDetails?.pacingSchedule,
         customPacingData: formattedLineItemDetails?.customPacingData,
         // Explicitly include pacing-related boolean fields with default values
-        allowOverflow:
-          (formattedLineItemDetails as any)?.allowOverflow ?? false,
-        deficitManagement:
-          (formattedLineItemDetails as any)?.deficitManagement ?? true,
+        allowOverflow: (formattedLineItemDetails as any)?.allowOverflow ?? false,
+        deficitManagement: (formattedLineItemDetails as any)?.deficitManagement ?? true,
         ...formattedDates,
       };
       form.setFieldsValue(prefilledFields);
 
       // Store original target end date for validation
       if (formattedLineItemDetails?.lineItemTargetEndDate) {
-        setOriginalTargetEndDate(
-          formattedLineItemDetails.lineItemTargetEndDate,
-        );
+        setOriginalTargetEndDate(formattedLineItemDetails.lineItemTargetEndDate);
       }
       if (formattedLineItemDetails?.hasBeenLive) {
         setIsLineItemBeenLive(formattedLineItemDetails?.hasBeenLive);
       }
       if (formattedLineItemDetails?.pacingDisabledPermanently) {
-        setPacingDisabledPermanently(
-          formattedLineItemDetails?.pacingDisabledPermanently,
-        );
+        setPacingDisabledPermanently(formattedLineItemDetails?.pacingDisabledPermanently);
       }
       // Check if overflow was already enabled
       if ((formattedLineItemDetails as any)?.allowOverflow) {
@@ -364,10 +329,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
     }
   }, [lineItemId]);
 
-  const hasPacingChanged = (
-    initial: Record<string, any>,
-    current: Record<string, any>,
-  ) => {
+  const hasPacingChanged = (initial: Record<string, any>, current: Record<string, any>) => {
     const format = (val: any) =>
       val && dayjs(val).isValid() ? dayjs(val).format('YYYY-MM-DD') : '';
 
@@ -403,8 +365,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
       dateFormat(cleanedInitial[field]) !== dateFormat(cleanedCurrent[field]);
 
     const isDifferent = (key: string) =>
-      JSON.stringify(cleanedInitial[key]) !==
-      JSON.stringify(cleanedCurrent[key]);
+      JSON.stringify(cleanedInitial[key]) !== JSON.stringify(cleanedCurrent[key]);
 
     for (const key of Object.keys(cleanedCurrent)) {
       if (DATE_FIELDS.includes(key as LineItemFields)) {
@@ -412,15 +373,11 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
           changedFields[key] = cleanedCurrent[key];
         }
       } else if (key === 'assetFileIds') {
-        const initialIds: string[] = Array.isArray(cleanedInitial[key])
-          ? cleanedInitial[key]
-          : [];
+        const initialIds: string[] = Array.isArray(cleanedInitial[key]) ? cleanedInitial[key] : [];
 
         const currentIds: string[] = Array.isArray(cleanedCurrent[key])
           ? cleanedCurrent[key]
-              .map((file: any) =>
-                typeof file === 'object' && file !== null ? file.id : file,
-              )
+              .map((file: any) => (typeof file === 'object' && file !== null ? file.id : file))
               .filter((id: any) => typeof id === 'string')
           : [];
 
@@ -435,8 +392,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
           changedFields['assetFileIds'] = currentIds;
         }
       } else if (key === 'deliveryTemplateId') {
-        const getId = (val: any) =>
-          typeof val === 'object' && val !== null ? val.id : val;
+        const getId = (val: any) => (typeof val === 'object' && val !== null ? val.id : val);
 
         const initialId = getId(cleanedInitial[key]);
         const currentId = getId(cleanedCurrent[key]);
@@ -482,10 +438,8 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
         // For pacingSchedule, treat null and empty string as equivalent
         const initialValue = cleanedInitial[key] || '';
         const currentValue = cleanedCurrent[key] || '';
-        const normalizedInitial =
-          initialValue === null || initialValue === '' ? '' : initialValue;
-        const normalizedCurrent =
-          currentValue === null || currentValue === '' ? '' : currentValue;
+        const normalizedInitial = initialValue === null || initialValue === '' ? '' : initialValue;
+        const normalizedCurrent = currentValue === null || currentValue === '' ? '' : currentValue;
         if (normalizedInitial !== normalizedCurrent) {
           changedFields[key] = currentValue;
         }
@@ -511,10 +465,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
     return changedFields;
   };
 
-  const handleUpdateLineItem = async (
-    changedFields: Record<string, any>,
-    id: string,
-  ) => {
+  const handleUpdateLineItem = async (changedFields: Record<string, any>, id: string) => {
     // changedFields is already filtered for changes, no need to recalculate
     if (Object.keys(changedFields).length > 0) {
       const data = await updateMutation.mutateAsync({
@@ -576,8 +527,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
         targetEndDate.isSame(targetStartDate, 'day') ||
         targetEndDate.isBefore(targetStartDate, 'day')
       ) {
-        errors.lineItemTargetEndDate =
-          'Target End Date must be after Target Start Date';
+        errors.lineItemTargetEndDate = 'Target End Date must be after Target Start Date';
       }
     }
 
@@ -587,8 +537,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
         targetEndDate.isSame(targetDeliveryStartDate, 'day') ||
         targetEndDate.isBefore(targetDeliveryStartDate, 'day')
       ) {
-        errors.lineItemTargetEndDate =
-          'Target End Date must be after Target Delivery Start Date';
+        errors.lineItemTargetEndDate = 'Target End Date must be after Target Delivery Start Date';
       }
     }
 
@@ -612,11 +561,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
       // For Target End Date - check if it can only be extended
       if (
         targetEndDate &&
-        !isValidTargetEndDate(
-          targetEndDate,
-          originalTargetEndDate,
-          lineItemDetails.status,
-        )
+        !isValidTargetEndDate(targetEndDate, originalTargetEndDate, lineItemDetails.status)
       ) {
         errors.lineItemTargetEndDate = getDateValidationMessage(
           'targetEndDate',
@@ -627,18 +572,13 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
     } else {
       // For new line items, no dates can be in the past
       if (targetStartDate && targetStartDate.isBefore(today, 'day')) {
-        errors.lineItemTargetStartDate =
-          'Target Start Date cannot be in the past';
+        errors.lineItemTargetStartDate = 'Target Start Date cannot be in the past';
       }
       if (targetEndDate && targetEndDate.isBefore(today, 'day')) {
         errors.lineItemTargetEndDate = 'Target End Date cannot be in the past';
       }
-      if (
-        targetDeliveryStartDate &&
-        targetDeliveryStartDate.isBefore(today, 'day')
-      ) {
-        errors.targetDeliveryStartDate =
-          'Target Delivery Start Date cannot be in the past';
+      if (targetDeliveryStartDate && targetDeliveryStartDate.isBefore(today, 'day')) {
+        errors.targetDeliveryStartDate = 'Target Delivery Start Date cannot be in the past';
       }
     }
 
@@ -667,15 +607,9 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
       // Check if pacing fields changed without updating custom pacing data
       // Skip this check if allowOverflow is true since pacing can't be updated anyway
       const allowOverflow = form.getFieldValue('allowOverflow');
-      if (
-        pacingFieldsChanged &&
-        pacingType === PacingType.CUSTOM_PACING &&
-        !allowOverflow
-      ) {
+      if (pacingFieldsChanged && pacingType === PacingType.CUSTOM_PACING && !allowOverflow) {
         const fieldsText =
-          pacingChangedFields.length > 0
-            ? pacingChangedFields.join(', ')
-            : 'values';
+          pacingChangedFields.length > 0 ? pacingChangedFields.join(', ') : 'values';
         showNotification({
           message: `Please update the pacing strategy as ${fieldsText} ${pacingChangedFields.length > 1 ? 'have' : 'has'} changed`,
           type: 'error',
@@ -755,8 +689,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
           pacingSchedule: lineItemDetails.pacingSchedule || '',
           // Add state tracking fields
           hasBeenLive: lineItemDetails.hasBeenLive ?? false,
-          pacingDisabledPermanently:
-            lineItemDetails.pacingDisabledPermanently ?? false,
+          pacingDisabledPermanently: lineItemDetails.pacingDisabledPermanently ?? false,
           // pacing is already transformed by formatLineItemFormData
         };
 
@@ -770,10 +703,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
         let changedFields = getChangedFields(initialFormatted, fullPayload);
 
         // Filter out pacing field if it's the same value (to avoid false positives)
-        if (
-          changedFields.pacing &&
-          initialFormatted.pacing === (fullPayload as any).pacing
-        ) {
+        if (changedFields.pacing && initialFormatted.pacing === (fullPayload as any).pacing) {
           delete changedFields.pacing;
         }
 
@@ -828,10 +758,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
     }
   }, [lists.validationTemplates, lineItemId]);
 
-  const processedFields = processFieldPermissions(
-    BasicDetailsSchema || [],
-    disabledFields,
-  );
+  const processedFields = processFieldPermissions(BasicDetailsSchema || [], disabledFields);
 
   const groupedFields = processedFields.reduce(
     (acc, field) => {
@@ -891,8 +818,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
     // Extract value if originalPacingValue is an object
     const originalPacingStringValue =
       typeof originalPacingValue === 'object'
-        ? (originalPacingValue as any)?.value ||
-          (originalPacingValue as any)?.name
+        ? (originalPacingValue as any)?.value || (originalPacingValue as any)?.name
         : originalPacingValue;
 
     // Check if trying to switch from Custom Pacing to No Pacing when line item has been live
@@ -1004,12 +930,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
     const errors: string[] = [];
 
     // Validate Target End Date vs Target Start Date
-    if (
-      targetStartDate &&
-      targetEndDate &&
-      targetStartDate.isValid() &&
-      targetEndDate.isValid()
-    ) {
+    if (targetStartDate && targetEndDate && targetStartDate.isValid() && targetEndDate.isValid()) {
       if (
         targetEndDate.isSame(targetStartDate, 'day') ||
         targetEndDate.isBefore(targetStartDate, 'day')
@@ -1043,9 +964,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
       ]);
     } else if (targetEndDate) {
       // Clear the error if dates are valid
-      form.setFields([
-        { name: LineItemFields.LineItemTargetEndDate, errors: [] },
-      ]);
+      form.setFields([{ name: LineItemFields.LineItemTargetEndDate, errors: [] }]);
     }
   }, [
     allFields?.lineItemTargetStartDate,
@@ -1163,17 +1082,13 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
 
     if (hasFieldsChanged && currentCustomPacingData.length > 0) {
       // Calculate total from customPacingData
-      const totalLeadsRequired = currentCustomPacingData.reduce(
-        (sum: number, period: any) => {
-          return sum + (period.totalLeadsRequired || 0);
-        },
-        0,
-      );
+      const totalLeadsRequired = currentCustomPacingData.reduce((sum: number, period: any) => {
+        return sum + (period.totalLeadsRequired || 0);
+      }, 0);
 
       // Check if sum matches target lead goal
       const targetLeadGoalNum = Number(currentTargetLeadGoal) || 0;
-      const isValidPacing =
-        Math.abs(totalLeadsRequired - targetLeadGoalNum) < 0.01; // Allow small rounding differences
+      const isValidPacing = Math.abs(totalLeadsRequired - targetLeadGoalNum) < 0.01; // Allow small rounding differences
 
       if (!isValidPacing) {
         setPacingFieldsChanged(true);
@@ -1229,26 +1144,22 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
 
   return (
     <Form form={form} onFinish={handleSubmit} layout='vertical'>
-      <Row
-        gutter={16}
-        justify='start'
-        style={{ paddingLeft: '0.5rem', marginBottom: '2rem' }}>
+      <Row gutter={16} justify='start' style={{ paddingLeft: '0.5rem', marginBottom: '2rem' }}>
         <Text
           style={{
             color: '#464343',
             fontSize: '0.875rem',
             fontWeight: 'bold',
             textAlign: 'center',
-          }}>
+          }}
+        >
           <Translate i18nKey='pages.lineItems.label.requiredInfo' />
         </Text>
       </Row>
       {Object.keys(groupedFields).map((group) => (
         <Row key={group} gutter={16}>
           {groupedFields[group]
-            .sort(
-              (a: { order: number }, b: { order: number }) => a.order - b.order,
-            )
+            .sort((a: { order: number }, b: { order: number }) => a.order - b.order)
             .map((field: any, index: React.Key | null | undefined) => {
               if (field.hidden) {
                 return (
@@ -1256,7 +1167,8 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
                     key={index}
                     name={field.field}
                     className='input-control form-control-item'
-                    hidden>
+                    hidden
+                  >
                     {renderField(
                       field,
                       lists,
@@ -1265,8 +1177,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
                       marketerCode,
                       {
                         assetFiles: form.getFieldValue('assetFileIds'),
-                        deliveryTemplateFile:
-                          form.getFieldValue('deliveryTemplateId'),
+                        deliveryTemplateFile: form.getFieldValue('deliveryTemplateId'),
                       },
                       dateFieldRestrictions,
                       form.getFieldValue('customPacingData'),
@@ -1308,8 +1219,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
                 <Col key={index} span={field.span || 10}>
                   <FormItem
                     label={
-                      field.fieldType === 'checkbox' ||
-                      field.fieldType === 'pacingChart' ? (
+                      field.fieldType === 'checkbox' || field.fieldType === 'pacingChart' ? (
                         ''
                       ) : field.tooltip ? (
                         <Space>
@@ -1326,7 +1236,8 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
                     }
                     name={field.field}
                     rules={field.rules || []}
-                    className='input-control form-control-item'>
+                    className='input-control form-control-item'
+                  >
                     {renderField(
                       field,
                       lists,
@@ -1335,8 +1246,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
                       marketerCode,
                       {
                         assetFiles: form.getFieldValue('assetFileIds'),
-                        deliveryTemplateFile:
-                          form.getFieldValue('deliveryTemplateId'),
+                        deliveryTemplateFile: form.getFieldValue('deliveryTemplateId'),
                       },
                       dateFieldRestrictions,
                       form.getFieldValue('customPacingData'),
@@ -1377,10 +1287,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
             })}
         </Row>
       ))}
-      <Flex
-        justify='end'
-        gap='0.5rem'
-        style={{ marginBottom: '3rem', marginRight: '2rem' }}>
+      <Flex justify='end' gap='0.5rem' style={{ marginBottom: '3rem', marginRight: '2rem' }}>
         <Button onClick={handleCancel}>Cancel</Button>
         {isSubmitting ? (
           <LoaderButton />
@@ -1399,9 +1306,7 @@ export const BasicDetails: FC<IBasicDetailsProps> = ({
         pacing={allFields?.pacing}
         pacingSchedule={allFields?.pacingSchedule}
         customPacingData={allFields?.customPacingData || []}
-        targetLeadGoal={
-          allFields?.targetLeadGoal ? Number(allFields.targetLeadGoal) : 0
-        }
+        targetLeadGoal={allFields?.targetLeadGoal ? Number(allFields.targetLeadGoal) : 0}
         targetDeliveryStartDate={allFields?.targetDeliveryStartDate}
         lineItemTargetStartDate={allFields?.lineItemTargetStartDate}
         lineItemTargetEndDate={allFields?.lineItemTargetEndDate}

@@ -29,17 +29,13 @@ export const DateInput: FC<DateInputProps> = ({
   className,
   ...rest
 }) => {
-  const [internalDateValue, setInternalDateValue] = useState<
-    Dayjs | undefined
-  >();
+  const [internalDateValue, setInternalDateValue] = useState<Dayjs | undefined>();
   const [displayValue, setDisplayValue] = useState<string>('');
   const [isPickerOpen, setIsPickerOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
   // Parse the date value from various possible input formats
-  const getParsedDate = (
-    val: string | Dayjs | undefined,
-  ): Dayjs | undefined => {
+  const getParsedDate = (val: string | Dayjs | undefined): Dayjs | undefined => {
     if (!val) return undefined;
 
     if (dayjs.isDayjs(val)) {
@@ -164,7 +160,8 @@ export const DateInput: FC<DateInputProps> = ({
           height: '100%',
           opacity: 0,
           pointerEvents: isPickerOpen ? 'auto' : 'none',
-        }}>
+        }}
+      >
         <DatePicker
           format={format}
           style={{ width: '100%', height: '100%' }}

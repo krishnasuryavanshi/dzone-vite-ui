@@ -28,9 +28,7 @@ type SystemMessageActionsProps = {
   actions: DzRecord[];
 };
 
-export const SystemMessageActions = ({
-  actions,
-}: SystemMessageActionsProps) => {
+export const SystemMessageActions = ({ actions }: SystemMessageActionsProps) => {
   const [hasFormActions, setHasFormActions] = useState(false);
   const [hasCancelAction, setHasCancelAction] = useState(false);
 
@@ -47,8 +45,7 @@ export const SystemMessageActions = ({
 
     if (
       actions.every(
-        ({ field }: DzRecord) =>
-          !field || (field && NoFormActionTypes.includes(field.type)),
+        ({ field }: DzRecord) => !field || (field && NoFormActionTypes.includes(field.type)),
       )
     ) {
       setHasFormActions(false);
@@ -134,10 +131,7 @@ export const SystemMessageActions = ({
   const renderActionItem = (systemMessage: DzRecord, index: number) => {
     const MessageComponent = (
       <Hideable show={!!systemMessage.message}>
-        <HtmlContent
-          style={{ marginBottom: '0.5rem' }}
-          htmlStr={systemMessage.message}
-        />
+        <HtmlContent style={{ marginBottom: '0.5rem' }} htmlStr={systemMessage.message} />
       </Hideable>
     );
     if (!systemMessage.field) {
@@ -183,8 +177,7 @@ export const SystemMessageActions = ({
         props = {
           searchable: true,
           multiple: action.type !== SystemMessageActionsEnum.SinglePicklist,
-          customRangeOptions:
-            action.type === SystemMessageActionsEnum.CustomRangeOptionsPicklist,
+          customRangeOptions: action.type === SystemMessageActionsEnum.CustomRangeOptionsPicklist,
         };
         FormControl = DropdownAction;
         break;
@@ -235,17 +228,9 @@ export const SystemMessageActions = ({
         <FormItem
           name={action.name}
           key={index}
-          label={
-            action.label ? (
-              <Text style={{ fontSize: '0.875rem' }}>{action.label}</Text>
-            ) : null
-          }>
-          <FormControl
-            options={action.options}
-            name={action.name}
-            form={form}
-            {...props}
-          />
+          label={action.label ? <Text style={{ fontSize: '0.875rem' }}>{action.label}</Text> : null}
+        >
+          <FormControl options={action.options} name={action.name} form={form} {...props} />
         </FormItem>
       </>
     );
@@ -260,7 +245,8 @@ export const SystemMessageActions = ({
           hasCancelAction={hasCancelAction}
           onSkip={handleSkip}
           onSubmit={handleSubmit}
-          onCancel={handleCancel}>
+          onCancel={handleCancel}
+        >
           <Flex vertical>
             <MapFunction items={actions} renderItem={renderActionItem} />
           </Flex>

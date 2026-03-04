@@ -12,20 +12,14 @@ interface IPermissionsDrawerProps {
   actionId: string;
 }
 
-export const PermissionsDrawer: FC<IPermissionsDrawerProps> = ({
-  open,
-  onClose,
-  actionId,
-}) => {
+export const PermissionsDrawer: FC<IPermissionsDrawerProps> = ({ open, onClose, actionId }) => {
   const { selectedModule, modules } = useModulesStore();
   const [actionName, setActionName] = useState('');
 
   useEffect(() => {
     const actions = modules?.[selectedModule as string].actions || [];
     if (actions.length) {
-      setActionName(
-        actions.find((action: IAction) => action?.id === actionId)?.value || '',
-      );
+      setActionName(actions.find((action: IAction) => action?.id === actionId)?.value || '');
     }
   }, [selectedModule, actionId]);
 
@@ -45,7 +39,8 @@ export const PermissionsDrawer: FC<IPermissionsDrawerProps> = ({
       destroyOnClose
       maskClosable={false}
       closeIcon={<DrawerCloseButton />}
-      onClose={onClose}>
+      onClose={onClose}
+    >
       <BodyContent open={open} onClose={onClose} actionId={actionId} />
     </Drawer>
   );

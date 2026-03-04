@@ -3,10 +3,7 @@ import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { authenticatedRequest } from '@/services/backend-request';
 
-export const fetchZapierIntegrationLabels = async (
-  integrationType: string,
-  label: string,
-) => {
+export const fetchZapierIntegrationLabels = async (integrationType: string, label: string) => {
   try {
     const resource = transformPath(ApiResources.ZapierIntegrationNames, {
       integration_type: integrationType,

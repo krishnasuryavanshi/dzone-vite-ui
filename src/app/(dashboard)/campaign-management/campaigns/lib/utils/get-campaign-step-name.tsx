@@ -1,7 +1,7 @@
 import { CampaignStep } from '../enums';
 
 export const CampaignValues = Object.values(CampaignStep).filter(
-  (value) => typeof value === 'number'
+  (value) => typeof value === 'number',
 ) as CampaignStep[];
 
 export const getCampaignStepName = (key: any): string | undefined => {

@@ -63,8 +63,7 @@ export const ChipsInput: FC<IChipsInputProps> = ({
     // Check if value exists in opposite field (inclusion/suppression conflict)
     if (form && fieldName && fieldName.length >= 2) {
       const currentFieldName = fieldName[fieldName.length - 1];
-      const siblingFieldName =
-        currentFieldName === 'inclusion' ? 'exclusion' : 'inclusion';
+      const siblingFieldName = currentFieldName === 'inclusion' ? 'exclusion' : 'inclusion';
 
       // Construct the full path: ['customFields', fieldIndex, siblingFieldName]
       const siblingPath = ['customFields', fieldName[0], siblingFieldName];
@@ -115,8 +114,7 @@ export const ChipsInput: FC<IChipsInputProps> = ({
     let siblingValues: string[] = [];
     if (form && fieldName && fieldName.length >= 2) {
       const currentFieldName = fieldName[fieldName.length - 1];
-      const siblingFieldName =
-        currentFieldName === 'inclusion' ? 'suppression' : 'inclusion';
+      const siblingFieldName = currentFieldName === 'inclusion' ? 'suppression' : 'inclusion';
       // Construct the full path: ['customFields', fieldIndex, siblingFieldName]
       const siblingPath = ['customFields', fieldName[0], siblingFieldName];
       siblingValues = form.getFieldValue(siblingPath) || [];
@@ -202,7 +200,8 @@ export const ChipsInput: FC<IChipsInputProps> = ({
         padding: '1rem ',
         boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25) inset',
         backgroundColor: '#fff',
-      }}>
+      }}
+    >
       <Input
         variant='borderless'
         placeholder='Add More'
@@ -215,11 +214,7 @@ export const ChipsInput: FC<IChipsInputProps> = ({
       {value.length > 0 && (
         <Flex gap='0.5rem' wrap='wrap'>
           {value.map((chip, index) => (
-            <ChipItem
-              key={index}
-              label={chip}
-              onClose={() => handleRemoveChip(index)}
-            />
+            <ChipItem key={index} label={chip} onClose={() => handleRemoveChip(index)} />
           ))}
         </Flex>
       )}

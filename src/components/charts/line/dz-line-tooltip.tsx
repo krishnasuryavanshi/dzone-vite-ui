@@ -40,23 +40,13 @@ export const DzLineTooltip: FC<IDzLineTooltipProps> = ({ active, payload }) => {
   };
 
   return (
-    <DzBox
-      style={wrapperStyle}
-      className="dz-line-tooltip">
-      <Flex
-        gap={'0.5rem'}
-        align="flex-start"
-        vertical>
+    <DzBox style={wrapperStyle} className='dz-line-tooltip'>
+      <Flex gap={'0.5rem'} align='flex-start' vertical>
         {payload && payload.length
           ? payload.map(({ color, name, value }: any) => (
-              <Flex
-                gap="0.5rem"
-                align="center"
-                key={`${name}-${value}`}>
+              <Flex gap='0.5rem' align='center' key={`${name}-${value}`}>
                 <div style={{ ...indicatorStyle, backgroundColor: color }} />
-                <Text
-                  style={labelStyle}
-                  className="dz-line-tooltip-label">
+                <Text style={labelStyle} className='dz-line-tooltip-label'>
                   {name}:<Text style={countStyle}>{value}</Text>
                 </Text>
               </Flex>

@@ -19,16 +19,8 @@ export const NameIdRenderer: FC<NameIdRendererProps> = ({
   updatedBy,
   showBadge = false,
 }) => (
-  <Flex
-    align='center'
-    justify='space-between'
-    gap='0.5rem'
-    style={{ width: '100%' }}>
-    <Flex
-      vertical
-      gap='0'
-      className={styles.mergedColumn}
-      style={{ minWidth: 0, flex: 1 }}>
+  <Flex align='center' justify='space-between' gap='0.5rem' style={{ width: '100%' }}>
+    <Flex vertical gap='0' className={styles.mergedColumn} style={{ minWidth: 0, flex: 1 }}>
       <Text className={styles.mergedColumnName} ellipsis={{ tooltip: name }}>
         {name}
       </Text>
@@ -49,12 +41,7 @@ const createNameIdRenderer = (
     const name = nameExtractor(value, record);
     const id = idExtractor(value, record);
     return (
-      <NameIdRenderer
-        name={name}
-        id={id}
-        updatedBy={record.updatedBy}
-        showBadge={showBadge}
-      />
+      <NameIdRenderer name={name} id={id} updatedBy={record.updatedBy} showBadge={showBadge} />
     );
   };
   renderer.displayName = 'NameIdRenderer';

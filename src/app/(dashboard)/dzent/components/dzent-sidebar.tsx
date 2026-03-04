@@ -1,9 +1,6 @@
 import { DzBox } from '@/components/layout/v1';
 import { CSSProperties } from 'react';
-import {
-  DZENT_BG_LIGHT_GRAY,
-  DZENT_BG_WHITE,
-} from '@/lib/constants/color-constants';
+import { DZENT_BG_LIGHT_GRAY, DZENT_BG_WHITE } from '@/lib/constants/color-constants';
 import { useDzentStore } from '../store';
 import { ChatHistoryContainer } from './chat-history';
 import { ChatSummaryContainer } from './chat-summary';
@@ -39,7 +36,8 @@ export const DzentSidebar = () => {
           minHeight: 0,
           display: 'flex',
           flexDirection: 'column',
-        }}>
+        }}
+      >
         <ChatSummaryContainer />
       </DzBox>
       <DzBox
@@ -49,7 +47,8 @@ export const DzentSidebar = () => {
           display: 'flex',
           flexDirection: 'column',
           backgroundColor: DZENT_BG_LIGHT_GRAY,
-        }}>
+        }}
+      >
         <ChatHistoryContainer />
       </DzBox>
     </DzBox>

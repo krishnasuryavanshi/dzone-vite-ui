@@ -51,32 +51,24 @@ export const CustomFieldsDisplay: FC<ICustomFieldsDisplayProps> = ({
           border: '1px solid #e5e7eb',
           borderRadius: '0.5rem',
           paddingBottom: '1rem',
-        }}>
+        }}
+      >
         <Hideable show={customFields && customFields.length > 0}>
           {customFields.map((field) => (
             <CustomFieldCard
               key={field.id}
               field={field}
               onViewAllInclusion={() =>
-                handleViewAll(
-                  `${field.name} - Inclusion Values`,
-                  field.inclusion || '',
-                )
+                handleViewAll(`${field.name} - Inclusion Values`, field.inclusion || '')
               }
               onViewAllExclusion={() =>
-                handleViewAll(
-                  `${field.name} - Suppression Values`,
-                  field.exclusion || '',
-                )
+                handleViewAll(`${field.name} - Suppression Values`, field.exclusion || '')
               }
             />
           ))}
         </Hideable>
         <Hideable show={!!customFieldInstructions}>
-          <Flex
-            vertical
-            gap='0.5rem'
-            style={{ padding: '1rem 0.75rem', paddingBottom: '0' }}>
+          <Flex vertical gap='0.5rem' style={{ padding: '1rem 0.75rem', paddingBottom: '0' }}>
             <Text strong text14>
               Custom Field Instructions
             </Text>
@@ -88,7 +80,8 @@ export const CustomFieldsDisplay: FC<ICustomFieldsDisplayProps> = ({
                   symbol: 'view more',
                   onExpand: () => setIsInstructionsExpanded(true),
                 }}
-                style={{ marginBottom: 0 }}>
+                style={{ marginBottom: 0 }}
+              >
                 {customFieldInstructions}
               </Paragraph>
             </Hideable>
@@ -101,7 +94,8 @@ export const CustomFieldsDisplay: FC<ICustomFieldsDisplayProps> = ({
                     cursor: 'pointer',
                     marginLeft: '0.25rem',
                   }}
-                  onClick={() => setIsInstructionsExpanded(false)}>
+                  onClick={() => setIsInstructionsExpanded(false)}
+                >
                   view less
                 </Text>
               </Paragraph>

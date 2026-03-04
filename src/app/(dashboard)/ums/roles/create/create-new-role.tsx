@@ -18,10 +18,7 @@ import {
   useSelectedPermissionsStore,
 } from '../stores';
 import { ScreenLoader } from '@/components/shared/loader';
-import {
-  createActionsPermissions,
-  getModulePermissionsAccess,
-} from '../lib/utils';
+import { createActionsPermissions, getModulePermissionsAccess } from '../lib/utils';
 import { useTenantTypeStore } from '@/stores/tenant-store';
 import { useRoleDetailQuery } from '../hooks';
 
@@ -48,12 +45,8 @@ export const CreateNewRole: FC<ICreateNewRoleProps> = ({ roleId }) => {
     setOldSelectedPermissions,
     resetOldSelectedStores,
   } = useOldSelectedStore();
-  const {
-    resetSelectedActions,
-    selectedActions,
-    setBulkSelectedActions,
-    getAllSelectedActions,
-  } = useSelectedActionsStore();
+  const { resetSelectedActions, selectedActions, setBulkSelectedActions, getAllSelectedActions } =
+    useSelectedActionsStore();
 
   const { tenantTypes, fetchTenantTypes } = useTenantTypeStore();
 
@@ -63,12 +56,9 @@ export const CreateNewRole: FC<ICreateNewRoleProps> = ({ roleId }) => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [loader, setLoader] = useState<boolean>(false);
-  const [isSaveButtonDisabled, setIsSaveButtonDisabled] =
-    useState<boolean>(true);
-  const [hasFormValueChanged, setHasFormValueChanged] =
-    useState<boolean>(false);
-  const [isPermissionsChanged, setIsPermissionsChanged] =
-    useState<boolean>(false);
+  const [isSaveButtonDisabled, setIsSaveButtonDisabled] = useState<boolean>(true);
+  const [hasFormValueChanged, setHasFormValueChanged] = useState<boolean>(false);
+  const [isPermissionsChanged, setIsPermissionsChanged] = useState<boolean>(false);
 
   useEffect(() => {
     resetStores();
@@ -93,9 +83,7 @@ export const CreateNewRole: FC<ICreateNewRoleProps> = ({ roleId }) => {
   // Sync role details from query into stores
   useEffect(() => {
     if (roleDetails && roleId) {
-      const { actions, permissions } = createActionsPermissions(
-        roleDetails?.moduleAttributes,
-      );
+      const { actions, permissions } = createActionsPermissions(roleDetails?.moduleAttributes);
       setBulkSelectedActions(actions || {});
       setBulkSelectedPermissions(permissions || {});
       setOldSelectedActions(Object.values(actions).flat());
@@ -166,10 +154,7 @@ export const CreateNewRole: FC<ICreateNewRoleProps> = ({ roleId }) => {
 
       const roleObject = {
         ...values,
-        moduleAttributes: getModulePermissionsAccess(
-          selectedActions,
-          selectedPermissions,
-        ),
+        moduleAttributes: getModulePermissionsAccess(selectedActions, selectedPermissions),
       };
 
       const data = roleDetails?.id
@@ -197,10 +182,7 @@ export const CreateNewRole: FC<ICreateNewRoleProps> = ({ roleId }) => {
     setIsPermissionsChanged(permissionsChanged);
   };
 
-  const debouncedCheckIfPermissionsChanged = debounce(
-    checkIfPermissionsChanged,
-    500,
-  );
+  const debouncedCheckIfPermissionsChanged = debounce(checkIfPermissionsChanged, 500);
 
   const debouncedSubmitForm = debounce(submitForm, 500);
 
@@ -256,11 +238,7 @@ export const CreateNewRole: FC<ICreateNewRoleProps> = ({ roleId }) => {
           />
         </DzScrollContainer.Scroll>
       </DzScrollContainer>
-      <DiscardModal
-        show={isOpen}
-        handleDiscard={handleDiscard}
-        handleClose={handleClose}
-      />
+      <DiscardModal show={isOpen} handleDiscard={handleDiscard} handleClose={handleClose} />
     </DzBox>
   );
 };

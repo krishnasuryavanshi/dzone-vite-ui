@@ -1,9 +1,5 @@
 import { IFormConfig } from '@/lib/types';
-import {
-  CampaignField,
-  CampaignFormSection,
-  CampaignStep,
-} from '../../lib/enums';
+import { CampaignField, CampaignFormSection, CampaignStep } from '../../lib/enums';
 import { ICampaign } from '../../lib/types';
 import { CreateCampaignBasicInfo } from './create-campaign-basic-info';
 import { CreateCampaignDelivery } from './create-campaign-delivery';
@@ -17,9 +13,7 @@ export type ICreateCampaignConfig = IFormConfig<
   ICampaign
 >;
 
-export const CreateCampaignConfig = (
-  isDzoneUser?: boolean,
-): ICreateCampaignConfig => ({
+export const CreateCampaignConfig = (isDzoneUser?: boolean): ICreateCampaignConfig => ({
   meta: {
     name: 'createCampaign',
     className: 'create-campaign',

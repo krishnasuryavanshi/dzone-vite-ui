@@ -11,8 +11,7 @@ export const setupUploadFieldInitialState = async (
   field: LineItemFields,
   showSaveAndCloseButtonIfFileChanged: (val: boolean) => void,
 ) => {
-  const fieldMap =
-    LineItemFileUploadMap[field as keyof typeof LineItemFileUploadMap];
+  const fieldMap = LineItemFileUploadMap[field as keyof typeof LineItemFileUploadMap];
   const checkFieldValue = !!form.getFieldValue(fieldMap.checkField);
   const checkFieldType = fieldMap.checkFieldType;
 

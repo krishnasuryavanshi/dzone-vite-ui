@@ -12,11 +12,7 @@ interface IActionsProps {
   isDownloadDisabled: boolean;
 }
 
-export const Actions: FC<IActionsProps> = ({
-  refresh,
-  activeTab,
-  isDownloadDisabled,
-}) => {
+export const Actions: FC<IActionsProps> = ({ refresh, activeTab, isDownloadDisabled }) => {
   const fetchingCount = useIsFetching({ queryKey: ['dashboard'] });
   const loading = fetchingCount > 0;
 

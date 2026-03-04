@@ -32,11 +32,11 @@ export const LeadsHeader: FC<ILeadsHeaderProps> = ({
       style={{
         borderRadius: '0.5rem',
         background: DZONE_CLR_GRAY_4,
-      }}>
+      }}
+    >
       <Flex justify='space-between' align='center' style={{ height: '2.5rem' }}>
         <Title level={5} style={{ marginBottom: 0 }}>
-          <Translate i18nKey='pages.lineItems.label.totalLeads' /> ({totalLeads}
-          )
+          <Translate i18nKey='pages.lineItems.label.totalLeads' /> ({totalLeads})
         </Title>
 
         <LeadsActions

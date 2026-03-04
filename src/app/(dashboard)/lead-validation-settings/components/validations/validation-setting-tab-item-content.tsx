@@ -6,11 +6,8 @@ import { DzBox } from '@/components/layout/v1';
 import { Col, Row } from '@/uicomponents/layout/grid';
 
 export const ValidationSettingTabItemContent = () => {
-  const {
-    getValidationSettingRuleSections,
-    activeRule,
-    leadValidationSettingConfig,
-  } = useValidationSettingStore();
+  const { getValidationSettingRuleSections, activeRule, leadValidationSettingConfig } =
+    useValidationSettingStore();
   const [ruleSections, setRuleSections] = useState<Record<string, any>[]>([]);
 
   useEffect(() => {
@@ -37,7 +34,8 @@ export const ValidationSettingTabItemContent = () => {
       style={{
         maxHeight: 'calc(100vh - 20rem)',
         overflowY: 'auto',
-      }}>
+      }}
+    >
       <Row>
         <Col xl={24} xxl={16}>
           <MapFunction items={ruleSections} renderItem={renderSection} />

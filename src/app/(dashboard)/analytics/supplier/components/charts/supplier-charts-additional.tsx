@@ -7,9 +7,7 @@ interface ISupplierChartsAdditionalProps {
   label: string;
 }
 
-export const ChartsAdditional: FC<ISupplierChartsAdditionalProps> = ({
-  label,
-}) => {
+export const ChartsAdditional: FC<ISupplierChartsAdditionalProps> = ({ label }) => {
   return (
     <Flex gap='0.5rem' align='center'>
       <div

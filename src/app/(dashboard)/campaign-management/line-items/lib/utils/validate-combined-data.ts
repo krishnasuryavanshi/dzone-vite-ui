@@ -7,14 +7,10 @@ export const validateCombinedData = (
   requiredFields: string[],
 ): boolean => {
   if (data.customerSuccessManagerId) {
-    requiredFields = requiredFields.filter(
-      (field) => field !== 'customerSuccessManager',
-    );
+    requiredFields = requiredFields.filter((field) => field !== 'customerSuccessManager');
   }
   if (data.customerSuccessRepId) {
-    requiredFields = requiredFields.filter(
-      (field) => field !== 'customerSuccessRep',
-    );
+    requiredFields = requiredFields.filter((field) => field !== 'customerSuccessRep');
   }
   const errors = validateForm(data, requiredFields);
   if (Object.keys(errors).length > 0) {
@@ -28,10 +24,7 @@ export const validateCombinedData = (
   return true;
 };
 
-const validateForm = (
-  data: Record<string, any>,
-  requiredFields: string[],
-): boolean => {
+const validateForm = (data: Record<string, any>, requiredFields: string[]): boolean => {
   const errors: any = {};
   requiredFields.forEach((requiredField) => {
     if (data[requiredField] === undefined || data[requiredField] === null) {

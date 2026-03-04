@@ -24,7 +24,8 @@ export const ConfirmationFooter: React.FC<IConfirmationFooterProps> = ({
         display: 'flex',
         justifyContent: 'flex-end',
         padding: '1.25rem',
-      }}>
+      }}
+    >
       <Button style={{ marginRight: '0.5rem' }} onClick={onCancel}>
         {cancelLabel}
       </Button>

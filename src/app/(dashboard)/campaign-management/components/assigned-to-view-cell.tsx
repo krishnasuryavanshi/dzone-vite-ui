@@ -8,19 +8,14 @@ interface IAssignedToViewCellProps {
   enableEditMode: () => void;
 }
 
-export const AssignedToViewCell: FC<IAssignedToViewCellProps> = ({
-  value,
-  enableEditMode,
-}) => {
+export const AssignedToViewCell: FC<IAssignedToViewCellProps> = ({ value, enableEditMode }) => {
   const handleEnableEditMode = (e: SyntheticEvent) => {
     e.stopPropagation();
     enableEditMode();
   };
 
   return (
-    <DzBox
-      onDoubleClick={handleEnableEditMode}
-      style={{ minWidth: '100px', minHeight: '30px' }}>
+    <DzBox onDoubleClick={handleEnableEditMode} style={{ minWidth: '100px', minHeight: '30px' }}>
       <CollaboratorName collaborator={value} label='Assigned To' />
     </DzBox>
   );

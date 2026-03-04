@@ -8,9 +8,7 @@ const CreateNewTemplateLink = '/integrations-hub/templates/create';
 
 interface ICreateNewTemplateActionProps {}
 
-export const CreateNewTemplateAction: FC<
-  ICreateNewTemplateActionProps
-> = ({}) => {
+export const CreateNewTemplateAction: FC<ICreateNewTemplateActionProps> = ({}) => {
   return (
     <Link to={CreateNewTemplateLink}>
       <Button
@@ -23,7 +21,8 @@ export const CreateNewTemplateAction: FC<
           border: '1.5px solid transparent',
           height: '2.25rem',
           color: DZONE_CLR_BLACK,
-        }}>
+        }}
+      >
         <Translate i18nKey='pages.templates.label.newTemplate' />
       </Button>
     </Link>

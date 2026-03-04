@@ -10,9 +10,7 @@ function getWindowDimensions() {
 }
 
 export function useWindowDimensions() {
-  const [windowDimensions, setWindowDimensions] = useState(
-    getWindowDimensions()
-  );
+  const [windowDimensions, setWindowDimensions] = useState(getWindowDimensions());
 
   useEffect(() => {
     function handleResize() {
@@ -22,8 +20,7 @@ export function useWindowDimensions() {
     const debouncedGetWindowDimensions = debounce(handleResize, 300);
 
     window.addEventListener('resize', debouncedGetWindowDimensions);
-    return () =>
-      window.removeEventListener('resize', debouncedGetWindowDimensions);
+    return () => window.removeEventListener('resize', debouncedGetWindowDimensions);
   }, []);
 
   return windowDimensions;

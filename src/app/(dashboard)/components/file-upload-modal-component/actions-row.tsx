@@ -26,7 +26,8 @@ export const ActionsRow: FC<IActionsRowProps> = ({
         style={{ border: `1px solid ${DZONE_CLR_BLACK}` }}
         size='small'
         onClick={handleCancel}
-        disabled={isUploading}>
+        disabled={isUploading}
+      >
         <Translate i18nKey='Cancel' />
       </Button>
       <Button
@@ -35,12 +36,9 @@ export const ActionsRow: FC<IActionsRowProps> = ({
         size='small'
         onClick={handleSave}
         className='dz-btn-action-1'
-        loading={isUploading}>
-        <Translate
-          i18nKey={
-            fileTypeSelection === FileTypeSelection.Leads ? 'Save' : 'Upload'
-          }
-        />
+        loading={isUploading}
+      >
+        <Translate i18nKey={fileTypeSelection === FileTypeSelection.Leads ? 'Save' : 'Upload'} />
       </Button>
     </Flex>
   );

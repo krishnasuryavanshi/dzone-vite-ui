@@ -54,14 +54,16 @@ export const TenantSelection = ({ userId }: TenantSelectionProps) => {
           Select Marketer
         </Title>
       }
-      footer={null}>
+      footer={null}
+    >
       <Form form={form} layout='vertical' onFinish={handleStart}>
         <Flex gap={'0.5rem'} vertical style={{ paddingBlock: '1rem' }}>
           <FormItem
             className='input-control form-control-item'
             name='tenantCode'
             label={null}
-            rules={[{ required: true, message: 'This field is required' }]}>
+            rules={[{ required: true, message: 'This field is required' }]}
+          >
             <Select
               style={{ height: '3rem' }}
               placeholder='Select the Marketer'

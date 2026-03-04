@@ -35,7 +35,8 @@ export const ToastWithActionButton: FC<IToastWithActionButtonProps> = ({
             padding: '0.5rem 1rem',
             height: '2.625rem',
           }}
-          onClick={onhandleClick}>
+          onClick={onhandleClick}
+        >
           <Translate i18nKey={buttonText} />
         </Button>
       ) : null}

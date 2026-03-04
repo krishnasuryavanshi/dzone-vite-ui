@@ -10,12 +10,10 @@ interface IOldSelectedState {
 
 export const useOldSelectedStore = create<IOldSelectedState>((set) => ({
   oldSelectedPermissions: [],
-  setOldSelectedPermissions: (permissions) =>
-    set({ oldSelectedPermissions: permissions }),
+  setOldSelectedPermissions: (permissions) => set({ oldSelectedPermissions: permissions }),
 
   oldSelectedActions: [],
   setOldSelectedActions: (actions) => set({ oldSelectedActions: actions }),
 
-  resetOldSelectedStores: () =>
-    set({ oldSelectedPermissions: [], oldSelectedActions: [] }),
+  resetOldSelectedStores: () => set({ oldSelectedPermissions: [], oldSelectedActions: [] }),
 }));

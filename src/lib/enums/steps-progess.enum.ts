@@ -1,4 +1,4 @@
 export enum StepsProgress {
-    Processed = 'processed',
-    Finished = 'finished',
+  Processed = 'processed',
+  Finished = 'finished',
 }

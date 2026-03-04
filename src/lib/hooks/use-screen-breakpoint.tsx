@@ -1,25 +1,25 @@
-import { Grid } from "@/uicomponents/layout/grid";
-import { useEffect, useState } from "react";
+import { Grid } from '@/uicomponents/layout/grid';
+import { useEffect, useState } from 'react';
 
 const { useBreakpoint } = Grid;
 export const useScreenBreakpoint = () => {
-  const [current, setCurrent] = useState("");
+  const [current, setCurrent] = useState('');
   const { xs, sm, md, lg, xl, xxl } = useBreakpoint();
 
   useEffect(() => {
-    let currentSize = "";
+    let currentSize = '';
     if (xxl) {
-      currentSize = "xxl";
+      currentSize = 'xxl';
     } else if (xl) {
-      currentSize = "xl";
+      currentSize = 'xl';
     } else if (lg) {
-      currentSize = "lg";
+      currentSize = 'lg';
     } else if (md) {
-      currentSize = "md";
+      currentSize = 'md';
     } else if (sm) {
-      currentSize = "sm";
+      currentSize = 'sm';
     } else if (xs) {
-      currentSize = "xs";
+      currentSize = 'xs';
     }
 
     if (current !== currentSize) {

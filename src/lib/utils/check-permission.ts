@@ -1,8 +1,6 @@
 export function checkPermission(
   permission: string | string[],
-  permissions:
-    | Record<string, boolean>
-    | Record<string, Record<string, string[]>>,
+  permissions: Record<string, boolean> | Record<string, Record<string, string[]>>,
   checkAllPermissions: boolean = false,
 ) {
   if (!permission) {

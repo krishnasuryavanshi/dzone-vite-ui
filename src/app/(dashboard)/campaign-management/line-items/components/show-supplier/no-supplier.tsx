@@ -13,7 +13,8 @@ export const NoSupplier: FC<INoSupplierProps> = ({ handleEditing }) => {
         e.stopPropagation();
         handleEditing();
       }}
-      className={styles.assignSupplier}>
+      className={styles.assignSupplier}
+    >
       <em>Assign Supplier</em>
     </DzBox>
   );

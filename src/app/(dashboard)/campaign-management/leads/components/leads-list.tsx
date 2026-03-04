@@ -4,18 +4,11 @@ import { createColumn, Filters } from '@/lib/utils/table';
 import { TableRowSelection } from 'antd/es/table/interface';
 import React, { FC, useEffect, useState, useMemo, useTransition } from 'react';
 import { HIDE_LEADS_COLUMNS } from '../lib/constants';
-import {
-  useViewLeadsPermissions,
-  useLeadsColumnDetails,
-  useAllFilterOptions,
-} from '../lib/hooks';
+import { useViewLeadsPermissions, useLeadsColumnDetails, useAllFilterOptions } from '../lib/hooks';
 import { ILead } from '../lib/types';
 import { LeadValidationStatus } from '../lib/enums';
 import { getStatusColor, buildDynamicColumns } from '../lib/utils';
-import {
-  getFilterableColumns,
-  mergeFilterOptions,
-} from '../lib/utils/column-helpers';
+import { getFilterableColumns, mergeFilterOptions } from '../lib/utils/column-helpers';
 import { Flex, Space } from '@/uicomponents/layout';
 import { Tag } from '@/uicomponents/tag';
 import { Spin } from '@/uicomponents';
@@ -50,8 +43,7 @@ export const LeadsList: FC<ILeadsListProps> = ({
   fixedContentHeight = StaticContentHeight,
   highlightCurrentRow = false,
 }) => {
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(fixedContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(fixedContentHeight);
   const [isPending, startTransition] = useTransition();
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]);
 
@@ -59,9 +51,7 @@ export const LeadsList: FC<ILeadsListProps> = ({
   const permissionsResult = useViewLeadsPermissions();
 
   // Fetch dynamic column details
-  const { columnDetails, isLoading: columnsLoading } = useLeadsColumnDetails(
-    lineItemId || '',
-  );
+  const { columnDetails, isLoading: columnsLoading } = useLeadsColumnDetails(lineItemId || '');
 
   // Get list of columns that need filter options
   const filterableFields = useMemo(() => {
@@ -71,8 +61,7 @@ export const LeadsList: FC<ILeadsListProps> = ({
   }, [columnDetails]);
 
   // Fetch filter options for those columns
-  const { optionsMap, isLoading: filtersLoading } =
-    useAllFilterOptions(filterableFields);
+  const { optionsMap, isLoading: filtersLoading } = useAllFilterOptions(filterableFields);
 
   // Merge filter options into columns
   const enhancedColumns = useMemo(() => {
@@ -111,7 +100,8 @@ export const LeadsList: FC<ILeadsListProps> = ({
             height: '100%',
             padding: 0,
             position: 'relative',
-          }}>
+          }}
+        >
           <Tag
             color={color}
             style={{
@@ -133,7 +123,8 @@ export const LeadsList: FC<ILeadsListProps> = ({
               width: '100%',
               paddingLeft: '0.75rem',
               paddingRight: '0.3rem',
-            }}>
+            }}
+          >
             {originNode}
           </Flex>
         </Flex>
@@ -168,9 +159,7 @@ export const LeadsList: FC<ILeadsListProps> = ({
         if (sorter.field && sorter.order) {
           // Convert antd sort order to API sort order
           const sortOrder = sorter.order === 'ascend' ? 'asc' : 'desc';
-          const sortBy = Array.isArray(sorter.field)
-            ? sorter.field.join('.')
-            : sorter.field;
+          const sortBy = Array.isArray(sorter.field) ? sorter.field.join('.') : sorter.field;
           onFiltersChange &&
             onFiltersChange({
               ...data.filters,

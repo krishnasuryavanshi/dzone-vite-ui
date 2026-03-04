@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ExclamationCircleOutlined } from '@/uicomponents/icons';
 import { Title, Button } from '@/uicomponents';
@@ -16,9 +15,7 @@ export const UnauthorizedContainer = () => {
   };
 
   return (
-    <Card
-      bordered={false}
-      style={{ backgroundColor: '#ff5555', margin: '1rem' }}>
+    <Card bordered={false} style={{ backgroundColor: '#ff5555', margin: '1rem' }}>
       <Space direction='vertical'>
         <Title level={5}>
           <ExclamationCircleOutlined /> Unauthorized Access!
@@ -27,10 +24,7 @@ export const UnauthorizedContainer = () => {
           <Button type='link' href='/'>
             Go to home
           </Button>
-          <Button
-            type='link'
-            disabled={logoutInProgress}
-            onClick={handleLogout}>
+          <Button type='link' disabled={logoutInProgress} onClick={handleLogout}>
             Logout
           </Button>
         </Flex>

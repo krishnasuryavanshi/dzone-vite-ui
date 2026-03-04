@@ -8,12 +8,9 @@ export const updateLineItemCollaborators = async (
   lineItemId: string,
 ) => {
   try {
-    const resource = transformPath(
-      ApiResources.UpdateLineItemCollaborators,
-      {
-        lineItemId,
-      },
-    );
+    const resource = transformPath(ApiResources.UpdateLineItemCollaborators, {
+      lineItemId,
+    });
     return authenticatedRequest({
       resource,
       apiHost: ApiHost.CampaignService,

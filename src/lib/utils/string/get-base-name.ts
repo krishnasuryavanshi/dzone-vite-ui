@@ -6,7 +6,7 @@
  */
 
 export function getBaseName(fileName: string): string {
-  const dotIndex = fileName.lastIndexOf(".");
+  const dotIndex = fileName.lastIndexOf('.');
 
   if (dotIndex !== -1 && dotIndex !== 0) {
     return fileName.slice(0, dotIndex); // Extract substring from start to dotIndex

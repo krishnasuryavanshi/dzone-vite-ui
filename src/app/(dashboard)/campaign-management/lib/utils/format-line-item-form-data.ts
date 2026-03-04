@@ -15,8 +15,6 @@ export const formatLineItemFormData = (data: ILineItem) => {
     [LineItemFields.Product]: transformResponseString(data?.product),
     [LineItemFields.DeliveryDays]: transformResponseObject(data?.deliveryDays),
     [LineItemFields.Pacing]: transformResponseString(data?.pacing),
-    [LineItemFields.AssignedTo]: data?.collaborators?.assignedTo?.map(
-      transformCollaboratorsValues,
-    ),
+    [LineItemFields.AssignedTo]: data?.collaborators?.assignedTo?.map(transformCollaboratorsValues),
   };
 };

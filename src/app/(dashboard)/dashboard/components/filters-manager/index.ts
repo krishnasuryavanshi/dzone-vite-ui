@@ -1,1 +1,1 @@
-export * from "./reporting-filters-manager";
+export * from './reporting-filters-manager';

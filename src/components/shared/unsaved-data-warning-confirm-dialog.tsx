@@ -13,9 +13,13 @@ interface IUnsavedDataWarningConfirmDialogProps {
   onCancel: () => void;
 }
 
-export const UnsavedDataWarningConfirmDialog: FC<
-  IUnsavedDataWarningConfirmDialogProps
-> = ({ actions, actionsData, isOpened, onProceed, onCancel }) => {
+export const UnsavedDataWarningConfirmDialog: FC<IUnsavedDataWarningConfirmDialogProps> = ({
+  actions,
+  actionsData,
+  isOpened,
+  onProceed,
+  onCancel,
+}) => {
   const handleAction = async (actionKey: string) => {
     await actions?.[actionKey]?.handler?.(actionKey, actionsData);
     if (actions?.[actionKey]?.navigateAfterCompletion) {
@@ -39,7 +43,8 @@ export const UnsavedDataWarningConfirmDialog: FC<
         onOk={onProceed}
         onCancel={onCancel}
         okText={<Translate i18nKey='unsavedWarningModal.ok' />}
-        cancelText={<Translate i18nKey='unsavedWarningModal.cancel' />}>
+        cancelText={<Translate i18nKey='unsavedWarningModal.cancel' />}
+      >
         <Text>
           <Translate i18nKey='unsavedWarningModal.message' />
         </Text>
@@ -69,13 +74,15 @@ export const UnsavedDataWarningConfirmDialog: FC<
                   key={actionKey}
                   onClick={() => handleAction(actionKey)}
                   type={actions?.[actionKey]?.type}
-                  danger={actions?.[actionKey]?.danger}>
+                  danger={actions?.[actionKey]?.danger}
+                >
                   {actions?.[actionKey]?.label}
                 </Button>
               ))
             : null}
         </>
-      )}>
+      )}
+    >
       <Text>
         <Translate i18nKey="You're exiting in the middle of campaign creation. Would you like to save your progress before leaving?" />
       </Text>

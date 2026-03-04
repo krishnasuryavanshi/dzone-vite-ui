@@ -6,9 +6,7 @@ interface IRadioProps extends PropsWithChildren, RadioProps {}
 
 export const Radio: FC<IRadioProps> = ({ children, onChange, ...rest }) => {
   return (
-    <AntdRadio
-      onChange={onChange}
-      {...rest}>
+    <AntdRadio onChange={onChange} {...rest}>
       {children}
     </AntdRadio>
   );

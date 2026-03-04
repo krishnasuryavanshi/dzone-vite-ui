@@ -9,9 +9,10 @@ interface IFilterDropdownAssignedUserProps {
   assignedToFilterSelectedValue: string;
 }
 
-export const FilterDropdownAssignedUser: FC<
-  IFilterDropdownAssignedUserProps
-> = ({ items, assignedToFilterSelectedValue }) => {
+export const FilterDropdownAssignedUser: FC<IFilterDropdownAssignedUserProps> = ({
+  items,
+  assignedToFilterSelectedValue,
+}) => {
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
 
   useEffect(() => {
@@ -29,7 +30,8 @@ export const FilterDropdownAssignedUser: FC<
       overlayStyle={{
         border: `1px solid ${DZONE_CLR_GRAY_2}`,
         borderRadius: '10px',
-      }}>
+      }}
+    >
       <Button
         icon={<FilterIcon />}
         className='dz-btn-action-1'

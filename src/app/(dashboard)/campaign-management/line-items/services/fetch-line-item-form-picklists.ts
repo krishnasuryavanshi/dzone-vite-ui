@@ -3,9 +3,7 @@ import { ApiHost } from '@/lib/constants';
 import { authenticatedRequest } from '@/services/backend-request';
 import { LineItemPicklistMappings } from '../lib/enums';
 
-export const fetchLineItemFormPicklists = async (
-  category: LineItemPicklistMappings,
-) => {
+export const fetchLineItemFormPicklists = async (category: LineItemPicklistMappings) => {
   try {
     return authenticatedRequest({
       resource: ApiResources.Lookups,

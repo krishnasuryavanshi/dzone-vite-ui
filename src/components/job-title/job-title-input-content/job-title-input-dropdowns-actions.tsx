@@ -7,23 +7,26 @@ interface JobTitleInputDropdownActionsProps {
   clearAll: () => void;
 }
 
-export const JobTitleInputDropdownActions: FC<
-  JobTitleInputDropdownActionsProps
-> = ({ handleCloseDropdown, clearAll }) => {
+export const JobTitleInputDropdownActions: FC<JobTitleInputDropdownActionsProps> = ({
+  handleCloseDropdown,
+  clearAll,
+}) => {
   return (
     <Flex gap={'0.5rem'} style={{ alignSelf: 'flex-end' }}>
       <Button
         type='default'
         size='small'
         style={{ fontSize: '0.75rem' }}
-        onClick={handleCloseDropdown}>
+        onClick={handleCloseDropdown}
+      >
         Close
       </Button>
       <Button
         type='text'
         style={{ color: 'red', fontSize: '0.75rem' }}
         size='small'
-        onClick={clearAll}>
+        onClick={clearAll}
+      >
         Clear All
       </Button>
     </Flex>

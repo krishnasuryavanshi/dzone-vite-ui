@@ -7,11 +7,7 @@ interface IOrderUpArrowProps {
   disabled: boolean;
 }
 
-export const OrderUpArrow: FC<IOrderUpArrowProps> = ({
-  isFirst,
-  handleOrderChange,
-  disabled,
-}) => {
+export const OrderUpArrow: FC<IOrderUpArrowProps> = ({ isFirst, handleOrderChange, disabled }) => {
   const style = {
     cursor: 'pointer',
     fontSize: '0.75rem',

@@ -11,18 +11,12 @@ type DropdownSearchProps = {
   sectionName: string;
 };
 
-export const DropdownSearch = ({
-  attribute,
-  sectionName,
-}: DropdownSearchProps) => {
-  const [options, setOptions] = useState<{ label: string; value: string }[]>(
-    [],
-  );
+export const DropdownSearch = ({ attribute, sectionName }: DropdownSearchProps) => {
+  const [options, setOptions] = useState<{ label: string; value: string }[]>([]);
   const [searchText, setSearchText] = useState('');
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
-  const { selectedValues, setSelectedValues, isReadOnly } =
-    useValidationSettingStore();
+  const { selectedValues, setSelectedValues, isReadOnly } = useValidationSettingStore();
 
   useEffect(() => {
     if (selectedValues?.[sectionName]?.[attribute.name]?.data?.length > 0) {
@@ -37,8 +31,7 @@ export const DropdownSearch = ({
       .filter(
         ({ label }: { label: string }) =>
           !searchText.trim() ||
-          (searchText.trim() &&
-            label.toLowerCase().includes(searchText.trim().toLowerCase())),
+          (searchText.trim() && label.toLowerCase().includes(searchText.trim().toLowerCase())),
       )
       .map(({ label, value }: { label: string; value: string }) => ({
         label,
@@ -101,28 +94,28 @@ export const DropdownSearch = ({
             maxHeight: '15rem',
             overflowY: 'auto',
             marginRight: '-6px',
-          }}>
+          }}
+        >
           {options.length > 0
-            ? options.map(
-                ({ label, value }: { label: string; value: string }) => (
-                  <DzBox
-                    className={`dropdown-option ${selectedOptions.includes(value) ? 'selected' : ''}`}
-                    style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}
-                    key={value}
-                    onClick={() => !isReadOnly && handleOptionSelect(value)}>
-                    <Flex justify='space-between'>
+            ? options.map(({ label, value }: { label: string; value: string }) => (
+                <DzBox
+                  className={`dropdown-option ${selectedOptions.includes(value) ? 'selected' : ''}`}
+                  style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}
+                  key={value}
+                  onClick={() => !isReadOnly && handleOptionSelect(value)}
+                >
+                  <Flex justify='space-between'>
+                    <DzBox>
+                      <Text>{label}</Text>
+                    </DzBox>
+                    {selectedOptions.includes(value) ? (
                       <DzBox>
-                        <Text>{label}</Text>
+                        <CheckOutlined style={{ color: '#2563EB' }} />
                       </DzBox>
-                      {selectedOptions.includes(value) ? (
-                        <DzBox>
-                          <CheckOutlined style={{ color: '#2563EB' }} />
-                        </DzBox>
-                      ) : null}
-                    </Flex>
-                  </DzBox>
-                ),
-              )
+                    ) : null}
+                  </Flex>
+                </DzBox>
+              ))
             : null}
         </DzBox>
       </Flex>

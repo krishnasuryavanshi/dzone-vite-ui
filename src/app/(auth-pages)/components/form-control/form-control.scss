@@ -4,9 +4,7 @@ label.ant-form-item-required {
 
 .ant-form-item
   .ant-form-item-label
-  > label.ant-form-item-required:not(
-    .ant-form-item-required-mark-optional
-  )::before {
+  > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
   position: absolute;
   right: 0;
 }
@@ -22,7 +20,7 @@ label.ant-form-item-required {
     }
   }
 
-  .ant-form-item-explain:has( .ant-form-item-explain-error) {
+  .ant-form-item-explain:has(.ant-form-item-explain-error) {
     margin-bottom: 0.75rem;
   }
 }

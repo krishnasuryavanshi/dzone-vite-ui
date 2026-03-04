@@ -33,17 +33,9 @@ const ListColumns = [
   'columnMetadata',
   'renderer',
 ];
-type RendererType<T> = (
-  value: any,
-  record: T,
-  index: number,
-) => React.ReactNode;
+type RendererType<T> = (value: any, record: T, index: number) => React.ReactNode;
 
-type RendererFunction = (
-  value: any,
-  record: any,
-  index: number,
-) => React.ReactNode;
+type RendererFunction = (value: any, record: any, index: number) => React.ReactNode;
 
 export function useListColumns<T>(
   config: any, //TODO: fix type
@@ -75,9 +67,7 @@ export function useListColumns<T>(
       lineItemNameIdRenderer,
       marketerNameIdRenderer,
     };
-    return rendererKey && renderersMap[rendererKey]
-      ? renderersMap[rendererKey]
-      : undefined;
+    return rendererKey && renderersMap[rendererKey] ? renderersMap[rendererKey] : undefined;
   };
 
   const prepareColumns = () => {
@@ -117,15 +107,12 @@ export function useListColumns<T>(
             specialFields.includes(field.field as any) ? accesses : attributes,
           );
           const isVisible =
-            !options?.hiddenColumns?.includes(field.field) &&
-            field.columnOrder &&
-            hasPermission;
+            !options?.hiddenColumns?.includes(field.field) && field.columnOrder && hasPermission;
           return isVisible || field.field === LineItemFields.SupplierName;
         },
       )
       .sort(
-        (a: { columnOrder: number }, b: { columnOrder: number }) =>
-          a.columnOrder - b.columnOrder,
+        (a: { columnOrder: number }, b: { columnOrder: number }) => a.columnOrder - b.columnOrder,
       )
       .map((field: any) => {
         const col = pick(field, ListColumns);

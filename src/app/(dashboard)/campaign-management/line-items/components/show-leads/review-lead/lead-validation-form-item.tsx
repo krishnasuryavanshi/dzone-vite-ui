@@ -2,14 +2,7 @@ import { Translate } from '@/components/i18n';
 import { DzRecord } from '@/lib/types';
 import { FormItem } from '@/uicomponents';
 import { FC } from 'react';
-import {
-  TextInput,
-  NumberInput,
-  EmailInput,
-  UrlInput,
-  DateInput,
-  DropdownInput,
-} from './inputs';
+import { TextInput, NumberInput, EmailInput, UrlInput, DateInput, DropdownInput } from './inputs';
 import { validateByDataType } from '../../../lib/utils/custom-fields/validation-utils';
 import { formatDate } from '@/lib/utils';
 
@@ -46,18 +39,10 @@ export const LeadValidationFormItem: FC<ILeadValidationFormItemProps> = ({
         return <TextInput {...commonProps} />;
 
       case 'date':
-        return (
-          <DateInput {...commonProps} format={field.format || 'YYYY-MM-DD'} />
-        );
+        return <DateInput {...commonProps} format={field.format || 'YYYY-MM-DD'} />;
 
       case 'dropdown':
-        return (
-          <DropdownInput
-            {...commonProps}
-            className='select-field'
-            options={field.options}
-          />
-        );
+        return <DropdownInput {...commonProps} className='select-field' options={field.options} />;
 
       default:
         return <TextInput {...commonProps} />;
@@ -73,7 +58,8 @@ export const LeadValidationFormItem: FC<ILeadValidationFormItemProps> = ({
         },
       ]}
       label={<Translate i18nKey={field.label} />}
-      className='form-control-item'>
+      className='form-control-item'
+    >
       {renderInput()}
     </FormItem>
   );

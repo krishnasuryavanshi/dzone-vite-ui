@@ -23,37 +23,37 @@ export const getUsersOptions = (records: RecordType) => {
   const keysInData = Object.keys(records);
   const uniqueUserIds = new Set<string>();
 
-keysInData.forEach((key) => {
-  let users: any[] = [];
-  if (Array.isArray(records[key])) {
-    users = (records[key] as UserRecord[]).map((user) => ({
-      label: `${user.firstName} ${user.lastName}`,
-      value: user.id,
-      role: user.role,
-      status: user.status,
-    }));
-  } else {
-    const user = records[key] as UserRecord;
-    users = [
-      {
+  keysInData.forEach((key) => {
+    let users: any[] = [];
+    if (Array.isArray(records[key])) {
+      users = (records[key] as UserRecord[]).map((user) => ({
         label: `${user.firstName} ${user.lastName}`,
         value: user.id,
         role: user.role,
         status: user.status,
-      },
-    ];
-  }
+      }));
+    } else {
+      const user = records[key] as UserRecord;
+      users = [
+        {
+          label: `${user.firstName} ${user.lastName}`,
+          value: user.id,
+          role: user.role,
+          status: user.status,
+        },
+      ];
+    }
 
-  users.forEach((user) => {
-    if (!uniqueUserIds.has(user.value)) {
-      uniqueUserIds.add(user.value);
-      list[OptionsKeys.AssignedTo].push(user);
+    users.forEach((user) => {
+      if (!uniqueUserIds.has(user.value)) {
+        uniqueUserIds.add(user.value);
+        list[OptionsKeys.AssignedTo].push(user);
+      }
+    });
+
+    if (keys.includes(key as OptionsKeys)) {
+      list[key] = users;
     }
   });
-
-  if (keys.includes(key as OptionsKeys)) {
-    list[key] = users;
-  }
-});
   return list;
 };

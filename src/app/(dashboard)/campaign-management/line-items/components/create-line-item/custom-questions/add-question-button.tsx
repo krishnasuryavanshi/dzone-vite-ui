@@ -12,7 +12,8 @@ export const AddQuestionButton: FC<IAddQuestionButtonProps> = ({ add }) => {
       type='primary'
       style={{ marginBottom: '0.5rem', boxShadow: 'none' }}
       onClick={add}
-      icon={<PlusOutlined />}>
+      icon={<PlusOutlined />}
+    >
       Add Question
     </Button>
   );

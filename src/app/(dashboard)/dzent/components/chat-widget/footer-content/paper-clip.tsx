@@ -72,7 +72,8 @@ export const PaperClip = ({
       <DzBox
         style={{
           cursor: disabled ? 'not-allowed' : 'pointer',
-        }}>
+        }}
+      >
         <PaperClipOutlined
           style={{
             color: DZENT_ICON_PURPLE,

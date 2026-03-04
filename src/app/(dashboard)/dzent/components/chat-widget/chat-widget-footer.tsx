@@ -3,13 +3,7 @@ import { DZENT_BORDER_MEDIUM } from '@/lib/constants';
 import { Flex } from '@/uicomponents/layout';
 import { Row, Col } from '@/uicomponents/layout/grid';
 import { ChatWidgetInitialActions } from './chat-widget-initial-actions';
-import {
-  AttachmentGrid,
-  MicButton,
-  PaperClip,
-  SendButton,
-  UserInput,
-} from './footer-content';
+import { AttachmentGrid, MicButton, PaperClip, SendButton, UserInput } from './footer-content';
 import { useDzentStore } from '../../store';
 import { useEffect, useState } from 'react';
 import { DzRecord } from '@/lib/types';
@@ -84,9 +78,7 @@ export const ChatWidgetFooter = () => {
   }, [userPrefilledMessage]);
 
   const handleRemoveAttachment = (attachmentId: string) => {
-    setAttachments((prev) =>
-      prev.filter((attachment) => attachment.id !== attachmentId),
-    );
+    setAttachments((prev) => prev.filter((attachment) => attachment.id !== attachmentId));
   };
 
   const handleAddAttachments = (newAttachments: DzRecord[]) => {
@@ -135,18 +127,18 @@ export const ChatWidgetFooter = () => {
                 borderRadius: '1.5rem',
                 border: `1px solid ${DZENT_BORDER_MEDIUM}`,
                 minHeight: '3rem',
-              }}>
+              }}
+            >
               <Flex
                 className='input-row'
                 gap={'1rem'}
                 style={{ width: '100%', padding: '0.75rem 1rem' }}
-                align='center'>
+                align='center'
+              >
                 <PaperClip
                   disabled={footerActionDisabledStatus.paperClip}
                   onAddAttachments={handleAddAttachments}
-                  handleFileUploadInProgress={(flag: boolean) =>
-                    setIsFileUploadInProgress(flag)
-                  }
+                  handleFileUploadInProgress={(flag: boolean) => setIsFileUploadInProgress(flag)}
                 />
                 <UserInput
                   disabled={footerActionDisabledStatus.userInput}
@@ -163,10 +155,7 @@ export const ChatWidgetFooter = () => {
                   handleSend={handleSendMessage}
                 />
               </Flex>
-              <AttachmentGrid
-                attachments={attachments}
-                handleRemoveFile={handleRemoveAttachment}
-              />
+              <AttachmentGrid attachments={attachments} handleRemoveFile={handleRemoveAttachment} />
             </Flex>
           </Flex>
         </Col>

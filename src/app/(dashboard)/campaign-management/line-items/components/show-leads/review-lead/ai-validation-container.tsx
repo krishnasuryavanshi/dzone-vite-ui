@@ -13,14 +13,16 @@ export const AIValidationContainer: FC<IAiValidationContainerProps> = ({}) => {
       style={{
         borderRadius: '8px',
         border: '2px solid #3D71FB',
-      }}>
+      }}
+    >
       <Flex
         align='center'
         style={{
           borderRadius: '8px',
           margin: '0.5rem',
           border: '2px solid #3D71FB',
-        }}>
+        }}
+      >
         <Text strong style={{ color: '#3D71FB' }}>
           DZ One AI Copilot
         </Text>

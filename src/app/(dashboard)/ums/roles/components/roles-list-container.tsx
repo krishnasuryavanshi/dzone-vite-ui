@@ -12,11 +12,7 @@ export const RolesListContainer = () => {
   const [pageSize, setPageSize] = useState<number>(25);
 
   const hasValidPagination = currentPage > 0 && pageSize > 0;
-  const { data, isLoading } = useRolesListQuery(
-    currentPage - 1,
-    pageSize,
-    hasValidPagination,
-  );
+  const { data, isLoading } = useRolesListQuery(currentPage - 1, pageSize, hasValidPagination);
 
   const updateStatusMutation = useUpdateRoleStatusMutation();
 
@@ -44,9 +40,7 @@ export const RolesListContainer = () => {
   return (
     <TableWithPaginationLayout
       header={<RoleHeader />}
-      table={
-        <RolesList allRoles={allRoles} updateRolesStatus={updateRolesStatus} />
-      }
+      table={<RolesList allRoles={allRoles} updateRolesStatus={updateRolesStatus} />}
       pagination={
         <Hideable show={totalRecords > 0}>
           <SimplePagination

@@ -5,10 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useCampaignFilterOptionsQuery } from '../../hooks/use-campaign-filter-options-query';
 import { CampaignField } from '../enums';
 
-export function useCampaignFilterOptions(
-  hasFilters?: boolean,
-  assignedTo?: string,
-) {
+export function useCampaignFilterOptions(hasFilters?: boolean, assignedTo?: string) {
   const [options, setOptions] = useState({
     isReady: false,
     dynamicFilters: {},
@@ -17,9 +14,7 @@ export function useCampaignFilterOptions(
 
   const [userId, setUserId] = useState<string | null>(null);
 
-  const { data: filterOptionsData } = useCampaignFilterOptionsQuery(
-    hasFilters === true,
-  );
+  const { data: filterOptionsData } = useCampaignFilterOptionsQuery(hasFilters === true);
 
   const isIONumberColumnHidden = useRestrictedAccess(
     RestrictedAccessKeys.IONumberColumnInCampaignList,
@@ -69,9 +64,9 @@ export function useCampaignFilterOptions(
 
   useEffect(() => {
     if (userId) {
-      const currentUser = dynamicFilters?.[
-        CampaignField.AssignedTo
-      ]?.filters?.find((user: any) => user.value === userId);
+      const currentUser = dynamicFilters?.[CampaignField.AssignedTo]?.filters?.find(
+        (user: any) => user.value === userId,
+      );
       setOptions((prev) => ({
         ...prev,
         isReady: !!filterOptionsData || hasFilters === false,

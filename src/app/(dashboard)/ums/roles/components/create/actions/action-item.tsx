@@ -9,10 +9,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@/lib/query';
 import { IAction, IGroupPermissions, IPermission } from '../../../lib/types';
 import { MessageDetails } from '../../../lib/utils';
-import {
-  getActionsEnumKey,
-  getModuleEnumKey,
-} from '../../../lib/utils/enum-mapper';
+import { getActionsEnumKey, getModuleEnumKey } from '../../../lib/utils/enum-mapper';
 import HighlightedText from '../../../lib/utils/highlighted-text';
 import {
   useDependanciesStore,
@@ -33,10 +30,8 @@ interface IActionItemProps {
 export const ActionItem = ({ action, isLast }: IActionItemProps) => {
   const { isEditing, isEditAllowed } = useEditStore();
   const { selectedModule, selectedModuleId } = useModulesStore();
-  const { setSelectedAction, removeSelectedAction, selectedActions } =
-    useSelectedActionsStore();
-  const { setSelectedPermissions, selectedPermissions } =
-    useSelectedPermissionsStore();
+  const { setSelectedAction, removeSelectedAction, selectedActions } = useSelectedActionsStore();
+  const { setSelectedPermissions, selectedPermissions } = useSelectedPermissionsStore();
   const { allPermissions, setPermissions } = usePermissionsStore();
   const { dependantActions } = useDependanciesStore();
   const queryClient = useQueryClient();
@@ -48,9 +43,7 @@ export const ActionItem = ({ action, isLast }: IActionItemProps) => {
   const [openDrawer, setOpenDrawer] = useState(false);
 
   useEffect(() => {
-    if (
-      (selectedActions[selectedModuleId as string] || []).includes(action.id)
-    ) {
+    if ((selectedActions[selectedModuleId as string] || []).includes(action.id)) {
       setIsChecked(true);
     } else {
       setIsChecked(false);
@@ -69,10 +62,8 @@ export const ActionItem = ({ action, isLast }: IActionItemProps) => {
   const checkIfParentActionsChecked = () => {
     const parentActionId = action.dependsOnAction;
     if (parentActionId) {
-      const enabledActionsOfCurrentModule =
-        selectedActions[selectedModuleId as string] || [];
-      const isParentActionEnabled =
-        enabledActionsOfCurrentModule.includes(parentActionId);
+      const enabledActionsOfCurrentModule = selectedActions[selectedModuleId as string] || [];
+      const isParentActionEnabled = enabledActionsOfCurrentModule.includes(parentActionId);
 
       setIsParentActionsChecked(isParentActionEnabled);
     } else {
@@ -128,11 +119,7 @@ export const ActionItem = ({ action, isLast }: IActionItemProps) => {
           group.attributes
             .filter((perm: IPermission) => {
               if (perm.actionsMapping?.parentAction) {
-                if (
-                  selectedPermissions[
-                    perm.actionsMapping?.parentAction
-                  ]?.includes(perm.id)
-                ) {
+                if (selectedPermissions[perm.actionsMapping?.parentAction]?.includes(perm.id)) {
                   return true;
                 } else {
                   return false;
@@ -176,9 +163,7 @@ export const ActionItem = ({ action, isLast }: IActionItemProps) => {
                 className={`action-item-switch ${isChecked ? 'checked' : ''}`}
                 checked={isChecked}
                 onChange={onCheckedChange}
-                disabled={
-                  (!isEditAllowed && isEditing) || !isParentActionsChecked
-                }
+                disabled={(!isEditAllowed && isEditing) || !isParentActionsChecked}
               />
             )}
             <HighlightedText text={message?.actionText || 'Default Action'} />
@@ -187,7 +172,8 @@ export const ActionItem = ({ action, isLast }: IActionItemProps) => {
             <Link
               disabled={!isChecked}
               style={{ textDecoration: isChecked ? 'underline' : 'none' }}
-              onClick={() => setOpenDrawer(true)}>
+              onClick={() => setOpenDrawer(true)}
+            >
               <Translate i18nKey='Customize' />
             </Link>
           ) : null}
@@ -202,11 +188,7 @@ export const ActionItem = ({ action, isLast }: IActionItemProps) => {
           />
         )}
       </Flex>
-      <PermissionsDrawer
-        open={openDrawer}
-        onClose={closeDrawer}
-        actionId={action.id}
-      />
+      <PermissionsDrawer open={openDrawer} onClose={closeDrawer} actionId={action.id} />
     </>
   );
 };

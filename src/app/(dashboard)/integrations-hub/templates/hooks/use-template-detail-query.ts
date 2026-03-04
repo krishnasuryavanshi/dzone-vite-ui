@@ -2,10 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/lib/query';
 import { fetchTemplateDetails } from '../services';
 
-export function useTemplateDetailQuery(
-  templateId: string,
-  enabled = true,
-) {
+export function useTemplateDetailQuery(templateId: string, enabled = true) {
   return useQuery({
     queryKey: queryKeys.templates.detail(templateId),
     queryFn: async () => {

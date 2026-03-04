@@ -37,8 +37,7 @@ export const CampaignList: FC<Props> = ({
     filterInfo,
     options,
   );
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
 
   const handleRowClick = (record: ICampaign) => {
     const showCampaignLink = generateCampaignLinks(record);

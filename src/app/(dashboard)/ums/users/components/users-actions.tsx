@@ -27,8 +27,7 @@ export const UsersActions: FC<IUserActionsProps> = ({
   toggleStatus,
 }) => {
   const status = record.status;
-  const statusLabel =
-    status === 'Deactivated' ? 'Activate User' : 'Deactivate User';
+  const statusLabel = status === 'Deactivated' ? 'Activate User' : 'Deactivate User';
   const isUpdateAllowed = usePermissionCheck(UserActionsEnum.Update);
   const isEditAllowed = usePermissionCheck(UserActionsEnum.Edit);
 
@@ -42,7 +41,8 @@ export const UsersActions: FC<IUserActionsProps> = ({
             onClick={(e) => {
               e.stopPropagation();
               toggleStatus(record);
-            }}>
+            }}
+          >
             <Translate i18nKey={statusLabel} />
           </Link>
         ),
@@ -55,7 +55,8 @@ export const UsersActions: FC<IUserActionsProps> = ({
             onClick={(e) => {
               e.stopPropagation();
               resendSetPasswordLink(record);
-            }}>
+            }}
+          >
             <Translate i18nKey='Send password reset link' />
           </Link>
         ),
@@ -67,16 +68,15 @@ export const UsersActions: FC<IUserActionsProps> = ({
             to={`/ums/users/${record.id}`}
             onClick={(e) => {
               e.stopPropagation();
-            }}>
+            }}
+          >
             <Translate i18nKey='Edit Details' />
           </Link>
         ),
       },
     ].filter(Boolean) as MenuProps['items'];
     return items?.filter((item) => {
-      return ActionMap[status as keyof typeof ActionMap].includes(
-        item?.key as string,
-      );
+      return ActionMap[status as keyof typeof ActionMap].includes(item?.key as string);
     });
   };
 
@@ -84,7 +84,8 @@ export const UsersActions: FC<IUserActionsProps> = ({
     <Dropdown
       menu={{ items: getDropdownMenus() }}
       placement='bottomLeft'
-      disabled={!record.editable}>
+      disabled={!record.editable}
+    >
       <Button
         onClick={(e) => e.stopPropagation()}
         icon={<ThreeDotsActionsIcon />}

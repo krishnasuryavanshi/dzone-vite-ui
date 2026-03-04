@@ -33,26 +33,19 @@ export const CloneLineItemModal: FC<ICloneLineItemContainerProps> = ({
   const { setQueryState } = useQueryState();
   const cloneMutation = useCloneLineItemMutation();
 
-  const { data: campaignsData } = useCampaignsByMarketerQuery(
-    marketerCode,
-    openModal,
-  );
+  const { data: campaignsData } = useCampaignsByMarketerQuery(marketerCode, openModal);
 
   const activeCampaignList: IActiveCampaignList[] = useMemo(
     () => campaignsData ?? [],
     [campaignsData],
   );
 
-  const [selectedActiveCampaign, setSelectedActiveCampaign] = useState<string>(
-    '',
-  );
+  const [selectedActiveCampaign, setSelectedActiveCampaign] = useState<string>('');
 
   // Auto-select campaign when list loads
   useMemo(() => {
     if (activeCampaignList.length > 0) {
-      const selectedCampaign = activeCampaignList.find(
-        (campaign) => campaign.id === campaignId,
-      );
+      const selectedCampaign = activeCampaignList.find((campaign) => campaign.id === campaignId);
       setSelectedActiveCampaign(selectedCampaign?.id || '');
     }
   }, [campaignId, activeCampaignList]);
@@ -77,10 +70,7 @@ export const CloneLineItemModal: FC<ICloneLineItemContainerProps> = ({
         onSuccess: (data) => {
           if (data?.data) {
             closeModal();
-            if (
-              pathname !== LINE_ITEM_SOURCE &&
-              selectedActiveCampaign !== campaignId
-            ) {
+            if (pathname !== LINE_ITEM_SOURCE && selectedActiveCampaign !== campaignId) {
               router.replace(LINE_ITEM_SOURCE);
             } else if (isEditing) {
               router.replace(editLineItemLink);
@@ -108,7 +98,8 @@ export const CloneLineItemModal: FC<ICloneLineItemContainerProps> = ({
         />
       }
       destroyOnClose
-      maskClosable={false}>
+      maskClosable={false}
+    >
       <ModalBody
         activeCampaignList={activeCampaignList}
         selectedActiveCampaign={selectedActiveCampaign!}

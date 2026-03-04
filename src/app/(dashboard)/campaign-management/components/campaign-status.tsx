@@ -34,15 +34,14 @@ const Status = ({
 
   return (
     <Flex align='center' style={styles} gap={'0.5rem'}>
-      <span style={{ ...iconStyles, color: currentStatus.color }}>
-        {currentStatus.icon}
-      </span>
+      <span style={{ ...iconStyles, color: currentStatus.color }}>{currentStatus.icon}</span>
       <Text
         style={{
           fontWeight: 400,
           color: currentStatus.color,
         }}
-        text14>
+        text14
+      >
         {value}
       </Text>
     </Flex>
@@ -55,13 +54,7 @@ interface ICampaignStatusProps {
 
 export const CampaignStatus: React.FC<ICampaignStatusProps> = ({ status }) => {
   if (status?.name === 'LIVE') {
-    return (
-      <Status
-        name={status?.name}
-        value={status?.value}
-        iconStyles={{ height: '1.25rem' }}
-      />
-    );
+    return <Status name={status?.name} value={status?.value} iconStyles={{ height: '1.25rem' }} />;
   }
   return <Status name={status?.name} value={status?.value} />;
 };

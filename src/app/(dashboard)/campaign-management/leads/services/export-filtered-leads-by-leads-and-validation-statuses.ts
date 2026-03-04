@@ -9,10 +9,9 @@ export const exportLeadsFilteredByLeadAndValidationStatuses = async (
   filters: Record<string, any>[] = [],
 ) => {
   try {
-    const resource = transformPath(
-      ApiResources.ExportFilteredLeadsByStatusAndValidationStatuses,
-      { lineItemId },
-    );
+    const resource = transformPath(ApiResources.ExportFilteredLeadsByStatusAndValidationStatuses, {
+      lineItemId,
+    });
     const response = await authenticatedRequest({
       resource,
       apiHost: ApiHost.FileService,

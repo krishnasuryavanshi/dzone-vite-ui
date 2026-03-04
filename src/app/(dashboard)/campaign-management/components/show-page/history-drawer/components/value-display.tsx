@@ -41,20 +41,14 @@ export const ValueDisplay: FC<ValueDisplayProps> = ({
       return val ? 'Yes' : 'No';
     }
 
-    if (
-      isValidationSetting &&
-      typeof val === 'string' &&
-      validationSettingMap[val]
-    ) {
+    if (isValidationSetting && typeof val === 'string' && validationSettingMap[val]) {
       return validationSettingMap[val];
     }
 
     if (typeof val === 'object' && val !== null) {
       if (Array.isArray(val)) {
         const joinedValue = val
-          .map((item) =>
-            item === null || item === undefined ? '—' : String(item),
-          )
+          .map((item) => (item === null || item === undefined ? '—' : String(item)))
           .join(', ');
         return shouldTruncate ? truncateWithEllipsis(joinedValue) : joinedValue;
       }
@@ -62,9 +56,7 @@ export const ValueDisplay: FC<ValueDisplayProps> = ({
       if (isJobTitle && 'value' in val && !('isInclusion' in val)) {
         if (Array.isArray(val.value)) {
           const joinedValue = val.value.join(', ');
-          return shouldTruncate
-            ? truncateWithEllipsis(joinedValue)
-            : joinedValue;
+          return shouldTruncate ? truncateWithEllipsis(joinedValue) : joinedValue;
         }
         const stringValue = String(val.value);
         return shouldTruncate ? truncateWithEllipsis(stringValue) : stringValue;
@@ -77,9 +69,7 @@ export const ValueDisplay: FC<ValueDisplayProps> = ({
       if ('value' in val && 'isInclusion' in val && !showInclusionLabel) {
         if (Array.isArray(val.value)) {
           const joinedValue = val.value.join(', ');
-          return shouldTruncate
-            ? truncateWithEllipsis(joinedValue)
-            : joinedValue;
+          return shouldTruncate ? truncateWithEllipsis(joinedValue) : joinedValue;
         }
         const stringValue = String(val.value);
         return shouldTruncate ? truncateWithEllipsis(stringValue) : stringValue;
@@ -101,9 +91,7 @@ export const ValueDisplay: FC<ValueDisplayProps> = ({
     return shouldTruncate ? truncateWithEllipsis(stringValue) : stringValue;
   };
 
-  const fullValue = isStatus
-    ? formatStatusField(value)
-    : formatValue(value, false);
+  const fullValue = isStatus ? formatStatusField(value) : formatValue(value, false);
   const displayValue = isStatus
     ? truncateWithEllipsis(formatStatusField(value))
     : formatValue(value, true);

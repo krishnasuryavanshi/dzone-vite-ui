@@ -6,9 +6,7 @@ interface LineItemContextStore {
   lineItem: ILineItem;
   isLoading: boolean;
   setValue: (
-    updater:
-      | Record<string, string>
-      | ((prev: Record<string, string>) => Record<string, string>),
+    updater: Record<string, string> | ((prev: Record<string, string>) => Record<string, string>),
   ) => void;
   setLineItem: (lineItem: ILineItem) => void;
   showLoader: (loading: boolean) => void;
@@ -21,15 +19,13 @@ const initialState = {
   isLoading: false,
 };
 
-export const useLineItemContextStore = create<LineItemContextStore>(
-  (set) => ({
-    ...initialState,
-    setValue: (updater) =>
-      set((s) => ({
-        value: typeof updater === 'function' ? updater(s.value) : updater,
-      })),
-    setLineItem: (lineItem) => set({ lineItem }),
-    showLoader: (loading) => set({ isLoading: loading }),
-    reset: () => set(initialState),
-  }),
-);
+export const useLineItemContextStore = create<LineItemContextStore>((set) => ({
+  ...initialState,
+  setValue: (updater) =>
+    set((s) => ({
+      value: typeof updater === 'function' ? updater(s.value) : updater,
+    })),
+  setLineItem: (lineItem) => set({ lineItem }),
+  showLoader: (loading) => set({ isLoading: loading }),
+  reset: () => set(initialState),
+}));

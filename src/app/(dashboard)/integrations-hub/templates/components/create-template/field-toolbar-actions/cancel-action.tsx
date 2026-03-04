@@ -18,10 +18,7 @@ export const CancelAction: FC<ICancelProps> = ({ onCancel }) => {
   };
 
   return (
-    <Button
-      size='small'
-      onClick={handleCancel}
-      style={{ border: '1px solid #ccc' }}>
+    <Button size='small' onClick={handleCancel} style={{ border: '1px solid #ccc' }}>
       <Translate i18nKey='pages.templates.label.cancel' />
     </Button>
   );
@@ -29,11 +26,7 @@ export const CancelAction: FC<ICancelProps> = ({ onCancel }) => {
 
 // HOC for Cancel Button
 const withDrawerCloseHandler = (CancelActionButton: FC<ICancelProps>) => {
-  return function DraweCancelAction({
-    closeFieldDrawer,
-  }: {
-    closeFieldDrawer: () => void;
-  }) {
+  return function DraweCancelAction({ closeFieldDrawer }: { closeFieldDrawer: () => void }) {
     const handleCancel = () => {
       closeFieldDrawer();
     };

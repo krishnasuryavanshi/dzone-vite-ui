@@ -26,24 +26,19 @@ export const CreateNewLineItem: FC<ICreateNewLineItemProps> = ({
 }) => {
   const { queryState } = useUpdateQueryState();
   const queryClient = useQueryClient();
-  const [localLineItemId, setLocalLineItemId] = useState<string | undefined>(
-    lineItemId,
-  );
+  const [localLineItemId, setLocalLineItemId] = useState<string | undefined>(lineItemId);
 
-  const { data: campaignResponse } = useCampaignDetailQuery(
-    queryState?.campaignId ?? '',
-  );
+  const { data: campaignResponse } = useCampaignDetailQuery(queryState?.campaignId ?? '');
   const campaignData = (campaignResponse?.data as ICampaign) ?? ({} as ICampaign);
 
-  const {
-    data: lineItemResponse,
-    isFetching: lineItemFetching,
-  } = useLineItemDetailQuery(localLineItemId ?? '');
+  const { data: lineItemResponse, isFetching: lineItemFetching } = useLineItemDetailQuery(
+    localLineItemId ?? '',
+  );
 
   // Use provided lineItemDetails as initial, then switch to query data once available
   const fetchedLineItemDetails = localLineItemId
-    ? lineItemResponse?.data ?? lineItemDetails ?? {}
-    : lineItemDetails ?? {};
+    ? (lineItemResponse?.data ?? lineItemDetails ?? {})
+    : (lineItemDetails ?? {});
 
   const loading = localLineItemId ? lineItemFetching && !lineItemResponse : false;
 

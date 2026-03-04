@@ -11,16 +11,13 @@ interface ISupplierChartCardProps extends PropsWithChildren {
   extra?: ReactNode;
 }
 
-export const ChartCard: FC<ISupplierChartCardProps> = ({
-  title,
-  extra,
-  children,
-}) => {
+export const ChartCard: FC<ISupplierChartCardProps> = ({ title, extra, children }) => {
   return (
     <Card
       className='dz-one-chart-card supplier-chart-container'
       title={<Translate i18nKey={title} />}
-      extra={extra}>
+      extra={extra}
+    >
       <DzBox>
         <Flex align='center' justify='center'>
           <DzBox style={{ height: '16.5rem', width: '100%' }}>{children}</DzBox>

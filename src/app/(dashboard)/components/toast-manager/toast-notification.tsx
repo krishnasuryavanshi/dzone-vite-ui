@@ -1,11 +1,7 @@
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents';
 import React, { FC, PropsWithChildren } from 'react';
-import {
-  CheckCircleOutlined,
-  CloseOutlined,
-  WarningOutlined,
-} from '@/uicomponents/icons';
+import { CheckCircleOutlined, CloseOutlined, WarningOutlined } from '@/uicomponents/icons';
 import './toast-notification.scss';
 
 interface IToastNotificationProps extends PropsWithChildren {

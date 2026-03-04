@@ -27,17 +27,10 @@ export const DateRangeDropdown: FC<IDateRangeDropdownProps> = ({
     { label: 'Last 30 Days', value: [dayjs().subtract(29, 'day'), dayjs()] },
   ];
   const [range, setRange] = useState<any>(ranges[2].value);
-  const filterValues = useFilterDashboardStore(
-    (state: FilterState) => state.filterValues,
-  );
-  const setFilterValues = useFilterDashboardStore(
-    (state: FilterState) => state.setFilterValues,
-  );
+  const filterValues = useFilterDashboardStore((state: FilterState) => state.filterValues);
+  const setFilterValues = useFilterDashboardStore((state: FilterState) => state.setFilterValues);
 
-  const onRangeChange = (
-    dates: null | (Dayjs | null)[],
-    dateStrings: string[],
-  ) => {
+  const onRangeChange = (dates: null | (Dayjs | null)[], dateStrings: string[]) => {
     if (dates) {
       const fromDate = dateStrings[0];
       const toDate = dateStrings[1];

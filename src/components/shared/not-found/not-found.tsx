@@ -7,11 +7,11 @@ export const NotFound = () => {
 
   return (
     <Result
-      status="404"
-      title="Page Not Found"
+      status='404'
+      title='Page Not Found'
       subTitle="The page you're looking for doesn't exist."
       extra={
-        <Button type="primary" onClick={() => navigate('/')}>
+        <Button type='primary' onClick={() => navigate('/')}>
           Go Home
         </Button>
       }

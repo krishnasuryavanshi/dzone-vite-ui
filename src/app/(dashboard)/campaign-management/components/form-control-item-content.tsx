@@ -20,8 +20,9 @@ export const FormControlItemContent: FC<IFormControlItemContentProps> = ({
   colLayout,
   entityId,
 }) => {
-  const { createPermissionKey, editPermissionKey, viewPermissionKey } =
-    useFieldPermissions(item.permissions);
+  const { createPermissionKey, editPermissionKey, viewPermissionKey } = useFieldPermissions(
+    item.permissions,
+  );
 
   const field = prepareField(
     item,

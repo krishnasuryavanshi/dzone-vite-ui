@@ -6,9 +6,7 @@ import React, { FC } from 'react';
 
 interface ICreateNewOrganizationActionProps {}
 
-export const CreateNewOrganizationAction: FC<
-  ICreateNewOrganizationActionProps
-> = ({}) => {
+export const CreateNewOrganizationAction: FC<ICreateNewOrganizationActionProps> = ({}) => {
   return (
     <Link to='/organizations/create'>
       <Button
@@ -21,7 +19,8 @@ export const CreateNewOrganizationAction: FC<
           border: '1.5px solid transparent',
           color: CLR_BLACK,
           height: '2.25rem',
-        }}>
+        }}
+      >
         <Translate i18nKey='Create New' />
       </Button>
     </Link>

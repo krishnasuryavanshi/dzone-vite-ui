@@ -1,4 +1,3 @@
-
 import { FC, useState, useCallback, useMemo, useTransition } from 'react';
 import { Table } from '@/uicomponents/table';
 import { Text } from '@/uicomponents/text';
@@ -18,18 +17,12 @@ interface ISummaryGridProps {
 
 const StaticContentHeight = 330;
 
-export const SummaryGrid: FC<ISummaryGridProps> = ({
-  gridData,
-  pacingType,
-  showDelivered,
-}) => {
-  const { sortOrder, statusFilter, setSortOrder, setStatusFilter } =
-    usePacingSummaryStore();
+export const SummaryGrid: FC<ISummaryGridProps> = ({ gridData, pacingType, showDelivered }) => {
+  const { sortOrder, statusFilter, setSortOrder, setStatusFilter } = usePacingSummaryStore();
 
   const [isPending, startTransition] = useTransition();
   const [expandedRowKeys, setExpandedRowKeys] = useState<string[]>([]);
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
 
   const handleSort = useCallback(() => {
     let newOrder: 'ASC' | 'DESC' | null = 'ASC';
@@ -110,28 +103,14 @@ export const SummaryGrid: FC<ISummaryGridProps> = ({
     return firstItem ? Object.keys(firstItem) : [];
   }, [gridData, isDaily]);
 
-  const columns = generateColumnsFromData(
-    dataKeys,
-    pacingType,
-    sortHandlers,
-    showDelivered,
-  );
+  const columns = generateColumnsFromData(dataKeys, pacingType, sortHandlers, showDelivered);
 
   if (!isDaily) {
-    const viewDetailsCol = columns.find(
-      (col: any) => col.key === 'viewDetails',
-    );
+    const viewDetailsCol = columns.find((col: any) => col.key === 'viewDetails');
     if (viewDetailsCol) {
-      viewDetailsCol.render = (
-        _: any,
-        record: IPacingSummaryRow & { key: string },
-      ) => (
-        <Text
-          className={styles.expandToggle}
-          onClick={() => handleExpandToggle(record.key)}>
-          {expandedRowKeys.includes(record.key)
-            ? 'Hide Details'
-            : 'View Details'}
+      viewDetailsCol.render = (_: any, record: IPacingSummaryRow & { key: string }) => (
+        <Text className={styles.expandToggle} onClick={() => handleExpandToggle(record.key)}>
+          {expandedRowKeys.includes(record.key) ? 'Hide Details' : 'View Details'}
         </Text>
       );
     }

@@ -1,4 +1,3 @@
-
 import { Title } from '@/uicomponents';
 import React, { FC, PropsWithChildren } from 'react';
 
@@ -11,7 +10,8 @@ export const FormTitle: FC<PropsWithChildren> = ({ children }) => {
         fontWeight: 500,
         textAlign: 'center',
         marginBottom: '0.5rem',
-      }}>
+      }}
+    >
       {children}
     </Title>
   );

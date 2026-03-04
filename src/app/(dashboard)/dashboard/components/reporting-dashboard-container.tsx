@@ -9,9 +9,7 @@ import { ReportType } from '../lib/enums';
 
 interface IReportingDashboardContainerProps {}
 
-export const ReportingDashboardContainer: FC<
-  IReportingDashboardContainerProps
-> = ({}) => {
+export const ReportingDashboardContainer: FC<IReportingDashboardContainerProps> = ({}) => {
   const { updateFilters, resetFilters } = useDashboardReportStore();
 
   const { queryState, setQueryState } = useQueryState();
@@ -27,9 +25,7 @@ export const ReportingDashboardContainer: FC<
     resetFilters();
     setQueryState([{ name: 'report', value: key }]);
   };
-  const handleSubmit = (
-    filterData: IFilterDataPayload | IExecutiveFilterDataPayload,
-  ) => {
+  const handleSubmit = (filterData: IFilterDataPayload | IExecutiveFilterDataPayload) => {
     updateFilters(filterData);
   };
 

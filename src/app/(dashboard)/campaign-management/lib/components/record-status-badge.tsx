@@ -27,9 +27,7 @@ export const getRecordStatus = (updatedBy?: string | null): RecordStatus => {
   return 'updated';
 };
 
-export const RecordStatusBadge: FC<RecordStatusBadgeProps> = ({
-  updatedBy,
-}) => {
+export const RecordStatusBadge: FC<RecordStatusBadgeProps> = ({ updatedBy }) => {
   const status = getRecordStatus(updatedBy);
   if (!status) return null;
 
@@ -47,7 +45,8 @@ export const RecordStatusBadge: FC<RecordStatusBadgeProps> = ({
         flexShrink: 0,
         lineHeight: '1.4',
         marginRight: 0,
-      }}>
+      }}
+    >
       • {config.text}
     </Tag>
   );

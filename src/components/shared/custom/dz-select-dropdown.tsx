@@ -81,7 +81,8 @@ export const DzSelectDropdown: FC<IDzSelectDropdownProps> = ({
           maxTagPlaceholder={(omittedValues: Record<string, any>[]) => (
             <span
               onMouseEnter={(e) => showDrawer(e, omittedValues)}
-              style={{ display: 'inline-block', cursor: 'pointer' }}>
+              style={{ display: 'inline-block', cursor: 'pointer' }}
+            >
               {`+ ${omittedValues.length} more`}
             </span>
           )}

@@ -41,9 +41,7 @@ export const CampaignStatusAction: FC<IStatusActionProps> = ({ record }) => {
   const statusList = useMemo<IStatus[]>(() => {
     if (!statusesData) return [];
     return statusesData
-      .filter((status: { value: string }) =>
-        ALLOWED_STATUS.includes(status.value),
-      )
+      .filter((status: { value: string }) => ALLOWED_STATUS.includes(status.value))
       .map((status: { text: string; value: string }) => ({
         name: status.text,
         value: status.value,
@@ -110,12 +108,7 @@ export const CampaignStatusAction: FC<IStatusActionProps> = ({ record }) => {
     return (
       <Spin
         style={{ marginLeft: '30%' }}
-        indicator={
-          <LoadingOutlined
-            style={{ fontSize: 24, color: `${CLR_BLUE_LIGHT}` }}
-            spin
-          />
-        }
+        indicator={<LoadingOutlined style={{ fontSize: 24, color: `${CLR_BLUE_LIGHT}` }} spin />}
       />
     );
   }
@@ -127,7 +120,8 @@ export const CampaignStatusAction: FC<IStatusActionProps> = ({ record }) => {
           onCancel={handleCancel}
           footer={null}
           closable={false}
-          className='confirm-cancel-modal'>
+          className='confirm-cancel-modal'
+        >
           <ConfirmationModal
             className='confirmation-modal'
             onProceed={confirmCancel}
@@ -148,7 +142,8 @@ export const CampaignStatusAction: FC<IStatusActionProps> = ({ record }) => {
               setUpdateStatus(false);
             }
           }}
-          onChange={handleChange}>
+          onChange={handleChange}
+        >
           {statusList.map((status: any) => {
             return (
               <Select.Option key={status?.value} value={status?.value}>
@@ -166,7 +161,8 @@ export const CampaignStatusAction: FC<IStatusActionProps> = ({ record }) => {
             if (isUpdateStatusAllowed) {
               setUpdateStatus(true);
             }
-          }}>
+          }}
+        >
           <CampaignStatus status={record.status} />
         </DzBox>
       )}

@@ -9,8 +9,7 @@ export const handleFileDownload = async (
     if (data) {
       const contentDisposition = headers.get(fileNameHeader) || '';
       const fileName =
-        contentDisposition.split('filename=')[1]?.replace(/"/g, '') ||
-        'downloaded-file';
+        contentDisposition.split('filename=')[1]?.replace(/"/g, '') || 'downloaded-file';
       saveFileFromBlob(
         data,
         fileName,

@@ -22,20 +22,14 @@ export const CreateCampaignForm: FC<ICreateCampaignFormProps> = ({
   userDetails,
   isDzoneUser,
 }) => {
-  const { data: campaignResponse } = useCampaignDetailQuery(
-    campaignUUId ?? '',
-    false,
-  );
+  const { data: campaignResponse } = useCampaignDetailQuery(campaignUUId ?? '', false);
   const campaignData = campaignResponse?.data ?? null;
 
   return (
     <>
       <DzScrollContainer vertical scoll='outside'>
         <DzScrollContainer.Sticky>
-          <BreadCrumbContainer
-            campaignId={campaignData?.campaignId}
-            id={campaignUUId}
-          />
+          <BreadCrumbContainer campaignId={campaignData?.campaignId} id={campaignUUId} />
         </DzScrollContainer.Sticky>
         <DzScrollContainer.Scroll>
           <Flex
@@ -46,7 +40,8 @@ export const CreateCampaignForm: FC<ICreateCampaignFormProps> = ({
               position: 'relative',
               paddingBottom: '0rem',
               height: '100%',
-            }}>
+            }}
+          >
             <DzBox dzOneBox>
               <Flex vertical gap='0.75rem'>
                 <FormContainer

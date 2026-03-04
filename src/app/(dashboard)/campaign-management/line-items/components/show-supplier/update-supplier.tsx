@@ -20,9 +20,7 @@ export const UpdateSupplier: FC<IUpdateSupplierProps> = ({
   cancelUpdateSupplierName,
   lineItemId,
 }) => {
-  const [selectedValue, setSelectedValue] = React.useState<string | undefined>(
-    undefined,
-  );
+  const [selectedValue, setSelectedValue] = React.useState<string | undefined>(undefined);
   const handleChange = (value: string) => {
     setSelectedValue(value);
   };
@@ -31,8 +29,7 @@ export const UpdateSupplier: FC<IUpdateSupplierProps> = ({
       const { data } = await updateLineItem(
         {
           supplierCode: selectedValue,
-          supplier: options.find((option) => option.value === selectedValue)
-            ?.label,
+          supplier: options.find((option) => option.value === selectedValue)?.label,
         },
         lineItemId,
       );
@@ -62,7 +59,8 @@ export const UpdateSupplier: FC<IUpdateSupplierProps> = ({
           disabled={!selectedValue}
           onClick={() => {
             selectedValue && updateSupplier();
-          }}>
+          }}
+        >
           <CheckOutlined />
         </Button>
         <Button
@@ -70,7 +68,8 @@ export const UpdateSupplier: FC<IUpdateSupplierProps> = ({
           onClick={() => {
             setSelectedValue(undefined);
             cancelUpdateSupplierName && cancelUpdateSupplierName();
-          }}>
+          }}
+        >
           <CloseOutlined />
         </Button>
       </Flex>

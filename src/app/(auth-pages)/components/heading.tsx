@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { FormTitle } from '@/components/shared/form';
 import { Translate } from '@/components/i18n';
@@ -9,11 +8,7 @@ import { CLR_WHITE } from '@/lib/constants';
 
 export const Heading = () => {
   return (
-    <Flex
-      vertical
-      align='center'
-      gap={'0.5rem'}
-      style={{ position: 'relative' }}>
+    <Flex vertical align='center' gap={'0.5rem'} style={{ position: 'relative' }}>
       <FormTitle>
         <Translate i18nKey='pages.welcomeMessage' />
       </FormTitle>
@@ -25,14 +20,16 @@ export const Heading = () => {
             padding: '0.5rem 2rem',
             display: 'inline-flex',
             alignItems: 'center',
-          }}>
+          }}
+        >
           <Text
             style={{
               color: CLR_WHITE,
               fontSize: '2.25rem',
               fontWeight: 500,
               lineHeight: 1,
-            }}>
+            }}
+          >
             DZ One
           </Text>
         </Space>
@@ -41,8 +38,7 @@ export const Heading = () => {
             position: 'relative',
             width: '0.5rem',
             height: '0.5rem',
-            background:
-              'linear-gradient(109deg, #FFB8EC 4.89%, #F3D6FF 51.39%, #7D88FF 97.01%)',
+            background: 'linear-gradient(109deg, #FFB8EC 4.89%, #F3D6FF 51.39%, #7D88FF 97.01%)',
             borderRadius: '50%',
             top: '1.5rem',
           }}

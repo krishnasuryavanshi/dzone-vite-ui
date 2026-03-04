@@ -16,8 +16,7 @@ export const MessageDetails: Record<
     [ActionType.VIEW_DASHBOARD]: {
       actionText: 'User has permission to view the dashboards',
       groupTooltip: {
-        [PermissionsGroupName.VIEW_DASHBOARD]:
-          'Only selected dashboards will be visible to users.',
+        [PermissionsGroupName.VIEW_DASHBOARD]: 'Only selected dashboards will be visible to users.',
       },
     },
     [ActionType.DOWNLOAD_DATA_FROM_DASHBOARD]: {
@@ -52,8 +51,7 @@ export const MessageDetails: Record<
     [ActionType.VIEW_CLIENT]: {
       actionText: 'User has permission to view clients',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be visible to users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be visible to users.',
         [PermissionsGroupName.STATUS]:
           'Only clients that match the selected status will be visible to users.',
       },
@@ -61,15 +59,13 @@ export const MessageDetails: Record<
     [ActionType.EDIT_CLIENT]: {
       actionText: 'User has permission to edit clients',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be editable by users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be editable by users.',
       },
     },
     [ActionType.CREATE_CLIENT]: {
       actionText: 'User has permission to create clients',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be creatable by users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be creatable by users.',
       },
     },
   },
@@ -77,8 +73,7 @@ export const MessageDetails: Record<
     [ActionType.VIEW_ORGANIZATION]: {
       actionText: 'User has permission to view organizations',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be visible to users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be visible to users.',
         [PermissionsGroupName.STATUS]:
           'Only clients that match the selected status will be visible to users.',
       },
@@ -86,15 +81,13 @@ export const MessageDetails: Record<
     [ActionType.EDIT_ORGANIZATION]: {
       actionText: 'User has permission to edit organizations',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be editable by users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be editable by users.',
       },
     },
     [ActionType.CREATE_ORGANIZATION]: {
       actionText: 'User has permission to create organizations',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be creatable by users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be creatable by users.',
       },
     },
   },
@@ -102,8 +95,7 @@ export const MessageDetails: Record<
     [ActionType.VIEW_CAMPAIGN]: {
       actionText: 'User has permission to view campaigns',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be visible to users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be visible to users.',
         [PermissionsGroupName.STATUS]:
           'Only campaigns that match the selected staus will be visible to users',
         [PermissionsGroupName.LIST_VIEW_PRESETS]:
@@ -113,15 +105,13 @@ export const MessageDetails: Record<
     [ActionType.EDIT_CAMPAIGN]: {
       actionText: 'User has permission to edit campaigns',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be editable to users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be editable to users.',
       },
     },
     [ActionType.CREATE_CAMPAIGN]: {
       actionText: 'User has permission to create campaigns',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be creatable to users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be creatable to users.',
       },
     },
   },
@@ -129,8 +119,7 @@ export const MessageDetails: Record<
     [ActionType.VIEW_LINE_ITEM]: {
       actionText: 'User has permission to view line items',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be visible to users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be visible to users.',
         [PermissionsGroupName.STATUS]:
           'Only line items that match the selected staus will be visible to users.',
         [PermissionsGroupName.LIST_VIEW_PRESETS]:
@@ -140,8 +129,7 @@ export const MessageDetails: Record<
     [ActionType.EDIT_LINE_ITEM]: {
       actionText: 'User has permission to edit line items',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be editable by users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be editable by users.',
       },
     },
     [ActionType.UPDATE_LINE_ITEM_STATUS]: {
@@ -154,8 +142,7 @@ export const MessageDetails: Record<
     [ActionType.CREATE_LINE_ITEM]: {
       actionText: 'User has permission to create line items',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be creatable to users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be creatable to users.',
       },
     },
     [ActionType.VALIDATION_SETTINGS]: {
@@ -175,8 +162,7 @@ export const MessageDetails: Record<
     [ActionType.VIEW_LEADS]: {
       actionText: 'User has permission to view leads',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be visible to users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be visible to users.',
         [PermissionsGroupName.STATUS]:
           'Only leads that match the selected staus will be visible to users.',
         [PermissionsGroupName.LINE_ITEM_STATUS]:
@@ -186,8 +172,7 @@ export const MessageDetails: Record<
     [ActionType.UPDATE_LEADS]: {
       actionText: 'User has permission to update exisitng leads data & status',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be editable by users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be editable by users.',
         [PermissionsGroupName.STATUS]:
           'Only leads that match the selected status will be editable to users.',
       },
@@ -195,16 +180,14 @@ export const MessageDetails: Record<
     [ActionType.UPLOAD_NEW_LEADS]: {
       actionText: 'User has permission to upload new leads',
       groupTooltip: {
-        [PermissionsGroupName.FIELDS]:
-          'Only selected fields will be creatable to users.',
+        [PermissionsGroupName.FIELDS]: 'Only selected fields will be creatable to users.',
       },
     },
     [ActionType.DOWNLOAD_LEADS]: {
       actionText: 'User has permission to download leads',
     },
     [ActionType.TRANSFORM_AND_EXPORT_LEADS]: {
-      actionText:
-        'User has permission to transform & export leads using delivery templates',
+      actionText: 'User has permission to transform & export leads using delivery templates',
     },
     [ActionType.SCHEDULE_DELIVERY]: {
       actionText: 'User has permission to schedule delivery of leads',
@@ -253,12 +236,10 @@ export const MessageDetails: Record<
       actionText: 'User has permission to mark roles as active or inactive',
     },
     [ActionType.EDIT_ROLES_AND_PERMISSIONS]: {
-      actionText:
-        'User has permission to edit existing roles (and permissions)',
+      actionText: 'User has permission to edit existing roles (and permissions)',
     },
     [ActionType.ADD_USERS_TO_ROLE]: {
-      actionText:
-        'User has permission to add users to exisitng roles (and permissions)',
+      actionText: 'User has permission to add users to exisitng roles (and permissions)',
     },
     [ActionType.CREATE_ROLES_AND_PERMISSIONS]: {
       actionText: 'User has permission to create roles (and permissions)',

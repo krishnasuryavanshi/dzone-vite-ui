@@ -12,9 +12,7 @@ export const getFormFields = (
   const sections =
     (steps &&
       steps[step as keyof typeof steps]?.map((section: Record<string, any>) => {
-        section.fields = section.fields.filter(
-          (field: Record<string, any>) => field.fieldType,
-        );
+        section.fields = section.fields.filter((field: Record<string, any>) => field.fieldType);
         section.fields.forEach((field: Record<string, any>) => {
           const isHiddenField = options?.hiddenFields?.includes(field.field);
 

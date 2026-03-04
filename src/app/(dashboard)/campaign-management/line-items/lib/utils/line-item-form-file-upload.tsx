@@ -4,11 +4,7 @@ import { getExtension } from '@/lib/utils/string';
 import { showNotification } from '@/services/notification';
 import { debounce } from 'lodash';
 import { fetchLineItemFormFileUpload } from '../../services';
-import {
-  LineItemFields,
-  LineItemFileUploadTypes,
-  LineItemSections,
-} from '../enums';
+import { LineItemFields, LineItemFileUploadTypes, LineItemSections } from '../enums';
 import { IFileUploadMeta } from '../types';
 
 export const setupLineItemFormFileUpload = (
@@ -62,9 +58,7 @@ export const setupLineItemFormFileUpload = (
 
     if (!fileMeta?.file?.types.includes(extension.toUpperCase())) {
       hasError = true;
-      message = `Please upload a file with these extensions: ${fileMeta?.file?.types.join(
-        ', ',
-      )}`;
+      message = `Please upload a file with these extensions: ${fileMeta?.file?.types.join(', ')}`;
     } else if (size > allowedFileSize) {
       hasError = true;
       message = `File size should be less than ${fileMeta?.file?.size}`;
@@ -113,35 +107,27 @@ export const setupLineItemFormFileUpload = (
     // form.onFieldsChange does not trigger when the file is uploaded
     // so we need to manually set dependant field's props
     if (field === LineItemFields.JobTitleListUpload) {
-      updateFormStepDetails(
-        LineItemSections.JobTitleDetails,
-        LineItemFields.JobTitles,
-        {
-          disabled: true,
-          rules: [
-            {
-              required: false,
-            },
-          ],
-        },
-      );
+      updateFormStepDetails(LineItemSections.JobTitleDetails, LineItemFields.JobTitles, {
+        disabled: true,
+        rules: [
+          {
+            required: false,
+          },
+        ],
+      });
     }
   };
 
   const handleSuccessfuleFileRemove = () => {
     if (field === LineItemFields.JobTitleListUpload) {
-      updateFormStepDetails(
-        LineItemSections.JobTitleDetails,
-        LineItemFields.JobTitles,
-        {
-          disabled: false,
-          rules: [
-            {
-              required: true,
-            },
-          ],
-        },
-      );
+      updateFormStepDetails(LineItemSections.JobTitleDetails, LineItemFields.JobTitles, {
+        disabled: false,
+        rules: [
+          {
+            required: true,
+          },
+        ],
+      });
     }
   };
 

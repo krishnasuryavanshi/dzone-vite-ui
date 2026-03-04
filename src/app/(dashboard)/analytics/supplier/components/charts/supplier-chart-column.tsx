@@ -1,4 +1,3 @@
-
 import { Col } from '@/uicomponents/layout/grid';
 import { FC, PropsWithChildren, useState } from 'react';
 import { ChartCard } from './supplier-chart-card';
@@ -29,7 +28,8 @@ export const ChartColumn: FC<ISupplierChartColumnProps> = ({
     <Col {...gridColumns}>
       <ChartCard
         title={chartTitle}
-        extra={hasExtra && <ChartsAdditional label={extraTitle as string} />}>
+        extra={hasExtra && <ChartsAdditional label={extraTitle as string} />}
+      >
         {children}
       </ChartCard>
     </Col>

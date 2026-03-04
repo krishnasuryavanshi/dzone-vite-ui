@@ -15,16 +15,14 @@ interface IShowSupplierProps {
 
 export const ShowSupplier: FC<IShowSupplierProps> = ({ lineItem }) => {
   const [supplierName, setSupplierName] = useState<string | undefined>();
-  const [mode, setMode] = useState<'no-data' | 'view' | 'edit' | 'loading'>(
-    'loading',
-  );
+  const [mode, setMode] = useState<'no-data' | 'view' | 'edit' | 'loading'>('loading');
   const [fetchEnabled, setFetchEnabled] = useState(false);
 
-  const { data: orgData, refetch, isFetching } = useOrganizationsByTypeQuery(
-    'Supplier',
-    undefined,
-    fetchEnabled,
-  );
+  const {
+    data: orgData,
+    refetch,
+    isFetching,
+  } = useOrganizationsByTypeQuery('Supplier', undefined, fetchEnabled);
 
   const suppliers = useMemo(
     () =>

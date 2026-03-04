@@ -32,9 +32,7 @@ export const CustomQuestionsContainer: FC<ICustomQuestionsContainerProps> = ({
   const instructionField = CustomQuestionsFields.find(
     (f) => f.field === 'customQuestionInstructions',
   );
-  const customQuestionsField = CustomQuestionsFields.find(
-    (f) => f.field === 'customQuestions',
-  );
+  const customQuestionsField = CustomQuestionsFields.find((f) => f.field === 'customQuestions');
   const additionalInstructionsField = CustomQuestionsFields.find(
     (f) => f.field === 'additionalInstructions',
   );
@@ -54,21 +52,16 @@ export const CustomQuestionsContainer: FC<ICustomQuestionsContainerProps> = ({
 
     const normalizedCurrent = {
       hasCustomQuestions: currentCheckbox,
-      customQuestionInstructions:
-        formValues.customQuestionInstructions?.trim() || '',
+      customQuestionInstructions: formValues.customQuestionInstructions?.trim() || '',
       customQuestions: normalizeQuestions(formValues.customQuestions),
       additionalInstructions: formValues.additionalInstructions?.trim() || '',
     };
 
     const normalizedOriginal = {
       hasCustomQuestions: lineItemDetails?.hasCustomQuestions || false,
-      customQuestionInstructions:
-        lineItemDetails?.customQuestionInstructions?.trim() || '',
-      customQuestions: normalizeQuestions(
-        lineItemDetails?.customQuestions || [],
-      ),
-      additionalInstructions:
-        lineItemDetails?.additionalInstructions?.trim() || '',
+      customQuestionInstructions: lineItemDetails?.customQuestionInstructions?.trim() || '',
+      customQuestions: normalizeQuestions(lineItemDetails?.customQuestions || []),
+      additionalInstructions: lineItemDetails?.additionalInstructions?.trim() || '',
     };
 
     const isChanged = !isEqual(normalizedCurrent, normalizedOriginal);
@@ -78,8 +71,7 @@ export const CustomQuestionsContainer: FC<ICustomQuestionsContainerProps> = ({
   useEffect(() => {
     if (lineItemDetails) {
       form.setFieldsValue({
-        customQuestionInstructions:
-          lineItemDetails.customQuestionInstructions || '',
+        customQuestionInstructions: lineItemDetails.customQuestionInstructions || '',
         customQuestions: lineItemDetails.customQuestions || [],
         additionalInstructions: lineItemDetails.additionalInstructions || '',
       });
@@ -90,11 +82,9 @@ export const CustomQuestionsContainer: FC<ICustomQuestionsContainerProps> = ({
       setTimeout(() => {
         checkIfFormChanged(
           {
-            customQuestionInstructions:
-              lineItemDetails.customQuestionInstructions || '',
+            customQuestionInstructions: lineItemDetails.customQuestionInstructions || '',
             customQuestions: lineItemDetails.customQuestions || [],
-            additionalInstructions:
-              lineItemDetails.additionalInstructions || '',
+            additionalInstructions: lineItemDetails.additionalInstructions || '',
           },
           lineItemDetails.hasCustomQuestions || false,
         );
@@ -121,31 +111,29 @@ export const CustomQuestionsContainer: FC<ICustomQuestionsContainerProps> = ({
   const handleValuesChange = (changedValues: any, allValues: any) => {
     if (changedValues.customQuestions) {
       const updatedQuestions = changedValues.customQuestions;
-      const errorsToClear = updatedQuestions.map(
-        (question: any, index: number) => {
-          const errors: any[] = [];
+      const errorsToClear = updatedQuestions.map((question: any, index: number) => {
+        const errors: any[] = [];
 
-          if (question.question) {
-            errors.push({
-              name: ['customQuestions', index, 'question'],
-              errors: [],
-            });
-          }
-          if (question.acceptedAnswer) {
-            errors.push({
-              name: ['customQuestions', index, 'acceptedAnswer'],
-              errors: [],
-            });
-          }
-          if (question.rejectedAnswer) {
-            errors.push({
-              name: ['customQuestions', index, 'rejectedAnswer'],
-              errors: [],
-            });
-          }
-          return errors;
-        },
-      );
+        if (question.question) {
+          errors.push({
+            name: ['customQuestions', index, 'question'],
+            errors: [],
+          });
+        }
+        if (question.acceptedAnswer) {
+          errors.push({
+            name: ['customQuestions', index, 'acceptedAnswer'],
+            errors: [],
+          });
+        }
+        if (question.rejectedAnswer) {
+          errors.push({
+            name: ['customQuestions', index, 'rejectedAnswer'],
+            errors: [],
+          });
+        }
+        return errors;
+      });
 
       errorsToClear.push({
         name: ['customQuestions'],
@@ -167,24 +155,21 @@ export const CustomQuestionsContainer: FC<ICustomQuestionsContainerProps> = ({
     try {
       const values = await form.validateFields();
       const sanitizedValues = {
-        customQuestionInstructions:
-          values.customQuestionInstructions?.trim() || '',
+        customQuestionInstructions: values.customQuestionInstructions?.trim() || '',
         customQuestions: normalizeQuestions(values.customQuestions),
         additionalInstructions: values.additionalInstructions?.trim() || '',
       };
 
       if (
         hasCustomQuestions &&
-        (!sanitizedValues.customQuestions ||
-          sanitizedValues.customQuestions.length === 0)
+        (!sanitizedValues.customQuestions || sanitizedValues.customQuestions.length === 0)
       ) {
         setAddQuestionError(true);
         return;
       }
 
       const invalidQuestions = sanitizedValues.customQuestions?.filter(
-        (question: any) =>
-          !question.acceptedAnswer?.trim() || !question.rejectedAnswer?.trim(),
+        (question: any) => !question.acceptedAnswer?.trim() || !question.rejectedAnswer?.trim(),
       );
 
       if (invalidQuestions?.length > 0) {
@@ -213,15 +198,13 @@ export const CustomQuestionsContainer: FC<ICustomQuestionsContainerProps> = ({
         sanitizedValues.customQuestionInstructions !==
         (lineItemDetails?.customQuestionInstructions?.trim() || '')
       ) {
-        changedFields.customQuestionInstructions =
-          sanitizedValues.customQuestionInstructions;
+        changedFields.customQuestionInstructions = sanitizedValues.customQuestionInstructions;
       }
       if (
         sanitizedValues.additionalInstructions !==
         (lineItemDetails?.additionalInstructions?.trim() || '')
       ) {
-        changedFields.additionalInstructions =
-          sanitizedValues.additionalInstructions;
+        changedFields.additionalInstructions = sanitizedValues.additionalInstructions;
       }
 
       if (Object.keys(changedFields).length === 0) return;
@@ -239,22 +222,16 @@ export const CustomQuestionsContainer: FC<ICustomQuestionsContainerProps> = ({
   };
 
   return (
-    <Form
-      form={form}
-      layout='vertical'
-      onValuesChange={handleValuesChange}
-      onFinish={handleSubmit}>
-      <Row
-        gutter={16}
-        justify='start'
-        style={{ paddingLeft: '0.5rem', marginBottom: '2rem' }}>
+    <Form form={form} layout='vertical' onValuesChange={handleValuesChange} onFinish={handleSubmit}>
+      <Row gutter={16} justify='start' style={{ paddingLeft: '0.5rem', marginBottom: '2rem' }}>
         <Text
           style={{
             color: '#464343',
             fontSize: '0.875rem',
             fontWeight: 'bold',
             textAlign: 'center',
-          }}>
+          }}
+        >
           <Translate i18nKey='pages.lineItems.label.customQuestions' />
         </Text>
       </Row>
@@ -270,7 +247,8 @@ export const CustomQuestionsContainer: FC<ICustomQuestionsContainerProps> = ({
           key={instructionField.field}
           label={instructionField.label}
           name={instructionField.field}
-          className='input-control form-control-item'>
+          className='input-control form-control-item'
+        >
           <TextArea
             disabled={!hasCustomQuestions}
             maxLength={instructionField.maxLength}
@@ -291,9 +269,7 @@ export const CustomQuestionsContainer: FC<ICustomQuestionsContainerProps> = ({
             }}
           />
           {addQuestionError && (
-            <Flex style={{ color: '#ff602e', marginTop: '0.5rem' }}>
-              This field is required.
-            </Flex>
+            <Flex style={{ color: '#ff602e', marginTop: '0.5rem' }}>This field is required.</Flex>
           )}
         </>
       )}
@@ -303,7 +279,8 @@ export const CustomQuestionsContainer: FC<ICustomQuestionsContainerProps> = ({
           key={additionalInstructionsField.field}
           label={additionalInstructionsField.label}
           name={additionalInstructionsField.field}
-          className='input-control form-control-item'>
+          className='input-control form-control-item'
+        >
           <TextArea
             maxLength={additionalInstructionsField.maxLength}
             placeholder={additionalInstructionsField.label}
@@ -312,10 +289,7 @@ export const CustomQuestionsContainer: FC<ICustomQuestionsContainerProps> = ({
         </FormItem>
       )}
 
-      <Flex
-        justify='end'
-        gap='0.5rem'
-        style={{ marginBottom: '3rem', marginRight: '2rem' }}>
+      <Flex justify='end' gap='0.5rem' style={{ marginBottom: '3rem', marginRight: '2rem' }}>
         <Button onClick={handleCancel}>Cancel</Button>
         {loading ? (
           <LoaderButton style={{ width: '9.5rem' }} />

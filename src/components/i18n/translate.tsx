@@ -1,6 +1,5 @@
-
-import React, { FC } from "react";
-import { useTranslation } from "react-i18next";
+import React, { FC } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface ITranslateProps {
   i18nKey: string;
@@ -23,9 +22,9 @@ export const Translate: FC<ITranslateProps> = ({
   }
   return (
     <>
-      {addSpaceBefore ? " " : null}
+      {addSpaceBefore ? ' ' : null}
       {t(i18nKey, options)}
-      {addSpaceAfter ? " " : null}
+      {addSpaceAfter ? ' ' : null}
     </>
   );
 };

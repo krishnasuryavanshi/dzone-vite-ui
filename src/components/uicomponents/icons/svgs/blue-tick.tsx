@@ -8,10 +8,5 @@ export const BlueTickIcon = ({
   size?: number;
   color?: string;
 }) => {
-  return (
-    <DzIcon
-      src='/icons/check-blue.svg'
-      style={{ width: size, height: size, fill: color }}
-    />
-  );
+  return <DzIcon src='/icons/check-blue.svg' style={{ width: size, height: size, fill: color }} />;
 };

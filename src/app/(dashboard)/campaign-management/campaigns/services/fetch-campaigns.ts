@@ -11,14 +11,10 @@ export const fetchCampaigns = async (
   filterInfo?: Filters<ICampaign>,
 ) => {
   try {
-    const filters = processFiltersWithDateRange(
-      filterInfo as Filters<ICampaign>,
-    );
+    const filters = processFiltersWithDateRange(filterInfo as Filters<ICampaign>);
     const hasFilters = filters.length > 0;
     const method = hasFilters ? HttpMethod.POST : HttpMethod.GET;
-    const resource = hasFilters
-      ? ApiResources.FilteredCampaigns
-      : ApiResources.Campaigns;
+    const resource = hasFilters ? ApiResources.FilteredCampaigns : ApiResources.Campaigns;
     const requestBody = hasFilters ? { filters } : {};
     const requestConfig = {
       resource,

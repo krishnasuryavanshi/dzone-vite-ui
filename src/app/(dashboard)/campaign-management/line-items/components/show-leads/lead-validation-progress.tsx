@@ -18,8 +18,7 @@ export const LeadValidationProgress: FC<ILeadValidationProgressProps> = ({
 }) => {
   const totalCount = inValidationCount + validInvalidCount;
   const processedCount = validInvalidCount;
-  const percentage =
-    totalCount > 0 ? Math.round((processedCount / totalCount) * 100) : 0;
+  const percentage = totalCount > 0 ? Math.round((processedCount / totalCount) * 100) : 0;
 
   // Get status message based on task status
   const getStatusMessage = () => {

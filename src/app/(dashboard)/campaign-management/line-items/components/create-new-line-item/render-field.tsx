@@ -1,9 +1,4 @@
-import {
-  Checkbox,
-  Input,
-  InputNumber,
-  TextArea,
-} from '@/uicomponents/form/input';
+import { Checkbox, Input, InputNumber, TextArea } from '@/uicomponents/form/input';
 import React from 'react';
 import { renderSelect } from './render-select';
 import { PacingChartPreview } from './pacing-chart';
@@ -50,21 +45,9 @@ export const renderField = (
   };
   switch (field.fieldType) {
     case 'text':
-      return (
-        <Input
-          className='input-field'
-          style={{ height: '3rem' }}
-          {...commonProps}
-        />
-      );
+      return <Input className='input-field' style={{ height: '3rem' }} {...commonProps} />;
     case 'number':
-      return (
-        <InputNumber
-          className='input-field'
-          style={{ width: '100%' }}
-          {...commonProps}
-        />
-      );
+      return <InputNumber className='input-field' style={{ width: '100%' }} {...commonProps} />;
     case 'textArea':
       return <TextArea className='input-field' {...commonProps} />;
     case 'multiselect':
@@ -94,16 +77,13 @@ export const renderField = (
       const validDate = fieldValue ? dayjs(fieldValue) : null;
 
       // Get date restrictions based on field type
-      let disabledDate: ((current: Dayjs | null) => boolean) | undefined =
-        undefined;
+      let disabledDate: ((current: Dayjs | null) => boolean) | undefined = undefined;
       let minDate: Dayjs = dayjs().startOf('day'); // Default: no past dates
       let maxDate: Dayjs | undefined = undefined;
 
       if (field.field === LineItemFields.TargetDeliveryStartDate) {
         // Target Delivery Start Date validations
-        const targetStartDate = form.getFieldValue(
-          LineItemFields.LineItemTargetStartDate,
-        );
+        const targetStartDate = form.getFieldValue(LineItemFields.LineItemTargetStartDate);
 
         const today = dayjs().startOf('day');
 
@@ -127,11 +107,7 @@ export const renderField = (
           // Disable past dates (no backdating)
           if (current.isBefore(today, 'day')) return true;
           // Disable dates before target start date
-          if (
-            targetStartDate &&
-            current.isBefore(dayjs(targetStartDate), 'day')
-          )
-            return true;
+          if (targetStartDate && current.isBefore(dayjs(targetStartDate), 'day')) return true;
           // Disable dates more than 90 days from target start date
           if (maxDate && current.isAfter(maxDate, 'day')) return true;
           return false;
@@ -149,12 +125,8 @@ export const renderField = (
         };
       } else if (field.field === LineItemFields.LineItemTargetEndDate) {
         // Target End Date validations
-        const targetStartDate = form.getFieldValue(
-          LineItemFields.LineItemTargetStartDate,
-        );
-        const targetDeliveryStartDate = form.getFieldValue(
-          LineItemFields.TargetDeliveryStartDate,
-        );
+        const targetStartDate = form.getFieldValue(LineItemFields.LineItemTargetStartDate);
+        const targetDeliveryStartDate = form.getFieldValue(LineItemFields.TargetDeliveryStartDate);
         const today = dayjs().startOf('day');
 
         // Rule: Target Start Date < Target End Date (mandatory)
@@ -175,10 +147,7 @@ export const renderField = (
         }
 
         // If we have a target delviery start date, end date must be after it
-        if (
-          targetDeliveryStartDate &&
-          dayjs(targetDeliveryStartDate).isValid()
-        ) {
+        if (targetDeliveryStartDate && dayjs(targetDeliveryStartDate).isValid()) {
           const targetDeliveryStartDayjs = dayjs(targetDeliveryStartDate);
           const dayAfterTargetStart = targetDeliveryStartDayjs.add(1, 'day');
           // Use the later of today or day after target start date
@@ -189,8 +158,7 @@ export const renderField = (
 
         // Apply status-based restrictions for existing line items
         if (dateFieldRestrictions?.getMinTargetEndDate) {
-          const restrictionMinDate =
-            dateFieldRestrictions.getMinTargetEndDate();
+          const restrictionMinDate = dateFieldRestrictions.getMinTargetEndDate();
           // Use the later of calculated minDate or restriction minDate
           if (restrictionMinDate && restrictionMinDate.isAfter(minDate)) {
             minDate = restrictionMinDate;
@@ -213,8 +181,7 @@ export const renderField = (
       // Apply status-based restrictions based on line item status
       if (dateFieldRestrictions) {
         if (field.field === LineItemFields.TargetDeliveryStartDate) {
-          const isFieldDisabled =
-            !dateFieldRestrictions.canEditTargetDeliveryStartDate;
+          const isFieldDisabled = !dateFieldRestrictions.canEditTargetDeliveryStartDate;
           commonProps.disabled = commonProps.disabled || isFieldDisabled;
         } else if (field.field === LineItemFields.LineItemTargetStartDate) {
           const isFieldDisabled = !dateFieldRestrictions.canEditTargetStartDate;
@@ -243,7 +210,8 @@ export const renderField = (
         <Checkbox
           checked={fieldValue}
           disabled={field.isReadOnly}
-          onChange={(e) => form.setFieldValue(field.field, e.target.checked)}>
+          onChange={(e) => form.setFieldValue(field.field, e.target.checked)}
+        >
           {field.label}
         </Checkbox>
       );
@@ -254,13 +222,9 @@ export const renderField = (
       const formValues = form.getFieldsValue();
       // Get checkbox values from form directly or from allFields
       const allowOverflowValue =
-        form.getFieldValue('allowOverflow') ??
-        allFields?.allowOverflow ??
-        false;
+        form.getFieldValue('allowOverflow') ?? allFields?.allowOverflow ?? false;
       const deficitManagementValue =
-        form.getFieldValue('deficitManagement') ??
-        allFields?.deficitManagement ??
-        false;
+        form.getFieldValue('deficitManagement') ?? allFields?.deficitManagement ?? false;
       const pacingType = form.getFieldValue('pacing') ?? allFields?.pacing;
 
       return (

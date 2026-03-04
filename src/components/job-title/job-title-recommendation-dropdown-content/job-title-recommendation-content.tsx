@@ -21,9 +21,7 @@ interface JobTitleRecommendationContentProps {
   onUnselectAll: () => void;
 }
 
-export const JobTitleRecommendationContent: FC<
-  JobTitleRecommendationContentProps
-> = ({
+export const JobTitleRecommendationContent: FC<JobTitleRecommendationContentProps> = ({
   show,
   recommendedJobTitles,
   existingJTList,
@@ -45,7 +43,8 @@ export const JobTitleRecommendationContent: FC<
     <Checkbox
       value={child.value}
       onChange={() => {}}
-      disabled={existingJTList.includes(child.label)}>
+      disabled={existingJTList.includes(child.label)}
+    >
       {child.label}
     </Checkbox>
   );
@@ -57,10 +56,7 @@ export const JobTitleRecommendationContent: FC<
       </Text>
       <DzBox style={{ marginLeft: '0.5rem' }}>
         <Flex vertical gap='0.25rem'>
-          <MapFunction
-            items={item.children}
-            renderItem={renderJobTitleCheckbox}
-          />
+          <MapFunction items={item.children} renderItem={renderJobTitleCheckbox} />
         </Flex>
       </DzBox>
     </Flex>
@@ -81,27 +77,17 @@ export const JobTitleRecommendationContent: FC<
       <DzBox style={{ maxHeight: '15rem', overflowY: 'auto' }}>
         <Flex vertical gap={'0.25rem'}>
           <JobTitleSelectAll
-            checked={
-              selectedRecommendedJobTitles.length === recommendedJobTitlesCount
-            }
+            checked={selectedRecommendedJobTitles.length === recommendedJobTitlesCount}
             onSelectAllChange={onSelectAllChange}
           />
 
-          <CheckboxGroup
-            onChange={onCheckboxChange}
-            value={selectedRecommendedJobTitles}>
-            <MapFunction
-              items={recommendedJobTitles}
-              renderItem={renderJobTitleGroup}
-            />
+          <CheckboxGroup onChange={onCheckboxChange} value={selectedRecommendedJobTitles}>
+            <MapFunction items={recommendedJobTitles} renderItem={renderJobTitleGroup} />
           </CheckboxGroup>
         </Flex>
       </DzBox>
       <Flex justify='end' gap={'0.25rem'}>
-        <JobTitleAddButton
-          onAdd={onAdd}
-          disabled={!selectedRecommendedJobTitles?.length}
-        />
+        <JobTitleAddButton onAdd={onAdd} disabled={!selectedRecommendedJobTitles?.length} />
       </Flex>
     </Flex>
   );

@@ -56,20 +56,14 @@ function buildLineItemData(data: DataEntry[]): LineItemFilter[] {
     }
     const lineItem = lineItemsMap[supCode];
     // Add marketer uniquely
-    if (
-      !lineItem.marketers.some((m) => m.marketer_code === entry.marketer_code)
-    ) {
+    if (!lineItem.marketers.some((m) => m.marketer_code === entry.marketer_code)) {
       lineItem.marketers.push({
         marketer_code: entry.marketer_code,
         marketer_name: entry.marketer_name,
       });
     }
     // Add campaign uniquely
-    if (
-      !lineItem.campaigns.some(
-        (c) => c.campaign_external_id === entry.campaign_external_id,
-      )
-    ) {
+    if (!lineItem.campaigns.some((c) => c.campaign_external_id === entry.campaign_external_id)) {
       lineItem.campaigns.push({
         campaign_external_id: entry.campaign_external_id,
         campaign_name: entry.campaign_name,
@@ -94,20 +88,14 @@ function buildCampaignData(data: DataEntry[]): CampaignFilter[] {
     }
     const campaign = campaignsMap[supCode];
     // Add marketer uniquely
-    if (
-      !campaign.marketers.some((m) => m.marketer_code === entry.marketer_code)
-    ) {
+    if (!campaign.marketers.some((m) => m.marketer_code === entry.marketer_code)) {
       campaign.marketers.push({
         marketer_code: entry.marketer_code,
         marketer_name: entry.marketer_name,
       });
     }
     // Add line item uniquely
-    if (
-      !campaign.line_items.some(
-        (c) => c.line_item_external_id === entry.line_item_external_id,
-      )
-    ) {
+    if (!campaign.line_items.some((c) => c.line_item_external_id === entry.line_item_external_id)) {
       campaign.line_items.push({
         line_item_external_id: entry.line_item_external_id,
         line_item_name: entry.line_item_name,
@@ -132,22 +120,14 @@ function buildMarketerData(data: DataEntry[]): MarketerFilter[] {
     }
     const marketer = marketersMap[supCode];
     // Add campaign uniquely
-    if (
-      !marketer.campaigns.some(
-        (m) => m.campaign_external_id === entry.campaign_external_id,
-      )
-    ) {
+    if (!marketer.campaigns.some((m) => m.campaign_external_id === entry.campaign_external_id)) {
       marketer.campaigns.push({
         campaign_external_id: entry.campaign_external_id,
         campaign_name: entry.campaign_name,
       });
     }
     // Add lineitem uniquely
-    if (
-      !marketer.line_items.some(
-        (c) => c.line_item_external_id === entry.line_item_external_id,
-      )
-    ) {
+    if (!marketer.line_items.some((c) => c.line_item_external_id === entry.line_item_external_id)) {
       marketer.line_items.push({
         line_item_external_id: entry.line_item_external_id,
         line_item_name: entry.line_item_name,

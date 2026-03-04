@@ -3,11 +3,8 @@ import { useValidationSettingStore } from '../../store';
 import { ValidationSettingsTabs } from './validation-settings-tabs';
 
 export const ValidationsSettingsContainer = () => {
-  const {
-    leadValidationSettingConfig,
-    setActiveRule,
-    getValidationSettingRules,
-  } = useValidationSettingStore();
+  const { leadValidationSettingConfig, setActiveRule, getValidationSettingRules } =
+    useValidationSettingStore();
 
   useEffect(() => {
     if (leadValidationSettingConfig) {

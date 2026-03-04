@@ -12,9 +12,7 @@ const LineItemFileUploadMetadataResources: Record<string, string> = {
   [LineItemFileUploadTypes.TechnologiesList]: ApiResources.LineItemTEchnologyFileMetaData,
 };
 
-export const fetchLineItemFormFileUploadMeta = async (
-  type: LineItemFileUploadTypes
-) => {
+export const fetchLineItemFormFileUploadMeta = async (type: LineItemFileUploadTypes) => {
   try {
     const resource =
       LineItemFileUploadMetadataResources[type as keyof typeof LineItemFileUploadMetadataResources];

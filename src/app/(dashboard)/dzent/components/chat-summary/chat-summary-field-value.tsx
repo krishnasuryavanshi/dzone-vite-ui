@@ -10,10 +10,7 @@ type ChatSummaryFieldValueProps = {
   type: string;
 };
 
-export const ChatSummaryFieldValue = ({
-  value,
-  type = 'text',
-}: ChatSummaryFieldValueProps) => {
+export const ChatSummaryFieldValue = ({ value, type = 'text' }: ChatSummaryFieldValueProps) => {
   const [lines, setLines] = useState<number>(2);
   const handleExpand = () => {
     setLines(lines + 2);
@@ -29,10 +26,7 @@ export const ChatSummaryFieldValue = ({
   return (
     <DzBox>
       <Hideable show={type === 'text'}>
-        <TruncatedText
-          lines={lines}
-          symbol='view more'
-          handleExpand={handleExpand}>
+        <TruncatedText lines={lines} symbol='view more' handleExpand={handleExpand}>
           {value}
         </TruncatedText>
       </Hideable>

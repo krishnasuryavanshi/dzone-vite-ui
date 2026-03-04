@@ -7,9 +7,7 @@ interface ICustomFieldsContainerProps {
   lineItemDetails?: ILineItem;
 }
 
-export const CustomFieldsWrapper: FC<ICustomFieldsContainerProps> = ({
-  lineItemDetails,
-}) => {
+export const CustomFieldsWrapper: FC<ICustomFieldsContainerProps> = ({ lineItemDetails }) => {
   const [initialValues, setInitialValues] = useState<DzRecord>();
 
   useEffect(() => {
@@ -33,10 +31,5 @@ export const CustomFieldsWrapper: FC<ICustomFieldsContainerProps> = ({
     return null;
   }
 
-  return (
-    <CustomFieldsContainer
-      lineItemDetails={lineItemDetails}
-      initialValues={initialValues}
-    />
-  );
+  return <CustomFieldsContainer lineItemDetails={lineItemDetails} initialValues={initialValues} />;
 };

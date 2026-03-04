@@ -105,12 +105,9 @@ export const ShowLineItemTabs: FC<IShowLineItemTabsProps> = ({
           style={{
             boxShadow: '4px 4px 10px 0 rgba(0, 0, 0, 0.06)',
             borderRadius: '0.5rem',
-          }}>
-          <Tabs
-            activeKey={activeTab}
-            onChange={handleTabChange}
-            items={items}
-          />
+          }}
+        >
+          <Tabs activeKey={activeTab} onChange={handleTabChange} items={items} />
         </DzBox>
       </DzScrollContainer.Sticky>
       <div style={{ opacity: isPending ? 0.7 : 1, transition: 'opacity 0.2s' }}>

@@ -12,10 +12,7 @@ interface DeliveryLogsFilters {
   status?: string;
 }
 
-function applyFrontendFilters(
-  logs: DeliveryLog[],
-  filters: DeliveryLogsFilters,
-): DeliveryLog[] {
+function applyFrontendFilters(logs: DeliveryLog[], filters: DeliveryLogsFilters): DeliveryLog[] {
   let filtered = logs;
 
   if (filters.status) {

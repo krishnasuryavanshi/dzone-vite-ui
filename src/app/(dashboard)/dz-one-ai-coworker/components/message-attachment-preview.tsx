@@ -1,9 +1,4 @@
-
-import {
-  DownloadOutlined,
-  FileImageOutlined,
-  FileTextOutlined,
-} from '@/uicomponents/icons';
+import { DownloadOutlined, FileImageOutlined, FileTextOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
 import { Hideable } from '@/components/shared';
 import { FileAttachment } from '../lib/types';
@@ -30,30 +25,20 @@ const AttachmentItem = ({ attachment }: AttachmentItemProps) => {
   return (
     <div className={styles.thumbnailWrapper} onClick={handleDownload}>
       <div className={styles.thumbnail} title={attachment.name}>
-        <Flex
-          vertical
-          align='center'
-          justify='center'
-          className={styles.documentPreview}>
+        <Flex vertical align='center' justify='center' className={styles.documentPreview}>
           <FileIcon className={styles.documentIcon} />
-          <span className={styles.documentType}>
-            {getDocumentLabel(attachment.name)}
-          </span>
+          <span className={styles.documentType}>{getDocumentLabel(attachment.name)}</span>
         </Flex>
       </div>
 
-      <div
-        className={styles.downloadOverlay}
-        title={`Download ${attachment.name}`}>
+      <div className={styles.downloadOverlay} title={`Download ${attachment.name}`}>
         <DownloadOutlined className={styles.downloadIcon} />
       </div>
     </div>
   );
 };
 
-export const MessageAttachmentPreview = ({
-  attachments,
-}: MessageAttachmentPreviewProps) => {
+export const MessageAttachmentPreview = ({ attachments }: MessageAttachmentPreviewProps) => {
   return (
     <Hideable show={attachments.length > 0}>
       <Flex wrap='wrap' gap='0.5rem' className={styles.messageContainer}>

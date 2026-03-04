@@ -1,17 +1,16 @@
+import React, { useState } from 'react';
 
-import React, { useState } from "react";
+import { SendLinkButton } from './send-link-button';
 
-import { SendLinkButton } from "./send-link-button";
-
-import { EmailLinkSent } from "./email-link-sent";
-import { ForgotPasswordTitle } from "./forgot-password-title";
-import { ForgotPasswordSubtitle } from "./forgot-password-subtitle";
-import { EmailFormControl } from "./email-form-control";
-import { ForgotPasswordForm } from "./forgot-password-form";
+import { EmailLinkSent } from './email-link-sent';
+import { ForgotPasswordTitle } from './forgot-password-title';
+import { ForgotPasswordSubtitle } from './forgot-password-subtitle';
+import { EmailFormControl } from './email-form-control';
+import { ForgotPasswordForm } from './forgot-password-form';
 
 export const ForgotPasswordFormContainer = () => {
   const [isLinkSent, setIsLinkSent] = useState(false);
-  const [verifiedEmail, setVerifiedEmail] = useState("");
+  const [verifiedEmail, setVerifiedEmail] = useState('');
 
   const handleLinkSent = (isSent: boolean) => {
     setIsLinkSent(isSent);
@@ -19,7 +18,7 @@ export const ForgotPasswordFormContainer = () => {
   const handleSetVerifiedEmail = (email: string) => {
     setVerifiedEmail(email);
   };
-  
+
   return (
     <ForgotPasswordForm
       isLinkSent={isLinkSent}

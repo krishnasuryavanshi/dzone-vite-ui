@@ -23,10 +23,7 @@ interface ICustomQuestionsProps {
   };
 }
 
-export const CustomQuestions: FC<ICustomQuestionsProps> = ({
-  form,
-  customProps,
-}) => {
+export const CustomQuestions: FC<ICustomQuestionsProps> = ({ form, customProps }) => {
   return (
     <FormList name='customQuestions'>
       {(fields, { add, remove }) => (

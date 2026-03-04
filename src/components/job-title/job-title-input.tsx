@@ -10,9 +10,7 @@ interface IJobTitleInputProps {
   addUserEnteredTag: (tag: string) => void;
   clearAll: () => void;
   removeTag: (tag: Record<string, any>) => void;
-  handleAddRecommendedJobTitles: (
-    selectedRecommendedJobTitles: string[],
-  ) => void;
+  handleAddRecommendedJobTitles: (selectedRecommendedJobTitles: string[]) => void;
   recommendedJobTitles: Record<string, any>[];
   isRecommendedJobTitlesLoading: boolean;
 }

@@ -18,7 +18,8 @@ export const ExportAndTransformModal: FC<IExportAndTransformModalProps> = ({
           width: '100%',
           listStyleType: 'disc',
           paddingInlineStart: '2.5rem',
-        }}>
+        }}
+      >
         <Text style={{ display: 'list-item', marginBottom: '0' }}>
           <strong>{filterLeadsCount}</strong>{' '}
           <Translate

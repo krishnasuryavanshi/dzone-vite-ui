@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Text } from '@/components/uicomponents';
 import { Flex } from '@/uicomponents/layout';
@@ -40,28 +39,20 @@ export const LeadCountWarning: React.FC<LeadCountWarningProps> = ({
     // For child tables
     if (isOver) {
       return (
-        <Flex
-          className={styles.childWarningSection}
-          vertical={false}
-          gap='small'
-          align='center'>
+        <Flex className={styles.childWarningSection} vertical={false} gap='small' align='center'>
           <Text type='danger' style={{ fontSize: '0.875rem' }}>
-            Lead count exceeds the {periodText} lead required. Remove{' '}
-            {difference} leads to meet the goal
+            Lead count exceeds the {periodText} lead required. Remove {difference} leads to meet the
+            goal
           </Text>
         </Flex>
       );
     } else {
       // Child table, under target - no auto adjust button
       return (
-        <Flex
-          className={styles.childWarningSection}
-          vertical={false}
-          gap='small'
-          align='center'>
+        <Flex className={styles.childWarningSection} vertical={false} gap='small' align='center'>
           <Text style={{ fontSize: '0.875rem', color: '#C7535B' }}>
-            Lead count is below the {periodText} target. Add {difference} more
-            leads to meet the goal.
+            Lead count is below the {periodText} target. Add {difference} more leads to meet the
+            goal.
           </Text>
         </Flex>
       );
@@ -70,14 +61,9 @@ export const LeadCountWarning: React.FC<LeadCountWarningProps> = ({
     // For main/parent tables
     if (isOver) {
       return (
-        <Flex
-          className={styles.warningSection}
-          vertical={false}
-          gap='small'
-          align='center'>
+        <Flex className={styles.warningSection} vertical={false} gap='small' align='center'>
           <Text style={{ fontSize: '0.875rem', color: '#C7535B' }}>
-            Lead count is more than the target. Remove {difference} more leads
-            to meet the goal or{' '}
+            Lead count is more than the target. Remove {difference} more leads to meet the goal or{' '}
             {onAutoAdjust && (
               <Button
                 type='link'
@@ -88,7 +74,8 @@ export const LeadCountWarning: React.FC<LeadCountWarningProps> = ({
                   fontSize: '0.875rem',
                   display: 'inline',
                   color: '#727BE2',
-                }}>
+                }}
+              >
                 Increase the lead goal to {currentTotal.toLocaleString()}
               </Button>
             )}
@@ -98,14 +85,9 @@ export const LeadCountWarning: React.FC<LeadCountWarningProps> = ({
     } else {
       // Parent table, under target - no auto adjust button
       return (
-        <Flex
-          className={styles.warningSection}
-          vertical={false}
-          gap='small'
-          align='center'>
+        <Flex className={styles.warningSection} vertical={false} gap='small' align='center'>
           <Text type='danger' style={{ fontSize: '0.875rem' }}>
-            Lead count is below the target. Add {difference} more leads to meet
-            the goal.
+            Lead count is below the target. Add {difference} more leads to meet the goal.
           </Text>
         </Flex>
       );

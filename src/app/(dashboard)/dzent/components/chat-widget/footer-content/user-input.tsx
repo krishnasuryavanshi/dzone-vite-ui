@@ -9,13 +9,7 @@ type UserInputProps = {
   onEnter: () => void;
 };
 
-export const UserInput = ({
-  placeholder,
-  disabled,
-  value,
-  onChange,
-  onEnter,
-}: UserInputProps) => {
+export const UserInput = ({ placeholder, disabled, value, onChange, onEnter }: UserInputProps) => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   // Auto-resize logic
@@ -27,8 +21,7 @@ export const UserInput = ({
       if (!value.includes('\n') && value?.length < 40) {
         textarea.style.height = '28px';
       } else {
-        textarea.style.height =
-          Math.min(textarea.scrollHeight, maxHeight) + 'px';
+        textarea.style.height = Math.min(textarea.scrollHeight, maxHeight) + 'px';
       }
     }
   }, [value]);

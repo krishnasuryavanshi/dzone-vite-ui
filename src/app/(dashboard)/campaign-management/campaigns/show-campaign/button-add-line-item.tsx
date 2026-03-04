@@ -37,12 +37,9 @@ export const ButtonAddLineItem: FC<IButtonAddLineItemProps> = ({}) => {
       onClick={(e) => {
         e.stopPropagation();
         validateCreateLineItemAction();
-      }}>
-      {isLoading ? (
-        <LoadingOutlined />
-      ) : (
-        <Translate i18nKey='pages.campaigns.label.addLineItem' />
-      )}
+      }}
+    >
+      {isLoading ? <LoadingOutlined /> : <Translate i18nKey='pages.campaigns.label.addLineItem' />}
     </Button>
   );
 };

@@ -30,10 +30,7 @@ export const ShowTargetingAttributesContainer = ({
           isEditing={isEditing}
         />
       );
-    } else if (
-      attribute?.value?.type === 'INCLUSION' ||
-      attribute?.value?.type === 'EXCLUSION'
-    ) {
+    } else if (attribute?.value?.type === 'INCLUSION' || attribute?.value?.type === 'EXCLUSION') {
       return (
         <ShowTargetingFileAttribute
           isFirst={index === 0}
@@ -50,9 +47,7 @@ export const ShowTargetingAttributesContainer = ({
   };
 
   const renderSection = (section: DzRecord) => {
-    return (
-      <MapFunction items={section.attributes} renderItem={renderAttribute} />
-    );
+    return <MapFunction items={section.attributes} renderItem={renderAttribute} />;
   };
 
   return (
@@ -62,11 +57,9 @@ export const ShowTargetingAttributesContainer = ({
       style={{
         border: '1px solid #E5E7EB',
         borderRadius: '8px',
-      }}>
-      <MapFunction
-        items={targetingRuleDetails?.sections}
-        renderItem={renderSection}
-      />
+      }}
+    >
+      <MapFunction items={targetingRuleDetails?.sections} renderItem={renderSection} />
     </Flex>
   );
 };

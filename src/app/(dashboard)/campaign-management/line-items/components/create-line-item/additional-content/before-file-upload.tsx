@@ -1,4 +1,3 @@
-
 import { DzBox } from '@/components/layout/v1';
 import { Text } from '@/uicomponents/text';
 import React, { FC } from 'react';
@@ -14,7 +13,8 @@ export const BeforeFileUpload: FC<IBeforeFileUploadProps> = ({}) => {
           fontSize: '1.25rem',
           fontWeight: 600,
           wordBreak: 'normal',
-        }}>
+        }}
+      >
         Or
       </Text>
     </DzBox>

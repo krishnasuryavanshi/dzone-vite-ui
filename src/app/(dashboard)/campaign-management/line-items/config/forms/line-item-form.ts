@@ -1,9 +1,5 @@
 import { IFormConfig } from '@/lib/types';
-import {
-  LineItemFields,
-  LineItemSections,
-  LineItemSteps,
-} from '../../lib/enums';
+import { LineItemFields, LineItemSections, LineItemSteps } from '../../lib/enums';
 import { BasicDetails } from './basic-details';
 import { CollaboratorsConfig } from './collaborators';
 import { CustomQuestionsConfig } from './custom-questions';

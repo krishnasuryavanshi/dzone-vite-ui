@@ -18,11 +18,7 @@ export const useViewControl = (
     }
     case FieldType.FileUpload: {
       ViewControl = (
-        <FileView
-          handleDownloadFiles={handleDownloadFiles}
-          value={data.value}
-          label={data.label}
-        />
+        <FileView handleDownloadFiles={handleDownloadFiles} value={data.value} label={data.label} />
       );
       break;
     }
@@ -43,9 +39,7 @@ export const useViewControl = (
       ) {
         ViewControl = (
           <TextView
-            value={
-              data.value === false ? t('Predefined range') : t('Custom range')
-            }
+            value={data.value === false ? t('Predefined range') : t('Custom range')}
             label={data.label}
           />
         );

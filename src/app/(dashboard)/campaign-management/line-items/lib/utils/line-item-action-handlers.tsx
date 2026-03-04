@@ -2,10 +2,7 @@ import { logError } from '@/services/logger';
 import { StepsProgress, StorageKey } from '@/lib/enums';
 import { normalizeDates, sanitizeData } from '@/lib/utils';
 import { getCombinedDataFromCookies } from '@/lib/utils/get-combined-data-from-cookies';
-import {
-  deleteFormDataFromCookie,
-  saveFormDataInCookie,
-} from '@/services/cookie-stepper-form';
+import { deleteFormDataFromCookie, saveFormDataInCookie } from '@/services/cookie-stepper-form';
 import { showNotification } from '@/services/notification';
 import { FormInstance } from '@/uicomponents/form';
 import { formatLineItemFormData, getChangedData } from '../../../lib/utils';
@@ -35,13 +32,9 @@ const setDefaultCustomRangeValues = (
 ) => {
   if (isCustom) {
     values[minField] =
-      values[minField] === undefined || values[minField] === null
-        ? -2
-        : values[minField];
+      values[minField] === undefined || values[minField] === null ? -2 : values[minField];
     values[maxField] =
-      values[maxField] === undefined || values[maxField] === null
-        ? -1
-        : values[maxField];
+      values[maxField] === undefined || values[maxField] === null ? -1 : values[maxField];
   } else {
     values[minField] = -2;
     values[maxField] = -1;
@@ -89,8 +82,7 @@ export const handleSave = async (
 
     let cleanedData = Object.fromEntries(
       Object.entries(combinedData).filter(
-        ([key]) =>
-          !keysToRemove.includes(key as unknown as RemoveNotRequiredKeys),
+        ([key]) => !keysToRemove.includes(key as unknown as RemoveNotRequiredKeys),
       ),
     );
     let changedData = { ...combinedData };
@@ -116,9 +108,7 @@ export const handleSave = async (
       }
     }
     // convert industries ans subindustries
-    transformIndustries(
-      existingLineItemDetails?.id ? changedData : cleanedData,
-    );
+    transformIndustries(existingLineItemDetails?.id ? changedData : cleanedData);
     // convert job titles
     transformJobTitles(existingLineItemDetails?.id ? changedData : cleanedData);
     changedData = { ...changedData, assignedTo: undefined };

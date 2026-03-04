@@ -20,14 +20,14 @@ export function convertToBytes(sizeStr: string) {
   const match = sizeStr.match(regex);
 
   if (!match) {
-    throw new Error("Invalid size format");
+    throw new Error('Invalid size format');
   }
 
   const size = parseFloat(match[1]);
   const unit = match[3].toUpperCase();
 
   if (!units[unit]) {
-    throw new Error("Invalid unit");
+    throw new Error('Invalid unit');
   }
 
   return size * units[unit];

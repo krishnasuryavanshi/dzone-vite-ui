@@ -7,10 +7,7 @@ interface IPieLabelProps {
 
 const RADIAN = Math.PI / 180;
 
-export const DzPieLabel: FC<IPieLabelProps> = ({
-  data,
-  prependDollarInLabel = false,
-}) => {
+export const DzPieLabel: FC<IPieLabelProps> = ({ data, prependDollarInLabel = false }) => {
   const { cx, cy, midAngle, innerRadius, outerRadius, name, value } = data;
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
@@ -22,13 +19,7 @@ export const DzPieLabel: FC<IPieLabelProps> = ({
   };
 
   return (
-    <text
-      x={x}
-      y={y}
-      fill="white"
-      textAnchor="middle"
-      dominantBaseline="central"
-      style={style}>
+    <text x={x} y={y} fill='white' textAnchor='middle' dominantBaseline='central' style={style}>
       {prependDollarInLabel ? `$${value}` : value}
     </text>
   );

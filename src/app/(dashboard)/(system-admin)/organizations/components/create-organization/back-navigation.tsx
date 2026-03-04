@@ -24,14 +24,13 @@ export const BackNavigation: FC<IBackNavigationProps> = ({ isEditing }) => {
             width: '1.5rem',
             cursor: 'pointer',
             paddingTop: '0.25rem',
-          }}>
+          }}
+        >
           <ArrowLeft />
         </Flex>
       </Link>
       <DzBox>
-        <Text strong>
-          {isEditing ? 'Edit Details' : 'Create New Organization'}
-        </Text>
+        <Text strong>{isEditing ? 'Edit Details' : 'Create New Organization'}</Text>
       </DzBox>
     </Flex>
   );

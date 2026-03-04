@@ -13,7 +13,7 @@ interface DateRange {
   endDate: string;
 }
 
-export interface IDateRange extends DateRange { }
+export interface IDateRange extends DateRange {}
 
 function getCurrentWeek(): DateRange {
   const startDate = dayjs().startOf('isoWeek').format('YYYY-MM-DD');

@@ -1,7 +1,4 @@
-import {
-  PacingPeriod,
-  ScheduleItem,
-} from '../../../services/fetch-pacing-schedule';
+import { PacingPeriod, ScheduleItem } from '../../../services/fetch-pacing-schedule';
 
 // ============= UTILITY FUNCTIONS =============
 export const calculateTotalLeads = (data: PacingPeriod[]): number => {
@@ -55,38 +52,27 @@ export const redistributeLeads = (
 
         // Redistribute within schedules, preserving zeros
         if (period.schedules && period.schedules.length > 0) {
-          const eligibleSchedules = period.schedules.filter(
-            (s: any) => s.LeadsCount > 0,
-          );
+          const eligibleSchedules = period.schedules.filter((s: any) => s.LeadsCount > 0);
 
           if (eligibleSchedules.length > 0) {
-            const perSchedule = Math.floor(
-              period.LeadsCount / eligibleSchedules.length,
-            );
-            const scheduleRemainder =
-              period.LeadsCount % eligibleSchedules.length;
+            const perSchedule = Math.floor(period.LeadsCount / eligibleSchedules.length);
+            const scheduleRemainder = period.LeadsCount % eligibleSchedules.length;
             let scheduleRemainderAssigned = 0;
 
             period.schedules.forEach((schedule: any) => {
               if (schedule.LeadsCount > 0) {
                 schedule.LeadsCount =
-                  perSchedule +
-                  (scheduleRemainderAssigned < scheduleRemainder ? 1 : 0);
-                if (scheduleRemainderAssigned < scheduleRemainder)
-                  scheduleRemainderAssigned++;
+                  perSchedule + (scheduleRemainderAssigned < scheduleRemainder ? 1 : 0);
+                if (scheduleRemainderAssigned < scheduleRemainder) scheduleRemainderAssigned++;
               }
               // Keep zero values as zero
             });
           } else {
             // If all child schedules are zero, distribute evenly among all
-            const perSchedule = Math.floor(
-              period.LeadsCount / period.schedules.length,
-            );
-            const scheduleRemainder =
-              period.LeadsCount % period.schedules.length;
+            const perSchedule = Math.floor(period.LeadsCount / period.schedules.length);
+            const scheduleRemainder = period.LeadsCount % period.schedules.length;
             period.schedules.forEach((schedule: any, idx: number) => {
-              schedule.LeadsCount =
-                perSchedule + (idx === 0 ? scheduleRemainder : 0);
+              schedule.LeadsCount = perSchedule + (idx === 0 ? scheduleRemainder : 0);
             });
           }
         }
@@ -109,13 +95,10 @@ export const redistributeLeads = (
       period.LeadsCount = perPeriod + (index === 0 ? remainder : 0);
 
       if (period.schedules && period.schedules.length > 0) {
-        const perSchedule = Math.floor(
-          period.LeadsCount / period.schedules.length,
-        );
+        const perSchedule = Math.floor(period.LeadsCount / period.schedules.length);
         const scheduleRemainder = period.LeadsCount % period.schedules.length;
         period.schedules.forEach((schedule: any, idx: number) => {
-          schedule.LeadsCount =
-            perSchedule + (idx === 0 ? scheduleRemainder : 0);
+          schedule.LeadsCount = perSchedule + (idx === 0 ? scheduleRemainder : 0);
         });
       }
     });
@@ -141,9 +124,7 @@ export const redistributeWithinPeriod = (
 
   if (preserveZeros) {
     // Only redistribute among non-zero schedules
-    const eligibleSchedules = newPeriod.schedules.filter(
-      (s: ScheduleItem) => s.LeadsCount > 0,
-    );
+    const eligibleSchedules = newPeriod.schedules.filter((s: ScheduleItem) => s.LeadsCount > 0);
 
     if (eligibleSchedules.length === 0) {
       // If all are zero, distribute evenly to all
@@ -161,8 +142,7 @@ export const redistributeWithinPeriod = (
 
       newPeriod.schedules.forEach((schedule: ScheduleItem) => {
         if (schedule.LeadsCount > 0) {
-          schedule.LeadsCount =
-            perSchedule + (remainderAssigned < remainder ? 1 : 0);
+          schedule.LeadsCount = perSchedule + (remainderAssigned < remainder ? 1 : 0);
           if (remainderAssigned < remainder) remainderAssigned++;
         }
         // Keep zero values as zero
@@ -181,10 +161,7 @@ export const redistributeWithinPeriod = (
   return newPeriod;
 };
 
-export const getDailySchedules = (
-  data: PacingPeriod[],
-  hideZeroLeadCount: boolean,
-): any[] => {
+export const getDailySchedules = (data: PacingPeriod[], hideZeroLeadCount: boolean): any[] => {
   const allSchedules: any[] = [];
   data.forEach((period) => {
     period.schedules.forEach((schedule) => {
@@ -250,8 +227,7 @@ export const redistributeDeficit = (
 
   // Redistribute the deficit across remaining periods
   remainingPeriods.forEach((period: PacingPeriod, index: number) => {
-    const additionalLeads =
-      deficitPerPeriod + (index === 0 ? deficitRemainder : 0);
+    const additionalLeads = deficitPerPeriod + (index === 0 ? deficitRemainder : 0);
     period.LeadsCount += additionalLeads;
 
     // Also redistribute within schedules if they exist
@@ -260,8 +236,7 @@ export const redistributeDeficit = (
       const scheduleRemainder = additionalLeads % period.schedules.length;
 
       period.schedules.forEach((schedule: ScheduleItem, idx: number) => {
-        schedule.LeadsCount +=
-          perSchedule + (idx === 0 ? scheduleRemainder : 0);
+        schedule.LeadsCount += perSchedule + (idx === 0 ? scheduleRemainder : 0);
       });
     }
   });

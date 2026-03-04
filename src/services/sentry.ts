@@ -7,14 +7,9 @@ export function initSentry() {
   Sentry.init({
     dsn,
     sendDefaultPii: true,
-    environment:
-      import.meta.env.VITE_SENTRY_ENVIRONMENT || import.meta.env.MODE,
-    integrations: [
-      Sentry.browserTracingIntegration(),
-      Sentry.replayIntegration(),
-    ],
-    tracesSampleRate:
-      Number(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE) || 1.0,
+    environment: import.meta.env.VITE_SENTRY_ENVIRONMENT || import.meta.env.MODE,
+    integrations: [Sentry.browserTracingIntegration(), Sentry.replayIntegration()],
+    tracesSampleRate: Number(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE) || 1.0,
     replaysSessionSampleRate:
       Number(import.meta.env.VITE_SENTRY_REPLAYS_SESSION_SAMPLE_RATE) || 0.1,
     replaysOnErrorSampleRate:

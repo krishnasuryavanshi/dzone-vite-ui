@@ -12,15 +12,9 @@ interface CreateCampaignBreadCrumbContainer {
   id?: string;
 }
 
-export const BreadCrumbContainer: FC<CreateCampaignBreadCrumbContainer> = ({
-  campaignId,
-  id,
-}) => {
+export const BreadCrumbContainer: FC<CreateCampaignBreadCrumbContainer> = ({ campaignId, id }) => {
   return (
-    <Flex
-      vertical
-      gap='0.5rem'
-      style={{ padding: '0.5rem', paddingBottom: '0rem' }}>
+    <Flex vertical gap='0.5rem' style={{ padding: '0.5rem', paddingBottom: '0rem' }}>
       <ShowCampaignBreadcrumb campaignId={campaignId} id={id} />
       <Flex gap='0.5rem' align='center'>
         <Link to='/campaign-management/campaigns'>
@@ -34,7 +28,8 @@ export const BreadCrumbContainer: FC<CreateCampaignBreadCrumbContainer> = ({
               width: '1.5rem',
               cursor: 'pointer',
               paddingTop: '0.25rem',
-            }}>
+            }}
+          >
             <ArrowLeft />
           </Flex>
         </Link>

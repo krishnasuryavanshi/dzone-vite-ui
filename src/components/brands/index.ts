@@ -1,1 +1,1 @@
-export * from "./digitalzone";
+export * from './digitalzone';

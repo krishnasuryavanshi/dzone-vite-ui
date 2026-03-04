@@ -11,9 +11,7 @@ interface IReportingTabsContentProps {
   report: string;
 }
 
-export const ReportingTabsContent: FC<IReportingTabsContentProps> = ({
-  report,
-}) => {
+export const ReportingTabsContent: FC<IReportingTabsContentProps> = ({ report }) => {
   return (
     <>
       <PerformanceReports show={report === ReportType.Performance} />

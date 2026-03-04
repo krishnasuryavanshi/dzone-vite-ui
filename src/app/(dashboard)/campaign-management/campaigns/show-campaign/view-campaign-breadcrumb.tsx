@@ -7,19 +7,13 @@ interface IViewCampaignBreadcrumbProps {
   campaignId?: string;
 }
 
-export const ViewCampaignBreadcrumb: FC<IViewCampaignBreadcrumbProps> = ({
-  campaignId,
-}) => {
+export const ViewCampaignBreadcrumb: FC<IViewCampaignBreadcrumbProps> = ({ campaignId }) => {
   const breadcrumb = [
     {
       title: <Translate i18nKey='pages.campaignManagement.title' />,
     },
     {
-      title: (
-        <span className={`${styles.campaignId} ${styles.hoverUnderline}`}>
-          {campaignId}
-        </span>
-      ),
+      title: <span className={`${styles.campaignId} ${styles.hoverUnderline}`}>{campaignId}</span>,
     },
     {
       title: <Translate i18nKey='pages.campaigns.label.viewCampaign' />,

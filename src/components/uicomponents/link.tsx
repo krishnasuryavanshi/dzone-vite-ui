@@ -1,6 +1,6 @@
-import React, { FC, PropsWithChildren } from "react";
-import { Typography } from "antd";
-import { LinkProps } from "antd/lib/typography/Link";
+import React, { FC, PropsWithChildren } from 'react';
+import { Typography } from 'antd';
+import { LinkProps } from 'antd/lib/typography/Link';
 
 interface ILinkProps extends LinkProps, PropsWithChildren {}
 

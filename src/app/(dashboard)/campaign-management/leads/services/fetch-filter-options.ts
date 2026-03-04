@@ -30,9 +30,7 @@ export const fetchFilterOptions = async (url: string): Promise<string[]> => {
         if (typeof item === 'string') {
           return item;
         }
-        return (
-          item.label || item.name || item.value || item.title || String(item)
-        );
+        return item.label || item.name || item.value || item.title || String(item);
       });
     }
 
@@ -41,9 +39,7 @@ export const fetchFilterOptions = async (url: string): Promise<string[]> => {
         if (typeof item === 'string') {
           return item;
         }
-        return (
-          item.label || item.name || item.value || item.title || String(item)
-        );
+        return item.label || item.name || item.value || item.title || String(item);
       });
     }
 

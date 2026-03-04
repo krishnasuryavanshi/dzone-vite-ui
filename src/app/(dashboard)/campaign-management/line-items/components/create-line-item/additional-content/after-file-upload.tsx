@@ -10,23 +10,14 @@ interface IAfterFileUploadProps {
   extensions: string;
 }
 
-export const AfterFileUpload: FC<IAfterFileUploadProps> = ({
-  field,
-  fileTypeName,
-  extensions,
-}) => {
+export const AfterFileUpload: FC<IAfterFileUploadProps> = ({ field, fileTypeName, extensions }) => {
   return (
     <Tooltip
       color='#707070'
       overlayStyle={{ maxWidth: '30rem' }}
-      title={
-        <TooltipContent
-          field={field}
-          fileTypeName={fileTypeName}
-          extensions={extensions}
-        />
-      }
-      placement='right'>
+      title={<TooltipContent field={field} fileTypeName={fileTypeName} extensions={extensions} />}
+      placement='right'
+    >
       <DzBox>
         <InfoCircleOutlined style={{ color: '#707070', fontSize: '1.5rem' }} />
       </DzBox>
@@ -34,11 +25,7 @@ export const AfterFileUpload: FC<IAfterFileUploadProps> = ({
   );
 };
 
-const TooltipContent: FC<IAfterFileUploadProps> = ({
-  field,
-  fileTypeName,
-  extensions,
-}) => {
+const TooltipContent: FC<IAfterFileUploadProps> = ({ field, fileTypeName, extensions }) => {
   const isMultiColumnFileUpload = field.includes(',');
   return (
     <Flex vertical style={{ padding: '1rem' }}>
@@ -46,12 +33,12 @@ const TooltipContent: FC<IAfterFileUploadProps> = ({
         Please follow these format guidelines:
       </Title>
       <Text style={{ color: '#fff' }}>
-        The file must be a {fileTypeName} file with the following required
-        columns in order: [{field}]
+        The file must be a {fileTypeName} file with the following required columns in order: [
+        {field}]
       </Text>
       <Text style={{ color: '#fff' }}>
-        Ensure there are no extra columns or missing required columns, and
-        double-check for typos or formatting issues before uploading.{' '}
+        Ensure there are no extra columns or missing required columns, and double-check for typos or
+        formatting issues before uploading.{' '}
         {isMultiColumnFileUpload
           ? 'If values for any of the required columns do not exist, include the column names and leave the values blank.'
           : null}{' '}

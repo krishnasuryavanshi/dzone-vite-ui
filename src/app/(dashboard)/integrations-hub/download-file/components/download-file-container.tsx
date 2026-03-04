@@ -1,4 +1,3 @@
-
 import { Spin, Text, Title } from '@/uicomponents';
 import { Flex, Space } from '@/uicomponents/layout';
 import { useSearchParams } from '@/lib/hooks/use-router';
@@ -11,10 +10,7 @@ export const DownloadFileContainer = () => {
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
 
-  const { data, isLoading, isError } = useDownloadFileQuery(
-    token ?? '',
-    !!token,
-  );
+  const { data, isLoading, isError } = useDownloadFileQuery(token ?? '', !!token);
 
   // Trigger file download when data arrives
   useEffect(() => {
@@ -69,10 +65,7 @@ export const DownloadFileContainer = () => {
   const hasError = status === 'error' || status === 'no-token';
 
   return (
-    <Flex
-      style={{ minHeight: '100vh', backgroundColor: 'white' }}
-      justify='center'
-      align='center'>
+    <Flex style={{ minHeight: '100vh', backgroundColor: 'white' }} justify='center' align='center'>
       <Space direction='vertical' align='center' size='large'>
         {isLoading && <Spin size='large' spinning={true} />}
         <Title level={3}>{getTitle()}</Title>

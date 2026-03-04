@@ -17,11 +17,7 @@ interface IRoleActionsProps {
   handleShowUsers: () => void;
 }
 
-export const RoleActions: FC<IRoleActionsProps> = ({
-  record,
-  handleClick,
-  handleShowUsers,
-}) => {
+export const RoleActions: FC<IRoleActionsProps> = ({ record, handleClick, handleShowUsers }) => {
   const isInactive = record?.users > 0;
   const status = record?.status?.name;
   const statusLabel = status === 'INACTIVE' ? 'Active' : 'Inactive';
@@ -35,7 +31,8 @@ export const RoleActions: FC<IRoleActionsProps> = ({
         fontSize: '12px',
         textAlign: 'center',
       }}
-      title={<Translate i18nKey='pages.users.label.changeStatus' />}>
+      title={<Translate i18nKey='pages.users.label.changeStatus' />}
+    >
       <Link
         to='#'
         onClick={(e) => {
@@ -50,7 +47,8 @@ export const RoleActions: FC<IRoleActionsProps> = ({
           padding: '0',
           color: !isMarkAsActiveDisabled ? 'inherit' : CLR_GRAY_1,
           cursor: isMarkAsActiveDisabled ? 'not-allowed' : 'pointer',
-        }}>
+        }}
+      >
         <Translate i18nKey='Mark as Inactive' />
       </Link>
     </Tooltip>
@@ -70,7 +68,8 @@ export const RoleActions: FC<IRoleActionsProps> = ({
             }}
             style={{
               color: status !== Status.INACTIVE ? 'inherit' : CLR_GRAY_1,
-            }}>
+            }}
+          >
             <Translate i18nKey='pages.users.label.viewUsers' />
           </Link>
         ),
@@ -87,7 +86,8 @@ export const RoleActions: FC<IRoleActionsProps> = ({
             to={`/ums/roles/${record.id}`}
             onClick={(e) => {
               e.stopPropagation();
-            }}>
+            }}
+          >
             <Translate i18nKey='pages.rolesAndPermissions.label.viewPermissions' />
           </Link>
         ),
@@ -111,7 +111,8 @@ export const RoleActions: FC<IRoleActionsProps> = ({
               padding: '0',
               color: !isMarkAsActiveDisabled ? 'inherit' : CLR_GRAY_1,
               cursor: isMarkAsActiveDisabled ? 'not-allowed' : 'pointer',
-            }}>
+            }}
+          >
             <Translate i18nKey={`Mark as ${statusLabel}`} />
           </Link>
         ),

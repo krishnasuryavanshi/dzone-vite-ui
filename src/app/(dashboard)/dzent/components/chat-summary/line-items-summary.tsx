@@ -11,20 +11,13 @@ type LineItemsSummaryProps = {
 export const LineItemsSummary = ({ lineItems }: LineItemsSummaryProps) => {
   const renderLineItem = (lineItemName: string, index: number) => {
     return (
-      <ChatSummaryAccordion
-        name={lineItemName}
-        key={index}
-        sections={lineItems[lineItemName]}
-      />
+      <ChatSummaryAccordion name={lineItemName} key={index} sections={lineItems[lineItemName]} />
     );
   };
   return (
     <DzBox style={{ marginTop: '1rem' }}>
       <Flex vertical gap='0.5rem'>
-        <MapFunction
-          items={Object.keys(lineItems)}
-          renderItem={renderLineItem}
-        />
+        <MapFunction items={Object.keys(lineItems)} renderItem={renderLineItem} />
       </Flex>
     </DzBox>
   );

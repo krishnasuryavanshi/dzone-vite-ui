@@ -69,7 +69,8 @@ export const ResizableTitle: React.FC<ResizableTitleProps> = (props) => {
         style={{
           ...restProps.style,
           position: 'relative',
-        }}>
+        }}
+      >
         {restProps.children}
         <div
           className={`column-resize-handle ${dragState.isDragging ? 'resizing' : ''}`}

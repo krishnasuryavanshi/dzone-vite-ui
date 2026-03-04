@@ -1,4 +1,3 @@
-
 import { Form as Login } from '@/uicomponents/form';
 import { useLogin } from '@/lib/hooks/use-auth';
 import { FC, PropsWithChildren } from 'react';
@@ -36,7 +35,8 @@ export const LoginForm: FC<ILoginFormProps> = ({
       {...meta}
       {...(initialValues && { initialValues })}
       onFinish={onSubmit}
-      style={{ textAlign: 'left', width: '100%' }}>
+      style={{ textAlign: 'left', width: '100%' }}
+    >
       {children}
     </Login>
   );

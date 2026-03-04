@@ -20,13 +20,12 @@ export const ExecutiveFilterDropdowns: FC<IExecutiveFilterDropdown> = ({
   activeTab,
   handleSelection,
 }) => {
-  const { selectedUnit, selectedTimeFrame, handleSelectionChange } =
-    useFilterDropdowns({
-      submit,
-      reset,
-      handleSelection,
-      activeTab,
-    });
+  const { selectedUnit, selectedTimeFrame, handleSelectionChange } = useFilterDropdowns({
+    submit,
+    reset,
+    handleSelection,
+    activeTab,
+  });
   const { currentScreenSize } = useScreenBreakpoint();
   const [columnSpanUnits, setColumnSpanUnits] = useState<number>(8);
   const [columnSpanComparison, setColumnSpanComparison] = useState<number>(10);
@@ -42,10 +41,7 @@ export const ExecutiveFilterDropdowns: FC<IExecutiveFilterDropdown> = ({
   }, [currentScreenSize]);
 
   return (
-    <Row
-      gutter={[12, 12]}
-      align={'bottom'}
-    >
+    <Row gutter={[12, 12]} align={'bottom'}>
       <Col span={columnSpanUnits}>
         <UnitsDropdown
           allUnits={allUnits}

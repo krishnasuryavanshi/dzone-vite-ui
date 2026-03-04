@@ -14,7 +14,8 @@ export const SaveButton: FC<ISaveButtonProps> = ({ onSubmit, disabled }) => {
       type='primary'
       htmlType='submit'
       className='action submit'
-      disabled={disabled}>
+      disabled={disabled}
+    >
       <Translate i18nKey='form.actions.save' />
     </Button>
   );

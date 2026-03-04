@@ -11,10 +11,7 @@ import React, {
 import { sanitizeInput } from '@/lib/utils/string';
 
 const setNativeValue = (element: HTMLInputElement, value: string) => {
-  const valueSetter = Object.getOwnPropertyDescriptor(
-    HTMLInputElement.prototype,
-    'value',
-  )?.set;
+  const valueSetter = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value')?.set;
   valueSetter?.call(element, value);
   element.dispatchEvent(new Event('input', { bubbles: true }));
 };
@@ -47,10 +44,7 @@ export const Input: FC<InputProps> = ({
     const start = input.selectionStart || 0;
     const end = input.selectionEnd || 0;
     const currentValue = input.value;
-    const newValue =
-      currentValue.substring(0, start) +
-      sanitized +
-      currentValue.substring(end);
+    const newValue = currentValue.substring(0, start) + sanitized + currentValue.substring(end);
     setNativeValue(input, newValue);
     input.setSelectionRange(start + sanitized.length, start + sanitized.length);
     onPaste?.(e);
@@ -73,15 +67,9 @@ export const Input: FC<InputProps> = ({
       const start = input.selectionStart || 0;
       const end = input.selectionEnd || 0;
       const currentValue = input.value;
-      const newValue =
-        currentValue.substring(0, start) +
-        sanitized +
-        currentValue.substring(end);
+      const newValue = currentValue.substring(0, start) + sanitized + currentValue.substring(end);
       setNativeValue(input, newValue);
-      input.setSelectionRange(
-        start + sanitized.length,
-        start + sanitized.length,
-      );
+      input.setSelectionRange(start + sanitized.length, start + sanitized.length);
     }
     onDrop?.(e);
   };
@@ -102,7 +90,8 @@ export const Input: FC<InputProps> = ({
       onPaste={handlePaste}
       onBlur={handleBlur}
       onDrop={handleDrop}
-      onCompositionEnd={handleCompositionEnd}>
+      onCompositionEnd={handleCompositionEnd}
+    >
       {children}
     </AntdInput>
   );

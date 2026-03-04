@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import {
   LineChart as RechartsLineChart,

@@ -26,8 +26,6 @@ export const LeadValidationSettingRuleContainer = ({
     case 'SYNTAX_VALIDATION':
       return <SyntaxValidation ruleName={ruleName} isEditing={isEditing} />;
     default:
-      return (
-        <SingleSectionSingleValue ruleName={ruleName} isEditing={isEditing} />
-      );
+      return <SingleSectionSingleValue ruleName={ruleName} isEditing={isEditing} />;
   }
 };

@@ -45,7 +45,8 @@ export const DzBarChart: FC<IDzBarChartProps> = ({ data, loaded }) => {
         layout='vertical'
         barSize={272 / data.length}
         barGap={4}
-        margin={{ top: 0, right: 0, bottom: 0, left: 0 }}>
+        margin={{ top: 0, right: 0, bottom: 0, left: 0 }}
+      >
         <XAxis type='number' hide={true} />
         <YAxis
           type='category'
@@ -74,13 +75,9 @@ export const DzBarChart: FC<IDzBarChartProps> = ({ data, loaded }) => {
           radius={4}
           fill='#5D88FF'
           style={{ cursor: 'pointer' }}
-          activeBar={<Rectangle fill={DZONE_CLR_BLACK} />}>
-          <LabelList
-            dataKey='value'
-            position='insideLeft'
-            fill='white'
-            fontSize={'0.75rem'}
-          />
+          activeBar={<Rectangle fill={DZONE_CLR_BLACK} />}
+        >
+          <LabelList dataKey='value' position='insideLeft' fill='white' fontSize={'0.75rem'} />
         </Bar>
       </BarChart>
     </ResponsiveContainer>

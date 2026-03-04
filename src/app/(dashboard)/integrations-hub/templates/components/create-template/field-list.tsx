@@ -8,10 +8,7 @@ import { showNotification } from '@/services/notification';
 import { filter } from 'lodash';
 import { FC, useEffect, useState } from 'react';
 import { ITemplateFieldResponse } from '../../lib/types/template-response';
-import {
-  getLastVisibleFieldIndex,
-  isOrderChangeAllowed,
-} from '../../lib/utils';
+import { getLastVisibleFieldIndex, isOrderChangeAllowed } from '../../lib/utils';
 import { useTemplateStore } from '../../stores';
 import {
   ActionCell,
@@ -32,21 +29,13 @@ interface IFieldListProps {
 }
 
 export const FieldList: FC<IFieldListProps> = ({ templateId }) => {
-  const {
-    fields,
-    updateErrorStatus,
-    updateFields,
-    deliveryType,
-    updatedTemplateData,
-  } = useTemplateStore();
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { fields, updateErrorStatus, updateFields, deliveryType, updatedTemplateData } =
+    useTemplateStore();
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
   const sourceType = updatedTemplateData?.type || '';
 
   const editPermission = usePermissionCheck(DeliveryTemplateActionsEnum.Edit);
-  const createPermission = usePermissionCheck(
-    DeliveryTemplateActionsEnum.Create,
-  );
+  const createPermission = usePermissionCheck(DeliveryTemplateActionsEnum.Create);
   const isEditTemplateAllowed = templateId ? editPermission : createPermission;
   const [disabledArrowIndexes, setDisabledArrowIndexes] = useState({
     up: -1,
@@ -63,9 +52,7 @@ export const FieldList: FC<IFieldListProps> = ({ templateId }) => {
 
   useEffect(() => {
     if (list.length) {
-      updateFields(
-        list.map((field, index) => ({ ...field, order: index + 1 })),
-      );
+      updateFields(list.map((field, index) => ({ ...field, order: index + 1 })));
     }
   }, [list]);
 
@@ -88,18 +75,11 @@ export const FieldList: FC<IFieldListProps> = ({ templateId }) => {
     });
   };
 
-  const actionRenderer = (
-    _val: string,
-    record: ITemplateFieldResponse,
-    index: number,
-  ) => {
+  const actionRenderer = (_val: string, record: ITemplateFieldResponse, index: number) => {
     return <ActionCell isDisabled={!record.visible} index={index} />;
   };
 
-  const handleOrderChange = (
-    newOrder: number,
-    record: ITemplateFieldResponse,
-  ) => {
+  const handleOrderChange = (newOrder: number, record: ITemplateFieldResponse) => {
     const currentIndex = list.findIndex((field) => field.name === record.name);
     const currentOrder = currentIndex + 1;
 
@@ -122,20 +102,13 @@ export const FieldList: FC<IFieldListProps> = ({ templateId }) => {
       return;
     }
 
-    const fieldList = filter(
-      list,
-      (currentObject) => currentObject.name !== record.name,
-    );
+    const fieldList = filter(list, (currentObject) => currentObject.name !== record.name);
 
     fieldList.splice(newOrder - 1, 0, record);
     setList(fieldList);
   };
 
-  const orderCellRenderer = (
-    _val: number,
-    record: ITemplateFieldResponse,
-    index: number,
-  ) => {
+  const orderCellRenderer = (_val: number, record: ITemplateFieldResponse, index: number) => {
     return (
       <OrderCell
         handleOrderChange={handleOrderChange}
@@ -149,16 +122,10 @@ export const FieldList: FC<IFieldListProps> = ({ templateId }) => {
     );
   };
 
-  const handleVisibilityChange = (
-    isVisible: boolean,
-    record: ITemplateFieldResponse,
-  ) => {
+  const handleVisibilityChange = (isVisible: boolean, record: ITemplateFieldResponse) => {
     record.visible = isVisible;
 
-    const fieldList = filter(
-      list,
-      (currentObject) => currentObject.name !== record.name,
-    );
+    const fieldList = filter(list, (currentObject) => currentObject.name !== record.name);
 
     let newOrder = fieldList.length;
 
@@ -171,10 +138,7 @@ export const FieldList: FC<IFieldListProps> = ({ templateId }) => {
     setList(fieldList);
   };
 
-  const visibilityCellRenderer = (
-    _val: boolean,
-    record: ITemplateFieldResponse,
-  ) => {
+  const visibilityCellRenderer = (_val: boolean, record: ITemplateFieldResponse) => {
     return (
       <VisibilityCell
         templateField={record}
@@ -191,10 +155,7 @@ export const FieldList: FC<IFieldListProps> = ({ templateId }) => {
   ) => {
     record.destination = val;
 
-    const fieldList = filter(
-      list,
-      (currentObject) => currentObject.name !== record.name,
-    );
+    const fieldList = filter(list, (currentObject) => currentObject.name !== record.name);
 
     fieldList.splice(index, 0, record);
     setList(fieldList);
@@ -217,10 +178,7 @@ export const FieldList: FC<IFieldListProps> = ({ templateId }) => {
     );
   };
 
-  const aiConfidenceCellRenderer = (
-    _val: any,
-    record: ITemplateFieldResponse,
-  ) => {
+  const aiConfidenceCellRenderer = (_val: any, record: ITemplateFieldResponse) => {
     // Don't show confidence if field is not visible
     if (!record.visible) {
       return null;
@@ -230,9 +188,7 @@ export const FieldList: FC<IFieldListProps> = ({ templateId }) => {
     const confidenceDecimal = Number(record.confidence) || 0;
     // If value is <= 1, treat as decimal and convert to percentage
     const confidenceValue =
-      confidenceDecimal <= 1
-        ? Math.round(confidenceDecimal * 100)
-        : Math.round(confidenceDecimal);
+      confidenceDecimal <= 1 ? Math.round(confidenceDecimal * 100) : Math.round(confidenceDecimal);
     return <AiConfidenceCell confidence={confidenceValue} />;
   };
 

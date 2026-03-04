@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Upload, Typography, Progress, message } from 'antd';
 import type { UploadProps, UploadFile } from 'antd';
@@ -48,16 +47,13 @@ export const MultipleFilesUpload: React.FC<MultiFileUploadProps> = ({
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'space-between',
-              }}>
+              }}
+            >
               <Flex style={{ flex: 1 }}>
                 <Text strong>{file.name}</Text>
                 <br />
                 {file.status === 'uploading' && (
-                  <Progress
-                    percent={file.percent || 0}
-                    size='small'
-                    strokeColor='#52c41a'
-                  />
+                  <Progress percent={file.percent || 0} size='small' strokeColor='#52c41a' />
                 )}
               </Flex>
               {(file.status === 'uploading' || file.status === 'done') && (

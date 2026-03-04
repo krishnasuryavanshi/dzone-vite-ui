@@ -1,4 +1,3 @@
-
 import { FC, useMemo } from 'react';
 import { Modal } from '@/uicomponents/modal';
 import { Text, Title } from '@/uicomponents';
@@ -30,10 +29,7 @@ export const PacingPeriodDiffModal: FC<PacingPeriodDiffModalProps> = ({
 
   const calculateTotalLeads = (data: any) => {
     if (!data) return 0;
-    return data.reduce(
-      (sum: number, period: any) => sum + (period.LeadsCount || 0),
-      0,
-    );
+    return data.reduce((sum: number, period: any) => sum + (period.LeadsCount || 0), 0);
   };
 
   return (
@@ -43,7 +39,8 @@ export const PacingPeriodDiffModal: FC<PacingPeriodDiffModalProps> = ({
       title='Pacing Period Changes'
       footer={null}
       width={1400}
-      className={styles.modal}>
+      className={styles.modal}
+    >
       <Flex gap={24} className={styles.container}>
         <Flex vertical className={styles.section}>
           <Title level={5} className={styles.sectionTitle}>
@@ -53,10 +50,7 @@ export const PacingPeriodDiffModal: FC<PacingPeriodDiffModalProps> = ({
             Total Leads: {calculateTotalLeads(previousValue)}
           </Text>
           {previousValue && previousValue.length > 0 ? (
-            <ReadonlyPacingTable
-              data={previousValue}
-              pacingSchedule={pacingSchedule}
-            />
+            <ReadonlyPacingTable data={previousValue} pacingSchedule={pacingSchedule} />
           ) : (
             <Text type='secondary' className={styles.emptyState}>
               No data available
@@ -72,10 +66,7 @@ export const PacingPeriodDiffModal: FC<PacingPeriodDiffModalProps> = ({
             Total Leads: {calculateTotalLeads(newValue)}
           </Text>
           {newValue && newValue.length > 0 ? (
-            <ReadonlyPacingTable
-              data={newValue}
-              pacingSchedule={pacingSchedule}
-            />
+            <ReadonlyPacingTable data={newValue} pacingSchedule={pacingSchedule} />
           ) : (
             <Text type='secondary' className={styles.emptyState}>
               No data available

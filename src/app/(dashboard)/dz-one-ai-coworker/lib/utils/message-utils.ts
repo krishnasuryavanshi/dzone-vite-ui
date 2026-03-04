@@ -1,14 +1,7 @@
-import {
-  ChatMessage,
-  ChatHistoryMessage,
-  FileUploadStatus,
-  MessageRole,
-} from '../types';
+import { ChatMessage, ChatHistoryMessage, FileUploadStatus, MessageRole } from '../types';
 import { getFileTypeFromName } from './file-utils';
 
-export const mapChatHistoryToMessages = (
-  messages: ChatHistoryMessage[],
-): ChatMessage[] => {
+export const mapChatHistoryToMessages = (messages: ChatHistoryMessage[]): ChatMessage[] => {
   return messages.map((msg) => ({
     id: msg.id,
     role: msg.role === 'user' ? MessageRole.USER : MessageRole.ASSISTANT,
@@ -25,7 +18,5 @@ export const mapChatHistoryToMessages = (
 };
 
 export const truncateTitle = (content: string, maxLength: number): string => {
-  return content.length > maxLength
-    ? content.substring(0, maxLength) + '...'
-    : content;
+  return content.length > maxLength ? content.substring(0, maxLength) + '...' : content;
 };

@@ -7,9 +7,7 @@ interface ICreateOrganizationHeaderProps {
   isEditing?: boolean;
 }
 
-export const CreateOrganizationHeader: FC<ICreateOrganizationHeaderProps> = ({
-  isEditing,
-}) => {
+export const CreateOrganizationHeader: FC<ICreateOrganizationHeaderProps> = ({ isEditing }) => {
   return (
     <Flex gap='0.75rem' vertical>
       <OrganizationsTitle />

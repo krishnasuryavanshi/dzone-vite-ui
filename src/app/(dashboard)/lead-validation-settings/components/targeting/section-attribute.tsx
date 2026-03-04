@@ -9,15 +9,10 @@ type SectionAttributeProps = {
   attribute: Record<string, any>;
   sectionName: string;
 };
-export const SectionAttribute = ({
-  sectionName,
-  attribute,
-}: SectionAttributeProps) => {
+export const SectionAttribute = ({ sectionName, attribute }: SectionAttributeProps) => {
   const renderInput = () => {
     if (attribute.type === 'inclusion') {
-      return (
-        <TargetingInclusion sectionName={sectionName} attribute={attribute} />
-      );
+      return <TargetingInclusion sectionName={sectionName} attribute={attribute} />;
     } else if (attribute.type === 'job_title') {
       return <JobTitle onChange={() => {}} />;
     } else if (
@@ -29,9 +24,7 @@ export const SectionAttribute = ({
         'switch_dropdown_searchable',
       ].includes(attribute.type)
     ) {
-      return (
-        <TargetingSwitch sectionName={sectionName} attribute={attribute} />
-      );
+      return <TargetingSwitch sectionName={sectionName} attribute={attribute} />;
     }
     return null;
   };
@@ -44,7 +37,8 @@ export const SectionAttribute = ({
             border: '1px solid #E5EBF1',
             borderRadius: '0.25rem',
           }}
-          className='section-attributes-container'>
+          className='section-attributes-container'
+        >
           {renderInput()}
         </DzBox>
       </Col>

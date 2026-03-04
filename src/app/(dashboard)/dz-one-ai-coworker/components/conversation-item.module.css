@@ -55,12 +55,7 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: linear-gradient(
-    109deg,
-    #ffb8ec 4.89%,
-    #f3d6ff 51.39%,
-    #7d88ff 97.01%
-  );
+  background: linear-gradient(109deg, #ffb8ec 4.89%, #f3d6ff 51.39%, #7d88ff 97.01%);
   flex-shrink: 0;
   animation: pulse 1.5s ease-in-out infinite;
 }

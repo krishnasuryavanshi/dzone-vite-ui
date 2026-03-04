@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState, useRef } from 'react';
 import { Tag, Tooltip } from '@/uicomponents';
 import { Text } from '@/uicomponents/text';
@@ -8,10 +7,7 @@ interface TruncatedTagListProps {
   items: Array<{ label: string; value: string }> | string[];
   onViewAll: () => void;
   maxLines?: number;
-  renderItem?: (
-    item: { label: string; value: string },
-    index: number,
-  ) => React.ReactNode;
+  renderItem?: (item: { label: string; value: string }, index: number) => React.ReactNode;
 }
 
 export const TruncatedTagList: React.FC<TruncatedTagListProps> = ({
@@ -20,17 +16,13 @@ export const TruncatedTagList: React.FC<TruncatedTagListProps> = ({
   maxLines = 2,
   renderItem,
 }) => {
-  const [visibleItems, setVisibleItems] = useState<
-    Array<{ label: string; value: string }>
-  >([]);
+  const [visibleItems, setVisibleItems] = useState<Array<{ label: string; value: string }>>([]);
   const [showViewMore, setShowViewMore] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const hiddenRef = useRef<HTMLDivElement>(null);
 
   const normalizedItems = React.useMemo(() => {
-    return items.map((item) =>
-      typeof item === 'string' ? { label: item, value: item } : item,
-    );
+    return items.map((item) => (typeof item === 'string' ? { label: item, value: item } : item));
   }, [items]);
 
   useEffect(() => {
@@ -132,7 +124,8 @@ export const TruncatedTagList: React.FC<TruncatedTagListProps> = ({
         style={{
           maxHeight,
           overflow: 'hidden',
-        }}>
+        }}
+      >
         <Flex wrap='wrap' gap='0.5rem' align='center'>
           {renderItem
             ? visibleItems.map((item, index) => renderItem(item, index))
@@ -151,7 +144,8 @@ export const TruncatedTagList: React.FC<TruncatedTagListProps> = ({
                 fontWeight: 500,
                 whiteSpace: 'nowrap',
                 textDecoration: 'underline',
-              }}>
+              }}
+            >
               View More
             </Text>
           )}
@@ -167,7 +161,8 @@ export const TruncatedTagList: React.FC<TruncatedTagListProps> = ({
           left: 0,
           right: 0,
           pointerEvents: 'none',
-        }}>
+        }}
+      >
         <Flex wrap='wrap' gap='0.5rem'>
           {normalizedItems.map((item) => (
             <Tag key={item.value} style={tagStyle}>

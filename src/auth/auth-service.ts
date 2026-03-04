@@ -62,14 +62,7 @@ export async function login(email: string, password: string) {
   const permissionsObject = flattenPermissions(data.modules || []);
 
   // Pick user identity fields
-  const user = pick(data, [
-    'name',
-    'email',
-    'userId',
-    'username',
-    'firstName',
-    'lastName',
-  ]);
+  const user = pick(data, ['name', 'email', 'userId', 'username', 'firstName', 'lastName']);
 
   // Populate stores
   useTokenStore.getState().setToken(data.accessToken);

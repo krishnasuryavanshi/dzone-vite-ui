@@ -15,9 +15,7 @@ interface IJobTitleInputRendererProps {
   removeTag: (tag: Record<string, any>) => void;
   placeholder?: string;
   isEditMode?: boolean;
-  handleAddRecommendedJobTitles: (
-    selectedRecommendedJobTitles: string[],
-  ) => void;
+  handleAddRecommendedJobTitles: (selectedRecommendedJobTitles: string[]) => void;
   recommendedJobTitles: Record<string, any>[];
   isRecommendedJobTitlesLoading: boolean;
   disabled?: boolean;
@@ -35,11 +33,7 @@ export const JobTitleInputRenderer: FC<IJobTitleInputRendererProps> = ({
   isRecommendedJobTitlesLoading,
   disabled,
 }) => {
-  const {
-    isOpen: isDrawerOpen,
-    close: closeDrawer,
-    open: openDrawer,
-  } = useToggle();
+  const { isOpen: isDrawerOpen, close: closeDrawer, open: openDrawer } = useToggle();
 
   // Properly format job titles for TruncatedTagList with safety checks
   const memoizedJobTitles = useMemo(() => {

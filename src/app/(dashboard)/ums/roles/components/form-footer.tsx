@@ -24,11 +24,7 @@ export const FormFooter: FC<IFormFooterProps> = ({
     <Flex justify='end' align='center' gap='0.875rem'>
       <CancelButton onCancel={handleCancel} />
       {(!isEditing || isEditAllowed) &&
-        (loader ? (
-          <LoaderButton />
-        ) : (
-          <SaveButton onSubmit={handleSubmit} disabled={isDisabled} />
-        ))}
+        (loader ? <LoaderButton /> : <SaveButton onSubmit={handleSubmit} disabled={isDisabled} />)}
     </Flex>
   );
 };

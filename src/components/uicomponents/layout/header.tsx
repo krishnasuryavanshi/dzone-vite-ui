@@ -1,3 +1,3 @@
-import { Layout } from "antd";
+import { Layout } from 'antd';
 
 export const { Header } = Layout;

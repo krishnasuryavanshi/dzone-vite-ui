@@ -1,4 +1,3 @@
-
 import { useLayoutEffect, useRef } from 'react';
 import * as am5 from '@amcharts/amcharts5';
 import * as am5xy from '@amcharts/amcharts5/xy';
@@ -74,10 +73,7 @@ export default function DZBarAmChart({
     const categoryAxis = (isHorizontal ? chart.yAxes : chart.xAxes).push(
       am5xy.CategoryAxis.new(root, {
         categoryField: categoryKey,
-        renderer: (isHorizontal
-          ? am5xy.AxisRendererY
-          : am5xy.AxisRendererX
-        ).new(root, {
+        renderer: (isHorizontal ? am5xy.AxisRendererY : am5xy.AxisRendererX).new(root, {
           inversed: isHorizontal, // horizontal bar lists from top to bottom
           cellStartLocation: 0.02,
           cellEndLocation: 0.98,
@@ -209,16 +205,7 @@ export default function DZBarAmChart({
     return () => {
       root.dispose();
     };
-  }, [
-    orientation,
-    xLabel,
-    yLabel,
-    categoryKey,
-    valueKey,
-    numberFormat,
-    height,
-    width,
-  ]);
+  }, [orientation, xLabel, yLabel, categoryKey, valueKey, numberFormat, height, width]);
 
   return <div ref={chartRef} style={{ width, height }} />;
 }

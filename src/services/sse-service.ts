@@ -32,10 +32,7 @@ function defaultParseData<T>(raw: unknown): T | null {
   return raw as T;
 }
 
-function parseSSEMessage<T>(
-  text: string,
-  customParser?: (raw: unknown) => T | null,
-): T | null {
+function parseSSEMessage<T>(text: string, customParser?: (raw: unknown) => T | null): T | null {
   const lines = text.split('\n');
   for (const line of lines) {
     if (line.startsWith('data:')) {
@@ -43,9 +40,7 @@ function parseSSEMessage<T>(
       if (jsonStr) {
         try {
           const parsed = JSON.parse(jsonStr);
-          return customParser
-            ? customParser(parsed)
-            : defaultParseData<T>(parsed);
+          return customParser ? customParser(parsed) : defaultParseData<T>(parsed);
         } catch {
           return null;
         }
@@ -55,10 +50,7 @@ function parseSSEMessage<T>(
   return null;
 }
 
-async function createConnection<T>(
-  connectionId: string,
-  config: InternalConfig<T>,
-): Promise<void> {
+async function createConnection<T>(connectionId: string, config: InternalConfig<T>): Promise<void> {
   const cancelSource = axios.CancelToken.source();
   config.cancelSource = cancelSource;
   activeConnections.set(connectionId, cancelSource);
@@ -139,9 +131,7 @@ async function createConnection<T>(
     // Only auto-reconnect if enabled (default: true for backwards compatibility)
     const shouldReconnect = config.autoReconnect !== false;
     if (shouldReconnect && !intentionalDisconnects.has(connectionId)) {
-      const savedConfig = connectionConfigs.get(
-        connectionId,
-      ) as InternalConfig<T>;
+      const savedConfig = connectionConfigs.get(connectionId) as InternalConfig<T>;
       if (savedConfig) {
         logger.info('SSE: scheduling reconnect', { connectionId, retryDelayMs: RETRY_DELAY });
         savedConfig.retryTimeout = setTimeout(() => {
@@ -164,9 +154,7 @@ export function connectSSE<T>(
     return;
   }
 
-  const existingConfig = connectionConfigs.get(
-    connectionId,
-  ) as InternalConfig<T>;
+  const existingConfig = connectionConfigs.get(connectionId) as InternalConfig<T>;
   if (existingConfig?.retryTimeout) {
     clearTimeout(existingConfig.retryTimeout);
   }
@@ -176,10 +164,7 @@ export function connectSSE<T>(
     endpoint,
   };
 
-  connectionConfigs.set(
-    connectionId,
-    internalConfig as InternalConfig<unknown>,
-  );
+  connectionConfigs.set(connectionId, internalConfig as InternalConfig<unknown>);
   intentionalDisconnects.delete(connectionId);
 
   createConnection(connectionId, internalConfig);
@@ -212,9 +197,7 @@ export function disconnectAllSSE(): void {
     intentionalDisconnects.add(id);
   });
 
-  activeConnections.forEach((source) =>
-    source.cancel('All connections closed'),
-  );
+  activeConnections.forEach((source) => source.cancel('All connections closed'));
   activeConnections.clear();
   connectionConfigs.clear();
   intentionalDisconnects.clear();

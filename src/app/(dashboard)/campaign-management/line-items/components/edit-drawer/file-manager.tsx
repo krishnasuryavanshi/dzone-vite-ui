@@ -37,9 +37,7 @@ interface FileManagerProps {
   maxFiles?: number;
   acceptedFileTypes?: string[];
   inline?: boolean;
-  onSelectionChange?: (
-    fileData: Array<{ id: string; isDisabled: boolean }>,
-  ) => void;
+  onSelectionChange?: (fileData: Array<{ id: string; isDisabled: boolean }>) => void;
   attributeName?: string;
   fileMetadataTypeName?: string | null;
 }
@@ -64,9 +62,7 @@ export const FileManager: React.FC<FileManagerProps> = ({
   const [isUploading, setIsUploading] = useState(false);
   const [internalFiles, setInternalFiles] = useState<FileItemType[]>([]);
 
-  const { data: metadataResponse } = useFileUploadMetadataQuery(
-    fileMetadataTypeName ?? '',
-  );
+  const { data: metadataResponse } = useFileUploadMetadataQuery(fileMetadataTypeName ?? '');
   const uploadMetadata = metadataResponse?.data ?? null;
 
   useEffect(() => {
@@ -83,8 +79,7 @@ export const FileManager: React.FC<FileManagerProps> = ({
   }, [files, isOpen]);
 
   // Check if all files are selected (enabled/active)
-  const allSelected =
-    internalFiles.length > 0 && internalFiles.every((file) => !file.isDisabled);
+  const allSelected = internalFiles.length > 0 && internalFiles.every((file) => !file.isDisabled);
   const someSelected = internalFiles.some((file) => !file.isDisabled);
   const isIndeterminate = someSelected && !allSelected;
 
@@ -131,9 +126,8 @@ export const FileManager: React.FC<FileManagerProps> = ({
     disabled: isUploading,
     fileList: [],
     accept:
-      uploadMetadata?.types
-        ?.map((t: string) => `.${t.toLowerCase()}`)
-        .join(',') || defaultAcceptedFileTypes.join(','),
+      uploadMetadata?.types?.map((t: string) => `.${t.toLowerCase()}`).join(',') ||
+      defaultAcceptedFileTypes.join(','),
     showUploadList: false,
     beforeUpload: () => false,
     onChange: async (info) => {
@@ -141,9 +135,8 @@ export const FileManager: React.FC<FileManagerProps> = ({
 
       const { file } = info;
       const acceptedTypes =
-        (uploadMetadata?.types as string[])?.map(
-          (t) => `.${t.toLowerCase()}`,
-        ) || defaultAcceptedFileTypes;
+        (uploadMetadata?.types as string[])?.map((t) => `.${t.toLowerCase()}`) ||
+        defaultAcceptedFileTypes;
       const fileExtension = `.${file.name.split('.').pop()?.toLowerCase()}`;
 
       if (!acceptedTypes.includes(fileExtension)) {
@@ -175,9 +168,7 @@ export const FileManager: React.FC<FileManagerProps> = ({
         );
 
         if (!uploadedFilesResult || uploadedFilesResult.length === 0) {
-          throw new Error(
-            'File upload failed. The server did not return any file data.',
-          );
+          throw new Error('File upload failed. The server did not return any file data.');
         }
 
         const newFiles: FileItemType[] = uploadedFilesResult.map((f: any) => ({
@@ -199,10 +190,7 @@ export const FileManager: React.FC<FileManagerProps> = ({
       } catch (error: any) {
         showNotification({
           type: 'error',
-          message:
-            error.response?.data?.message ||
-            error.message ||
-            'File upload failed.',
+          message: error.response?.data?.message || error.message || 'File upload failed.',
         });
       } finally {
         setIsUploading(false);
@@ -215,7 +203,8 @@ export const FileManager: React.FC<FileManagerProps> = ({
       <Checkbox
         onChange={(e) => handleSelectAll(e.target.checked)}
         checked={allSelected}
-        indeterminate={isIndeterminate}>
+        indeterminate={isIndeterminate}
+      >
         Select All
       </Checkbox>
       {internalFiles.map((file) => (
@@ -258,7 +247,8 @@ export const FileManager: React.FC<FileManagerProps> = ({
             Save
           </Button>
         </Flex>
-      }>
+      }
+    >
       <DzBox style={{ padding: '0 0 1.5rem 0' }}>{renderContent()}</DzBox>
     </Modal>
   );

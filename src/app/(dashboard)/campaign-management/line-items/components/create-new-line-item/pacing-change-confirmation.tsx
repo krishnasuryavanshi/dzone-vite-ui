@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Modal } from '@/uicomponents/modal';
 
@@ -8,9 +7,11 @@ interface PacingChangeConfirmationProps {
   onCancel: () => void;
 }
 
-export const PacingChangeConfirmation: React.FC<
-  PacingChangeConfirmationProps
-> = ({ visible, onConfirm, onCancel }) => {
+export const PacingChangeConfirmation: React.FC<PacingChangeConfirmationProps> = ({
+  visible,
+  onConfirm,
+  onCancel,
+}) => {
   return (
     <Modal
       open={visible}
@@ -20,9 +21,10 @@ export const PacingChangeConfirmation: React.FC<
       onOk={onConfirm}
       onCancel={onCancel}
       maskClosable={false}
-      closable={false}>
-      If you switch to No Pacing, you will not be able to enable Custom Pacing
-      again for this line item. Do you want to continue?
+      closable={false}
+    >
+      If you switch to No Pacing, you will not be able to enable Custom Pacing again for this line
+      item. Do you want to continue?
     </Modal>
   );
 };

@@ -9,9 +9,10 @@ interface ICreateOrganizationContainerProps {
   organization?: IOrganization;
 }
 
-export const CreateOrganizationContainer: FC<
-  ICreateOrganizationContainerProps
-> = ({ isEditing, organization }) => {
+export const CreateOrganizationContainer: FC<ICreateOrganizationContainerProps> = ({
+  isEditing,
+  organization,
+}) => {
   return (
     <DzBox className='dz-page-content'>
       <DzScrollContainer vertical scoll='outside'>

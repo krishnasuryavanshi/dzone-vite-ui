@@ -15,10 +15,7 @@ type SuppressionInclusionProps = {
   sectionName: string;
 };
 
-export const SuppressionInclusion = ({
-  sectionName,
-  attribute,
-}: SuppressionInclusionProps) => {
+export const SuppressionInclusion = ({ sectionName, attribute }: SuppressionInclusionProps) => {
   const [type, setType] = useState<string | null>(null);
   const [isDisabled, setIsDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,9 +41,7 @@ export const SuppressionInclusion = ({
   useEffect(() => {
     if (
       selectedValues?.[sectionName]?.[attribute.name]?.type &&
-      ['INCLUSION', 'EXCLUSION'].includes(
-        selectedValues?.[sectionName]?.[attribute.name]?.type,
-      )
+      ['INCLUSION', 'EXCLUSION'].includes(selectedValues?.[sectionName]?.[attribute.name]?.type)
     ) {
       setType(selectedValues[sectionName][attribute.name].type);
     } else {
@@ -89,10 +84,7 @@ export const SuppressionInclusion = ({
     });
   };
 
-  const handleFileChange = async (
-    fileObject: DzRecord,
-    type: 'INCLUSION' | 'EXCLUSION',
-  ) => {
+  const handleFileChange = async (fileObject: DzRecord, type: 'INCLUSION' | 'EXCLUSION') => {
     setIsLoading(true);
     setIsDisabled(true);
     try {
@@ -109,8 +101,7 @@ export const SuppressionInclusion = ({
 
       const sectionSelection = selectedValues?.[sectionName];
 
-      const attributeSelectionValues =
-        sectionSelection?.[attribute.name]?.data || [];
+      const attributeSelectionValues = sectionSelection?.[attribute.name]?.data || [];
 
       setSelectedValues(sectionName, {
         ...sectionSelection,
@@ -137,13 +128,15 @@ export const SuppressionInclusion = ({
           display: 'flex',
           flexDirection: 'column',
           gap: '1rem',
-        }}>
+        }}
+      >
         <DzBox
           style={{
             padding: '1rem 1.25rem',
             border: '1px solid #E5EBF1',
             borderRadius: '0.25rem',
-          }}>
+          }}
+        >
           <Radio value='EXCLUSION' disabled={isReadOnly}>
             <RadioContent
               label='Suppression List'
@@ -163,7 +156,8 @@ export const SuppressionInclusion = ({
             padding: '1rem 1.25rem',
             border: '1px solid #E5EBF1',
             borderRadius: '0.25rem',
-          }}>
+          }}
+        >
           <Radio value='INCLUSION' disabled={isReadOnly}>
             <RadioContent
               label='Inclusion List'
@@ -191,10 +185,7 @@ type RadioContentProps = {
   description: string;
   uploadedFiles: DzRecord[] | null;
   handleRemoveFile: (file: DzRecord) => void;
-  handleOnFileChange: (
-    fileObject: DzRecord,
-    type: 'INCLUSION' | 'EXCLUSION',
-  ) => Promise<boolean>;
+  handleOnFileChange: (fileObject: DzRecord, type: 'INCLUSION' | 'EXCLUSION') => Promise<boolean>;
   isDisabled: boolean;
   acceptedFileTypes: string[];
   isLoading: boolean;
@@ -215,17 +206,10 @@ export const RadioContent = ({
     return await handleOnFileChange(fileObject, type);
   };
   return (
-    <Flex
-      vertical
-      gap={'0.75rem'}
-      style={{ flex: 1 }}
-      className='radio-content'>
+    <Flex vertical gap={'0.75rem'} style={{ flex: 1 }} className='radio-content'>
       <Text strong>{label}</Text>
       <Text>{description}</Text>
-      <Flex
-        align='center'
-        gap='0.5rem'
-        style={{ marginTop: '0.25rem', width: '100%' }}>
+      <Flex align='center' gap='0.5rem' style={{ marginTop: '0.25rem', width: '100%' }}>
         <DzBox style={{ width: '100%' }}>
           <TargetingFile
             acceptedFileTypes={acceptedFileTypes}

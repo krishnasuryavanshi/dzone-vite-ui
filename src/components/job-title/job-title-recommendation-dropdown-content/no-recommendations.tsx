@@ -9,10 +9,7 @@ interface INoRecommendationsProps {
   onClose: () => void;
 }
 
-export const NoRecommendations: FC<INoRecommendationsProps> = ({
-  show,
-  onClose,
-}) => {
+export const NoRecommendations: FC<INoRecommendationsProps> = ({ show, onClose }) => {
   if (!show) return null;
 
   return (
@@ -22,8 +19,7 @@ export const NoRecommendations: FC<INoRecommendationsProps> = ({
         No Suggestions Yet
       </Text>
       <Text style={{ color: '#6A5656', fontSize: '0.875rem' }}>
-        Enter a job title to receive tailored suggestions and ensure
-        comprehensive targeting.
+        Enter a job title to receive tailored suggestions and ensure comprehensive targeting.
       </Text>
       <GotItButton onClose={onClose} />
     </Flex>

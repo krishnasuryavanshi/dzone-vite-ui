@@ -12,28 +12,12 @@ import {
 interface ISupplierChartsContainerProps {}
 
 export const ChartsContainer: FC<ISupplierChartsContainerProps> = ({}) => {
-  const COLORS = [
-    '#8884d8',
-    '#82ca9d',
-    '#ffc658',
-    '#d88484',
-    '#8dcaff',
-    '#a28dd8',
-  ];
-  const supplierBarData = useFilterDashboardStore(
-    (state: FilterState) => state.supplierBarData,
-  );
-  const topReason = useFilterDashboardStore(
-    (state: FilterState) => state.topReason,
-  );
-  const supplierPieData = useFilterDashboardStore(
-    (state: FilterState) => state.supplierPieData,
-  );
+  const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#d88484', '#8dcaff', '#a28dd8'];
+  const supplierBarData = useFilterDashboardStore((state: FilterState) => state.supplierBarData);
+  const topReason = useFilterDashboardStore((state: FilterState) => state.topReason);
+  const supplierPieData = useFilterDashboardStore((state: FilterState) => state.supplierPieData);
 
-  const total = supplierBarData?.reduce(
-    (acc: any, entry: any) => acc + entry.value,
-    0,
-  );
+  const total = supplierBarData?.reduce((acc: any, entry: any) => acc + entry.value, 0);
 
   return (
     <Row gutter={[16, 16]}>

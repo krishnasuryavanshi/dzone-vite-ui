@@ -14,17 +14,17 @@ export const SetPasswordEntry: FC<ISetPasswordEntryProps> = ({ children }) => {
         width: '100vw',
         paddingTop: '0',
         background: '#EAF1FF',
-      }}>
-      <DzBox
-        className='dz-page-content'
-        style={{ borderRadius: '0.75rem', background: '#fff' }}>
+      }}
+    >
+      <DzBox className='dz-page-content' style={{ borderRadius: '0.75rem', background: '#fff' }}>
         <Flex vertical gap={'1rem'}>
           <DzBox
             style={{
               paddingTop: '2.5rem',
               paddingLeft: '2rem',
               height: '6.25rem',
-            }}>
+            }}
+          >
             <Digitalzone variant='large' color='blue' />
           </DzBox>
           <DzBox style={{ paddingTop: '9rem' }}>{children}</DzBox>

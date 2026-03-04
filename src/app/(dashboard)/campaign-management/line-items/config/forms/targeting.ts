@@ -144,8 +144,7 @@ export const TargetingConfig = [
         permissions: {
           view: ViewLineItemPermissions.CompanySizeEmployeeCountPredefinedRange,
           edit: EditLineItemPermissions.CompanySizeEmployeeCountPredefinedRange,
-          create:
-            CreateLineItemPermissions.CompanySizeEmployeeCountPredefinedRange,
+          create: CreateLineItemPermissions.CompanySizeEmployeeCountPredefinedRange,
         },
       },
       {
@@ -169,8 +168,7 @@ export const TargetingConfig = [
             permissions: {
               view: ViewLineItemPermissions.CompanySizeEmployeeCountCustomRange,
               edit: EditLineItemPermissions.CompanySizeEmployeeCountCustomRange,
-              create:
-                CreateLineItemPermissions.CompanySizeEmployeeCountCustomRange,
+              create: CreateLineItemPermissions.CompanySizeEmployeeCountCustomRange,
             },
           },
           {
@@ -180,8 +178,7 @@ export const TargetingConfig = [
             permissions: {
               view: ViewLineItemPermissions.CompanySizeEmployeeCountCustomRange,
               edit: EditLineItemPermissions.CompanySizeEmployeeCountCustomRange,
-              create:
-                CreateLineItemPermissions.CompanySizeEmployeeCountCustomRange,
+              create: CreateLineItemPermissions.CompanySizeEmployeeCountCustomRange,
             },
           },
         ],

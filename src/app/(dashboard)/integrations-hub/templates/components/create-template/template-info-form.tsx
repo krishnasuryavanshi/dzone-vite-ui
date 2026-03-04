@@ -82,13 +82,9 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
   const [isInitializing, setIsInitializing] = useState<boolean>(false);
   const [loadingDropdownFields, setLoadingDropdownFields] = useState(false);
 
-  const isEditTemplateAllowed = usePermissionCheck(
-    DeliveryTemplateActionsEnum.Edit,
-  );
+  const isEditTemplateAllowed = usePermissionCheck(DeliveryTemplateActionsEnum.Edit);
 
-  const processedSessionTenantCode = Array.isArray(tenantCode)
-    ? tenantCode.join(',')
-    : tenantCode;
+  const processedSessionTenantCode = Array.isArray(tenantCode) ? tenantCode.join(',') : tenantCode;
 
   // TanStack Query: Line Items for dropdown
   const { data: lineItemsData } = useTemplateLineItemsQuery();
@@ -121,10 +117,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
       }
 
       // Set mapping from saved fields
-      if (
-        'fields' in templateData &&
-        Array.isArray((templateData as any).fields)
-      ) {
+      if ('fields' in templateData && Array.isArray((templateData as any).fields)) {
         updateMasterFieldMappings((templateData as any).fields);
       }
       // Fetch integration options for dropdown
@@ -146,11 +139,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
         templateData.integrationId !== ''
       ) {
         fetchIntegrationOptions(templateData.deliveryType);
-        fetchDeliveryObjectOptions(
-          templateData.deliveryType,
-          templateData.integrationId,
-          false,
-        );
+        fetchDeliveryObjectOptions(templateData.deliveryType, templateData.integrationId, false);
       }
 
       if (
@@ -160,26 +149,22 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
         templateData.integrationId !== null &&
         templateData.integrationId !== ''
       ) {
-        if (
-          templateData.deliveryType === DeliveryType.ZAPIER &&
-          templateData.type
-        ) {
+        if (templateData.deliveryType === DeliveryType.ZAPIER && templateData.type) {
           // For Zapier, first fetch integration options with the type
-          fetchZapierIntegrationLabels(
-            templateData.deliveryType,
-            templateData.type,
-          ).then((response) => {
-            if (response?.data) {
-              const options = response.data.map(
-                (integration: { id: string; name: string; url?: string }) => ({
-                  label: integration.name,
-                  value: integration.id,
-                  url: integration.url || '',
-                }),
-              );
-              setIntegrationOptions(options);
-            }
-          });
+          fetchZapierIntegrationLabels(templateData.deliveryType, templateData.type).then(
+            (response) => {
+              if (response?.data) {
+                const options = response.data.map(
+                  (integration: { id: string; name: string; url?: string }) => ({
+                    label: integration.name,
+                    value: integration.id,
+                    url: integration.url || '',
+                  }),
+                );
+                setIntegrationOptions(options);
+              }
+            },
+          );
           // Only fetch form fields for Interfaces, not for Zaps (manual entry)
           if (templateData.type === 'Interfaces') {
             fetchWebformFormFieldsData(
@@ -206,20 +191,14 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
   }, [shouldReloadDependentData, templateData]);
   // Fetch integration options when editing template with HubSpot delivery type
   useEffect(() => {
-    if (
-      templateData?.deliveryType === DeliveryType.HUBSPOT &&
-      templateData?.integrationId
-    ) {
+    if (templateData?.deliveryType === DeliveryType.HUBSPOT && templateData?.integrationId) {
       setIsInitializing(true);
       fetchIntegrationOptions(templateData.deliveryType);
     }
   }, [templateData?.deliveryType, templateData?.integrationId]);
 
   useEffect(() => {
-    if (
-      templateData?.deliveryType === DeliveryType.WEBFORM &&
-      templateData?.integrationId
-    ) {
+    if (templateData?.deliveryType === DeliveryType.WEBFORM && templateData?.integrationId) {
       setIsInitializing(true);
       fetchIntegrationOptions(templateData.deliveryType);
       fetchWebformFormFieldsData(
@@ -244,22 +223,21 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
       form.setFieldsValue({ zapierType: templateData.type });
 
       // First fetch the integration options
-      fetchZapierIntegrationLabels(
-        templateData.deliveryType,
-        templateData.type,
-      ).then((response) => {
-        if (response?.data) {
-          updateIntegrationsList(DeliveryType.ZAPIER, response.data);
-          const options = response.data.map(
-            (integration: { id: string; name: string; url?: string }) => ({
-              label: integration.name,
-              value: integration.id,
-              url: integration.url || '',
-            }),
-          );
-          setIntegrationOptions(options);
-        }
-      });
+      fetchZapierIntegrationLabels(templateData.deliveryType, templateData.type).then(
+        (response) => {
+          if (response?.data) {
+            updateIntegrationsList(DeliveryType.ZAPIER, response.data);
+            const options = response.data.map(
+              (integration: { id: string; name: string; url?: string }) => ({
+                label: integration.name,
+                value: integration.id,
+                url: integration.url || '',
+              }),
+            );
+            setIntegrationOptions(options);
+          }
+        },
+      );
 
       // Only fetch form fields for interfaces type, not for zaps (manual entry)
       if (templateData.type === 'Interfaces') {
@@ -271,11 +249,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
         );
       }
     }
-  }, [
-    templateData?.deliveryType,
-    templateData?.integrationId,
-    templateData?.type,
-  ]);
+  }, [templateData?.deliveryType, templateData?.integrationId, templateData?.type]);
 
   // Fetch delivery objects when editing template with both deliveryType and integrationId
   useEffect(() => {
@@ -284,25 +258,13 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
       templateData?.integrationId &&
       integrationOptions.length > 0
     ) {
-      fetchDeliveryObjectOptions(
-        templateData.deliveryType,
-        templateData.integrationId,
-        false,
-      );
+      fetchDeliveryObjectOptions(templateData.deliveryType, templateData.integrationId, false);
     }
-  }, [
-    templateData?.deliveryType,
-    templateData?.integrationId,
-    integrationOptions,
-  ]);
+  }, [templateData?.deliveryType, templateData?.integrationId, integrationOptions]);
 
   // Update form values after integration options are loaded for editing
   useEffect(() => {
-    if (
-      templateData?.integrationId &&
-      integrationOptions.length > 0 &&
-      templateId
-    ) {
+    if (templateData?.integrationId && integrationOptions.length > 0 && templateId) {
       const existingIntegration = integrationOptions.find(
         (option) => option.value === templateData.integrationId,
       );
@@ -316,11 +278,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
 
   // Update form values after delivery object options are loaded for editing
   useEffect(() => {
-    if (
-      templateData?.deliveryObject?.id &&
-      deliveryObjectOptions.length > 0 &&
-      templateId
-    ) {
+    if (templateData?.deliveryObject?.id && deliveryObjectOptions.length > 0 && templateId) {
       const existingDeliveryObject = deliveryObjectOptions.find(
         (option) => option.id === templateData.deliveryObject?.id,
       );
@@ -335,9 +293,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
   }, [deliveryObjectOptions, templateData?.deliveryObject?.id, templateId]);
 
   useEffect(() => {
-    const selectedDeliveryObjectId = form.getFieldValue(
-      'selectedDeliveryObjectId',
-    );
+    const selectedDeliveryObjectId = form.getFieldValue('selectedDeliveryObjectId');
     if (selectedDeliveryObjectId && deliveryObjectOptions.length > 0) {
       const selectedObject = deliveryObjectOptions.find(
         (opt) => opt.value === selectedDeliveryObjectId,
@@ -384,9 +340,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
             id: selectedObject.id,
             name: selectedObject.name,
           };
-        } else if (
-          templateData?.deliveryObject?.id === values.selectedDeliveryObjectId
-        ) {
+        } else if (templateData?.deliveryObject?.id === values.selectedDeliveryObjectId) {
           // Use existing template data if IDs match
           processedValues.deliveryObject = templateData?.deliveryObject;
         } else if (templateData?.deliveryObject) {
@@ -409,8 +363,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
     }
 
     // Remove unwanted form fields from the processed values
-    const { selectedDeliveryObjectId, zapierType, ...cleanedValues } =
-      processedValues;
+    const { selectedDeliveryObjectId, zapierType, ...cleanedValues } = processedValues;
     processedValues = cleanedValues;
 
     return processedValues;
@@ -435,10 +388,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
     }
   };
 
-  const updateStateInContext = (
-    values: Partial<ITemplateResponse>,
-    infoError: boolean,
-  ) => {
+  const updateStateInContext = (values: Partial<ITemplateResponse>, infoError: boolean) => {
     const pickedValues = pick(values, [
       'name',
       'description',
@@ -516,8 +466,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
   ) => {
     setLoadingDropdownFields(true);
     try {
-      const lineItemId =
-        form.getFieldValue('lineItemId') || templateData?.lineItemId;
+      const lineItemId = form.getFieldValue('lineItemId') || templateData?.lineItemId;
       const [fieldMappingData, dropdownFieldsData] = await Promise.all([
         fetchHubspotFormFields(type, integrationId, formId, lineItemId),
         fetchDestinationDropdownFields(type, integrationId, formId, lineItemId),
@@ -526,11 +475,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
       if (dropdownFieldsData?.data && Array.isArray(dropdownFieldsData.data)) {
         createDestinationDropdownOptions(dropdownFieldsData.data);
       }
-      if (
-        shouldUpdateMappings &&
-        fieldMappingData?.data &&
-        Array.isArray(fieldMappingData.data)
-      ) {
+      if (shouldUpdateMappings && fieldMappingData?.data && Array.isArray(fieldMappingData.data)) {
         mapDestinationFields(fieldMappingData.data);
       }
     } catch (error) {
@@ -549,9 +494,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
   ) => {
     // For Zapier with type "Zaps", skip API calls - user will enter fields manually
     const actualZapierType =
-      type === DeliveryType.ZAPIER
-        ? zapierTypeOverride || zapierType || 'Zaps'
-        : null;
+      type === DeliveryType.ZAPIER ? zapierTypeOverride || zapierType || 'Zaps' : null;
 
     if (type === DeliveryType.ZAPIER && actualZapierType === 'Zaps') {
       // Skip API calls for Zaps - manual entry like Flat File
@@ -562,26 +505,16 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
 
     setLoadingDropdownFields(true);
     try {
-      const lineItemId =
-        form.getFieldValue('lineItemId') || templateData?.lineItemId;
+      const lineItemId = form.getFieldValue('lineItemId') || templateData?.lineItemId;
       const [fieldMappingData, dropdownFieldsData] = await Promise.all([
         fetchWebformFormFields(type, integrationId, lineItemId),
-        fetchDestinationDropdownFields(
-          type,
-          integrationId,
-          undefined,
-          lineItemId,
-        ),
+        fetchDestinationDropdownFields(type, integrationId, undefined, lineItemId),
       ]);
       if (dropdownFieldsData?.data && Array.isArray(dropdownFieldsData.data)) {
         createDestinationDropdownOptions(dropdownFieldsData.data);
       }
       // // Only update field mappings if not initial edit load (i.e., for create or user-triggered changes)
-      if (
-        shouldUpdateMappings &&
-        fieldMappingData?.data &&
-        Array.isArray(fieldMappingData.data)
-      ) {
+      if (shouldUpdateMappings && fieldMappingData?.data && Array.isArray(fieldMappingData.data)) {
         mapDestinationFields(fieldMappingData.data);
       }
     } catch (error) {
@@ -593,12 +526,10 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
   };
 
   const createDestinationDropdownOptions = (dropDownOptions: DzRecord[]) => {
-    const mappingOptions = Array.from(dropDownOptions).map(
-      ({ name: label, value }) => ({
-        label,
-        value,
-      }),
-    );
+    const mappingOptions = Array.from(dropDownOptions).map(({ name: label, value }) => ({
+      label,
+      value,
+    }));
 
     // Add a "None" option for unmapped fields
     mappingOptions.unshift({ label: 'None', value: '' });
@@ -686,15 +617,13 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
     <>
       <Form form={form} layout='vertical' onValuesChange={debouncedSubmitForm}>
         {/* Template Detail Section */}
-        <DzBox
-          className='dz-page-content'
-          dzOneBox
-          style={{ marginBottom: '0.5rem' }}>
+        <DzBox className='dz-page-content' dzOneBox style={{ marginBottom: '0.5rem' }}>
           <Text
             style={{
               fontSize: '16px',
               fontWeight: '600',
-            }}>
+            }}
+          >
             Template Detail
           </Text>
           <Row gutter={[16, 16]}>
@@ -702,9 +631,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
               <FormItem
                 className='input-control form-control-item'
                 name='name'
-                label={
-                  <Translate i18nKey='pages.templates.label.templateName' />
-                }
+                label={<Translate i18nKey='pages.templates.label.templateName' />}
                 rules={[
                   { type: 'string' },
                   { required: true, message: REQUIRED_FIELD },
@@ -716,7 +643,8 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
                     min: 3,
                     message: TEMPLATE_NAME_LENGTH,
                   },
-                ]}>
+                ]}
+              >
                 <Input
                   className='input-field'
                   placeholder='Enter Template Name'
@@ -728,16 +656,15 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
               <FormItem
                 className='input-control form-control-item'
                 name='description'
-                label={
-                  <Translate i18nKey='pages.templates.label.templateDescription' />
-                }
+                label={<Translate i18nKey='pages.templates.label.templateDescription' />}
                 rules={[
                   { type: 'string' },
                   {
                     pattern: /^\S.*\S$|^\S$/,
                     message: TEMPLATE_DESCRIPTION_TRAILING_SPACES,
                   },
-                ]}>
+                ]}
+              >
                 <Input
                   className='input-field'
                   placeholder='Enter Template Description'
@@ -759,7 +686,8 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
                     required: true,
                     message: 'Line Item selection is required',
                   },
-                ]}>
+                ]}
+              >
                 <Select
                   className='input-field'
                   placeholder='Select Line Item Name'
@@ -767,16 +695,11 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
                   disabled={Boolean(templateId)}
                   showSearch
                   filterOption={(input, option) =>
-                    (option?.label ?? '')
-                      .toString()
-                      .toLowerCase()
-                      .includes(input.toLowerCase())
+                    (option?.label ?? '').toString().toLowerCase().includes(input.toLowerCase())
                   }
                   onChange={(value) => {
                     // Handle Line Item selection change
-                    const selectedLineItem = lineItemOptions.find(
-                      (opt) => opt.value === value,
-                    );
+                    const selectedLineItem = lineItemOptions.find((opt) => opt.value === value);
                     if (selectedLineItem) {
                       // Use updateTemplateData but ensure form doesn't reset by preserving current form values
                       const currentFormValues = form.getFieldsValue();
@@ -793,17 +716,11 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
                       }, 0);
 
                       // If deliveryType and integrationId are already selected, re-fetch mapping
-                      const deliveryTypeValue =
-                        form.getFieldValue('deliveryType');
-                      const integrationIdValue =
-                        form.getFieldValue('integrationId');
+                      const deliveryTypeValue = form.getFieldValue('deliveryType');
+                      const integrationIdValue = form.getFieldValue('integrationId');
                       if (deliveryTypeValue && integrationIdValue) {
                         if (deliveryTypeValue === DeliveryType.WEBFORM) {
-                          fetchWebformFormFieldsData(
-                            deliveryTypeValue,
-                            integrationIdValue,
-                            true,
-                          );
+                          fetchWebformFormFieldsData(deliveryTypeValue, integrationIdValue, true);
                         } else if (deliveryTypeValue === DeliveryType.HUBSPOT) {
                           // For HubSpot, need deliveryObjectId if available
                           const selectedDeliveryObjectId = form.getFieldValue(
@@ -827,16 +744,14 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
         </DzBox>
 
         {/* Delivery Detail Section */}
-        <DzBox
-          className='dz-page-content'
-          dzOneBox
-          style={{ marginBottom: '1rem' }}>
+        <DzBox className='dz-page-content' dzOneBox style={{ marginBottom: '1rem' }}>
           <Text
             style={{
               fontSize: '16px',
               fontWeight: '600',
               marginBottom: '16px',
-            }}>
+            }}
+          >
             Delivery Detail
           </Text>
           <Row gutter={[16, 16]}>
@@ -849,7 +764,8 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
                     <Translate i18nKey='pages.templates.label.deliveryType' />
                   </Text>
                 }
-                rules={[{ required: true, message: REQUIRED_FIELD }]}>
+                rules={[{ required: true, message: REQUIRED_FIELD }]}
+              >
                 <Select
                   placeholder='Select Delivery Type'
                   style={{ width: '100%' }}
@@ -876,7 +792,8 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
                 deliveryType === DeliveryType.HUBSPOT ||
                 deliveryType === DeliveryType.WEBFORM ||
                 deliveryType === DeliveryType.ZAPIER
-              }>
+              }
+            >
               <IntegrationNameField
                 form={form}
                 templateId={templateId}
@@ -890,10 +807,8 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
                 fetchDeliveryObjectOptions={fetchDeliveryObjectOptions}
                 fetchWebformFormFieldsData={(type, integrationId) => {
                   // Use form values if templateData is not available (creation mode)
-                  const deliveryTypeValue =
-                    type || form.getFieldValue('deliveryType');
-                  const integrationIdValue =
-                    integrationId || form.getFieldValue('integrationId');
+                  const deliveryTypeValue = type || form.getFieldValue('deliveryType');
+                  const integrationIdValue = integrationId || form.getFieldValue('integrationId');
                   if (
                     (deliveryTypeValue === DeliveryType.WEBFORM ||
                       deliveryTypeValue === DeliveryType.ZAPIER) &&
@@ -902,9 +817,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
                     // Pass zapierType for Zapier integrations
                     const zapierTypeValue =
                       deliveryTypeValue === DeliveryType.ZAPIER
-                        ? zapierType ||
-                          form.getFieldValue('zapierType') ||
-                          'Zaps'
+                        ? zapierType || form.getFieldValue('zapierType') || 'Zaps'
                         : undefined;
                     fetchWebformFormFieldsData(
                       deliveryTypeValue,
@@ -931,12 +844,7 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
                 deliveryType={deliveryType}
                 updateTemplateData={updateTemplateData}
                 // On initial load (edit scenario), pass false for shouldUpdateMappings
-                fetchFormFieldsData={(
-                  type,
-                  integrationId,
-                  formId,
-                  isInitialLoad = false,
-                ) => {
+                fetchFormFieldsData={(type, integrationId, formId, isInitialLoad = false) => {
                   fetchHubspotFormFieldsData(
                     type,
                     integrationId,

@@ -12,10 +12,9 @@ export const RequiredBadge: FC<IRequiredBadgeProps> = ({ required }) => (
       background: '#EAF1FF',
       padding: '0.25rem 0.5rem',
       borderRadius: '4px',
-    }}>
-    <Text
-      text12
-      style={{ color: '#235AED', fontWeight: 600, lineHeight: '1rem' }}>
+    }}
+  >
+    <Text text12 style={{ color: '#235AED', fontWeight: 600, lineHeight: '1rem' }}>
       {required ? 'Required' : 'Optional'}
     </Text>
   </DzBox>

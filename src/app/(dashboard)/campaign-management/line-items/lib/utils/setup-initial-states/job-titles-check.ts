@@ -31,11 +31,7 @@ export const updateJobTitleTextAndFileFields = (
   updateFormStepDetails: Function,
   showSaveAndCloseButtonIfFileChanged: (val: boolean) => void,
 ) => {
-  updateJobTitleDetailsSectionFields(
-    hasJobtitles,
-    patchFormValues,
-    updateFormStepDetails,
-  );
+  updateJobTitleDetailsSectionFields(hasJobtitles, patchFormValues, updateFormStepDetails);
 
   setUpJobTitlesText(
     form,
@@ -63,15 +59,7 @@ const updateJobTitleDetailsSectionFields = (
     });
   }
 
-  updateFormStepDetails(
-    LineItemSections.JobTitleDetails,
-    LineItemFields.JobTitles,
-    props,
-  );
+  updateFormStepDetails(LineItemSections.JobTitleDetails, LineItemFields.JobTitles, props);
 
-  updateFormStepDetails(
-    LineItemSections.JobTitleDetails,
-    LineItemFields.JobTitleListUpload,
-    props,
-  );
+  updateFormStepDetails(LineItemSections.JobTitleDetails, LineItemFields.JobTitleListUpload, props);
 };

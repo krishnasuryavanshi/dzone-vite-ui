@@ -23,8 +23,7 @@ export const useUnsavedDataStore = create<UnsavedDataStore>((set, get) => ({
   actionsData: null,
   setSourceObject: (sourceObj) => set({ source: sourceObj, target: sourceObj }),
   setTargetObject: (targetObj) => set({ target: targetObj }),
-  updateTargetObject: (targetObj) =>
-    set((s) => ({ target: { ...s.target, ...targetObj } })),
+  updateTargetObject: (targetObj) => set((s) => ({ target: { ...s.target, ...targetObj } })),
   setActionsObject: (actions) => set({ actions }),
   setActionsDataObject: (actionsData) => set({ actionsData }),
   clear: () => set({ source: null, target: null, actions: null, actionsData: null }),

@@ -1,4 +1,3 @@
-
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
 import { FC } from 'react';
@@ -12,24 +11,16 @@ interface AssistantMessageBubbleProps {
   message: ChatMessage;
 }
 
-export const AssistantMessageBubble: FC<AssistantMessageBubbleProps> = ({
-  message,
-}) => {
+export const AssistantMessageBubble: FC<AssistantMessageBubbleProps> = ({ message }) => {
   // Subscribe directly to store for real-time updates
-  const currentStreamingMessageId = useAiAgentStore(
-    (state) => state.currentStreamingMessageId,
-  );
-  const currentProgressSteps = useAiAgentStore(
-    (state) => state.currentProgressSteps,
-  );
+  const currentStreamingMessageId = useAiAgentStore((state) => state.currentStreamingMessageId);
+  const currentProgressSteps = useAiAgentStore((state) => state.currentProgressSteps);
   const isThinking = useAiAgentStore((state) => state.isThinking);
 
   const isCurrentStreamingMessage = message.id === currentStreamingMessageId;
 
   // Use live store data for current streaming message, otherwise use message data
-  const steps = isCurrentStreamingMessage
-    ? currentProgressSteps
-    : message.progressSteps;
+  const steps = isCurrentStreamingMessage ? currentProgressSteps : message.progressSteps;
 
   const hasProgressSteps = steps && steps.length > 0;
   const hasThinkingContent = !!message.thinkingContent;
@@ -46,7 +37,8 @@ export const AssistantMessageBubble: FC<AssistantMessageBubbleProps> = ({
         style={{
           width: '100%',
           maxWidth: '85%',
-        }}>
+        }}
+      >
         <Hideable show={showThinkingBlock}>
           <ThinkingBlock
             content={message.thinkingContent}
@@ -59,9 +51,7 @@ export const AssistantMessageBubble: FC<AssistantMessageBubbleProps> = ({
           <MarkdownRenderer content={message.content} />
         </Hideable>
         <Hideable show={!!message.content && !!message.isError}>
-          <Text style={{ color: '#cf1322', fontSize: '1rem' }}>
-            {message.content}
-          </Text>
+          <Text style={{ color: '#cf1322', fontSize: '1rem' }}>{message.content}</Text>
         </Hideable>
       </Flex>
     </Flex>

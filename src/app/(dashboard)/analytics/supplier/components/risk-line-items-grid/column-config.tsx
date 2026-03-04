@@ -72,8 +72,7 @@ const supplierColumnConfig = [
     dataIndex: 'target_end_date',
     key: 'target_end_date',
     sorter: (a: any, b: any) =>
-      new Date(a.target_end_date).getTime() -
-      new Date(b.target_end_date).getTime(),
+      new Date(a.target_end_date).getTime() - new Date(b.target_end_date).getTime(),
     width: 180,
     // Optionally, render formatted date string here if needed
     render: (date: string) =>

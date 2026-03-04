@@ -51,7 +51,8 @@ export const DrawerFullText = ({
       onClose={handleClose}
       placement='right'
       footer={null}
-      open={show}>
+      open={show}
+    >
       <Button
         icon={<CloseOutlined />}
         onClick={handleClose}

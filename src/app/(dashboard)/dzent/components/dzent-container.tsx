@@ -12,12 +12,8 @@ export type DZentContainerProps = {
 };
 
 export const DzentContainer = ({ action }: DZentContainerProps) => {
-  const {
-    setSourceObject,
-    setTargetObject,
-    setActionsObject,
-    setActionsDataObject,
-  } = useUnsavedDataStore();
+  const { setSourceObject, setTargetObject, setActionsObject, setActionsDataObject } =
+    useUnsavedDataStore();
 
   const {
     initiateChatSetup,
@@ -75,10 +71,7 @@ export const DzentContainer = ({ action }: DZentContainerProps) => {
     } catch (error) {}
   };
 
-  const saveCampaignWhileNavigatingAway = async (
-    key: string,
-    data: DzRecord,
-  ) => {
+  const saveCampaignWhileNavigatingAway = async (key: string, data: DzRecord) => {
     await handleUserMessage({ userMessage: 'Save Campaign' });
   };
 

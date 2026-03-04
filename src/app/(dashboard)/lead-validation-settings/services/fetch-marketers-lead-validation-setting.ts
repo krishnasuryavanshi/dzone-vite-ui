@@ -9,13 +9,10 @@ export async function fetchMarketersLeadValidationSetting(
 ): Promise<any> {
   try {
     return authenticatedRequest({
-      resource: transformPath(
-        ApiResources.MarketersLeadValidationSettingById,
-        {
-          tenantCode,
-          settingId: leadValidationSettingId,
-        },
-      ),
+      resource: transformPath(ApiResources.MarketersLeadValidationSettingById, {
+        tenantCode,
+        settingId: leadValidationSettingId,
+      }),
       apiHost: ApiHost.PlatformService,
     });
   } catch (error) {}

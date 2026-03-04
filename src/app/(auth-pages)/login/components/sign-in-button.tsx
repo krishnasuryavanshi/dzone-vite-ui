@@ -19,7 +19,8 @@ export const SignInButton: FC<ISignInButtonProps> = ({ isFullForm }) => {
           borderRadius: '3.125rem',
         }}
         block={true}
-        htmlType='submit'>
+        htmlType='submit'
+      >
         <Translate i18nKey='form.login.signIn' show={isFullForm} />
         <Translate i18nKey='form.login.next' show={!isFullForm} />
       </Button>

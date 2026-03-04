@@ -3,10 +3,7 @@ import { Select as AntdSelect, SelectProps as AntdSelectProps } from 'antd';
 
 interface ISelectProps extends AntdSelectProps<any> {}
 
-const Select: FC<ISelectProps> & { Option: typeof AntdSelect.Option } = ({
-  children,
-  ...rest
-}) => {
+const Select: FC<ISelectProps> & { Option: typeof AntdSelect.Option } = ({ children, ...rest }) => {
   return <AntdSelect {...rest}>{children}</AntdSelect>;
 };
 

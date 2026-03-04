@@ -3,9 +3,7 @@ import React, { FC, PropsWithChildren } from 'react';
 
 interface IJobTitleInputTagsContainerProps extends PropsWithChildren {}
 
-export const JobTitleInputTagsContainer: FC<
-  IJobTitleInputTagsContainerProps
-> = ({ children }) => {
+export const JobTitleInputTagsContainer: FC<IJobTitleInputTagsContainerProps> = ({ children }) => {
   return (
     <DzBox
       style={{
@@ -13,7 +11,8 @@ export const JobTitleInputTagsContainer: FC<
         background: '#fff',
         boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25)',
         borderRadius: '8px',
-      }}>
+      }}
+    >
       {children}
     </DzBox>
   );

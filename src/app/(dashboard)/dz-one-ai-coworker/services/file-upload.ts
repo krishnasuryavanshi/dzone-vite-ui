@@ -18,9 +18,7 @@ interface UploadResult {
   fileKey: string;
 }
 
-export const validateFile = (
-  file: File,
-): { valid: boolean; error?: string } => {
+export const validateFile = (file: File): { valid: boolean; error?: string } => {
   // Check file size
   const maxBytes = convertToBytes(MAX_FILE_SIZE);
   if (file.size > maxBytes) {

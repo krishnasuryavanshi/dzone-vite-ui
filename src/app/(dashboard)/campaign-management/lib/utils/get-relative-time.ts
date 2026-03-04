@@ -7,9 +7,7 @@ dayjs.extend(relativeTime);
 dayjs.extend(utc);
 dayjs.extend(timezone);
 
-export function getTimestampNumber(
-  ts: string | number | undefined,
-): number | undefined {
+export function getTimestampNumber(ts: string | number | undefined): number | undefined {
   if (!ts) return undefined;
   if (typeof ts === 'number') return ts;
   const num = Number(ts);

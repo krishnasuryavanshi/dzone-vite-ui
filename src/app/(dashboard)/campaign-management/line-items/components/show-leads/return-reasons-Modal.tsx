@@ -30,7 +30,8 @@ export const ReturnReasonsModal: FC<IReturnReasonsModalProps> = ({
       onCancel={onCancel}
       footer={null}
       closable={false}
-      className='confirm-cancel-modal'>
+      className='confirm-cancel-modal'
+    >
       {/* Header */}
       <ReturnReasonsModalHeader onCancel={onCancel} />
       {/* Body */}

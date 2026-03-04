@@ -32,9 +32,7 @@ export const SaveTemplateAction: FC<ISaveTemplateProps> = ({
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [showModal, setShowModal] = useState(false);
-  const [isUpdateActivity, setIsUpdateActivity] = useState<boolean | null>(
-    null,
-  );
+  const [isUpdateActivity, setIsUpdateActivity] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (isUpdateActivity === false) {
@@ -107,10 +105,7 @@ export const SaveTemplateAction: FC<ISaveTemplateProps> = ({
       }
       setIsLoading(true);
       const data = isUpdating
-        ? await updateTemplateDetails(
-            updatedTemplate.id as string,
-            updatedTemplate,
-          )
+        ? await updateTemplateDetails(updatedTemplate.id as string, updatedTemplate)
         : await createTemplate(updatedTemplate);
       if (data) {
         setInitialTemplateData(data.data, true);
@@ -136,7 +131,8 @@ export const SaveTemplateAction: FC<ISaveTemplateProps> = ({
         size='small'
         style={{ width: '8rem', textAlign: 'center', boxShadow: 'none' }}
         disabled={visibleFieldsCount === 0 || isSaveDisabled || isLoading}
-        onClick={handleSaveTemplate}>
+        onClick={handleSaveTemplate}
+      >
         {isLoading ? (
           <LoadingOutlined />
         ) : existingTemplate ? (
@@ -155,9 +151,7 @@ export const SaveTemplateAction: FC<ISaveTemplateProps> = ({
 };
 
 // HOC for Save Button
-const withDrawerCloseHandler = (
-  SaveTemplateActionButton: FC<ISaveTemplateProps>,
-) => {
+const withDrawerCloseHandler = (SaveTemplateActionButton: FC<ISaveTemplateProps>) => {
   return function DrawerSaveTemplateAction({
     closeFieldDrawer,
     getCurrentFieldData,
@@ -182,5 +176,4 @@ const withDrawerCloseHandler = (
 };
 
 // HOC usage for drawer
-export const DrawerSaveTemplateButton =
-  withDrawerCloseHandler(SaveTemplateAction);
+export const DrawerSaveTemplateButton = withDrawerCloseHandler(SaveTemplateAction);

@@ -1,1 +1,1 @@
-export * from "./reporting-tabs";
+export * from './reporting-tabs';

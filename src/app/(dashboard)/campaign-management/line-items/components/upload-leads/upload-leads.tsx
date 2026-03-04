@@ -33,9 +33,7 @@ export const UploadLeads: FC<IUploadLeadsProps> = ({
     message: '',
   });
 
-  const [selectedFile, setSelectedFile] = useState<UploadFile>(
-    {} as UploadFile,
-  );
+  const [selectedFile, setSelectedFile] = useState<UploadFile>({} as UploadFile);
   const [selectedType, setSelectedType] = useState<string>('');
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isUploading, setIsUploading] = useState<boolean>(false);
@@ -44,9 +42,7 @@ export const UploadLeads: FC<IUploadLeadsProps> = ({
     setSelectedFile(file);
   };
 
-  const handleDialogState = (
-    stateItem: Record<string, string | number | boolean>,
-  ) => {
+  const handleDialogState = (stateItem: Record<string, string | number | boolean>) => {
     setDialogState((state) => ({ ...state, ...stateItem }));
   };
 
@@ -54,16 +50,11 @@ export const UploadLeads: FC<IUploadLeadsProps> = ({
     setDialogState((state) => ({ ...state, isDialogOpen: false }));
   };
 
-  const { data: metadataResponse, isLoading } =
-    useFileUploadMetadataQuery('lead-file');
+  const { data: metadataResponse, isLoading } = useFileUploadMetadataQuery('lead-file');
 
   const uploadProps: UploadProps = useMemo(() => {
     if (!metadataResponse?.data) return {};
-    return getUploadProps(
-      metadataResponse.data,
-      handleDialogState,
-      handleSelectedFile,
-    );
+    return getUploadProps(metadataResponse.data, handleDialogState, handleSelectedFile);
   }, [metadataResponse]);
 
   const handleTypeSelection = (type: string) => {
@@ -118,7 +109,8 @@ export const UploadLeads: FC<IUploadLeadsProps> = ({
         size='small'
         className='dz-btn-action-1'
         style={{ width: '5.6rem', boxShadow: 'none' }}
-        onClick={() => !isLoading && setIsModalOpen(true)}>
+        onClick={() => !isLoading && setIsModalOpen(true)}
+      >
         <UploadButtonIcon isLoading={isLoading} />
       </Button>
       <FileUploadModal

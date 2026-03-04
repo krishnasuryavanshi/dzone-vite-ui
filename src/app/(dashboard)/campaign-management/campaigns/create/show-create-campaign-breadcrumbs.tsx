@@ -35,9 +35,7 @@ export const ShowCampaignBreadcrumb: React.FC<IShowCampaignBreadcrumbProps> = ({
         {
           title: (
             <span className={`${styles.campaignId} ${styles.hoverUnderline}`}>
-              <AppLink
-                link={`/campaign-management/campaigns/${id}`}
-                label={campaignId}></AppLink>
+              <AppLink link={`/campaign-management/campaigns/${id}`} label={campaignId}></AppLink>
             </span>
           ),
         },

@@ -10,7 +10,11 @@ export default function LineItemDetailsPage() {
   return (
     <>
       <title>Line Item Details | DZ One</title>
-      <ShowLineItemContainer lineItemId={lineItemId!} campaignId={campaignId!} sessionTenantCode={sessionTenantCode} />
+      <ShowLineItemContainer
+        lineItemId={lineItemId!}
+        campaignId={campaignId!}
+        sessionTenantCode={sessionTenantCode}
+      />
     </>
   );
 }

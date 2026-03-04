@@ -14,7 +14,8 @@ export const MarketerCardTitle: FC<MarketerCardTitleProps> = ({ title }) => {
         fontWeight: 500,
         color: '#000',
         lineHeight: 'normal',
-      }}>
+      }}
+    >
       {title || <Input active style={{ height: '1.5rem', width: '100%' }} />}
     </Text>
   );

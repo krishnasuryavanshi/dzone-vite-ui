@@ -10,10 +10,7 @@ import { FieldColumn } from './show-field-column';
 import { ICampaign } from '../../campaigns/lib/types';
 import { ILineItem } from '../../line-items/lib/types';
 import { downloadIOFile } from '../../campaigns/services';
-import {
-  LineItemFields,
-  DownloadLineItemFilesType,
-} from '../../line-items/lib/enums';
+import { LineItemFields, DownloadLineItemFilesType } from '../../line-items/lib/enums';
 import { downloadLineItemFiles } from '../../line-items/services';
 import { handleFileDownload } from '../../lib/utils';
 
@@ -27,18 +24,12 @@ export interface IShowItemFieldsProps {
 }
 
 const LineItemFilesList = {
-  [LineItemFields.JobTitleListUpload]:
-    DownloadLineItemFilesType.DownloadJobTitleListFile,
-  [LineItemFields.TechnologyListUpload]:
-    DownloadLineItemFilesType.DownloadTechnologyFile,
-  [LineItemFields.IntentKeywordsList]:
-    DownloadLineItemFilesType.DownloadIntentKeywordsFile,
-  [LineItemFields.SuppressionListUpload]:
-    DownloadLineItemFilesType.DownloadSuppressionFile,
-  [LineItemFields.TargetAccountListTALUpload]:
-    DownloadLineItemFilesType.DownloadTALFile,
-  [LineItemFields.DeliveryTemplate]:
-    DownloadLineItemFilesType.DownloadDeliveryTemplateFile,
+  [LineItemFields.JobTitleListUpload]: DownloadLineItemFilesType.DownloadJobTitleListFile,
+  [LineItemFields.TechnologyListUpload]: DownloadLineItemFilesType.DownloadTechnologyFile,
+  [LineItemFields.IntentKeywordsList]: DownloadLineItemFilesType.DownloadIntentKeywordsFile,
+  [LineItemFields.SuppressionListUpload]: DownloadLineItemFilesType.DownloadSuppressionFile,
+  [LineItemFields.TargetAccountListTALUpload]: DownloadLineItemFilesType.DownloadTALFile,
+  [LineItemFields.DeliveryTemplate]: DownloadLineItemFilesType.DownloadDeliveryTemplateFile,
 };
 
 export const ShowItemFields: FC<IShowItemFieldsProps> = ({
@@ -62,9 +53,8 @@ export const ShowItemFields: FC<IShowItemFieldsProps> = ({
       const firstStepData = sectionList?.length && cloneDeep(sectionList[0]);
       if (firstStepData) {
         firstStepData.title = '';
-        firstStepData.fields = firstStepData.fields.filter(
-          (field: Record<string, any>) =>
-            summaryViewFields.includes(field.field),
+        firstStepData.fields = firstStepData.fields.filter((field: Record<string, any>) =>
+          summaryViewFields.includes(field.field),
         );
         setSectionsListData([firstStepData]);
       } else {
@@ -77,8 +67,7 @@ export const ShowItemFields: FC<IShowItemFieldsProps> = ({
 
   const handleDownloadFiles = async (field: any) => {
     if (field.field in LineItemFilesList) {
-      const fileType =
-        LineItemFilesList[field.field as keyof typeof LineItemFilesList];
+      const fileType = LineItemFilesList[field.field as keyof typeof LineItemFilesList];
       const resourceFetcher = () =>
         downloadLineItemFiles(itemDetails?.id as string, {
           fileType,
@@ -86,8 +75,7 @@ export const ShowItemFields: FC<IShowItemFieldsProps> = ({
         });
       await handleFileDownload(resourceFetcher, 'content-disposition');
     } else {
-      const resourceFetcher = () =>
-        downloadIOFile(itemDetails?.id!, field.value.id);
+      const resourceFetcher = () => downloadIOFile(itemDetails?.id!, field.value.id);
       await handleFileDownload(resourceFetcher, 'content-disposition');
     }
   };

@@ -36,8 +36,7 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
   const [isMarketer, setIsMarketer] = useState<boolean>(false);
   const [isSupplier, setIsSupplier] = useState<boolean>(false);
   const [isDzoneUser, setIsDzoneUser] = useState<boolean>(false);
-  const [assignAllManagedOrgs, setAssignAllManagedOrgs] =
-    useState<boolean>(false);
+  const [assignAllManagedOrgs, setAssignAllManagedOrgs] = useState<boolean>(false);
 
   const resolvedType = tenantType || user?.type || '';
 
@@ -178,9 +177,7 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
       form.setFieldValue('organizations', newOrgs);
     } else {
       // remove all managedids from current orgs
-      const newOrgs = currentOrgs.filter(
-        (id: string) => !managedOrgIds.includes(id),
-      );
+      const newOrgs = currentOrgs.filter((id: string) => !managedOrgIds.includes(id));
       form.setFieldValue('organizations', newOrgs);
     }
   };
@@ -202,20 +199,17 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
               onChange={handleSelectAllChange}
               checked={
                 organizationsList.length > 0 &&
-                organizationsList?.length ===
-                  form.getFieldValue('organizations')?.length
-              }>
+                organizationsList?.length === form.getFieldValue('organizations')?.length
+              }
+            >
               <Flex align='center'>
                 <Text strong>
-                  {organizationsList.length ===
-                  form.getFieldValue('organizations')?.length
+                  {organizationsList.length === form.getFieldValue('organizations')?.length
                     ? 'Unselect'
                     : 'Select'}{' '}
                   All
                 </Text>
-                <Text
-                  style={{ marginLeft: '0.5rem', color: CLR_GRAY_6 }}
-                  text12>
+                <Text style={{ marginLeft: '0.5rem', color: CLR_GRAY_6 }} text12>
                   ({form.getFieldValue('organizations')?.length} selected)
                 </Text>
               </Flex>
@@ -247,7 +241,8 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
               borderRadius: '0.2rem',
               fontSize: '0.75rem',
               marginInline: '0.25rem',
-            }}>
+            }}
+          >
             DZ
           </span>
         </Flex>
@@ -270,7 +265,8 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
           padding: '0 8px',
           marginRight: 4,
           marginBottom: 2,
-        }}>
+        }}
+      >
         {label}
         {isManaged && (
           <span
@@ -282,7 +278,8 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
               borderRadius: '0.2rem',
               fontSize: '0.6255rem',
               marginInline: '0.25rem',
-            }}>
+            }}
+          >
             DZ
           </span>
         )}
@@ -296,9 +293,7 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
   };
 
   const handleSelectAllChange = () => {
-    if (
-      form.getFieldValue('organizations')?.length === organizationsList.length
-    ) {
+    if (form.getFieldValue('organizations')?.length === organizationsList.length) {
       // Select only organization ids that are managedByDigitalzone if autoAssignMarketers is true
       if (assignAllManagedOrgs && isDzoneUser) {
         const managedOrgIds = organizationsList
@@ -322,18 +317,13 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
           style={{ height: '100%' }}
           layout='vertical'
           onValuesChange={onValuesChange}
-          onFinish={onFinish}>
-          <Flex
-            gap='1rem'
-            vertical
-            justify='space-between'
-            style={{ height: '100%' }}>
+          onFinish={onFinish}
+        >
+          <Flex gap='1rem' vertical justify='space-between' style={{ height: '100%' }}>
             <Flex vertical gap='1rem'>
               <DzBox>
                 <Text strong>
-                  {isEditing
-                    ? `User Status: ${user?.status}`
-                    : 'Fill Details to Invite User'}
+                  {isEditing ? `User Status: ${user?.status}` : 'Fill Details to Invite User'}
                 </Text>
               </DzBox>
               <Row>
@@ -344,13 +334,9 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
                         className='input-control form-control-item'
                         name='firstName'
                         label='First Name'
-                        rules={[
-                          { required: true, message: 'This field is required' },
-                        ]}>
-                        <Input
-                          className='input-field'
-                          placeholder='Enter first name'
-                        />
+                        rules={[{ required: true, message: 'This field is required' }]}
+                      >
+                        <Input className='input-field' placeholder='Enter first name' />
                       </FormItem>
                     </Col>
                     <Col sm={12} xs={24}>
@@ -358,13 +344,9 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
                         className='input-control form-control-item'
                         name='lastName'
                         label='Last Name'
-                        rules={[
-                          { required: true, message: 'This field is required' },
-                        ]}>
-                        <Input
-                          className='input-field'
-                          placeholder='Enter last name'
-                        />
+                        rules={[{ required: true, message: 'This field is required' }]}
+                      >
+                        <Input className='input-field' placeholder='Enter last name' />
                       </FormItem>
                     </Col>
                   </Row>
@@ -377,7 +359,8 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
                         rules={[
                           { required: true, message: 'This field is required' },
                           { type: 'email', message: 'Invalid email' },
-                        ]}>
+                        ]}
+                      >
                         <Input
                           className='input-field'
                           placeholder='Enter email id'
@@ -392,10 +375,12 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
                       <FormItem
                         className='input-control form-control-item'
                         name='isDzoneUser'
-                        valuePropName='checked'>
+                        valuePropName='checked'
+                      >
                         <Checkbox
                           onChange={() => setIsDzoneUser(!isDzoneUser)}
-                          disabled={!isMarketer}>
+                          disabled={!isMarketer}
+                        >
                           Is DZOne User
                         </Checkbox>
                       </FormItem>
@@ -408,9 +393,8 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
                         className='input-control form-control-item'
                         name='roles'
                         label='Roles'
-                        rules={[
-                          { required: true, message: 'This field is required' },
-                        ]}>
+                        rules={[{ required: true, message: 'This field is required' }]}
+                      >
                         <Select
                           placeholder='Select roles'
                           className='input-field'
@@ -428,13 +412,13 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
                         <FormItem
                           className='input-control form-control-item'
                           name='autoAssignMarketers'
-                          valuePropName='checked'>
+                          valuePropName='checked'
+                        >
                           <Checkbox
                             checked={assignAllManagedOrgs}
                             disabled={organizationsList.length === 0}
-                            onChange={(e) =>
-                              handleAssignAllManagedOrgsChange(e.target.checked)
-                            }>
+                            onChange={(e) => handleAssignAllManagedOrgsChange(e.target.checked)}
+                          >
                             Assign All Managed by Digitalzone Organizations
                           </Checkbox>
                         </FormItem>
@@ -446,19 +430,12 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
                       <FormItem
                         className='input-control form-control-item'
                         name='organizations'
-                        label={
-                          isMarketer
-                            ? TenantTypeEnum.MARKETER
-                            : TenantTypeEnum.SUPPLIER
-                        }
-                        rules={[
-                          { required: true, message: 'This field is required' },
-                        ]}>
+                        label={isMarketer ? TenantTypeEnum.MARKETER : TenantTypeEnum.SUPPLIER}
+                        rules={[{ required: true, message: 'This field is required' }]}
+                      >
                         <Select
                           placeholder={
-                            isMarketer
-                              ? TenantTypeEnum.MARKETER
-                              : TenantTypeEnum.SUPPLIER
+                            isMarketer ? TenantTypeEnum.MARKETER : TenantTypeEnum.SUPPLIER
                           }
                           className='input-field custom-scroll-select'
                           options={organizationsList.map((opt) =>
@@ -471,41 +448,21 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
                           )}
                           optionLabelProp='label'
                           optionRender={renderOptionLabel}
-                          dropdownRender={
-                            isDzoneUser && isMarketer
-                              ? popupRenderer
-                              : undefined
-                          }
-                          mode={
-                            isDzoneUser && isMarketer ? 'multiple' : undefined
-                          }
-                          tagRender={
-                            isDzoneUser && isMarketer ? tagRender : undefined
-                          }
+                          dropdownRender={isDzoneUser && isMarketer ? popupRenderer : undefined}
+                          mode={isDzoneUser && isMarketer ? 'multiple' : undefined}
+                          tagRender={isDzoneUser && isMarketer ? tagRender : undefined}
                           onChange={(values) => {
                             // For multiple selection with managed orgs
-                            if (
-                              isDzoneUser &&
-                              isMarketer &&
-                              assignAllManagedOrgs
-                            ) {
-                              const multiValues = Array.isArray(values)
-                                ? values
-                                : [values];
+                            if (isDzoneUser && isMarketer && assignAllManagedOrgs) {
+                              const multiValues = Array.isArray(values) ? values : [values];
                               const missingManagedOrgs = managedOrgIds.filter(
                                 (id) => id && !multiValues.includes(id),
                               );
                               if (missingManagedOrgs.length > 0) {
                                 const correctedValues = Array.from(
-                                  new Set([
-                                    ...multiValues,
-                                    ...missingManagedOrgs,
-                                  ]),
+                                  new Set([...multiValues, ...missingManagedOrgs]),
                                 );
-                                form.setFieldValue(
-                                  'organizations',
-                                  correctedValues,
-                                );
+                                form.setFieldValue('organizations', correctedValues);
                                 return;
                               }
                             }
@@ -529,16 +486,8 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
           </Flex>
         </Form>
       </DzBox>
-      <Modal
-        closable
-        open={openEmailSentModal}
-        footer={null}
-        onCancel={handleCancel}>
-        <Flex
-          gap='2.75rem'
-          vertical
-          align='center'
-          style={{ padding: '2.75rem' }}>
+      <Modal closable open={openEmailSentModal} footer={null} onCancel={handleCancel}>
+        <Flex gap='2.75rem' vertical align='center' style={{ padding: '2.75rem' }}>
           <DzBox>
             <Image alt='' src='/icons/email-icon.png' preview={false} />
           </DzBox>

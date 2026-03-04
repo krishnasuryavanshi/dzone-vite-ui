@@ -19,10 +19,7 @@ export const ValidationSettingRuleSectionInput = ({
   const [isDisabled, setIsDisabled] = useState(false);
 
   useEffect(() => {
-    if (
-      !isReadOnly &&
-      enabledRules?.[activeRule as keyof typeof enabledRules]
-    ) {
+    if (!isReadOnly && enabledRules?.[activeRule as keyof typeof enabledRules]) {
       setIsDisabled(false);
     } else {
       setIsDisabled(true);
@@ -31,24 +28,13 @@ export const ValidationSettingRuleSectionInput = ({
 
   switch (section.attributes[0].type) {
     case 'radio':
-      return (
-        <ValidationRuleRadioGroup section={section} isDisabled={isDisabled} />
-      );
+      return <ValidationRuleRadioGroup section={section} isDisabled={isDisabled} />;
     case 'select':
-      return (
-        <ValidationRuleDropdown section={section} isDisabled={isDisabled} />
-      );
+      return <ValidationRuleDropdown section={section} isDisabled={isDisabled} />;
     case 'number':
-      return (
-        <ValidationRuleNumberInput section={section} isDisabled={isDisabled} />
-      );
+      return <ValidationRuleNumberInput section={section} isDisabled={isDisabled} />;
     case 'checkbox':
-      return (
-        <ValidationRuleCheckboxGroup
-          section={section}
-          isDisabled={isDisabled}
-        />
-      );
+      return <ValidationRuleCheckboxGroup section={section} isDisabled={isDisabled} />;
     case 'switch':
       return <ValidationRuleSwitch section={section} isDisabled={isDisabled} />;
     default:

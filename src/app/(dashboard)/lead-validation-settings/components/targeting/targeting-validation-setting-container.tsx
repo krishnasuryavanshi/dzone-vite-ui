@@ -3,12 +3,8 @@ import { useValidationSettingStore } from '../../store';
 import { TargetingValidationSettingSections } from './targeting-validation-setting-sections';
 
 export const TargetingValidationSettingContainer = () => {
-  const {
-    leadValidationSettingConfig,
-    activeRule,
-    setActiveRule,
-    getValidationSettingRules,
-  } = useValidationSettingStore();
+  const { leadValidationSettingConfig, activeRule, setActiveRule, getValidationSettingRules } =
+    useValidationSettingStore();
 
   useEffect(() => {
     if (leadValidationSettingConfig) {

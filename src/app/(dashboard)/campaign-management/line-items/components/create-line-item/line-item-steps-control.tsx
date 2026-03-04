@@ -19,7 +19,7 @@ export const LineItemStepsControl: FC<IStepsProps> = ({
 
   return (
     <CreateSteps
-      className="create-line-item-form"
+      className='create-line-item-form'
       currentStep={currentStep}
       onHandleChange={handleStepperChange}
       stepKeys={StepKeysList}

@@ -21,12 +21,8 @@ export const CampaignItemsDropdown: FC<ICampaginsDropdownProps> = ({
   handleSelectionChange,
 }) => {
   const [selectedValue, setSelectedValue] = useState<string[] | null>(null);
-  const filterValues = useFilterDashboardStore(
-    (state: FilterState) => state.filterValues,
-  );
-  const setFilterValues = useFilterDashboardStore(
-    (state: FilterState) => state.setFilterValues,
-  );
+  const filterValues = useFilterDashboardStore((state: FilterState) => state.filterValues);
+  const setFilterValues = useFilterDashboardStore((state: FilterState) => state.setFilterValues);
   const handleComaparisonSelection = (data: string[]) => {
     if (data) {
       handleSelectionChange &&

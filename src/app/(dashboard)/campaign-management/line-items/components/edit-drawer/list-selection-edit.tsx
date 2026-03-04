@@ -42,9 +42,7 @@ export const ListSelectionEdit: React.FC<ListSelectionEditProps> = ({
       }));
       setOptions((prevOptions) => {
         const existingOptionIds = new Set(prevOptions.map((o) => o.id));
-        const uniqueNewOptions = newCustomOptions.filter(
-          (no) => !existingOptionIds.has(no.id),
-        );
+        const uniqueNewOptions = newCustomOptions.filter((no) => !existingOptionIds.has(no.id));
         return [...prevOptions, ...uniqueNewOptions].sort((a, b) =>
           a?.label?.localeCompare(b.label, undefined, { numeric: true }),
         );
@@ -65,9 +63,7 @@ export const ListSelectionEdit: React.FC<ListSelectionEditProps> = ({
   };
 
   const handleCheckboxChange = (value: string, checked: boolean) => {
-    const newValues = checked
-      ? [...values, value]
-      : values.filter((v) => v !== value);
+    const newValues = checked ? [...values, value] : values.filter((v) => v !== value);
     onChange(newValues);
   };
 
@@ -92,11 +88,9 @@ export const ListSelectionEdit: React.FC<ListSelectionEditProps> = ({
   };
 
   const allPredefinedSelected =
-    predefinedOptions.length > 0 &&
-    predefinedOptions.every((opt) => values.includes(opt.id));
+    predefinedOptions.length > 0 && predefinedOptions.every((opt) => values.includes(opt.id));
   const indeterminate =
-    predefinedOptions.some((opt) => values.includes(opt.id)) &&
-    !allPredefinedSelected;
+    predefinedOptions.some((opt) => values.includes(opt.id)) && !allPredefinedSelected;
 
   return (
     <DzBox>
@@ -114,7 +108,8 @@ export const ListSelectionEdit: React.FC<ListSelectionEditProps> = ({
         <Checkbox
           onChange={handleSelectAll}
           checked={allPredefinedSelected}
-          indeterminate={indeterminate}>
+          indeterminate={indeterminate}
+        >
           Select All
         </Checkbox>
         <Divider style={{ margin: 0 }} />
@@ -126,9 +121,8 @@ export const ListSelectionEdit: React.FC<ListSelectionEditProps> = ({
                 key={option.id}
                 value={option.id}
                 checked={values.includes(option.id)}
-                onChange={(e) =>
-                  handleCheckboxChange(option.id, e.target.checked)
-                }>
+                onChange={(e) => handleCheckboxChange(option.id, e.target.checked)}
+              >
                 {option.label}
               </Checkbox>
             )}
@@ -146,10 +140,9 @@ export const ListSelectionEdit: React.FC<ListSelectionEditProps> = ({
             border: '1px solid #E5E7EB',
             borderRadius: '4px',
           }}
-          onClick={() => setIsCustomFormOpen(true)}>
-          <Text style={{ fontSize: '0.875rem', color: '#374151' }}>
-            + Add a custom range
-          </Text>
+          onClick={() => setIsCustomFormOpen(true)}
+        >
+          <Text style={{ fontSize: '0.875rem', color: '#374151' }}>+ Add a custom range</Text>
         </DzBox>
       )}
 

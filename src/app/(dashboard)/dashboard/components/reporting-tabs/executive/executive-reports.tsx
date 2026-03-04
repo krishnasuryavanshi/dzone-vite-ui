@@ -25,15 +25,9 @@ export const ExecutiveReports: FC<IExecutiveReports> = ({ show }) => {
     xs: 24,
   }));
 
-  const hasScheduledAccess = useRestrictedAccess(
-    RestrictedAccessKeys.ScheduledInExecutiveDasboard,
-  );
-  const hasDeliveredAccess = useRestrictedAccess(
-    RestrictedAccessKeys.DeliveredInExecutiveDasboard,
-  );
-  const hasInvoicedAccess = useRestrictedAccess(
-    RestrictedAccessKeys.InvoicedInExecutiveDasboard,
-  );
+  const hasScheduledAccess = useRestrictedAccess(RestrictedAccessKeys.ScheduledInExecutiveDasboard);
+  const hasDeliveredAccess = useRestrictedAccess(RestrictedAccessKeys.DeliveredInExecutiveDasboard);
+  const hasInvoicedAccess = useRestrictedAccess(RestrictedAccessKeys.InvoicedInExecutiveDasboard);
 
   const restrictedAccessMap: IExecutiveRestrictedAccessKeys = {
     [ExecutiveReportType.Scheduled]: hasScheduledAccess,

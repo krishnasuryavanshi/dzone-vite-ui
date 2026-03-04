@@ -21,7 +21,8 @@ export const CustomTooltip = ({ title, children }: CustomTooltipProps) => {
         color: '#000',
         background: '#fff',
       }}
-      arrow={false}>
+      arrow={false}
+    >
       {children}
     </Tooltip>
   );

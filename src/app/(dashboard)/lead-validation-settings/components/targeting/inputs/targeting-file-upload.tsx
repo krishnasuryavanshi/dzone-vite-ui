@@ -42,19 +42,14 @@ export const TargetingFileUpload = ({
   return (
     <Flex align='center' gap='0.5rem'>
       <Upload
-        accept={
-          acceptedFileTypes?.length ? `.${acceptedFileTypes?.join(',.')}` : ''
-        }
+        accept={acceptedFileTypes?.length ? `.${acceptedFileTypes?.join(',.')}` : ''}
         fileList={fileList as UploadFile<any>[]}
         multiple
         onChange={handleFileChanges}
         beforeUpload={beforeUpload}
-        showUploadList={false}>
-        <Button
-          type='primary'
-          icon={<UploadOutlined />}
-          disabled={isDisabled}
-          loading={isLoading}>
+        showUploadList={false}
+      >
+        <Button type='primary' icon={<UploadOutlined />} disabled={isDisabled} loading={isLoading}>
           Upload
         </Button>
       </Upload>

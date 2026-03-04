@@ -26,10 +26,7 @@ export const CustomFieldsContainer: FC<ICustomFieldsContainerProps> = ({
 
   const handleFinish = async (values: DzRecord) => {
     const payload = formatCustomFieldsPayload(values);
-    const data = await updateLineItemCustomFields(
-      lineItemDetails?.id as string,
-      payload,
-    );
+    const data = await updateLineItemCustomFields(lineItemDetails?.id as string, payload);
     if (data?.message) {
       showNotification({
         type: 'success',
@@ -42,19 +39,10 @@ export const CustomFieldsContainer: FC<ICustomFieldsContainerProps> = ({
   return (
     <Flex vertical gap='1rem'>
       <Text style={{ color: '#6B7280' }} text14 strong>
-        {
-          "Feel free to add any extra questions you'd like to include in the Lead template."
-        }
+        {"Feel free to add any extra questions you'd like to include in the Lead template."}
       </Text>
-      <Form
-        form={form}
-        layout='vertical'
-        onFinish={handleFinish}
-        initialValues={initialValues}>
-        <CustomField
-          form={form}
-          lineItemStatus={lineItemDetails?.status?.value}
-        />
+      <Form form={form} layout='vertical' onFinish={handleFinish} initialValues={initialValues}>
+        <CustomField form={form} lineItemStatus={lineItemDetails?.status?.value} />
         <CustomFieldInstructions />
         <CustomFieldsActions
           loading={false}

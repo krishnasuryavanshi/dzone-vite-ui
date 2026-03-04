@@ -46,7 +46,8 @@ export const FormControl: FC<IFormControlProps> = ({
       {...(initialValue && { initialValue })}
       label={<Translate i18nKey={field.item.label} />}
       disabled={isDisabled}
-      className='input-control'>
+      className='input-control'
+    >
       <InputFied
         {...field.input}
         className={inputClassName}

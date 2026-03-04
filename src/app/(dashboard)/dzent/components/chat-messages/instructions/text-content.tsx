@@ -9,11 +9,7 @@ type TextContentProps = {
   isUserInput?: boolean; // Flag to indicate if this is user input
 };
 
-export const TextContent = ({
-  data,
-  children,
-  isUserInput = false,
-}: TextContentProps) => {
+export const TextContent = ({ data, children, isUserInput = false }: TextContentProps) => {
   return (
     <Flex vertical>
       <DzBox>{children}</DzBox>

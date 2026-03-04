@@ -4,10 +4,7 @@ import { transformPath } from '@/lib/utils/string';
 import { authenticatedRequest } from '@/services/backend-request';
 import { TenantTypeEnum } from '@/app/(dashboard)/ums/users/lib/enums';
 
-export const fetchOrganizationsByType = async (
-  types: string,
-  userId?: string,
-) => {
+export const fetchOrganizationsByType = async (types: string, userId?: string) => {
   try {
     const resource = transformPath(ApiResources.OrganizationsByTypes, {
       types,

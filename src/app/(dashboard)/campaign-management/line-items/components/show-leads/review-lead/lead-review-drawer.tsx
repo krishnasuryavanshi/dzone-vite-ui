@@ -38,7 +38,8 @@ export const LeadReviewDrawer: FC<ILeadReviewDrawerProps> = ({
       closeIcon={<DrawerCloseButton />}
       title={<Text strong>Lead Review</Text>}
       open={isOpen}
-      onClose={handleClose}>
+      onClose={handleClose}
+    >
       <LeadReviewContainer
         show={isOpen}
         selectedLeadTrackingId={currentLeadTrackingId}

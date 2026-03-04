@@ -27,11 +27,7 @@ export const SingleSectionSingleValue = ({
     }
   }, [ruleName, leadValidationSettingConfig]);
   return (
-    <RuleContainer
-      header={header}
-      extra={extra}
-      ruleName={ruleName}
-      showEditButton={isEditing}>
+    <RuleContainer header={header} extra={extra} ruleName={ruleName} showEditButton={isEditing}>
       {/* <DzBox>
         <Text strong>Fields : </Text>
         <Text>Email, Phone Number</Text>

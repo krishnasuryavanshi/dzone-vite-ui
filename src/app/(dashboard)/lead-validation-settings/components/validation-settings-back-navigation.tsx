@@ -8,11 +8,7 @@ import { useQueryState } from '@/lib/hooks/use-query-state';
 import { getNavigationUrl } from '../lib/utils';
 import { DZONE_CLR_GRAY_DARK } from '@/lib/constants';
 
-export const ValidationSettingsBackNavigation = ({
-  isEditing,
-}: {
-  isEditing: boolean;
-}) => {
+export const ValidationSettingsBackNavigation = ({ isEditing }: { isEditing: boolean }) => {
   const router = useRouter();
   const { settingMetadata } = useValidationSettingStore();
   const { queryState } = useQueryState();
@@ -37,7 +33,8 @@ export const ValidationSettingsBackNavigation = ({
           width: '1.5rem',
           cursor: 'pointer',
           paddingTop: '0.25rem',
-        }}>
+        }}
+      >
         <ArrowLeft />
       </Flex>
       <DzBox>

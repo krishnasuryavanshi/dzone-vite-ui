@@ -28,14 +28,8 @@ export const LineItemsList: FC<ILineItemsListProps> = ({
   const router = useRouter();
   const options = useLineItemFilterOptions(hasFilters, assignedTo);
 
-  const columns = useListColumns<ILineItem>(
-    BasicDetails as any[],
-    hasFilters,
-    filterInfo,
-    options,
-  );
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const columns = useListColumns<ILineItem>(BasicDetails as any[], hasFilters, filterInfo, options);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
 
   const handleRowClick = (record: ILineItem) => {
     const showLineItemsLink = `/campaign-management/line-items/${record.id}`;

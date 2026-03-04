@@ -5,8 +5,6 @@ export const transformIndustriesResponse = (industries: IIndustries[]) => {
     return [];
   }
   return industries.flatMap((industry) =>
-    industry.industries.map(
-      (subIndustry) => `${subIndustry.value}#${subIndustry.type}`
-    )
+    industry.industries.map((subIndustry) => `${subIndustry.value}#${subIndustry.type}`),
   );
 };

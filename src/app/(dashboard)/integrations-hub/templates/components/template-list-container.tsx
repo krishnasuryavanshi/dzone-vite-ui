@@ -18,11 +18,7 @@ export const TemplateListContainer: FC<ITemplateListContainerProps> = ({}) => {
   const [pageSize, setPageSize] = useState(25);
 
   const hasValidPagination = currentPage > 0 && pageSize > 0;
-  const { data } = useTemplatesListQuery(
-    currentPage - 1,
-    pageSize,
-    hasValidPagination,
-  );
+  const { data } = useTemplatesListQuery(currentPage - 1, pageSize, hasValidPagination);
 
   const templateList = data?.data ?? [];
   const totalRecords = data?.total ?? 0;

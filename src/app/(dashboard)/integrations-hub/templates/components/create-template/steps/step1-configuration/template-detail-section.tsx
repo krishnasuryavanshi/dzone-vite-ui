@@ -1,4 +1,3 @@
-
 import {
   REQUIRED_FIELD,
   TEMPLATE_DESCRIPTION_TRAILING_SPACES,
@@ -19,12 +18,8 @@ interface TemplateDetailSectionProps {
   templateId?: string;
 }
 
-export const TemplateDetailSection: FC<TemplateDetailSectionProps> = ({
-  templateId,
-}) => {
-  const isEditTemplateAllowed = usePermissionCheck(
-    DeliveryTemplateActionsEnum.Edit,
-  );
+export const TemplateDetailSection: FC<TemplateDetailSectionProps> = ({ templateId }) => {
+  const isEditTemplateAllowed = usePermissionCheck(DeliveryTemplateActionsEnum.Edit);
 
   return (
     <DzBox dzOneBox style={{ marginBottom: '0.5rem' }}>
@@ -32,7 +27,8 @@ export const TemplateDetailSection: FC<TemplateDetailSectionProps> = ({
         style={{
           fontSize: '16px',
           fontWeight: '600',
-        }}>
+        }}
+      >
         Template Detail
       </Text>
       <Row gutter={[16, 16]}>
@@ -52,7 +48,8 @@ export const TemplateDetailSection: FC<TemplateDetailSectionProps> = ({
                 min: 3,
                 message: TEMPLATE_NAME_LENGTH,
               },
-            ]}>
+            ]}
+          >
             <Input
               className='input-field'
               placeholder='Enter Template Name'
@@ -64,16 +61,15 @@ export const TemplateDetailSection: FC<TemplateDetailSectionProps> = ({
           <FormItem
             className='input-control form-control-item'
             name='description'
-            label={
-              <Translate i18nKey='pages.templates.label.templateDescription' />
-            }
+            label={<Translate i18nKey='pages.templates.label.templateDescription' />}
             rules={[
               { type: 'string' },
               {
                 pattern: /^\S.*\S$|^\S$/,
                 message: TEMPLATE_DESCRIPTION_TRAILING_SPACES,
               },
-            ]}>
+            ]}
+          >
             <Input
               className='input-field'
               placeholder='Enter Template Description'

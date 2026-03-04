@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import { Space } from 'antd';
 import { ScreenLoader } from '@/components/shared/loader';
@@ -13,9 +12,7 @@ interface IProfileContainerProps {
   userDetails?: User;
 }
 
-export const ProfileContainer: FC<IProfileContainerProps> = ({
-  userDetails,
-}) => {
+export const ProfileContainer: FC<IProfileContainerProps> = ({ userDetails }) => {
   const { data: profileResult, isLoading } = useProfileQuery(
     userDetails?.userId || '',
     !!userDetails?.userId,
@@ -27,8 +24,7 @@ export const ProfileContainer: FC<IProfileContainerProps> = ({
     <DzBox className='dz-page-content'>
       <DzScrollContainer vertical scoll='outside'>
         <DzScrollContainer.Sticky>
-          <Space
-            style={{ color: CLR_BLACK, fontWeight: 600, fontSize: '1.125rem' }}>
+          <Space style={{ color: CLR_BLACK, fontWeight: 600, fontSize: '1.125rem' }}>
             <Translate i18nKey='Your Profile' />
           </Space>
         </DzScrollContainer.Sticky>

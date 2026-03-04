@@ -20,12 +20,8 @@ export const FieldSkeltonRow = ({
   if (!show) return null;
   return (
     <>
-      {showTitle ? (
-        <SkeletonInput active size='small' style={{ margin: '1rem 0' }} />
-      ) : null}
-      <Row
-        style={{ marginTop: '1rem' }}
-        gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
+      {showTitle ? <SkeletonInput active size='small' style={{ margin: '1rem 0' }} /> : null}
+      <Row style={{ marginTop: '1rem' }} gutter={{ xs: 8, sm: 16, md: 24, lg: 32 }}>
         <Col {...colSpan}>
           <FieldSkeleton />
         </Col>

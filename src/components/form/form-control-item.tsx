@@ -35,18 +35,14 @@ export const FormControlItem: FC<IFormControlItemProps> = ({
             <Translate i18nKey={field.item.label} />
           ),
         }}
-        extra={
-          <FormControlCustomHelp customHelpText={field.item.customHelpText} />
-        }
+        extra={<FormControlCustomHelp customHelpText={field.item.customHelpText} />}
         colon={false}
         disabled={isDisabled}
-        className={`input-control form-control-item ${styleForCheckBox}`}>
+        className={`input-control form-control-item ${styleForCheckBox}`}
+      >
         {fieldControl}
       </FormItem>
-      <SelectDrawer
-        label={field.item.label}
-        {...fieldControl?.props?.customDrawerProps}
-      />
+      <SelectDrawer label={field.item.label} {...fieldControl?.props?.customDrawerProps} />
     </>
   );
 };

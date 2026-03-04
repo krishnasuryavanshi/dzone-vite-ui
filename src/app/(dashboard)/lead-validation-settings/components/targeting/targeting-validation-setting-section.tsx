@@ -41,7 +41,8 @@ export const TargetingValidationSettingSection = ({
           paddingInline: '1rem',
           marginInline: '0.25rem',
         }}
-        align='center'>
+        align='center'
+      >
         <Text strong>{section.description}</Text>
       </Flex>
       <Flex vertical gap='0.5rem' style={{ paddingInline: '1.75rem' }}>

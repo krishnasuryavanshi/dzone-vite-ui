@@ -10,11 +10,7 @@ export default function UpdateLineItemPage() {
   return (
     <>
       <title>Edit Line Item | DZ One</title>
-      <UpdateLineItem
-        lineItemId={lineItemId!}
-        userDetails={userDetails}
-        tenantCode={tenantCode}
-      />
+      <UpdateLineItem lineItemId={lineItemId!} userDetails={userDetails} tenantCode={tenantCode} />
     </>
   );
 }

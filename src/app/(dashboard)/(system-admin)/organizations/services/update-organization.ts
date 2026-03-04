@@ -3,10 +3,7 @@ import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { authenticatedRequest } from '@/services/backend-request';
 
-export const updateOrganization = async (
-  data: Record<string, any>,
-  organizationId: string,
-) => {
+export const updateOrganization = async (data: Record<string, any>, organizationId: string) => {
   try {
     return authenticatedRequest({
       apiHost: ApiHost.RBACService,

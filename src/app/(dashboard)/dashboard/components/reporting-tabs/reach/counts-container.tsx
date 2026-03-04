@@ -23,9 +23,7 @@ export const CountsContainer: FC<ICountsContainerProps> = ({}) => {
 
   const renderCards = (key: string) => {
     return (
-      <Col
-        style={{ marginBottom: '1rem' }}
-        {...gridColumns}>
+      <Col style={{ marginBottom: '1rem' }} {...gridColumns}>
         <CountReportCard type={key} />
       </Col>
     );
@@ -33,10 +31,7 @@ export const CountsContainer: FC<ICountsContainerProps> = ({}) => {
 
   return (
     <Row gutter={16}>
-      <MapFunction
-        items={countskeys}
-        renderItem={renderCards}
-      />
+      <MapFunction items={countskeys} renderItem={renderCards} />
     </Row>
   );
 };

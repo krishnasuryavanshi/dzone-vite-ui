@@ -6,10 +6,7 @@ interface IUploadButtonContentProps {
   uploadLabel: string;
 }
 
-export const UploadButtonContent: FC<IUploadButtonContentProps> = ({
-  uploading,
-  uploadLabel,
-}) => {
+export const UploadButtonContent: FC<IUploadButtonContentProps> = ({ uploading, uploadLabel }) => {
   if (uploading) {
     return (
       <>

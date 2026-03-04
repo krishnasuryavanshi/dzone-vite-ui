@@ -10,11 +10,11 @@ export const ErrorContainer = ({
 }) => {
   return (
     <Result
-      status="error"
-      title="Something went wrong"
-      subTitle="An unexpected error occurred. Please try again."
+      status='error'
+      title='Something went wrong'
+      subTitle='An unexpected error occurred. Please try again.'
       extra={
-        <Button type="primary" onClick={reset}>
+        <Button type='primary' onClick={reset}>
           Try Again
         </Button>
       }
@@ -24,7 +24,7 @@ export const ErrorContainer = ({
         items={[
           {
             key: 'details',
-            label: <Text type="secondary">Technical Details</Text>,
+            label: <Text type='secondary'>Technical Details</Text>,
             children: <Text strong>{error.message}</Text>,
           },
         ]}

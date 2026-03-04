@@ -12,18 +12,9 @@ import {
   MarketerOption,
 } from '../lib/types';
 import { DEFAULT_TEXT, UI, PAGINATION, TIME } from '../lib/constants';
-import {
-  generateMessageId,
-  generateConversationId,
-} from '../lib/utils/id-utils';
-import {
-  mapChatHistoryToMessages,
-  truncateTitle,
-} from '../lib/utils/message-utils';
-import {
-  fetchConversationList,
-  fetchChatHistory,
-} from '../services/conversation';
+import { generateMessageId, generateConversationId } from '../lib/utils/id-utils';
+import { mapChatHistoryToMessages, truncateTitle } from '../lib/utils/message-utils';
+import { fetchConversationList, fetchChatHistory } from '../services/conversation';
 import { initSession as initSessionService } from '../services/session';
 
 const initialState = {
@@ -71,22 +62,14 @@ const initialState = {
 
 // Helper: find the correct messages array for the active stream
 const getStreamingTarget = (state: AiAgentStore) => {
-  const isForeground =
-    state.streamingConversationId === state.currentConversationId;
+  const isForeground = state.streamingConversationId === state.currentConversationId;
   if (isForeground) {
-    const idx = state.messages.findIndex(
-      (m) => m.id === state.currentStreamingMessageId,
-    );
+    const idx = state.messages.findIndex((m) => m.id === state.currentStreamingMessageId);
     return { messages: state.messages, index: idx, isForeground: true };
   }
-  if (
-    state.backgroundStreamBuffer?.conversationId ===
-    state.streamingConversationId
-  ) {
+  if (state.backgroundStreamBuffer?.conversationId === state.streamingConversationId) {
     const msgId = state.backgroundStreamBuffer.currentStreamingMessageId;
-    const idx = state.backgroundStreamBuffer.messages.findIndex(
-      (m) => m.id === msgId,
-    );
+    const idx = state.backgroundStreamBuffer.messages.findIndex((m) => m.id === msgId);
     return {
       messages: state.backgroundStreamBuffer.messages,
       index: idx,
@@ -106,19 +89,14 @@ export const useAiAgentStore = create<AiAgentStore>()(
         role: MessageRole.USER,
         content,
         timestamp: new Date(),
-        attachments: attachments?.filter(
-          (a) => a.status === FileUploadStatus.SUCCESS,
-        ),
+        attachments: attachments?.filter((a) => a.status === FileUploadStatus.SUCCESS),
       };
 
       set((state) => {
         // Auto-generate conversation ID if this is the first message
         if (!state.currentConversationId) {
           state.currentConversationId = generateConversationId();
-          state.currentConversationTitle = truncateTitle(
-            content,
-            UI.TITLE_TRUNCATE_LENGTH,
-          );
+          state.currentConversationTitle = truncateTitle(content, UI.TITLE_TRUNCATE_LENGTH);
         }
         state.messages.push(message);
         state.inputDisabled = true;
@@ -132,14 +110,10 @@ export const useAiAgentStore = create<AiAgentStore>()(
         );
         if (convIndex !== -1) {
           state.conversationHistory[convIndex].messageCount += 1;
-          state.conversationHistory[convIndex].updatedAt =
-            new Date().toISOString();
+          state.conversationHistory[convIndex].updatedAt = new Date().toISOString();
           // Move conversation to top if not already
           if (convIndex > 0) {
-            const [conversation] = state.conversationHistory.splice(
-              convIndex,
-              1,
-            );
+            const [conversation] = state.conversationHistory.splice(convIndex, 1);
             state.conversationHistory.unshift(conversation);
           }
         }
@@ -188,8 +162,7 @@ export const useAiAgentStore = create<AiAgentStore>()(
         if (target.isForeground) {
           state.currentThinkingContent += content;
           if (target.index !== -1) {
-            state.messages[target.index].thinkingContent =
-              state.currentThinkingContent;
+            state.messages[target.index].thinkingContent = state.currentThinkingContent;
           }
         } else if (state.backgroundStreamBuffer && target.index !== -1) {
           state.backgroundStreamBuffer.currentThinkingContent += content;
@@ -210,9 +183,7 @@ export const useAiAgentStore = create<AiAgentStore>()(
       const thinkingTime = isForeground
         ? thinkingStartTime
         : (backgroundStreamBuffer?.thinkingStartTime ?? null);
-      const thinkingDuration = thinkingTime
-        ? Date.now() - thinkingTime
-        : undefined;
+      const thinkingDuration = thinkingTime ? Date.now() - thinkingTime : undefined;
 
       set((state) => {
         const target = getStreamingTarget(state);
@@ -229,8 +200,7 @@ export const useAiAgentStore = create<AiAgentStore>()(
         );
         if (convIndex !== -1) {
           state.conversationHistory[convIndex].messageCount += 1;
-          state.conversationHistory[convIndex].updatedAt =
-            new Date().toISOString();
+          state.conversationHistory[convIndex].updatedAt = new Date().toISOString();
         }
 
         // Clear streaming identity
@@ -308,9 +278,7 @@ export const useAiAgentStore = create<AiAgentStore>()(
           }
           state.currentProgressSteps.push(message);
           if (target.index !== -1) {
-            state.messages[target.index].progressSteps = [
-              ...state.currentProgressSteps,
-            ];
+            state.messages[target.index].progressSteps = [...state.currentProgressSteps];
           }
         } else if (state.backgroundStreamBuffer) {
           if (!state.backgroundStreamBuffer.isProcessing) {
@@ -344,11 +312,8 @@ export const useAiAgentStore = create<AiAgentStore>()(
           if (!processing && processingStartTime) {
             const progressDuration = Date.now() - processingStartTime;
             if (target.index !== -1) {
-              target.messages![target.index].progressDuration =
-                progressDuration;
-              target.messages![target.index].progressSteps = [
-                ...currentProgressSteps,
-              ];
+              target.messages![target.index].progressDuration = progressDuration;
+              target.messages![target.index].progressSteps = [...currentProgressSteps];
             }
             state.processingStartTime = null;
           }
@@ -391,10 +356,7 @@ export const useAiAgentStore = create<AiAgentStore>()(
       } = get();
 
       // Only save if the current conversation is the one streaming
-      if (
-        !streamingConversationId ||
-        streamingConversationId !== currentConversationId
-      ) {
+      if (!streamingConversationId || streamingConversationId !== currentConversationId) {
         return;
       }
 
@@ -416,10 +378,7 @@ export const useAiAgentStore = create<AiAgentStore>()(
     restoreFromBackgroundBuffer: (conversationId: string): boolean => {
       const { backgroundStreamBuffer, streamingConversationId } = get();
 
-      if (
-        !backgroundStreamBuffer ||
-        backgroundStreamBuffer.conversationId !== conversationId
-      ) {
+      if (!backgroundStreamBuffer || backgroundStreamBuffer.conversationId !== conversationId) {
         return false;
       }
 
@@ -507,17 +466,12 @@ export const useAiAgentStore = create<AiAgentStore>()(
       if (isLoadingConversation) return;
 
       // If the current conversation is streaming, save its state to buffer
-      if (
-        streamingConversationId &&
-        streamingConversationId === currentConversationId
-      ) {
+      if (streamingConversationId && streamingConversationId === currentConversationId) {
         saveToBackgroundBuffer();
       }
 
       // Check if conversation's tenant is available in marketer list
-      const isTenantAvailable = marketerList?.some(
-        (m) => m.value === conversation.tenantCode,
-      );
+      const isTenantAvailable = marketerList?.some((m) => m.value === conversation.tenantCode);
 
       set((state) => {
         state.inputDisabled = true;
@@ -555,11 +509,7 @@ export const useAiAgentStore = create<AiAgentStore>()(
         return;
       }
 
-      const response = await fetchChatHistory(
-        conversation.id,
-        0,
-        PAGINATION.DEFAULT_PAGE_SIZE,
-      );
+      const response = await fetchChatHistory(conversation.id, 0, PAGINATION.DEFAULT_PAGE_SIZE);
 
       if (response) {
         const totalPages = Math.ceil(response.total / response.pageSize);
@@ -591,12 +541,8 @@ export const useAiAgentStore = create<AiAgentStore>()(
     },
 
     loadMoreMessages: async () => {
-      const {
-        currentConversationId,
-        chatHistoryPage,
-        hasMoreMessages,
-        isLoadingMoreMessages,
-      } = get();
+      const { currentConversationId, chatHistoryPage, hasMoreMessages, isLoadingMoreMessages } =
+        get();
 
       if (!currentConversationId || !hasMoreMessages || isLoadingMoreMessages) {
         return;
@@ -633,17 +579,10 @@ export const useAiAgentStore = create<AiAgentStore>()(
     },
 
     createNewConversation: () => {
-      const {
-        streamingConversationId,
-        currentConversationId,
-        saveToBackgroundBuffer,
-      } = get();
+      const { streamingConversationId, currentConversationId, saveToBackgroundBuffer } = get();
 
       // If the current conversation is streaming, save its state to buffer
-      if (
-        streamingConversationId &&
-        streamingConversationId === currentConversationId
-      ) {
+      if (streamingConversationId && streamingConversationId === currentConversationId) {
         saveToBackgroundBuffer();
       }
 
@@ -707,8 +646,7 @@ export const useAiAgentStore = create<AiAgentStore>()(
         // Also update background buffer if it references the old ID
         if (
           state.backgroundStreamBuffer &&
-          state.backgroundStreamBuffer.conversationId ===
-            state.currentConversationId
+          state.backgroundStreamBuffer.conversationId === state.currentConversationId
         ) {
           state.backgroundStreamBuffer.conversationId = conversationId;
         }
@@ -721,16 +659,13 @@ export const useAiAgentStore = create<AiAgentStore>()(
 
     updateConversationTitle: (conversationId: string, title: string) => {
       const { conversationHistory } = get();
-      const existingIndex = conversationHistory.findIndex(
-        (c) => c.id === conversationId,
-      );
+      const existingIndex = conversationHistory.findIndex((c) => c.id === conversationId);
 
       set((state) => {
         if (existingIndex !== -1) {
           // Update existing conversation title
           state.conversationHistory[existingIndex].title = title;
-          state.conversationHistory[existingIndex].updatedAt =
-            new Date().toISOString();
+          state.conversationHistory[existingIndex].updatedAt = new Date().toISOString();
         }
         // Update current conversation title if it's the active one
         if (state.currentConversationId === conversationId) {
@@ -773,10 +708,7 @@ export const useAiAgentStore = create<AiAgentStore>()(
     },
 
     // Session actions
-    initSession: async (
-      tenantCode: string,
-      conversationId?: string,
-    ): Promise<boolean> => {
+    initSession: async (tenantCode: string, conversationId?: string): Promise<boolean> => {
       set((state) => {
         state.isInitializingSession = true;
       });
@@ -806,8 +738,7 @@ export const useAiAgentStore = create<AiAgentStore>()(
       if (!sessionId || !sessionExpiresIn || !sessionLastActivity) {
         return true; // No valid session
       }
-      const elapsedSeconds =
-        (Date.now() - sessionLastActivity) / TIME.MS_PER_SECOND;
+      const elapsedSeconds = (Date.now() - sessionLastActivity) / TIME.MS_PER_SECOND;
       const effectiveExpiry = sessionExpiresIn - TIME.SESSION_BUFFER_SECONDS;
       return elapsedSeconds >= effectiveExpiry;
     },
@@ -832,19 +763,12 @@ export const useAiAgentStore = create<AiAgentStore>()(
           state.attachments[index].progress = progress;
         }
         // Calculate overall progress
-        const total = state.attachments.reduce(
-          (acc, a) => acc + (a.progress || 0),
-          0,
-        );
+        const total = state.attachments.reduce((acc, a) => acc + (a.progress || 0), 0);
         state.uploadProgress = Math.round(total / state.attachments.length);
       });
     },
 
-    updateAttachmentStatus: (
-      id: string,
-      status: FileUploadStatus,
-      error?: string,
-    ) => {
+    updateAttachmentStatus: (id: string, status: FileUploadStatus, error?: string) => {
       set((state) => {
         const index = state.attachments.findIndex((a) => a.id === id);
         if (index !== -1) {
@@ -864,10 +788,7 @@ export const useAiAgentStore = create<AiAgentStore>()(
         state.attachments = state.attachments.filter((a) => a.id !== id);
         // Recalculate overall progress
         if (state.attachments.length > 0) {
-          const total = state.attachments.reduce(
-            (acc, a) => acc + (a.progress || 0),
-            0,
-          );
+          const total = state.attachments.reduce((acc, a) => acc + (a.progress || 0), 0);
           state.uploadProgress = Math.round(total / state.attachments.length);
         } else {
           state.uploadProgress = 0;

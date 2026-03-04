@@ -1,5 +1,5 @@
 export interface IPaginationProps {
-    currentPage: number;
-    totalRecords: number;
-    pageSize: number;
+  currentPage: number;
+  totalRecords: number;
+  pageSize: number;
 }

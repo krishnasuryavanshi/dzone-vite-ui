@@ -11,8 +11,7 @@ export function useAllowedResources() {
   const [resourcesList, setResourcesList] = useState<IResourceItem[]>([]);
   const [hideUsers, setHideUsers] = useState<boolean>(false);
 
-  const { accesses, setAccesses, setAttributes, setModules } =
-    usePermissionsStore();
+  const { accesses, setAccesses, setAttributes, setModules } = usePermissionsStore();
 
   const roleIds = useMemo(
     () => (data?.roles ?? []).map((role: { id: string }) => role.id),

@@ -11,16 +11,10 @@ interface IAppLinkProps {
   checkForUnsavedData?: boolean;
 }
 
-export const AppLink: FC<IAppLinkProps> = ({
-  link,
-  label,
-  checkForUnsavedData = true,
-}) => {
+export const AppLink: FC<IAppLinkProps> = ({ link, label, checkForUnsavedData = true }) => {
   const router = useRouter();
-  const [openUnsavedDataWarningModal, setOpenUnsavedDataWarningModal] =
-    useState(false);
-  const { actions, actionsData, hasUnsavedData, clear } =
-    useUnsavedDataStore();
+  const [openUnsavedDataWarningModal, setOpenUnsavedDataWarningModal] = useState(false);
+  const { actions, actionsData, hasUnsavedData, clear } = useUnsavedDataStore();
 
   const handleClick = async (e: MouseEvent<HTMLAnchorElement>) => {
     // Allow modifier keys and non-primary clicks to pass through for native browser behavior

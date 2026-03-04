@@ -8,9 +8,7 @@ export const ValidationRuleDropdown = ({
   section,
   isDisabled,
 }: ValidationSettingRuleSectionProps) => {
-  const [options, setOptions] = useState<{ label: string; value: string }[]>(
-    [],
-  );
+  const [options, setOptions] = useState<{ label: string; value: string }[]>([]);
   const [selected, setSelected] = useState<string>('');
   const { selectedValues, setSelectedValues } = useValidationSettingStore();
 

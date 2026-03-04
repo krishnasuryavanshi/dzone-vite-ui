@@ -69,7 +69,8 @@ export const ValidationRuleCheckboxGroup = ({
       value={selected}
       disabled={isDisabled}
       onChange={handleCheckboxChange}
-      style={{ display: 'flex', flexDirection: 'column' }}>
+      style={{ display: 'flex', flexDirection: 'column' }}
+    >
       <MapFunction items={section.attributes} renderItem={renderCheckbox} />
     </CheckboxGroup>
   );

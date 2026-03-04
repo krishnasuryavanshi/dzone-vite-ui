@@ -15,7 +15,8 @@ export const HeaderPanel = ({ children }: { children: React.ReactNode }) => {
         paddingLeft: '0.5rem',
         borderRadius: borderRadius,
         boxShadow: '4px 4px 10px 0 rgba(0, 0, 0, 0.06)',
-      }}>
+      }}
+    >
       <Flex justify='flex-end'>{children}</Flex>
     </Heading>
   );

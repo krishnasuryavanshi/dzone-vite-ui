@@ -21,10 +21,7 @@ export const getFieldMappingOptions = (
   // Filter mappings that have both mappingName and mappingValue (not null)
   // and are visible according to the master data
   const validMappings = masterFieldMappings
-    .filter(
-      (mapping) =>
-        mapping.mappingName && mapping.mappingValue && mapping.visible,
-    )
+    .filter((mapping) => mapping.mappingName && mapping.mappingValue && mapping.visible)
     .sort((a, b) => a.order - b.order); // Sort by order
 
   // Return options with mappingName as label and mappingValue as value

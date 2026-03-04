@@ -1,8 +1,6 @@
-import { Digitalzone } from "@/components/brands";
-import React from "react";
+import { Digitalzone } from '@/components/brands';
+import React from 'react';
 
 export const Logo = () => {
-  return (
-    <Digitalzone variant="large" color="white" />
-  );
+  return <Digitalzone variant='large' color='white' />;
 };

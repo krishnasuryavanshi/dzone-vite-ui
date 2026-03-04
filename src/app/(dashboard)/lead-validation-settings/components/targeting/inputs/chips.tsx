@@ -13,8 +13,7 @@ type ChipsProps = {
 };
 
 export const Chips = ({ attribute, sectionName }: ChipsProps) => {
-  const { selectedValues, setSelectedValues, isReadOnly } =
-    useValidationSettingStore();
+  const { selectedValues, setSelectedValues, isReadOnly } = useValidationSettingStore();
 
   const [options, setOptions] = useState<string[]>([]);
 
@@ -41,9 +40,7 @@ export const Chips = ({ attribute, sectionName }: ChipsProps) => {
   const handleRemoveOption = (value: string) => {
     const sectionSelection = selectedValues?.[sectionName];
     const attributeSelectionValues =
-      sectionSelection?.[attribute.name]?.data?.filter(
-        (val: string) => val !== value,
-      ) || [];
+      sectionSelection?.[attribute.name]?.data?.filter((val: string) => val !== value) || [];
 
     setSelectedValues(sectionName, {
       ...sectionSelection,
@@ -79,7 +76,8 @@ export const Chips = ({ attribute, sectionName }: ChipsProps) => {
         borderRadius: '5px',
         border: '1px solid #E9EEF4',
         padding: '1rem 1.25rem',
-      }}>
+      }}
+    >
       <Flex align='center' vertical gap={'0.75rem'} style={{ width: '100%' }}>
         <ChipsInput
           handleOptionChange={handleAddOption}

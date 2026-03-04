@@ -36,15 +36,14 @@ export const LineItemBreadcrumbs: React.FC<ICreateLineItemBreadcrumbsProps> = ({
           title: (
             <AppLink
               link={`/campaign-management/campaigns/${campaignId}`}
-              label={campaignId}></AppLink>
+              label={campaignId}
+            ></AppLink>
           ),
         },
         {
           title: (
             <span className={`${styles.lineItemId} ${styles.hoverUnderline}`}>
-              <AppLink
-                link={`/campaign-management/line-items/${id}`}
-                label={lineItemId}></AppLink>
+              <AppLink link={`/campaign-management/line-items/${id}`} label={lineItemId}></AppLink>
             </span>
           ),
         },
@@ -61,7 +60,8 @@ export const LineItemBreadcrumbs: React.FC<ICreateLineItemBreadcrumbsProps> = ({
           title: (
             <AppLink
               link={`/campaign-management/campaigns/${campaignData?.id}`}
-              label={campaignId!}></AppLink>
+              label={campaignId!}
+            ></AppLink>
           ),
         },
         {
@@ -76,9 +76,7 @@ export const LineItemBreadcrumbs: React.FC<ICreateLineItemBreadcrumbsProps> = ({
         {
           title: (
             <span className={`${styles.lineItemId} ${styles.hoverUnderline}`}>
-              <AppLink
-                link={`/campaign-management/line-items/${id}`}
-                label={lineItemId}></AppLink>
+              <AppLink link={`/campaign-management/line-items/${id}`} label={lineItemId}></AppLink>
             </span>
           ),
         },

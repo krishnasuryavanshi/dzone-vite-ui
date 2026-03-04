@@ -35,7 +35,8 @@ export const UnitsDropdown: FC<IUnitsDropdownProps> = ({
       multiple={false}
       selectedItems={selectedUnit}
       onSelect={handleUnitSelection}
-      searchable={false}>
+      searchable={false}
+    >
       {selectedUnit &&
         selectedUnit.map((unit) => (
           <React.Fragment key={unit}>

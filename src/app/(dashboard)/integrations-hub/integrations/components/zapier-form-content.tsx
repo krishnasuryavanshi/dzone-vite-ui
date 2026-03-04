@@ -1,4 +1,3 @@
-
 import { Input } from '@/uicomponents/form/input';
 import { TextArea } from '@/uicomponents/form/input/textarea';
 import { Select } from '@/uicomponents/form/input/select';
@@ -10,9 +9,7 @@ interface ZapierFormContentProps {
   mode?: 'create' | 'retry';
 }
 
-export const ZapierFormContent: React.FC<ZapierFormContentProps> = ({
-  mode = 'create',
-}) => {
+export const ZapierFormContent: React.FC<ZapierFormContentProps> = ({ mode = 'create' }) => {
   return (
     <>
       <FormItem
@@ -24,8 +21,7 @@ export const ZapierFormContent: React.FC<ZapierFormContentProps> = ({
           { required: true, message: 'Name is required' },
           {
             pattern: /^[a-zA-Z0-9$_\- ]+$/,
-            message:
-              'Only alphanumeric characters, spaces, and $, -, _ are allowed',
+            message: 'Only alphanumeric characters, spaces, and $, -, _ are allowed',
           },
           {
             max: 255,
@@ -34,14 +30,13 @@ export const ZapierFormContent: React.FC<ZapierFormContentProps> = ({
           {
             validator: (_, value) => {
               if (value && (value.startsWith(' ') || value.endsWith(' '))) {
-                return Promise.reject(
-                  'Leading and trailing spaces are not allowed',
-                );
+                return Promise.reject('Leading and trailing spaces are not allowed');
               }
               return Promise.resolve();
             },
           },
-        ]}>
+        ]}
+      >
         <Input
           placeholder='Enter Integration Name'
           className={`input-field ${styles.inputControl}`}
@@ -60,13 +55,15 @@ export const ZapierFormContent: React.FC<ZapierFormContentProps> = ({
         name='label'
         label='Type'
         className='input-control form-control-item'
-        rules={[{ required: true, message: 'Type is required' }]}>
+        rules={[{ required: true, message: 'Type is required' }]}
+      >
         <Select
           placeholder='Select Type'
           className={`input-field ${styles.inputControl}`}
           style={{
             width: '100%',
-          }}>
+          }}
+        >
           {ZAPIER_TYPE_OPTIONS.map((option) => (
             <Select.Option key={option.value} value={option.label}>
               {option.label}
@@ -100,7 +97,8 @@ export const ZapierFormContent: React.FC<ZapierFormContentProps> = ({
           //     return Promise.resolve();
           //   },
           // },
-        ]}>
+        ]}
+      >
         <Input
           placeholder='Enter Zapier URL'
           className={`input-field ${styles.inputControl}`}
@@ -131,7 +129,8 @@ export const ZapierFormContent: React.FC<ZapierFormContentProps> = ({
               return Promise.resolve();
             },
           },
-        ]}>
+        ]}
+      >
         <TextArea
           placeholder='{"Header": "value"} json file'
           className={`input-field ${styles.inputControl}`}

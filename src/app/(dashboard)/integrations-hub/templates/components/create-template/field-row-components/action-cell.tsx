@@ -23,13 +23,15 @@ export const ActionCell: FC<IActionCellProps> = ({ index, isDisabled }) => {
       disabled={isDisabled}
       style={{
         pointerEvents: isDisabled ? 'none' : 'auto',
-      }}>
+      }}
+    >
       <Text
         style={{
           textDecoration: isDisabled ? 'none' : 'underline',
           color: isDisabled ? '#A9A9A9' : `${DZONE_CLR_BLACK}`,
           cursor: isDisabled ? 'not-allowed' : 'pointer',
-        }}>
+        }}
+      >
         More
       </Text>
     </Button>

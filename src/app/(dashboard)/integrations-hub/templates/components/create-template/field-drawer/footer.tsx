@@ -4,10 +4,7 @@ import { Flex } from '@/uicomponents/layout';
 import { FC } from 'react';
 import { ITemplateFieldResponse } from '../../../lib/types';
 import { useTemplateStore } from '../../../stores';
-import {
-  DrawerCancelButton,
-  DrawerSaveTemplateButton,
-} from '../field-toolbar-actions';
+import { DrawerCancelButton, DrawerSaveTemplateButton } from '../field-toolbar-actions';
 
 interface IFieldToolbarProps {
   getCurrentFieldData: () => Promise<{
@@ -31,14 +28,14 @@ export const Footer: FC<IFieldToolbarProps> = ({ getCurrentFieldData }) => {
         bottom: 0,
         left: 0,
         right: 0,
-      }}>
+      }}
+    >
       <DrawerCancelButton closeFieldDrawer={closeFieldDrawer} />
       <HasPermission
         permissions={
-          templateId
-            ? DeliveryTemplateActionsEnum.Edit
-            : DeliveryTemplateActionsEnum.Create
-        }>
+          templateId ? DeliveryTemplateActionsEnum.Edit : DeliveryTemplateActionsEnum.Create
+        }
+      >
         <DrawerSaveTemplateButton
           closeFieldDrawer={closeFieldDrawer}
           getCurrentFieldData={getCurrentFieldData}

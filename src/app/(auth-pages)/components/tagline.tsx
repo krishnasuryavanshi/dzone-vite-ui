@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Text } from '@/uicomponents';
 import { Translate } from '@/components/i18n';

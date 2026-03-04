@@ -1,4 +1,3 @@
-
 import { DzBox } from '@/components/layout/v1';
 import { Hideable } from '@/components/shared';
 import { Flex } from '@/uicomponents/layout';
@@ -54,7 +53,8 @@ export const Step2HeaderInfo: FC = () => {
         padding: '1rem',
         backgroundColor: '#fafafa',
         borderRadius: '6px',
-      }}>
+      }}
+    >
       <Flex gap='1.5rem'>
         {/* Template Name - Always shown */}
         <div>

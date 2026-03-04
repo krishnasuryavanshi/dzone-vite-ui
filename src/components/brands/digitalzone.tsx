@@ -6,10 +6,7 @@ interface IDigitalzoneProps {
   color?: string;
 }
 
-export const Digitalzone: FC<IDigitalzoneProps> = ({
-  variant = 'small',
-  color,
-}) => {
+export const Digitalzone: FC<IDigitalzoneProps> = ({ variant = 'small', color }) => {
   let src = '/images/brands/digitalzone-small.svg';
   if (variant === 'large') {
     src = '/images/brands/digitalzone-full.svg';

@@ -34,7 +34,8 @@ export const ShowPacingChartPreview: React.FC<ShowPacingChartPreviewProps> = ({
       <Button
         type='link'
         style={{ padding: 0, color: CLR_BLUE_PRIMARY }}
-        onClick={() => setOpen(true)}>
+        onClick={() => setOpen(true)}
+      >
         View
       </Button>
       <PacingChartDrawer

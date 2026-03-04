@@ -26,20 +26,14 @@ interface IBasicDetailsFormProps {
   roleDetails: IRoleDetails;
 }
 
-export const BasicDetailsForm: FC<IBasicDetailsFormProps> = ({
-  form,
-  roleDetails,
-}) => {
+export const BasicDetailsForm: FC<IBasicDetailsFormProps> = ({ form, roleDetails }) => {
   const { isEditAllowed } = useEditStore();
   const [isStatusChanging, setIsStatusChanging] = useState(false);
   const [newStatus, setNewStatus] = useState<string | null>(null);
 
   const handleStatusChange = (value: string) => {
     setNewStatus(value);
-    if (
-      value === Status.INACTIVE &&
-      roleDetails?.status?.name === Status.ACTIVE
-    ) {
+    if (value === Status.INACTIVE && roleDetails?.status?.name === Status.ACTIVE) {
       setIsStatusChanging(true);
     } else {
       form.setFieldsValue({ status: value });
@@ -63,16 +57,12 @@ export const BasicDetailsForm: FC<IBasicDetailsFormProps> = ({
   const getStatusOptions = () => {
     const currentStatus = roleDetails?.status?.name;
     if (currentStatus === Status.ACTIVE) {
-      return StatusOptions.filter(
-        (option) => option.value === Status.INACTIVE,
-      ).map((option) => ({
+      return StatusOptions.filter((option) => option.value === Status.INACTIVE).map((option) => ({
         value: option.value,
         label: option.label,
       }));
     } else if (currentStatus === Status.INACTIVE) {
-      return StatusOptions.filter(
-        (option) => option.value === Status.ACTIVE,
-      ).map((option) => ({
+      return StatusOptions.filter((option) => option.value === Status.ACTIVE).map((option) => ({
         value: option.value,
         label: option.label,
       }));
@@ -91,7 +81,8 @@ export const BasicDetailsForm: FC<IBasicDetailsFormProps> = ({
             marginBottom: '0.75rem',
             fontWeight: 600,
             color: CLR_GRAY_3,
-          }}>
+          }}
+        >
           <Translate i18nKey='pages.rolesAndPermissions.label.basicDetails' />
         </Space>
         <Row gutter={[16, 16]}>
@@ -99,9 +90,7 @@ export const BasicDetailsForm: FC<IBasicDetailsFormProps> = ({
             <FormItem
               className='input-control form-control-item'
               name='name'
-              label={
-                <Translate i18nKey='pages.rolesAndPermissions.label.roleName' />
-              }
+              label={<Translate i18nKey='pages.rolesAndPermissions.label.roleName' />}
               rules={[
                 { type: 'string' },
                 { required: true, message: REQUIRED_FIELD },
@@ -119,7 +108,8 @@ export const BasicDetailsForm: FC<IBasicDetailsFormProps> = ({
                     return Promise.resolve();
                   },
                 },
-              ]}>
+              ]}
+            >
               <Input
                 className='input-field'
                 placeholder='Enter role name'
@@ -136,13 +126,9 @@ export const BasicDetailsForm: FC<IBasicDetailsFormProps> = ({
             <FormItem
               className='input-control form-control-item'
               name='description'
-              label={
-                <Translate i18nKey='pages.rolesAndPermissions.label.description' />
-              }
-              rules={[
-                { type: 'string' },
-                { max: 500, message: ROLE_DESCRIPTION_MAX_LENGTH },
-              ]}>
+              label={<Translate i18nKey='pages.rolesAndPermissions.label.description' />}
+              rules={[{ type: 'string' }, { max: 500, message: ROLE_DESCRIPTION_MAX_LENGTH }]}
+            >
               <TextArea
                 className='input-field'
                 placeholder='Enter role description'
@@ -159,15 +145,9 @@ export const BasicDetailsForm: FC<IBasicDetailsFormProps> = ({
                 disabled={!isEditAllowed && Boolean(roleDetails?.id)}
                 onBlur={(event) => {
                   const inputValue = event.target.value;
-                  const textWithPlaceholders = inputValue.replace(
-                    /(\r\n|\n)/g,
-                    '___LINEBREAK___',
-                  );
+                  const textWithPlaceholders = inputValue.replace(/(\r\n|\n)/g, '___LINEBREAK___');
                   const sanitizedText = sanitizeText(textWithPlaceholders);
-                  const finalText = sanitizedText.replace(
-                    /___LINEBREAK___/g,
-                    '\n',
-                  );
+                  const finalText = sanitizedText.replace(/___LINEBREAK___/g, '\n');
                   form.setFieldsValue({ description: finalText });
                 }}
               />
@@ -177,10 +157,9 @@ export const BasicDetailsForm: FC<IBasicDetailsFormProps> = ({
             <Col span={8}>
               <FormItem
                 name='status'
-                label={
-                  <Translate i18nKey='pages.rolesAndPermissions.label.status' />
-                }
-                className='input-control form-control-input'>
+                label={<Translate i18nKey='pages.rolesAndPermissions.label.status' />}
+                className='input-control form-control-input'
+              >
                 <Select
                   size={'large'}
                   defaultValue={newStatus || 'Select Status'}
@@ -193,10 +172,7 @@ export const BasicDetailsForm: FC<IBasicDetailsFormProps> = ({
             </Col>
           )}
         </Row>
-        <TenantType
-          isDisabled={!isEditAllowed && Boolean(roleDetails?.id)}
-          isRole={true}
-        />
+        <TenantType isDisabled={!isEditAllowed && Boolean(roleDetails?.id)} isRole={true} />
       </Flex>
       <StatusChangeModal
         show={isStatusChanging}

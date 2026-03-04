@@ -8,10 +8,7 @@ import { ChartColumn } from '../../chart-column';
 interface IPacingProps {}
 
 export const Pacing: FC<IPacingProps> = ({}) => {
-  const [chartData, isLoaded] = useFetchReportData<ILineReportRow>(
-    [],
-    ReachReportType.Pacing
-  );
+  const [chartData, isLoaded] = useFetchReportData<ILineReportRow>([], ReachReportType.Pacing);
 
   const lines = [
     { stroke: '#2CCFF3', dataKey: 'pacing' },
@@ -20,12 +17,8 @@ export const Pacing: FC<IPacingProps> = ({}) => {
   ];
 
   return (
-    <ChartColumn chartTitle="pages.dashboard.label.pacing">
-      <DzLineChart
-        data={chartData as ILineReportRow[]}
-        lines={lines}
-        loaded={isLoaded}
-      />
+    <ChartColumn chartTitle='pages.dashboard.label.pacing'>
+      <DzLineChart data={chartData as ILineReportRow[]} lines={lines} loaded={isLoaded} />
     </ChartColumn>
   );
 };

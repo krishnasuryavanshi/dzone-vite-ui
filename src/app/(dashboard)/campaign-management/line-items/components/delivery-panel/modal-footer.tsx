@@ -25,7 +25,8 @@ export const ModalFooter: FC<IModalFooterProps> = ({
         size='small'
         style={{ borderColor: isLoading ? '#d4d4d4' : `${CLR_BLUE_LIGHT}` }}
         onClick={onCancel}
-        disabled={isLoading}>
+        disabled={isLoading}
+      >
         Cancel
       </Button>
       <Button
@@ -33,15 +34,11 @@ export const ModalFooter: FC<IModalFooterProps> = ({
         style={{ width: '5rem' }}
         size='small'
         onClick={handleProceed}
-        disabled={filterLeadsCount === 0}>
+        disabled={filterLeadsCount === 0}
+      >
         {isLoading ? (
           <Spin
-            indicator={
-              <LoadingOutlined
-                style={{ fontSize: '1.5rem', color: '#fff' }}
-                spin
-              />
-            }
+            indicator={<LoadingOutlined style={{ fontSize: '1.5rem', color: '#fff' }} spin />}
           />
         ) : (
           <Translate i18nKey='Proceed' />

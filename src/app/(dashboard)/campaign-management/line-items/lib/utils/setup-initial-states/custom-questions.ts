@@ -7,15 +7,9 @@ export const setupCustomQuestionsFieldInitialState = async (
   patchFormValues: Function,
   updateFormStepDetails: Function,
 ) => {
-  const hasCustomQuestions = !!form.getFieldValue(
-    LineItemFields.HasCustomQuestions,
-  );
+  const hasCustomQuestions = !!form.getFieldValue(LineItemFields.HasCustomQuestions);
 
-  updateCustomQuestionsField(
-    hasCustomQuestions,
-    patchFormValues,
-    updateFormStepDetails,
-  );
+  updateCustomQuestionsField(hasCustomQuestions, patchFormValues, updateFormStepDetails);
 };
 
 export const updateCustomQuestionsField = async (
@@ -47,9 +41,5 @@ export const updateCustomQuestionsField = async (
     { disabled: !hasCustomQuestions },
   );
 
-  updateFormStepDetails(
-    LineItemSections.CustomQuestions,
-    LineItemFields.CustomQuestions,
-    props,
-  );
+  updateFormStepDetails(LineItemSections.CustomQuestions, LineItemFields.CustomQuestions, props);
 };

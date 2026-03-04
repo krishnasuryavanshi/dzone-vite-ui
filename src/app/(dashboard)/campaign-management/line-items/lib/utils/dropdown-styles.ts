@@ -35,9 +35,7 @@ export const getDropdownBadgeStyle = (hasSelected: boolean): CSSProperties => {
   };
 };
 
-export const getDropdownButtonStyle = (
-  config: DropdownStyleConfig,
-): CSSProperties => {
+export const getDropdownButtonStyle = (config: DropdownStyleConfig): CSSProperties => {
   const { hasSelected, minWidth = '10rem' } = config;
 
   return hasSelected

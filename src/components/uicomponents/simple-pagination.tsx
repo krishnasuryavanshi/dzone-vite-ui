@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button, Text } from '@/components/uicomponents';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';

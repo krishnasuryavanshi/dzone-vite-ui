@@ -6,17 +6,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 interface ISpinProps extends SpinProps {}
 
 export const Spin: FC<ISpinProps> = ({ indicator, ...props }) => {
-  const loadingIndicator = indicator || (
-    <LoadingOutlined
-      style={{ fontSize: 48 }}
-      spin
-    />
-  );
+  const loadingIndicator = indicator || <LoadingOutlined style={{ fontSize: 48 }} spin />;
 
-  return (
-    <AntdSpin
-      indicator={loadingIndicator}
-      {...props}
-    />
-  );
+  return <AntdSpin indicator={loadingIndicator} {...props} />;
 };

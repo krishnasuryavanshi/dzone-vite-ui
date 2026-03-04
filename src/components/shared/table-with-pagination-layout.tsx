@@ -1,4 +1,3 @@
-
 import { DzScrollContainer } from '@/components/layout/v1';
 import { ReactNode, CSSProperties } from 'react';
 
@@ -30,11 +29,7 @@ export const TableWithPaginationLayout = ({
         {table}
         {children}
       </DzScrollContainer.Scroll>
-      {pagination && (
-        <DzScrollContainer.StickyBottom>
-          {pagination}
-        </DzScrollContainer.StickyBottom>
-      )}
+      {pagination && <DzScrollContainer.StickyBottom>{pagination}</DzScrollContainer.StickyBottom>}
     </DzScrollContainer>
   );
 };

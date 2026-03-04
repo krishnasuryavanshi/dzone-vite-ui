@@ -1,4 +1,3 @@
-
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
 import { FC } from 'react';
@@ -15,18 +14,15 @@ export const UserMessageBubble: FC<UserMessageBubbleProps> = ({ message }) => {
   return (
     <Flex justify='flex-end'>
       <Flex vertical style={{ maxWidth: '70%' }}>
-        {hasAttachments && (
-          <MessageAttachmentPreview attachments={message.attachments!} />
-        )}
+        {hasAttachments && <MessageAttachmentPreview attachments={message.attachments!} />}
         <Flex
           style={{
             padding: '0.75rem 1rem',
             backgroundColor: '#F0F4F7',
             borderRadius: '5px',
-          }}>
-          <Text style={{ whiteSpace: 'pre-wrap', fontSize: '1rem' }}>
-            {message.content}
-          </Text>
+          }}
+        >
+          <Text style={{ whiteSpace: 'pre-wrap', fontSize: '1rem' }}>{message.content}</Text>
         </Flex>
       </Flex>
     </Flex>

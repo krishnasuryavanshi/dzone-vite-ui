@@ -24,7 +24,8 @@ const OutlineBlueButton: React.FC<OutlineBlueButtonProps> = ({
         fontWeight: 500,
         ...style,
       }}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       {children}
     </Button>
   );

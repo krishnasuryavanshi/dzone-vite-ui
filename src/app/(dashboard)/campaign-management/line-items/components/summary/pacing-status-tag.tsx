@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import { Tag } from '@/uicomponents/tag';
 import { CheckOutlined, FallOutlined, RiseOutlined } from '@ant-design/icons';
@@ -69,9 +68,7 @@ export const PacingStatusTag: FC<IPacingStatusTagProps> = ({ status }) => {
   if (!config) return null;
 
   return (
-    <Tag
-      className={styles.statusTag}
-      style={{ color: config.color, backgroundColor: config.bg }}>
+    <Tag className={styles.statusTag} style={{ color: config.color, backgroundColor: config.bg }}>
       {config.icon}
       {status}
     </Tag>

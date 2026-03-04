@@ -1,2 +1,2 @@
-export * from "./bar-chart-loader";
-export * from "./pie-chart-loader";
+export * from './bar-chart-loader';
+export * from './pie-chart-loader';

@@ -10,9 +10,7 @@ interface IUsersBackNavigationProps {
   isEditing?: boolean;
 }
 
-export const UsersBackNavigation: FC<IUsersBackNavigationProps> = ({
-  isEditing,
-}) => {
+export const UsersBackNavigation: FC<IUsersBackNavigationProps> = ({ isEditing }) => {
   return (
     <Flex gap={'0.5rem'}>
       <Link to='/ums/users'>
@@ -26,7 +24,8 @@ export const UsersBackNavigation: FC<IUsersBackNavigationProps> = ({
             width: '1.5rem',
             cursor: 'pointer',
             paddingTop: '0.25rem',
-          }}>
+          }}
+        >
           <ArrowLeft />
         </Flex>
       </Link>

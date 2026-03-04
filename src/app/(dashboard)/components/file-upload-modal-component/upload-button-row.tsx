@@ -9,10 +9,7 @@ interface IUploadButtonRowProps {
   fileName?: string;
 }
 
-export const UploadButtonRow: FC<IUploadButtonRowProps> = ({
-  uploadProps,
-  fileName,
-}) => {
+export const UploadButtonRow: FC<IUploadButtonRowProps> = ({ uploadProps, fileName }) => {
   return (
     <DraggerUpload {...uploadProps}>
       <p className='ant-upload-drag-icon'>
@@ -29,7 +26,9 @@ export const UploadButtonRow: FC<IUploadButtonRowProps> = ({
       ) : (
         <p className='ant-upload-hint' style={{ fontSize: '0.75rem' }}>
           <Translate i18nKey='Supported Formats:' />{' '}
-          {typeof uploadProps?.accept === 'string' ? uploadProps.accept.replaceAll('.', '').replaceAll(',', ', ') : ''}
+          {typeof uploadProps?.accept === 'string'
+            ? uploadProps.accept.replaceAll('.', '').replaceAll(',', ', ')
+            : ''}
         </p>
       )}
     </DraggerUpload>

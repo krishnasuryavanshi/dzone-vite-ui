@@ -1,4 +1,3 @@
-
 import { Text } from '@/uicomponents';
 import styles from './integrations-list.module.css';
 import { DzBox } from '@/components/layout/v1';
@@ -8,10 +7,7 @@ interface FtpIntegrationDetailsProps {
   type?: string;
 }
 
-export const FtpIntegrationDetails: React.FC<FtpIntegrationDetailsProps> = ({
-  name,
-  type,
-}) => {
+export const FtpIntegrationDetails: React.FC<FtpIntegrationDetailsProps> = ({ name, type }) => {
   return (
     <DzBox className={styles.detailsLeft}>
       <DzBox className={styles.detailItem}>

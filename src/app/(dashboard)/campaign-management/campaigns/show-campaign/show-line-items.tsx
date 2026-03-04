@@ -14,11 +14,7 @@ interface IShowLineItemsProps {
   show: boolean;
 }
 
-export const ShowLineItems: FC<IShowLineItemsProps> = ({
-  campaignId,
-  campaignUuId,
-  show,
-}) => {
+export const ShowLineItems: FC<IShowLineItemsProps> = ({ campaignId, campaignUuId, show }) => {
   const [showCreateLineItem, setShowCreateLineItem] = useState<boolean>(false);
   const [refreshId, setRefreshId] = useState<string>('');
   const { queryState } = useQueryState();
@@ -28,13 +24,7 @@ export const ShowLineItems: FC<IShowLineItemsProps> = ({
   const [pageSize, setPageSize] = useState(25);
   const [filterInfo, setFilterInfo] = useState<Filters<ILineItem>>({});
 
-  const { data } = useLineItemsQuery(
-    currentPage - 1,
-    pageSize,
-    campaignUuId,
-    filterInfo,
-    show,
-  );
+  const { data } = useLineItemsQuery(currentPage - 1, pageSize, campaignUuId, filterInfo, show);
 
   const campaignLineItems = data?.data ?? [];
   const totalRecords = data?.total ?? 0;

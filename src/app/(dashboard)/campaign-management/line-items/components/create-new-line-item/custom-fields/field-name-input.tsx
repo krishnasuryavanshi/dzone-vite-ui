@@ -1,10 +1,7 @@
 import { FormInstance, FormItem } from '@/uicomponents/form';
 import { TextArea } from '@/uicomponents/form/input';
 import { FC } from 'react';
-import {
-  STANDARD_FIELD_NAMES,
-  normalizeFieldName,
-} from '../../../lib/constants/standard-fields';
+import { STANDARD_FIELD_NAMES, normalizeFieldName } from '../../../lib/constants/standard-fields';
 
 interface IFieldNameInputProps {
   name: (string | number)[];
@@ -13,20 +10,14 @@ interface IFieldNameInputProps {
   disabled?: boolean;
 }
 
-export const FieldNameInput: FC<IFieldNameInputProps> = ({
-  name,
-  form,
-  fieldIndex,
-  disabled,
-}) => {
+export const FieldNameInput: FC<IFieldNameInputProps> = ({ name, form, fieldIndex, disabled }) => {
   const validateUniqueLabel = (_: any, value: string) => {
     if (!value) return Promise.resolve();
 
     const customFields = form.getFieldValue('customFields') || [];
     const duplicates = customFields.filter(
       (field: any, index: number) =>
-        index !== fieldIndex &&
-        field?.label?.toLowerCase().trim() === value.toLowerCase().trim(),
+        index !== fieldIndex && field?.label?.toLowerCase().trim() === value.toLowerCase().trim(),
     );
 
     if (duplicates.length > 0) {
@@ -62,7 +53,8 @@ export const FieldNameInput: FC<IFieldNameInputProps> = ({
         { validator: validateUniqueLabel },
         { validator: validateNotStandardField },
       ]}
-      className='input-control form-control-item'>
+      className='input-control form-control-item'
+    >
       <TextArea
         placeholder='Enter Custom Field Name'
         className='input-field'

@@ -57,7 +57,8 @@ export const ValidateLeads: FC<IValidateLeadsProps> = ({
       size='small'
       style={{ width: '5.6rem', boxShadow: 'none' }}
       disabled={isLoading}
-      onClick={handleLeadsValidation}>
+      onClick={handleLeadsValidation}
+    >
       {isLoading ? (
         <LoadingOutlined style={{ marginLeft: '0.5rem' }} />
       ) : (

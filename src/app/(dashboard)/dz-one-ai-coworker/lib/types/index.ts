@@ -1,18 +1,8 @@
 import { DzRecord } from '@/lib/types';
-import {
-  MessageRole,
-  FileUploadStatus,
-  StreamEventType,
-  ChartType,
-} from '../enums';
+import { MessageRole, FileUploadStatus, StreamEventType, ChartType } from '../enums';
 
 // Re-export enums for convenience
-export {
-  MessageRole,
-  FileUploadStatus,
-  StreamEventType,
-  ChartType,
-} from '../enums';
+export { MessageRole, FileUploadStatus, StreamEventType, ChartType } from '../enums';
 
 export interface FileAttachment {
   id: string; // UUID from upload API
@@ -210,21 +200,14 @@ export interface AiAgentActions {
   setMarketerList: (marketerList: MarketerOption[] | null) => void;
   setTenantUnavailable: (unavailable: boolean) => void;
   // Session actions
-  initSession: (
-    tenantCode: string,
-    conversationId?: string,
-  ) => Promise<boolean>;
+  initSession: (tenantCode: string, conversationId?: string) => Promise<boolean>;
   setSessionId: (sessionId: string | null) => void;
   isSessionExpired: () => boolean;
   updateSessionActivity: () => void;
   // File attachment actions
   addAttachment: (attachment: FileAttachment) => void;
   updateAttachmentProgress: (id: string, progress: number) => void;
-  updateAttachmentStatus: (
-    id: string,
-    status: FileUploadStatus,
-    error?: string,
-  ) => void;
+  updateAttachmentStatus: (id: string, status: FileUploadStatus, error?: string) => void;
   removeAttachment: (id: string) => void;
   clearAttachments: () => void;
   setUploading: (isUploading: boolean) => void;

@@ -46,23 +46,22 @@ export const DzLineChart: FC<IDzLineChartProps> = ({ data, lines, loaded }) => {
   };
 
   return (
-    <ResponsiveContainer
-      width="100%"
-      height="100%">
+    <ResponsiveContainer width='100%' height='100%'>
       <LineChart
         className={`dz-line-chart dz-chart legend-placement-bottom`}
         width={730}
         height={250}
         data={data}
-        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
+        margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+      >
         <XAxis
-          dataKey="name"
+          dataKey='name'
           tickLine={{ stroke: '#EAF1FF', strokeWidth: 1 }}
           axisLine={{ stroke: '#EAF1FF', strokeWidth: 1 }}
           padding={{ left: 14, right: 14 }}
         />
         <YAxis
-          type="number"
+          type='number'
           tickLine={false}
           axisLine={false}
           cursor={'pointer'}
@@ -74,38 +73,16 @@ export const DzLineChart: FC<IDzLineChartProps> = ({ data, lines, loaded }) => {
           }
         />
 
-        <CartesianGrid
-          vertical={false}
-          stroke="#EAF1FF"
-          strokeWidth={1}
-        />
+        <CartesianGrid vertical={false} stroke='#EAF1FF' strokeWidth={1} />
 
         <Tooltip
           cursor={false}
-          content={({ active, payload }) => (
-            <DzLineTooltip
-              active={active}
-              payload={payload}
-            />
-          )}
+          content={({ active, payload }) => <DzLineTooltip active={active} payload={payload} />}
         />
-        <Legend
-          content={({ payload }) => (
-            <DzLegend
-              payload={payload}
-              placement={'bottom'}
-            />
-          )}
-        />
+        <Legend content={({ payload }) => <DzLegend payload={payload} placement={'bottom'} />} />
 
         {lines && lines.length
-          ? lines.map((line) => (
-              <Line
-                key={line.dataKey}
-                {...(lineConfig as any)}
-                {...line}
-              />
-            ))
+          ? lines.map((line) => <Line key={line.dataKey} {...(lineConfig as any)} {...line} />)
           : null}
       </LineChart>
     </ResponsiveContainer>

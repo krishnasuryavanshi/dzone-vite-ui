@@ -7,10 +7,7 @@ import {
 import { LineItemFields } from '../../enums';
 import { ICustomRangeDetails } from '../../types';
 
-const validateDecimal = (
-  value: string | null,
-  errorMessage: string,
-): string => {
+const validateDecimal = (value: string | null, errorMessage: string): string => {
   return value !== null && value.toString().includes('.') ? errorMessage : '';
 };
 
@@ -35,9 +32,7 @@ const validateValueLessThan = (
   minValue: number | null,
   errorMessage: string,
 ) => {
-  return value !== null && Number(value) <= Number(minValue)
-    ? errorMessage
-    : '';
+  return value !== null && Number(value) <= Number(minValue) ? errorMessage : '';
 };
 export const customRangeFieldValidations = (
   form: FormInstance<any>,
@@ -78,17 +73,9 @@ export const customRangeFieldValidations = (
         errorMessage =
           validateDecimal(value, WHOLE_NUMBER_ERROR_MESSAGE) ||
           (minCountValue !== null
-            ? validateValueLessThan(
-                value,
-                minCountValue,
-                MAX_GREATER_THAN_MIN_ERROR_MESSAGE,
-              )
+            ? validateValueLessThan(value, minCountValue, MAX_GREATER_THAN_MIN_ERROR_MESSAGE)
             : '') ||
-          validateMaxLessThan(
-            value,
-            MAX_EMPLOYEE_COUNT,
-            LOWER_NUMBER_EROR_MESSAGE,
-          );
+          validateMaxLessThan(value, MAX_EMPLOYEE_COUNT, LOWER_NUMBER_EROR_MESSAGE);
       }
       break;
 
@@ -111,17 +98,8 @@ export const customRangeFieldValidations = (
       } else {
         errorMessage =
           (minRevenueValue !== null
-            ? validateValueLessThan(
-                value,
-                minRevenueValue,
-                MAX_GREATER_THAN_MIN_ERROR_MESSAGE,
-              )
-            : '') ||
-          validateMaxLessThan(
-            value,
-            MAX_REVENUE_COUNT,
-            LOWER_NUMBER_EROR_MESSAGE,
-          );
+            ? validateValueLessThan(value, minRevenueValue, MAX_GREATER_THAN_MIN_ERROR_MESSAGE)
+            : '') || validateMaxLessThan(value, MAX_REVENUE_COUNT, LOWER_NUMBER_EROR_MESSAGE);
       }
       break;
 

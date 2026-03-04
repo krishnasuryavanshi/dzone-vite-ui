@@ -13,15 +13,10 @@ interface IShowCampaignTabsProps {
   campaignUuId: string;
 }
 
-export const ShowCampaignTabs: FC<IShowCampaignTabsProps> = ({
-  campaignId,
-  campaignUuId,
-}) => {
+export const ShowCampaignTabs: FC<IShowCampaignTabsProps> = ({ campaignId, campaignUuId }) => {
   const isLineItemViewAllowed = usePermissionCheck(LineItemActionsEnum.View);
   const [activeTab, setActiveTab] = useState<string>(
-    isLineItemViewAllowed
-      ? ShowCampaignTabsType.LineItems
-      : ShowCampaignTabsType.Files,
+    isLineItemViewAllowed ? ShowCampaignTabsType.LineItems : ShowCampaignTabsType.Files,
   );
   const items: TabsProps['items'] = [
     isLineItemViewAllowed && {
@@ -46,12 +41,9 @@ export const ShowCampaignTabs: FC<IShowCampaignTabsProps> = ({
           style={{
             boxShadow: '4px 4px 10px 0 rgba(0, 0, 0, 0.06)',
             borderRadius: '0.5rem',
-          }}>
-          <Tabs
-            activeKey={activeTab}
-            onChange={handleTabChange}
-            items={items}
-          />
+          }}
+        >
+          <Tabs activeKey={activeTab} onChange={handleTabChange} items={items} />
         </DzBox>
       </DzScrollContainer.Sticky>
       <ShowCampaignTabsContent

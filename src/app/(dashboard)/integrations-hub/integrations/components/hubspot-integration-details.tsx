@@ -1,4 +1,3 @@
-
 import { Text } from '@/uicomponents';
 import styles from './integrations-list.module.css';
 import { DzBox } from '@/components/layout/v1';
@@ -9,9 +8,11 @@ interface HubSpotIntegrationDetailsProps {
   connectionType?: string;
 }
 
-export const HubSpotIntegrationDetails: React.FC<
-  HubSpotIntegrationDetailsProps
-> = ({ name, label, connectionType }) => {
+export const HubSpotIntegrationDetails: React.FC<HubSpotIntegrationDetailsProps> = ({
+  name,
+  label,
+  connectionType,
+}) => {
   return (
     <DzBox className={styles.detailsLeft}>
       <DzBox className={styles.detailItem}>
@@ -24,9 +25,7 @@ export const HubSpotIntegrationDetails: React.FC<
       </DzBox>
       <DzBox className={styles.detailItem}>
         <Text className={styles.detailLabel}>Type:</Text>
-        <Text className={styles.detailValue}>
-          {connectionType || 'API Key'}
-        </Text>
+        <Text className={styles.detailValue}>{connectionType || 'API Key'}</Text>
       </DzBox>
     </DzBox>
   );

@@ -14,10 +14,7 @@ export const UploadedFilePreview = ({
 }: UploadedFilePreviewProps) => {
   const renderFile = (file: DzRecord) => {
     return (
-      <FilePreview
-        file={file}
-        handleRemoveFile={!isReadonly ? handleRemoveFile : undefined}
-      />
+      <FilePreview file={file} handleRemoveFile={!isReadonly ? handleRemoveFile : undefined} />
     );
   };
 

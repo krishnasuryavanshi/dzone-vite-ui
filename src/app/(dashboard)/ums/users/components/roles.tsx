@@ -17,10 +17,7 @@ export const Roles: FC<IRolesProps> = ({ record }) => {
       {record?.roles?.length
         ? record.roles.map((role, index) => (
             <Text key={role.id}>
-              <Link
-                key={role.id}
-                to={`/ums/roles/${role.id}`}
-                onClick={(e) => e.stopPropagation()}>
+              <Link key={role.id} to={`/ums/roles/${role.id}`} onClick={(e) => e.stopPropagation()}>
                 {role.name}
               </Link>
               {index < record.roles.length - 1 ? ', ' : ''}

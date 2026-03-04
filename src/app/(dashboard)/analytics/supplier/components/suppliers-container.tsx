@@ -1,4 +1,3 @@
-
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { SupplierFilterDropdowns } from './filter-manager/supplier-filter-dropdowns';
@@ -10,11 +9,7 @@ import './suppliers-container.scss';
 import { SupplierGrids } from './supplier-grid/supplier-grid';
 import { supplierDashboardDataResponse } from '../types/supplier-dashboard';
 import OutlineBlueButton from '@/app/(dashboard)/components/outline-button/outline-button';
-import {
-  buildMarketerData,
-  buildCampaignData,
-  buildLineItemData,
-} from '../utils/supplier-filter';
+import { buildMarketerData, buildCampaignData, buildLineItemData } from '../utils/supplier-filter';
 import {
   FilterState,
   useFilterDashboardStore,
@@ -48,21 +43,15 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
   const [riskCount, setRiskCount] = useState<{
     atRiskToReason: number;
   }>({ atRiskToReason: 0 });
-  const filterValues = useFilterDashboardStore(
-    (state: FilterState) => state.filterValues,
-  );
-  const compareFactor = useFilterDashboardStore(
-    (state: FilterState) => state.compareFactor,
-  );
+  const filterValues = useFilterDashboardStore((state: FilterState) => state.filterValues);
+  const compareFactor = useFilterDashboardStore((state: FilterState) => state.compareFactor);
   const setSupplierBarData = useFilterDashboardStore(
     (state: FilterState) => state.setSupplierBarData,
   );
   const setSupplierPieData = useFilterDashboardStore(
     (state: FilterState) => state.setSupplierPieData,
   );
-  const setTopReason = useFilterDashboardStore(
-    (state: FilterState) => state.setTopReason,
-  );
+  const setTopReason = useFilterDashboardStore((state: FilterState) => state.setTopReason);
   const activeTab = 'Supplier';
   const allComparison = [
     { key: 'week', label: 'Week to Week' },
@@ -116,8 +105,7 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
     ],
   );
 
-  const { data: dashboardData, isLoading: loading } =
-    useSupplierDashboardQuery(dashboardParams);
+  const { data: dashboardData, isLoading: loading } = useSupplierDashboardQuery(dashboardParams);
 
   const tableData = useMemo(
     () => (dashboardData as supplierDashboardDataResponse)?.at_risk ?? [],
@@ -249,16 +237,8 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
                     name: 'Current',
                     value: `${dashboardData?.lead_goal_assigned?.toLocaleString() || ''}`,
                   }}
-                  percent={
-                    dashboardData?.[
-                      `lead_goal_assigned_pct_change_${compareFactor}`
-                    ]
-                  }
-                  isPositive={
-                    dashboardData?.[
-                      `lead_goal_assigned_pct_change_${compareFactor}`
-                    ] > 0
-                  }
+                  percent={dashboardData?.[`lead_goal_assigned_pct_change_${compareFactor}`]}
+                  isPositive={dashboardData?.[`lead_goal_assigned_pct_change_${compareFactor}`] > 0}
                   waitingToGoLiveData={{
                     name: 'Waiting to Go Live',
                     value: 'N/A',
@@ -273,16 +253,8 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
                     name: 'Current',
                     value: `${dashboardData?.leads_uploaded?.toLocaleString() || ''}`,
                   }}
-                  percent={
-                    dashboardData?.[
-                      `leads_uploaded_pct_change_${compareFactor}`
-                    ]
-                  }
-                  isPositive={
-                    dashboardData?.[
-                      `leads_uploaded_pct_change_${compareFactor}`
-                    ] > 0
-                  }
+                  percent={dashboardData?.[`leads_uploaded_pct_change_${compareFactor}`]}
+                  isPositive={dashboardData?.[`leads_uploaded_pct_change_${compareFactor}`] > 0}
                   waitingToGoLiveData={{
                     name: 'Waiting to Go Live',
                     value: '5',
@@ -297,16 +269,8 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
                     name: 'Current',
                     value: `${dashboardData?.leads_published?.toLocaleString() || ''}`,
                   }}
-                  percent={
-                    dashboardData?.[
-                      `leads_published_pct_change_${compareFactor}`
-                    ]
-                  }
-                  isPositive={
-                    dashboardData?.[
-                      `leads_published_pct_change_${compareFactor}`
-                    ] > 0
-                  }
+                  percent={dashboardData?.[`leads_published_pct_change_${compareFactor}`]}
+                  isPositive={dashboardData?.[`leads_published_pct_change_${compareFactor}`] > 0}
                   waitingToGoLiveData={{
                     name: 'Waiting to Go Live',
                     value: '5',
@@ -322,16 +286,8 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
                     name: 'Current',
                     value: `${dashboardData?.leads_returned?.toLocaleString() || ''}`,
                   }}
-                  percent={
-                    dashboardData?.[
-                      `leads_returned_pct_change_${compareFactor}`
-                    ]
-                  }
-                  isPositive={
-                    dashboardData?.[
-                      `leads_returned_pct_change_${compareFactor}`
-                    ] > 0
-                  }
+                  percent={dashboardData?.[`leads_returned_pct_change_${compareFactor}`]}
+                  isPositive={dashboardData?.[`leads_returned_pct_change_${compareFactor}`] > 0}
                   waitingToGoLiveData={{
                     name: 'Waiting to Go Live',
                     value: '3',
@@ -365,16 +321,8 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
                     name: 'Current',
                     value: `${dashboardData?.estimated_earnings?.toLocaleString() || ''}`,
                   }}
-                  percent={
-                    dashboardData?.[
-                      `estimated_earnings_pct_change_${compareFactor}`
-                    ]
-                  }
-                  isPositive={
-                    dashboardData?.[
-                      `estimated_earnings_pct_change_${compareFactor}`
-                    ] > 0
-                  }
+                  percent={dashboardData?.[`estimated_earnings_pct_change_${compareFactor}`]}
+                  isPositive={dashboardData?.[`estimated_earnings_pct_change_${compareFactor}`] > 0}
                   waitingToGoLiveData={{
                     name: 'Waiting to Go Live',
                     value: 'N/A',
@@ -392,13 +340,8 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
                     name: 'Current',
                     value: `${dashboardData?.return_rate_pct ? dashboardData?.return_rate_pct + '%' : ''}`,
                   }}
-                  percent={
-                    dashboardData?.[`return_rate_pct_change_${compareFactor}`]
-                  }
-                  isPositive={
-                    dashboardData?.[`return_rate_pct_change_${compareFactor}`] >
-                    0
-                  }
+                  percent={dashboardData?.[`return_rate_pct_change_${compareFactor}`]}
+                  isPositive={dashboardData?.[`return_rate_pct_change_${compareFactor}`] > 0}
                   waitingToGoLiveData={{
                     name: 'Waiting to Go Live',
                     value: '5',
@@ -423,10 +366,9 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
                     textAlign: 'left',
                     height: '46px',
                   }}
-                  onClick={filterTableDataByAtRisk}>
-                  <span style={{ fontSize: '10px', fontWeight: 600 }}>
-                    At Risk Reason
-                  </span>
+                  onClick={filterTableDataByAtRisk}
+                >
+                  <span style={{ fontSize: '10px', fontWeight: 600 }}>At Risk Reason</span>
                   <p
                     style={{
                       fontSize: '20px',
@@ -434,13 +376,12 @@ export const SuppliersContainer: FC<ISupplierProps> = ({ data }) => {
                       paddingLeft: '10px',
                       marginBottom: 0,
                       marginTop: '-8px',
-                    }}>
+                    }}
+                  >
                     {riskCount.atRiskToReason}
                   </p>
                 </Button>
-                <OutlineBlueButton onClick={handleReset}>
-                  Reset
-                </OutlineBlueButton>
+                <OutlineBlueButton onClick={handleReset}>Reset</OutlineBlueButton>
               </div>
               <SupplierGrids supplierDashboardData={filteredData ?? []} />
             </Skeleton>

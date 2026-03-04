@@ -25,7 +25,8 @@ export const DiscardModal = ({
               fontSize: '1.375rem',
               fontWeight: 500,
               verticalAlign: 'middle',
-            }}>
+            }}
+          >
             <Translate i18nKey='pages.rolesAndPermissions.label.discardChanges' />
           </Text>
         </Flex>
@@ -41,7 +42,8 @@ export const DiscardModal = ({
         style: {
           background: CLR_RED_1,
         },
-      }}>
+      }}
+    >
       <Text>
         <Translate i18nKey='pages.rolesAndPermissions.label.discardChangesMessage' />
       </Text>

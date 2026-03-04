@@ -40,10 +40,7 @@ export function BasicTable<T extends Record<string, any>>({
   emptyText,
 }: ITableProps<T>) {
   // Use the resizable columns hook to handle all resizing logic
-  const { columns: processedColumns, components } = useResizableColumns(
-    initialColumns,
-    resizable,
-  );
+  const { columns: processedColumns, components } = useResizableColumns(initialColumns, resizable);
 
   const onChange: TableProps<T>['onChange'] = (pagination, filters, sorter) => {
     handleChange && handleChange({ pagination, filters, sorter });

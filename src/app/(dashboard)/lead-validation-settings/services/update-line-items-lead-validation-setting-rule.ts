@@ -11,14 +11,11 @@ export async function updateLineItemsLeadValidationSettingRule(
 ) {
   try {
     return authenticatedRequest({
-      resource: transformPath(
-        ApiResources.LineItemsLeadValidationSettingByRuleName,
-        {
-          lineItemId,
-          settingId: leadValidationSettingId,
-          ruleName,
-        },
-      ),
+      resource: transformPath(ApiResources.LineItemsLeadValidationSettingByRuleName, {
+        lineItemId,
+        settingId: leadValidationSettingId,
+        ruleName,
+      }),
       apiHost: ApiHost.PlatformService,
       method: HttpMethod.PATCH,
       data: requestData,

@@ -1,14 +1,7 @@
 import { NoData } from '@/components/shared';
 import { PieChartLoader } from '@/components/shared/loader/charts';
 import { FC, useEffect, useState } from 'react';
-import {
-  Cell,
-  Legend,
-  Pie,
-  PieChart,
-  ResponsiveContainer,
-  Tooltip,
-} from 'recharts';
+import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Tooltip } from 'recharts';
 import { DzLegend } from '../dz-legend';
 import { DzTooltip } from '../dz-tooltip';
 import { DzPieLabel } from './dz-pie-label';
@@ -44,7 +37,7 @@ export const DzPieChart: FC<IPieChartProps> = ({
     setPieData(
       data
         .filter(({ value }) => value > 0)
-        .map((item, index) => ({ ...item, color: COLORS[index] }))
+        .map((item, index) => ({ ...item, color: COLORS[index] })),
     );
   }, [data]);
 
@@ -52,32 +45,23 @@ export const DzPieChart: FC<IPieChartProps> = ({
   if (loaded && pieData.length === 0) return <NoData />;
 
   return (
-    <ResponsiveContainer
-      width="100%"
-      height="100%">
-      <PieChart
-        className={`dz-pie-chart dz-chart legend-placement-${legendPlacement}`}>
+    <ResponsiveContainer width='100%' height='100%'>
+      <PieChart className={`dz-pie-chart dz-chart legend-placement-${legendPlacement}`}>
         <Pie
-          cursor="pointer"
-          dataKey="value"
+          cursor='pointer'
+          dataKey='value'
           isAnimationActive={true}
           data={pieData}
-          cx="50%"
-          cy="50%"
+          cx='50%'
+          cy='50%'
           labelLine={false}
           label={(labelData: any) => (
-            <DzPieLabel
-              data={labelData}
-              prependDollarInLabel={prependDollarInLabel}
-            />
+            <DzPieLabel data={labelData} prependDollarInLabel={prependDollarInLabel} />
           )}
-          outerRadius={110}>
+          outerRadius={110}
+        >
           {pieData.map((entry) => (
-            <Cell
-              key={entry.name}
-              fill={entry.color}
-              stroke="none"
-            />
+            <Cell key={entry.name} fill={entry.color} stroke='none' />
           ))}
         </Pie>
         <Tooltip
@@ -93,12 +77,7 @@ export const DzPieChart: FC<IPieChartProps> = ({
           verticalAlign={legendPlacement === 'left' ? 'middle' : 'bottom'}
           align={legendPlacement === 'left' ? 'left' : 'center'}
           layout={legendPlacement === 'left' ? 'vertical' : 'horizontal'}
-          content={({ payload }) => (
-            <DzLegend
-              payload={payload}
-              placement={legendPlacement}
-            />
-          )}
+          content={({ payload }) => <DzLegend payload={payload} placement={legendPlacement} />}
         />
       </PieChart>
     </ResponsiveContainer>

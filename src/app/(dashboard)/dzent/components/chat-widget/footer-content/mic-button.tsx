@@ -9,7 +9,8 @@ export const MicButton = () => {
       style={{ cursor: 'not-allowed' }}
       role='button'
       aria-label='Microphone input (currently disabled)'
-      aria-disabled='true'>
+      aria-disabled='true'
+    >
       <AudioOutlined
         style={{
           color: DZENT_ICON_PURPLE,

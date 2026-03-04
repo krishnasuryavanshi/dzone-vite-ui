@@ -14,8 +14,6 @@ const getConfidenceColor = (confidence: number) => {
 
 export const AiConfidenceCell: FC<AiConfidenceCellProps> = ({ confidence }) => {
   return (
-    <Text style={{ color: getConfidenceColor(confidence), fontWeight: 500 }}>
-      {confidence}%
-    </Text>
+    <Text style={{ color: getConfidenceColor(confidence), fontWeight: 500 }}>{confidence}%</Text>
   );
 };

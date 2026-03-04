@@ -1,4 +1,3 @@
-
 import { PaperClipOutlined } from '@/uicomponents/icons';
 import { Upload } from '@/uicomponents/upload';
 import { getAcceptedFileTypes } from '../services';

@@ -12,10 +12,7 @@ interface IRolePermissionBreadcrumbProps {
   name?: string;
   onBack?: () => void;
 }
-export const RolePermissioBreadcrumb: FC<IRolePermissionBreadcrumbProps> = ({
-  name,
-  onBack,
-}) => {
+export const RolePermissioBreadcrumb: FC<IRolePermissionBreadcrumbProps> = ({ name, onBack }) => {
   const { isEditing } = useEditStore();
 
   const [items, setItems] = useState<ItemType[]>([
@@ -59,7 +56,8 @@ export const RolePermissioBreadcrumb: FC<IRolePermissionBreadcrumbProps> = ({
           width: '1.75rem',
           cursor: 'pointer',
           flexShrink: 0,
-        }}>
+        }}
+      >
         <ArrowLeft style={{ color: CLR_WHITE, fontSize: '1.3rem' }} />
       </Flex>
       <Breadcrumb items={items} />

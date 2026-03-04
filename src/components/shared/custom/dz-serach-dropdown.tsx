@@ -38,7 +38,8 @@ export const DzSerachDropdown: FC<IDzSerachDropdownProps> = ({
       className='dz-serach-dropdown'
       style={{
         padding: isGlobalSearchPadding ? '0rem' : '0rem 0.75rem 0.5rem 0.75rem',
-      }}>
+      }}
+    >
       <Input
         className={className}
         disabled={isGlobalSearchDisabled}

@@ -14,13 +14,9 @@ interface IOrganizationActionsProps {
   toggleStatus: (user: IOrganization) => void;
 }
 
-export const OrganizationActions: FC<IOrganizationActionsProps> = ({
-  record,
-  toggleStatus,
-}) => {
+export const OrganizationActions: FC<IOrganizationActionsProps> = ({ record, toggleStatus }) => {
   const status = record.status?.name;
-  const statusLabel =
-    status === 'INACTIVE' ? 'Activate Organization' : 'Deactivate Organization';
+  const statusLabel = status === 'INACTIVE' ? 'Activate Organization' : 'Deactivate Organization';
   const canViewUsers = usePermissionCheck(UserActionsEnum.View);
 
   const getDropdownMenus = () => {
@@ -33,7 +29,8 @@ export const OrganizationActions: FC<IOrganizationActionsProps> = ({
             onClick={(e) => {
               e.stopPropagation();
               toggleStatus(record);
-            }}>
+            }}
+          >
             <Translate i18nKey={statusLabel} />
           </Link>
         ),
@@ -45,7 +42,8 @@ export const OrganizationActions: FC<IOrganizationActionsProps> = ({
             to={`/ums/users?org=${record.id}&orgName=${encodeURIComponent(record.name)}`}
             onClick={(e) => {
               e.stopPropagation();
-            }}>
+            }}
+          >
             <Translate i18nKey='View Users' />
           </Link>
         ),
@@ -57,7 +55,8 @@ export const OrganizationActions: FC<IOrganizationActionsProps> = ({
             to={`/organizations/${record.id}`}
             onClick={(e) => {
               e.stopPropagation();
-            }}>
+            }}
+          >
             <Translate i18nKey='Edit Details' />
           </Link>
         ),

@@ -11,13 +11,9 @@ interface IFormConfig<S extends string | number | symbol, F, D> {
   steps: Record<S, IStepSectionConfig<F, D>[]>;
 }
 
-export const extractRequiredFields = <
-  T extends string,
-  F extends string,
-  D,
->(
+export const extractRequiredFields = <T extends string, F extends string, D>(
   formConfig: IFormConfig<T, F, D>, // Accept any form configuration
-  upToStep: number// Up to step is based on the step type
+  upToStep: number, // Up to step is based on the step type
 ): string[] => {
   const allFields: string[] = [];
   for (const step of Object.keys(formConfig.steps) as T[]) {
@@ -31,7 +27,10 @@ export const extractRequiredFields = <
       fields.forEach((field) => {
         if (field.fields) {
           field.fields.forEach((innerField: IFieldConfig<F, D>) => {
-            if (innerField.rules && innerField.rules.some((rule) => (rule as { required: boolean }).required)) {
+            if (
+              innerField.rules &&
+              innerField.rules.some((rule) => (rule as { required: boolean }).required)
+            ) {
               allFields.push(innerField.field);
             }
           });
@@ -41,4 +40,3 @@ export const extractRequiredFields = <
   }
   return allFields;
 };
-

@@ -22,12 +22,7 @@ export const createCustomRangeValidator = (
     const oppositeCountValue = form.getFieldValue(oppositeField);
     const oppositeCountError = form.getFieldError(oppositeField)[0];
 
-    const errorMessage = customRangeFieldValidations(
-      form,
-      formField,
-      range,
-      customRangeLimit,
-    );
+    const errorMessage = customRangeFieldValidations(form, formField, range, customRangeLimit);
 
     if (!errorMessage) {
       patchFormValues({
@@ -55,12 +50,7 @@ export const createCustomRangeValidator = (
       if (value && !/^\d*\.?\d*$/.test(value)) {
         return Promise.reject(MINIMUM_VALUE_REQURIED_ERROR_MESSAGE);
       }
-      const error = customRangeFieldValidations(
-        form,
-        formField,
-        value,
-        customRangeLimit,
-      );
+      const error = customRangeFieldValidations(form, formField, value, customRangeLimit);
       return error ? Promise.reject(error) : Promise.resolve();
     },
   };

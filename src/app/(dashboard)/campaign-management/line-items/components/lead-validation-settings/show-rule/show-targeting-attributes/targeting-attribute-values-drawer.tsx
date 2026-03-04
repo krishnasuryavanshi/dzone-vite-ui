@@ -23,7 +23,8 @@ export const TargetingAttributeValuesDrawer = ({
       closeIcon={<DrawerCloseButton />}
       title={<Text strong>{header}</Text>}
       open={isOpen}
-      onClose={handleClose}>
+      onClose={handleClose}
+    >
       {children}
     </Drawer>
   );

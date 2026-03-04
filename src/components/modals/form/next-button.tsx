@@ -10,11 +10,8 @@ export interface INextButtonProps {
 export const NextButton: FC<INextButtonProps> = ({ onNext, show }) => {
   if (show === false) return null;
   return (
-    <Button
-      onClick={onNext}
-      type="primary"
-      className="action submit">
-      <Translate i18nKey="form.actions.next" />
+    <Button onClick={onNext} type='primary' className='action submit'>
+      <Translate i18nKey='form.actions.next' />
     </Button>
   );
 };

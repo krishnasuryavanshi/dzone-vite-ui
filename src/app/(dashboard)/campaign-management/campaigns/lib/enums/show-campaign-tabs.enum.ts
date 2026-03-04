@@ -1,5 +1,4 @@
 export enum ShowCampaignTabsType {
-    LineItems = 'lineItems',
-    Files = 'files',
-  }
-  
+  LineItems = 'lineItems',
+  Files = 'files',
+}

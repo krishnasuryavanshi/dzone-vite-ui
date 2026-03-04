@@ -22,9 +22,7 @@ export const SelectActiveCampaignList: FC<ISelectActiveCampaignListProps> = ({
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(true);
 
   const filteredCampaignList = activeCampaignList?.filter((campaign) =>
-    `${campaign.campaignId} ${campaign.name}`
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase()),
+    `${campaign.campaignId} ${campaign.name}`.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const handleChange = (value: string) => {
@@ -44,7 +42,8 @@ export const SelectActiveCampaignList: FC<ISelectActiveCampaignListProps> = ({
             fontSize: '12px',
             textAlign: 'center',
           }}
-          title={<Translate i18nKey='pages.associateClonedItemWithCampaign' />}>
+          title={<Translate i18nKey='pages.associateClonedItemWithCampaign' />}
+        >
           <InfoCircleOutlined />
         </Tooltip>
       </Flex>
@@ -73,10 +72,7 @@ export const SelectActiveCampaignList: FC<ISelectActiveCampaignListProps> = ({
         )}
         options={filteredCampaignList?.map((campaign) => ({
           label: (
-            <Flex
-              align='center'
-              justify='space-between'
-              style={{ width: '100%' }}>
+            <Flex align='center' justify='space-between' style={{ width: '100%' }}>
               {`${campaign.campaignId} - ${campaign.name}`}
               {campaign.id === selectedActiveCampaign && dropdownVisible && (
                 <CheckOutlined

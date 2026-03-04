@@ -145,8 +145,7 @@
 }
 
 /* Fix the expand icon cell that appears as td in thead */
-.pacingTable
-  :global(.ant-table-thead > tr > td.ant-table-cell-row-expand-icon-cell) {
+.pacingTable :global(.ant-table-thead > tr > td.ant-table-cell-row-expand-icon-cell) {
   background: #fafafa !important;
 }
 
@@ -156,10 +155,7 @@
 }
 
 /* Fix any column header variations with more specific selectors */
-.pacingTable
-  :global(
-    .ant-table-wrapper .ant-table-thead > tr > th.ant-table-cell-fix-right-first
-  ) {
+.pacingTable :global(.ant-table-wrapper .ant-table-thead > tr > th.ant-table-cell-fix-right-first) {
   background: #fafafa !important;
 }
 
@@ -168,31 +164,21 @@
   background: #fafafa !important;
 }
 
-.pacingTable
-  :global(
-    .ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-has-actions
-  ) {
+.pacingTable :global(.ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-has-actions) {
   background: #fafafa;
 }
 
-.pacingTable
-  :global(
-    .ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-has-sorters
-  ) {
+.pacingTable :global(.ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-has-sorters) {
   background: #fafafa;
 }
 
 /* Override filter column backgrounds */
-.pacingTable
-  :global(
-    .ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-has-filters
-  ) {
+.pacingTable :global(.ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-has-filters) {
   background: #fafafa;
 }
 
 /* Override any selected/active column headers */
-.pacingTable
-  :global(.ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-sort) {
+.pacingTable :global(.ant-table-wrapper .ant-table-thead > tr > th.ant-table-column-sort) {
   background: #fafafa;
 }
 
@@ -216,13 +202,11 @@
 }
 
 /* Remove selection colors but preserve alternating rows */
-.pacingTable
-  :global(.ant-table-tbody > tr.ant-table-row-selected:nth-child(odd) > td) {
+.pacingTable :global(.ant-table-tbody > tr.ant-table-row-selected:nth-child(odd) > td) {
   background: white;
 }
 
-.pacingTable
-  :global(.ant-table-tbody > tr.ant-table-row-selected:nth-child(even) > td) {
+.pacingTable :global(.ant-table-tbody > tr.ant-table-row-selected:nth-child(even) > td) {
   background: #f9f9f9;
 }
 
@@ -282,17 +266,11 @@
 }
 
 /* Ensure expand icon cell follows alternating row pattern */
-.pacingTable
-  :global(
-    .ant-table-tbody > tr:nth-child(odd) > td.ant-table-row-expand-icon-cell
-  ) {
+.pacingTable :global(.ant-table-tbody > tr:nth-child(odd) > td.ant-table-row-expand-icon-cell) {
   background: white;
 }
 
-.pacingTable
-  :global(
-    .ant-table-tbody > tr:nth-child(even) > td.ant-table-row-expand-icon-cell
-  ) {
+.pacingTable :global(.ant-table-tbody > tr:nth-child(even) > td.ant-table-row-expand-icon-cell) {
   background: #f9f9f9;
 }
 
@@ -500,13 +478,7 @@
 .pacingDrawer :global(.ant-card) {
   position: relative;
   border-radius: var(--dzone-radius-sm);
-  border-image: linear-gradient(
-      126deg,
-      #fdbbe9 6.35%,
-      #eed7fc 53.89%,
-      #7d87fe 97.78%
-    )
-    1;
+  border-image: linear-gradient(126deg, #fdbbe9 6.35%, #eed7fc 53.89%, #7d87fe 97.78%) 1;
   background: linear-gradient(
     126deg,
     rgba(253, 187, 233, 0.1) 6.35%,
@@ -598,15 +570,12 @@
   border-color: var(--dzone-color-border) !important;
 }
 
-.disabledOverflowCheckbox
-  :global(.ant-checkbox-disabled.ant-checkbox-checked .ant-checkbox-inner) {
+.disabledOverflowCheckbox :global(.ant-checkbox-disabled.ant-checkbox-checked .ant-checkbox-inner) {
   background-color: var(--dzone-color-gray-light) !important;
   border-color: var(--dzone-color-gray-light) !important;
 }
 
 .disabledOverflowCheckbox
-  :global(
-    .ant-checkbox-disabled.ant-checkbox-checked .ant-checkbox-inner::after
-  ) {
+  :global(.ant-checkbox-disabled.ant-checkbox-checked .ant-checkbox-inner::after) {
   border-color: white !important;
 }

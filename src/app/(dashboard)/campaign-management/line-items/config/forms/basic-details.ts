@@ -7,10 +7,7 @@ import {
   dateRenderer,
 } from '../../../lib/utils/renderers';
 import { ReactNode } from 'react';
-import {
-  lineItemActionsRenderer,
-  supplierAssignmentRenderer,
-} from '../../lib/utils/renderers';
+import { lineItemActionsRenderer, supplierAssignmentRenderer } from '../../lib/utils/renderers';
 import { LineItemStepSectionsType } from '../../lib/types';
 import {
   CreateLineItemPermissions,
@@ -66,10 +63,7 @@ export const BasicDetails: LineItemStepSectionsType = [
   },
   {
     key: LineItemSections.CampaignDetails,
-    viewPermissions: [
-      ViewLineItemPermissions.CampaignName,
-      ViewLineItemPermissions.CampaignId,
-    ],
+    viewPermissions: [ViewLineItemPermissions.CampaignName, ViewLineItemPermissions.CampaignId],
     fields: [
       {
         field: LineItemFields.CampaignId,
@@ -301,8 +295,7 @@ export const BasicDetails: LineItemStepSectionsType = [
       },
       {
         field: LineItemFields.LaunchCompletionPercentage,
-        columnTranslationKey:
-          'pages.lineItems.label.launchCompletionPercentage',
+        columnTranslationKey: 'pages.lineItems.label.launchCompletionPercentage',
         columnMetadata: { width: 250 },
         columnOrder: 14,
         renderer: completionProgressIndicator as () => ReactNode,

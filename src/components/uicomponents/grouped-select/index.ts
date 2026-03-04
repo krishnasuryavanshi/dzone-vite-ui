@@ -1,1 +1,1 @@
-export * from './grouped-select'
+export * from './grouped-select';

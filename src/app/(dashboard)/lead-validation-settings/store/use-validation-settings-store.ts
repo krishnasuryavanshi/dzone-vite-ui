@@ -97,10 +97,7 @@ export const useValidationSettingStore = create<Store>()(
               if (attribute.type === 'select') {
                 selectedValues[section.name][attribute.value] = true;
               } else {
-                if (
-                  attribute.name === 'jobTitle' &&
-                  attribute.value?.type === 'OPTIONS'
-                ) {
+                if (attribute.name === 'jobTitle' && attribute.value?.type === 'OPTIONS') {
                   selectedValues[section.name][attribute.name] = {
                     data: attribute.value.data.map((jobTitle: string) => ({
                       text: jobTitle,
@@ -109,8 +106,7 @@ export const useValidationSettingStore = create<Store>()(
                     type: 'OPTIONS',
                   };
                 } else {
-                  selectedValues[section.name][attribute.name] =
-                    attribute.value;
+                  selectedValues[section.name][attribute.name] = attribute.value;
                 }
               }
             }
@@ -128,11 +124,7 @@ export const useValidationSettingStore = create<Store>()(
       });
 
       if (isEditing && info) {
-        if (
-          info.tenantCode &&
-          info.leadValidationSettingId &&
-          !info.lineItemId
-        ) {
+        if (info.tenantCode && info.leadValidationSettingId && !info.lineItemId) {
           set({
             settingMetadata: {
               name: response.data.name,
@@ -141,11 +133,7 @@ export const useValidationSettingStore = create<Store>()(
               lineItemId: null,
             },
           });
-        } else if (
-          !info.tenantCode &&
-          info.leadValidationSettingId &&
-          info.lineItemId
-        ) {
+        } else if (!info.tenantCode && info.leadValidationSettingId && info.lineItemId) {
           set({
             settingMetadata: {
               name: response.data.name,
@@ -189,12 +177,10 @@ export const useValidationSettingStore = create<Store>()(
         return [];
       }
       return (
-        leadValidationSettingConfig[activeRule]?.sections?.map(
-          (section: DzRecord) => ({
-            name: section.name,
-            noBorder: section.noBorder,
-          }),
-        ) || []
+        leadValidationSettingConfig[activeRule]?.sections?.map((section: DzRecord) => ({
+          name: section.name,
+          noBorder: section.noBorder,
+        })) || []
       );
     },
 
@@ -204,9 +190,7 @@ export const useValidationSettingStore = create<Store>()(
         return {};
       }
       const sections = leadValidationSettingConfig[activeRule]?.sections || [];
-      return (
-        sections.find((section: DzRecord) => section.name === sectionName) || {}
-      );
+      return sections.find((section: DzRecord) => section.name === sectionName) || {};
     },
 
     updateRuleSelection: (ruleName: string, selected: boolean) => {

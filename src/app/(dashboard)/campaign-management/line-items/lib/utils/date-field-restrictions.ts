@@ -14,14 +14,11 @@ const EDITABLE_STATUSES = [
 /**
  * Check if the line item is in a status that allows editing date fields
  */
-export const isLineItemEditableStatus = (
-  status?: ILineItemStatus | string,
-): boolean => {
+export const isLineItemEditableStatus = (status?: ILineItemStatus | string): boolean => {
   if (!status) return true; // New line items are always editable
 
   // Handle both ILineItemStatus object and string
-  const statusValue =
-    typeof status === 'object' && status !== null ? status.value : status;
+  const statusValue = typeof status === 'object' && status !== null ? status.value : status;
 
   return EDITABLE_STATUSES.includes(statusValue as LineItemStatus);
 };

@@ -5,11 +5,7 @@ import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
 import { UserMessageViewEnum } from '../../../lib/enums';
 import { TextContent } from '../instructions';
-import {
-  CustomFieldsContent,
-  CustomQuestionsContent,
-  FilesContent,
-} from './view-messages';
+import { CustomFieldsContent, CustomQuestionsContent, FilesContent } from './view-messages';
 
 export type UserMessageViewProps = {
   message: DzRecord | null;
@@ -49,9 +45,7 @@ export const UserMessageView = ({ message }: UserMessageViewProps) => {
         );
       case UserMessageViewEnum.CustomQuestions:
         return (
-          <CustomQuestionsContent
-            key={index}
-            customQuestions={data as DzRecord[]}>
+          <CustomQuestionsContent key={index} customQuestions={data as DzRecord[]}>
             {Heading}
           </CustomQuestionsContent>
         );
@@ -64,7 +58,8 @@ export const UserMessageView = ({ message }: UserMessageViewProps) => {
                 customFields: DzRecord[];
                 customFieldInstructions: string;
               }
-            }>
+            }
+          >
             {Heading}
           </CustomFieldsContent>
         );
@@ -89,10 +84,7 @@ export const UserMessageView = ({ message }: UserMessageViewProps) => {
         );
       case UserMessageViewEnum.Daterange:
         return (
-          <TextContent
-            key={index}
-            data={`${data.startDate} - ${data.endDate}`}
-            isUserInput={true}>
+          <TextContent key={index} data={`${data.startDate} - ${data.endDate}`} isUserInput={true}>
             {Heading}
           </TextContent>
         );
@@ -117,10 +109,7 @@ export const UserMessageView = ({ message }: UserMessageViewProps) => {
       </Hideable>
       <Hideable show={!!renderableFieldsList?.length}>
         <Flex vertical gap={'0.5rem'}>
-          <MapFunction
-            items={renderableFieldsList}
-            renderItem={renderMessage}
-          />
+          <MapFunction items={renderableFieldsList} renderItem={renderMessage} />
         </Flex>
       </Hideable>
     </>

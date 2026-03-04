@@ -1,4 +1,3 @@
-
 import { useEffect, useRef } from 'react';
 import { useSession } from '@/lib/hooks/use-session';
 import { useAiAgentStore } from '../store/use-ai-agent-store';
@@ -10,9 +9,7 @@ export const AiAgentContainerHost = () => {
   const reset = useAiAgentStore((state) => state.reset);
   const setMarketerList = useAiAgentStore((state) => state.setMarketerList);
   const setTenantCode = useAiAgentStore((state) => state.setTenantCode);
-  const fetchConversationHistory = useAiAgentStore(
-    (state) => state.fetchConversationHistory,
-  );
+  const fetchConversationHistory = useAiAgentStore((state) => state.fetchConversationHistory);
   const tenantCode = useAiAgentStore((state) => state.tenantCode);
   const { data: userData } = useSession();
 
@@ -20,11 +17,7 @@ export const AiAgentContainerHost = () => {
   const hasInitializedConversationsRef = useRef(false);
 
   // Fetch marketer list via query
-  const { data: orgsData } = useOrganizationsByTypeQuery(
-    'Marketer',
-    userId,
-    !!userId,
-  );
+  const { data: orgsData } = useOrganizationsByTypeQuery('Marketer', userId, !!userId);
 
   // Sync query data to Zustand store
   useEffect(() => {

@@ -18,8 +18,7 @@ export const ValidationSettingTabItem = ({
   disabled,
 }: ValidationSettingTabItemProps) => {
   const [isActive, setIsActive] = useState(false);
-  const { enabledRules, activeRule, updateRuleSelection } =
-    useValidationSettingStore();
+  const { enabledRules, activeRule, updateRuleSelection } = useValidationSettingStore();
 
   useEffect(() => {
     setIsActive(activeRule === name);
@@ -37,7 +36,8 @@ export const ValidationSettingTabItem = ({
           width: '15rem',
           height: '3rem',
           backgroundColor: isActive ? '#EAF1FF' : '#FAFAFA',
-        }}>
+        }}
+      >
         <Flex align='center' style={{ height: '100%' }}>
           <Flex style={{ paddingLeft: '1rem' }} gap={'0.5rem'}>
             <Checkbox
@@ -55,7 +55,8 @@ export const ValidationSettingTabItem = ({
           borderLeft: isActive ? '1.5rem solid #EAF1FF' : 'none',
           height: '0',
           width: '0',
-        }}></div>
+        }}
+      ></div>
     </Flex>
   );
 };

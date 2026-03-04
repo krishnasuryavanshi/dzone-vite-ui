@@ -24,8 +24,11 @@ export function PermissionGuard({ children }: { children: React.ReactNode }) {
   if (shouldValidate && parent) {
     const isAuthorized = isAuthorizedPage(parent, pathname, modules || {});
     if (!isAuthorized) {
-      logger.warn('PermissionGuard: unauthorized — redirecting', { path: pathname, parentModule: parent });
-      return <Navigate to="/unauthorized" replace />;
+      logger.warn('PermissionGuard: unauthorized — redirecting', {
+        path: pathname,
+        parentModule: parent,
+      });
+      return <Navigate to='/unauthorized' replace />;
     }
   }
 

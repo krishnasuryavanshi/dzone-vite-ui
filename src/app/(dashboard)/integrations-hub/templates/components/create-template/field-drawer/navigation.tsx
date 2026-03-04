@@ -26,20 +26,23 @@ export const Navigation: FC<INavigationProps> = ({
         borderRadius: '8px',
         padding: '0.375rem',
         width: 'fit-content',
-      }}>
+      }}
+    >
       <Flex
         gap={'0.5rem'}
         align='center'
         style={{
           flexDirection: 'row',
           justifyContent: 'center',
-        }}>
+        }}
+      >
         <Row
           style={{
             display: 'flex',
             alignItems: 'center',
             gap: '0.5rem',
-          }}>
+          }}
+        >
           <Col>
             <Text
               style={{
@@ -47,10 +50,10 @@ export const Navigation: FC<INavigationProps> = ({
                 fontWeight: 'normal',
                 color: `${DZONE_CLR_BLACK}`,
                 textAlign: 'center',
-              }}>
-              Field{' '}
-              <span style={{ fontWeight: '600' }}>{currentFieldNumber}</span> of{' '}
-              {totalFields} visible Fields
+              }}
+            >
+              Field <span style={{ fontWeight: '600' }}>{currentFieldNumber}</span> of {totalFields}{' '}
+              visible Fields
             </Text>
           </Col>
           <Col>

@@ -16,9 +16,7 @@ export const usePermissionCheck = (
     if (parts.length < 2) return false;
     const [moduleAccess = '', action = '', field = ''] = parts;
     if (field) {
-      return !!attributes[moduleAccess]?.[field]
-        ?.map((a) => a)
-        .includes(action);
+      return !!attributes[moduleAccess]?.[field]?.map((a) => a).includes(action);
     } else {
       return !!accesses[`${moduleAccess}.${action}`];
     }

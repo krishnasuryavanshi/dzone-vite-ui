@@ -1,10 +1,7 @@
 import { getCollaboratorsToShow } from '../../../lib/utils';
 import { ILineItem } from '../types';
 
-export const prepareViewData = (
-  data: ILineItem,
-  options?: Record<string, any>,
-) => {
+export const prepareViewData = (data: ILineItem, options?: Record<string, any>) => {
   return {
     ...data,
     targetCostPerLead: options?.restrictedFields?.includes('targetCostPerLead')

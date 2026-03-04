@@ -10,9 +10,9 @@ interface IValidationSettingRecordActionProps {
   validationSetting: IValidationSettingRow;
 }
 
-export const ValidationSettingRecordAction: FC<
-  IValidationSettingRecordActionProps
-> = ({ validationSetting }) => {
+export const ValidationSettingRecordAction: FC<IValidationSettingRecordActionProps> = ({
+  validationSetting,
+}) => {
   const getDropdownMenus = (validationSetting: IValidationSettingRow) => {
     const baseLink = `/lead-validation-settings/organizations/${validationSetting.tenant.code}/settings/${validationSetting.id}`;
 
@@ -32,9 +32,7 @@ export const ValidationSettingRecordAction: FC<
   };
 
   return (
-    <Dropdown
-      menu={{ items: getDropdownMenus(validationSetting) }}
-      placement='bottomLeft'>
+    <Dropdown menu={{ items: getDropdownMenus(validationSetting) }} placement='bottomLeft'>
       <Button
         onClick={(e) => e.stopPropagation()}
         icon={<ThreeDotsActionsIcon />}

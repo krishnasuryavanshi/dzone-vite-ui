@@ -1,8 +1,5 @@
 import { Button, Dropdown, Text, Tooltip } from '@/uicomponents';
-import {
-  DZENT_BG_SELECTED,
-  DZENT_BTN_DARK,
-} from '@/lib/constants/color-constants';
+import { DZENT_BG_SELECTED, DZENT_BTN_DARK } from '@/lib/constants/color-constants';
 import { DownOutlined } from '@/uicomponents/icons';
 import { FC } from 'react';
 import { useDzentStore } from '../../store';
@@ -11,9 +8,7 @@ interface IMarketerSelectionProps {
   onMarketerChange?: () => void;
 }
 
-export const MarketerSelection: FC<IMarketerSelectionProps> = ({
-  onMarketerChange,
-}) => {
+export const MarketerSelection: FC<IMarketerSelectionProps> = ({ onMarketerChange }) => {
   const { tenantCode, marketerList, setTenantCode } = useDzentStore();
 
   // Only render if there's more than one marketer
@@ -22,9 +17,7 @@ export const MarketerSelection: FC<IMarketerSelectionProps> = ({
   }
 
   // Find the current selected marketer
-  const currentMarketer = marketerList.find(
-    (marketer) => marketer.value === tenantCode,
-  );
+  const currentMarketer = marketerList.find((marketer) => marketer.value === tenantCode);
 
   // Handle marketer selection
   const handleMarketerSelect = (marketerValue: string) => {
@@ -42,9 +35,7 @@ export const MarketerSelection: FC<IMarketerSelectionProps> = ({
     label: marketer.label,
     onClick: () => handleMarketerSelect(marketer.value),
     style:
-      marketer.value === tenantCode
-        ? { backgroundColor: DZENT_BG_SELECTED, fontWeight: 600 }
-        : {},
+      marketer.value === tenantCode ? { backgroundColor: DZENT_BG_SELECTED, fontWeight: 600 } : {},
   }));
 
   return (
@@ -59,12 +50,14 @@ export const MarketerSelection: FC<IMarketerSelectionProps> = ({
             padding: '0 0.5rem',
             maxWidth: '10rem',
             border: `1px solid ${DZENT_BTN_DARK}`,
-          }}>
+          }}
+        >
           <Text
             ellipsis
             style={{
               flex: 1,
-            }}>
+            }}
+          >
             {currentMarketer?.label || 'Select Marketer'}
           </Text>
           <DownOutlined style={{ fontSize: '0.75rem', flexShrink: 0 }} />

@@ -1,4 +1,3 @@
-
 import { Translate } from '@/components/i18n';
 import { DzBox } from '@/components/layout/v1';
 import { FormItem } from '@/uicomponents/form';
@@ -15,9 +14,7 @@ interface SourceDetailSectionProps {
   templateId?: string;
 }
 
-export const SourceDetailSection: FC<SourceDetailSectionProps> = ({
-  templateId,
-}) => {
+export const SourceDetailSection: FC<SourceDetailSectionProps> = ({ templateId }) => {
   const { updateTemplateData } = useTemplateStore();
 
   const { data: lineItemsData } = useTemplateLineItemsQuery();
@@ -58,7 +55,8 @@ export const SourceDetailSection: FC<SourceDetailSectionProps> = ({
       <Text
         style={{
           fontWeight: '600',
-        }}>
+        }}
+      >
         Source Detail
       </Text>
       <Row gutter={[16, 16]}>
@@ -76,7 +74,8 @@ export const SourceDetailSection: FC<SourceDetailSectionProps> = ({
                 required: true,
                 message: 'Line Item selection is required',
               },
-            ]}>
+            ]}
+          >
             <Select
               placeholder='Choose a Line Item'
               options={lineItemOptions}
@@ -87,12 +86,8 @@ export const SourceDetailSection: FC<SourceDetailSectionProps> = ({
               filterOption={(input, option) => {
                 const searchTerm = input.toLowerCase();
                 const label = (option?.label ?? '').toString().toLowerCase();
-                const lineItemId = (option?.lineItemId ?? '')
-                  .toString()
-                  .toLowerCase();
-                return (
-                  label.includes(searchTerm) || lineItemId.includes(searchTerm)
-                );
+                const lineItemId = (option?.lineItemId ?? '').toString().toLowerCase();
+                return label.includes(searchTerm) || lineItemId.includes(searchTerm);
               }}
               onChange={handleLineItemChange}
             />

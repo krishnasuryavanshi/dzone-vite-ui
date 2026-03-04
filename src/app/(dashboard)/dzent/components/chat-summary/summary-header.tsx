@@ -11,7 +11,8 @@ export const SummaryHeader = () => {
         borderBottom: `1px solid ${DZENT_BORDER_LIGHT}`,
         paddingBottom: '0.5rem',
         marginBottom: '0.5rem',
-      }}>
+      }}
+    >
       <Text strong underline style={{ color: DZONE_PURPLE }}>
         <Translate i18nKey='Chat Summary' />
       </Text>

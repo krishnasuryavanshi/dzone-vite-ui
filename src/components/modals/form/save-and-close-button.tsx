@@ -7,16 +7,11 @@ export interface ISaveAndCloseButtonProps {
   show?: boolean;
 }
 
-export const SaveAndCloseButton: FC<ISaveAndCloseButtonProps> = ({
-  onSaveAndClose,
-  show,
-}) => {
+export const SaveAndCloseButton: FC<ISaveAndCloseButtonProps> = ({ onSaveAndClose, show }) => {
   if (show === false) return null;
   return (
-    <Button
-      onClick={onSaveAndClose}
-      className="action cancel">
-      <Translate i18nKey="form.actions.saveAndClose" />
+    <Button onClick={onSaveAndClose} className='action cancel'>
+      <Translate i18nKey='form.actions.saveAndClose' />
     </Button>
   );
 };

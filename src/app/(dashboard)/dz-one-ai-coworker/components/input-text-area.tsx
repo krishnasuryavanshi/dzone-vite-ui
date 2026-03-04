@@ -1,4 +1,3 @@
-
 import { TextArea } from '@/uicomponents/form/input';
 import { DEFAULT_TEXT } from '../lib/constants';
 
@@ -8,11 +7,7 @@ interface InputTextAreaProps {
   onKeyDown: (e: React.KeyboardEvent) => void;
 }
 
-export const InputTextArea = ({
-  value,
-  onChange,
-  onKeyDown,
-}: InputTextAreaProps) => {
+export const InputTextArea = ({ value, onChange, onKeyDown }: InputTextAreaProps) => {
   return (
     <TextArea
       value={value}

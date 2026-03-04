@@ -9,11 +9,7 @@ interface HistoryItemProps {
   validationSettingMap: Record<string, string>;
 }
 
-export const HistoryItem: FC<HistoryItemProps> = ({
-  entry,
-  fileMap,
-  validationSettingMap,
-}) => {
+export const HistoryItem: FC<HistoryItemProps> = ({ entry, fileMap, validationSettingMap }) => {
   return (
     <Card style={{ border: 'none' }}>
       <DiffRenderer

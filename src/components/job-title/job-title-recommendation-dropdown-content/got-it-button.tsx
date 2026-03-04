@@ -11,7 +11,8 @@ export const GotItButton: FC<IGotItButtonProps> = ({ onClose }) => {
       type='primary'
       size='small'
       style={{ alignSelf: 'end', boxShadow: 'none' }}
-      onClick={onClose}>
+      onClick={onClose}
+    >
       Got it
     </Button>
   );

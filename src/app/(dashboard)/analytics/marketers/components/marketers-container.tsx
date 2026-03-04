@@ -1,4 +1,3 @@
-
 import { DzBox, DzScrollContainer } from '@/components/layout/v1';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { MarketerFilterDropdowns } from './filter-manager/marketer-filter-dropdowns';
@@ -49,15 +48,9 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
     { key: 'quarter', label: 'Quarter to Quarter' },
     { key: 'year', label: 'Year to Year' },
   ];
-  const filterValues = useFilterDashboardStore(
-    (state: FilterState) => state.filterValues,
-  );
-  const topReason = useFilterDashboardStore(
-    (state: FilterState) => state.topReason,
-  );
-  const compareFactor = useFilterDashboardStore(
-    (state: FilterState) => state.compareFactor,
-  );
+  const filterValues = useFilterDashboardStore((state: FilterState) => state.filterValues);
+  const topReason = useFilterDashboardStore((state: FilterState) => state.topReason);
+  const compareFactor = useFilterDashboardStore((state: FilterState) => state.compareFactor);
   const setReturnReasonData = useFilterDashboardStore(
     (state: FilterState) => state.setReturnReasonData,
   );
@@ -136,8 +129,10 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
   );
 
   const hasMarketerCodes = marketerCode.length > 0;
-  const { data: dashboardData, isLoading: loading } =
-    useMarketerDashboardQuery(dashboardParams, hasMarketerCodes);
+  const { data: dashboardData, isLoading: loading } = useMarketerDashboardQuery(
+    dashboardParams,
+    hasMarketerCodes,
+  );
 
   const tableData = useMemo(() => {
     if (!dashboardData?.at_risk) return [];
@@ -151,10 +146,7 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
         atRiskReason = `${MISSED_START_DATE}/ ${UNDER_DELIVERING}`;
       } else if (item?.at_risk_reason_to_launch) {
         atRiskReason = MISSED_START_DATE;
-      } else if (
-        item?.at_risk_to_deliver &&
-        item?.at_risk_to_deliver !== '%'
-      ) {
+      } else if (item?.at_risk_to_deliver && item?.at_risk_to_deliver !== '%') {
         atRiskReason = UNDER_DELIVERING;
       }
       return { ...item, at_risk_reason: atRiskReason };
@@ -299,16 +291,8 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
                         name: 'Current',
                         value: `${dashboardData?.leads_received?.toLocaleString() || ''}`,
                       }}
-                      percent={
-                        dashboardData?.[
-                          `leads_received_pct_change_${compareFactor}`
-                        ]
-                      }
-                      isPositive={
-                        dashboardData?.[
-                          `leads_received_pct_change_${compareFactor}`
-                        ] > 0
-                      }
+                      percent={dashboardData?.[`leads_received_pct_change_${compareFactor}`]}
+                      isPositive={dashboardData?.[`leads_received_pct_change_${compareFactor}`] > 0}
                       waitingToGoLiveData={{
                         name: 'Waiting to Go Live',
                         value: '5',
@@ -326,16 +310,8 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
                         value: `${dashboardData?.leads_returned?.toLocaleString() || ''}`,
                       }}
                       // previous={{ name: 'Previous', value: '$40' }}
-                      percent={
-                        dashboardData?.[
-                          `leads_returned_pct_change_${compareFactor}`
-                        ]
-                      }
-                      isPositive={
-                        dashboardData?.[
-                          `leads_returned_pct_change_${compareFactor}`
-                        ] > 0
-                      }
+                      percent={dashboardData?.[`leads_returned_pct_change_${compareFactor}`]}
+                      isPositive={dashboardData?.[`leads_returned_pct_change_${compareFactor}`] > 0}
                       waitingToGoLiveData={{
                         name: 'Waiting to Go Live',
                         value: '3',
@@ -350,16 +326,8 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
                         name: 'Current',
                         value: `${dashboardData?.leads_pending?.toLocaleString() || ''}`,
                       }}
-                      percent={
-                        dashboardData?.[
-                          `leads_pending_pct_change_${compareFactor}`
-                        ]
-                      }
-                      isPositive={
-                        dashboardData?.[
-                          `leads_pending_pct_change_${compareFactor}`
-                        ] > 0
-                      }
+                      percent={dashboardData?.[`leads_pending_pct_change_${compareFactor}`]}
+                      isPositive={dashboardData?.[`leads_pending_pct_change_${compareFactor}`] > 0}
                       waitingToGoLiveData={{
                         name: 'Waiting to Go Live',
                         value: 'N/A',
@@ -376,16 +344,8 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
                         name: 'Current',
                         value: `${dashboardData?.budget_total?.toLocaleString() || ''}`,
                       }}
-                      percent={
-                        dashboardData?.[
-                          `budget_total_pct_change_${compareFactor}`
-                        ]
-                      }
-                      isPositive={
-                        dashboardData?.[
-                          `budget_total_pct_change_${compareFactor}`
-                        ] > 0
-                      }
+                      percent={dashboardData?.[`budget_total_pct_change_${compareFactor}`]}
+                      isPositive={dashboardData?.[`budget_total_pct_change_${compareFactor}`] > 0}
                       waitingToGoLiveData={{
                         name: 'Waiting to Go Live',
                         value: 'N/A',
@@ -432,10 +392,9 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
                     color: '#fff',
                     textAlign: 'left',
                     height: '46px',
-                  }}>
-                  <span style={{ fontSize: '10px', fontWeight: 600 }}>
-                    At Risk to Launch
-                  </span>
+                  }}
+                >
+                  <span style={{ fontSize: '10px', fontWeight: 600 }}>At Risk to Launch</span>
                   <p
                     style={{
                       fontSize: '20px',
@@ -443,7 +402,8 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
                       paddingLeft: '10px',
                       marginBottom: 0,
                       marginTop: '-8px',
-                    }}>
+                    }}
+                  >
                     {riskCount.atRiskToLaunch}
                   </p>
                 </Button>
@@ -455,10 +415,9 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
                     textAlign: 'left',
                     height: '46px',
                   }}
-                  onClick={() => filterTableDataByAtRisk('atRiskToDeliver')}>
-                  <span style={{ fontSize: '10px', fontWeight: 600 }}>
-                    At Risk to Deliver
-                  </span>
+                  onClick={() => filterTableDataByAtRisk('atRiskToDeliver')}
+                >
+                  <span style={{ fontSize: '10px', fontWeight: 600 }}>At Risk to Deliver</span>
                   <p
                     style={{
                       fontSize: '20px',
@@ -466,13 +425,12 @@ export const MarketersContainer: FC<IMarketerProps> = ({ data }) => {
                       paddingLeft: '10px',
                       marginBottom: 0,
                       marginTop: '-8px',
-                    }}>
+                    }}
+                  >
                     {riskCount.atRiskToDeliver}
                   </p>
                 </Button>
-                <OutlineBlueButton onClick={handleReset}>
-                  Reset
-                </OutlineBlueButton>
+                <OutlineBlueButton onClick={handleReset}>Reset</OutlineBlueButton>
               </div>
               <MarketersGrids data={filteredData ?? []} />
             </Skeleton>

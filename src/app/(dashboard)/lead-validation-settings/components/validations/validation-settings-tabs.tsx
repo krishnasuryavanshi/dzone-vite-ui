@@ -7,9 +7,7 @@ import { ValidationSettingTabItem } from './validation-setting-tab-item';
 import { ValidationSettingTabItemContent } from './validation-setting-tab-item-content';
 
 export const ValidationSettingsTabs = () => {
-  const [leadValidationRulesList, setLeadValidationRulesList] = useState<
-    TabsProps['items']
-  >([]);
+  const [leadValidationRulesList, setLeadValidationRulesList] = useState<TabsProps['items']>([]);
   const { getValidationSettingRules, setActiveRule, activeRule, isReadOnly } =
     useValidationSettingStore();
 
@@ -20,11 +18,7 @@ export const ValidationSettingsTabs = () => {
         rules.map((rule) => ({
           key: rule.name,
           label: (
-            <ValidationSettingTabItem
-              name={rule.name}
-              label={rule.label}
-              disabled={isReadOnly}
-            />
+            <ValidationSettingTabItem name={rule.name} label={rule.label} disabled={isReadOnly} />
           ),
           children: <ValidationSettingTabItemContent />,
         })),

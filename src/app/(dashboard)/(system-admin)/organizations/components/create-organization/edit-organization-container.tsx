@@ -9,10 +9,7 @@ interface IEditOrganizationContainerProps {
 export const EditOrganizationContainer: FC<IEditOrganizationContainerProps> = ({
   organizationId,
 }) => {
-  const { data } = useOrganizationDetailQuery(
-    organizationId as string,
-    !!organizationId,
-  );
+  const { data } = useOrganizationDetailQuery(organizationId as string, !!organizationId);
   const organization = data?.data ?? null;
 
   if (!organization) {

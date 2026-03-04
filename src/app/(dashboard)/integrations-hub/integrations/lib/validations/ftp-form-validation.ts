@@ -42,10 +42,7 @@ export const ftpFormValidationRules = {
     { pattern: /^\S.*\S$|^\S$/, message: 'No trailing spaces allowed' },
   ] as Rule[],
 
-  password: [
-    { type: 'string' },
-    { required: true, message: 'Password is required' },
-  ] as Rule[],
+  password: [{ type: 'string' }, { required: true, message: 'Password is required' }] as Rule[],
 
   privateKeyPassword: [{ type: 'string' }] as Rule[],
 
@@ -67,9 +64,7 @@ export const ftpFormValidationRules = {
           }
 
           if (trimmedValue.includes('../') || trimmedValue.includes('..\\')) {
-            return Promise.reject(
-              'Path cannot contain directory traversal patterns (../ or ..\\)',
-            );
+            return Promise.reject('Path cannot contain directory traversal patterns (../ or ..\\)');
           }
 
           const invalidCharsRegex = /[`$&;|><*?{}\\]/;

@@ -2,11 +2,7 @@ import { DzBox } from '@/components/layout/v1';
 import { SelectDrawer } from '@/components/shared';
 import { Button } from '@/uicomponents/button';
 import { Select } from '@/uicomponents/form/input';
-import {
-  CheckOutlined,
-  CloseOutlined,
-  LoadingOutlined,
-} from '@/uicomponents/icons';
+import { CheckOutlined, CloseOutlined, LoadingOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
 import React, { FC, SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { IUser } from '../../ums/users/lib/types';
@@ -34,10 +30,7 @@ export const AssignedToEditCell: FC<IAssignedToEditCellProps> = ({
   const [omittedValues, setOmittedValues] = useState<Record<string, any>[]>([]);
 
   const moduleName = isLineItem ? 'Line Item' : 'Campaign';
-  const { data: usersData, isLoading } = useUsersWithModuleAccessQuery(
-    moduleName,
-    tenantCode,
-  );
+  const { data: usersData, isLoading } = useUsersWithModuleAccessQuery(moduleName, tenantCode);
 
   const options = useMemo(() => {
     if (!usersData?.data) return [];
@@ -73,10 +66,8 @@ export const AssignedToEditCell: FC<IAssignedToEditCellProps> = ({
     }
   };
 
-  const filterOptions = (
-    input: string,
-    option: { label: string; value: string },
-  ) => (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
+  const filterOptions = (input: string, option: { label: string; value: string }) =>
+    (option?.label ?? '').toLowerCase().includes(input.toLowerCase());
 
   if (isLoading) {
     return (
@@ -88,9 +79,7 @@ export const AssignedToEditCell: FC<IAssignedToEditCellProps> = ({
   }
 
   return (
-    <DzBox
-      onClick={(e) => e.stopPropagation()}
-      style={{ marginTop: '-0.25rem' }}>
+    <DzBox onClick={(e) => e.stopPropagation()} style={{ marginTop: '-0.25rem' }}>
       <Flex gap={'0.25rem'} align='center'>
         <DzBox style={{ flex: 1 }}>
           <Select
@@ -103,7 +92,8 @@ export const AssignedToEditCell: FC<IAssignedToEditCellProps> = ({
             maxTagPlaceholder={(omittedValues: Record<string, any>[]) => (
               <span
                 onMouseEnter={(e) => showDrawer(e, omittedValues)}
-                style={{ display: 'inline-block', cursor: 'pointer' }}>
+                style={{ display: 'inline-block', cursor: 'pointer' }}
+              >
                 {`+ ${omittedValues.length} more`}
               </span>
             )}

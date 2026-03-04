@@ -12,11 +12,7 @@ type DatepickerActionProps = {
   form: FormInstance;
 };
 
-export const DatepickerAction = ({
-  validations,
-  name,
-  form,
-}: DatepickerActionProps) => {
+export const DatepickerAction = ({ validations, name, form }: DatepickerActionProps) => {
   const handleDateChange = (_: Dayjs | Dayjs[] | null, dateStr: string | string[] | null) => {
     form.setFieldValue(name, formatDate(dateStr));
   };
@@ -26,16 +22,8 @@ export const DatepickerAction = ({
       <DatePicker
         style={{ height: '2rem', width: '10rem', background: CLR_WHITE }}
         format={'DD MMM, YYYY'}
-        minDate={
-          validations?.minDate
-            ? dateObject(validations.minDate)
-            : dateObject('1970-01-01')
-        }
-        maxDate={
-          validations?.maxDate
-            ? dateObject(validations.maxDate)
-            : dateObject('2070-01-01')
-        }
+        minDate={validations?.minDate ? dateObject(validations.minDate) : dateObject('1970-01-01')}
+        maxDate={validations?.maxDate ? dateObject(validations.maxDate) : dateObject('2070-01-01')}
         onChange={handleDateChange}
       />
     </DzBox>

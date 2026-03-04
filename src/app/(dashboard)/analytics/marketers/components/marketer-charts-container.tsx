@@ -10,9 +10,7 @@ import {
 interface IMarketerChartsContainerProps {}
 
 export const ChartsContainer: FC<IMarketerChartsContainerProps> = ({}) => {
-  const returnReasonData = useFilterDashboardStore(
-    (state: FilterState) => state.returnReasonData,
-  );
+  const returnReasonData = useFilterDashboardStore((state: FilterState) => state.returnReasonData);
 
   return (
     <div className='dz-one-chart-card-container'>

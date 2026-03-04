@@ -26,10 +26,7 @@ export const CustomFieldCard: FC<ICustomFieldCardProps> = ({
   const exclusionValues = splitValues(field.exclusion);
 
   return (
-    <Flex
-      vertical
-      gap='0.5rem'
-      style={{ padding: '1rem 0.75rem', paddingBottom: '0' }}>
+    <Flex vertical gap='0.5rem' style={{ padding: '1rem 0.75rem', paddingBottom: '0' }}>
       <Flex align='center' gap='0.5rem'>
         <Text strong text14>
           {field.position}. {field.label}

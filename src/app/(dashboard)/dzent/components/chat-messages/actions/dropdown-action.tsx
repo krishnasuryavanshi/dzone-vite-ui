@@ -31,15 +31,13 @@ export const DropdownAction = ({
   const [filteredOptions, setFilteredOptions] = useState<DzRecord[]>([]);
   const [searchText, setSearchText] = useState('');
   const [selectedOptions, setSelectedOptions] = useState<DzRecord[]>([]);
-  const [isCustomOptionFormOpened, setIsCustomOptionFormOpened] =
-    useState(false);
+  const [isCustomOptionFormOpened, setIsCustomOptionFormOpened] = useState(false);
 
   useEffect(() => {
     const filteredOptions = allOptions.filter(
       ({ label }: DzRecord) =>
         !searchText.trim() ||
-        (searchText.trim() &&
-          label.toLowerCase().includes(searchText.trim().toLowerCase())),
+        (searchText.trim() && label.toLowerCase().includes(searchText.trim().toLowerCase())),
     );
     setFilteredOptions(filteredOptions);
   }, [searchText]);
@@ -78,9 +76,7 @@ export const DropdownAction = ({
     let selectedItems: DzRecord[] = [...(selectedOptions || [])];
 
     if (selectedItems.includes(item)) {
-      selectedItems = selectedItems.filter(
-        (option: DzRecord) => option !== item,
-      );
+      selectedItems = selectedItems.filter((option: DzRecord) => option !== item);
     } else {
       selectedItems.push(item);
     }
@@ -106,7 +102,8 @@ export const DropdownAction = ({
         backgroundColor: CLR_WHITE,
         borderRadius: '4px',
       }}
-      className={`dropdown-action ${customRangeOptions ? 'custom-range-options' : ''}`}>
+      className={`dropdown-action ${customRangeOptions ? 'custom-range-options' : ''}`}
+    >
       <Hideable show={isCustomOptionFormOpened}>
         <DzBox style={{ padding: '0.5rem' }}>
           <DropdownCustomAddOptions
@@ -140,7 +137,8 @@ export const DropdownAction = ({
             style={{
               maxHeight: '10rem',
               overflowY: 'auto',
-            }}>
+            }}
+          >
             <Hideable show={filteredOptions.length > 0}>
               <MapFunction items={filteredOptions} renderItem={renderOption} />
             </Hideable>
@@ -153,12 +151,11 @@ export const DropdownAction = ({
                 background: '#F4F4F4',
                 cursor: 'pointer',
               }}
-              onClick={() => setIsCustomOptionFormOpened(true)}>
+              onClick={() => setIsCustomOptionFormOpened(true)}
+            >
               <Flex justify='space-between'>
                 <DzBox>
-                  <Text style={{ fontSize: '0.875rem' }}>
-                    + Add a custom range
-                  </Text>
+                  <Text style={{ fontSize: '0.875rem' }}>+ Add a custom range</Text>
                 </DzBox>
               </Flex>
             </DzBox>
@@ -175,22 +172,16 @@ type DropDownOptionProps = {
   onSelect: (item: DzRecord) => void;
 };
 
-const DropDownOption = ({
-  item,
-  selectedOptions,
-  onSelect,
-}: DropDownOptionProps) => {
+const DropDownOption = ({ item, selectedOptions, onSelect }: DropDownOptionProps) => {
   return (
     <DzBox
       className={`dropdown-option ${selectedOptions?.includes(item) ? 'selected' : ''}`}
       style={{ padding: '0.5rem', cursor: 'pointer' }}
-      onClick={() => onSelect(item)}>
+      onClick={() => onSelect(item)}
+    >
       <Flex justify='space-between'>
         <DzBox>
-          <Text
-            title={item.label}
-            style={{ fontSize: '0.875rem', width: '16rem' }}
-            ellipsis>
+          <Text title={item.label} style={{ fontSize: '0.875rem', width: '16rem' }} ellipsis>
             {item.label}
           </Text>
         </DzBox>
@@ -209,7 +200,8 @@ const SelectAllOption = ({ onSelectAll }: { onSelectAll: () => void }) => {
     <DzBox
       className={`dropdown-option select-all`}
       style={{ padding: '0.5rem', cursor: 'pointer' }}
-      onClick={onSelectAll}>
+      onClick={onSelectAll}
+    >
       <Flex justify='space-between'>
         <DzBox>
           <Text style={{ fontSize: '0.875rem', width: '10rem' }} strong>

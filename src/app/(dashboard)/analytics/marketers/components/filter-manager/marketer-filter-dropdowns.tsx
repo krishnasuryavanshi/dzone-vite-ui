@@ -1,9 +1,6 @@
 import React, { FC, ReactNode, useEffect, useState } from 'react';
 import { Tooltip } from '@/uicomponents';
-import {
-  IUseFilterDropdowns,
-  useFilterDropdowns,
-} from '@/app/(dashboard)/dashboard/lib/hooks';
+import { IUseFilterDropdowns, useFilterDropdowns } from '@/app/(dashboard)/dashboard/lib/hooks';
 import { SyncOutlined } from '@/uicomponents/icons';
 import { DateRangeDropdown } from '../../../supplier/components/filter-manager/dateRange-dropdown';
 import { CampaignItemsDropdown } from './campaign-dropdown';
@@ -57,27 +54,13 @@ export const MarketerFilterDropdowns: FC<IMarketerFilterDropdown> = ({
     handleSelection,
     activeTab,
   });
-  const [filteredSuppliers, setFilteredSuppliers] = useState<SupplierFilter[]>(
-    [],
-  );
-  const [filteredCampaign, setFilteredCampaign] = useState<CampaignFilter[]>(
-    [],
-  );
-  const [filteredMarketers, setFilteredMarketers] = useState<MarketerFilter[]>(
-    [],
-  );
-  const [filteredLineItems, setFilteredLineItems] = useState<LineItemFilter[]>(
-    [],
-  );
-  const filterValues = useFilterDashboardStore(
-    (state: FilterState) => state.filterValues,
-  );
-  const setFilterValues = useFilterDashboardStore(
-    (state: FilterState) => state.setFilterValues,
-  );
-  const setCompareFactor = useFilterDashboardStore(
-    (state: FilterState) => state.setCompareFactor,
-  );
+  const [filteredSuppliers, setFilteredSuppliers] = useState<SupplierFilter[]>([]);
+  const [filteredCampaign, setFilteredCampaign] = useState<CampaignFilter[]>([]);
+  const [filteredMarketers, setFilteredMarketers] = useState<MarketerFilter[]>([]);
+  const [filteredLineItems, setFilteredLineItems] = useState<LineItemFilter[]>([]);
+  const filterValues = useFilterDashboardStore((state: FilterState) => state.filterValues);
+  const setFilterValues = useFilterDashboardStore((state: FilterState) => state.setFilterValues);
+  const setCompareFactor = useFilterDashboardStore((state: FilterState) => state.setCompareFactor);
   const ranges: TimeRangePickerProps['presets'] = [
     { label: 'Today', value: [dayjs(), dayjs()] },
     { label: 'Last 7 Days', value: [dayjs().subtract(6, 'day'), dayjs()] },
@@ -413,9 +396,7 @@ export const MarketerFilterDropdowns: FC<IMarketerFilterDropdown> = ({
       </Col>
       <Col span={3} style={{ textAlign: 'right' }}>
         <OutlineBlueButton onClick={handleClick}>Reset</OutlineBlueButton>
-        <OutlineBlueButton
-          onClick={handleRefresh}
-          style={{ marginLeft: '8px' }}>
+        <OutlineBlueButton onClick={handleRefresh} style={{ marginLeft: '8px' }}>
           <Tooltip title='Refresh'>
             <SyncOutlined />
           </Tooltip>

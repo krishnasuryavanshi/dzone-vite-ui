@@ -12,11 +12,7 @@ type FilesPreviewHeaderProps = {
   onClose: () => void;
 };
 
-export const FilesPreviewHeader = ({
-  type,
-  onTypeChange,
-  onClose,
-}: FilesPreviewHeaderProps) => {
+export const FilesPreviewHeader = ({ type, onTypeChange, onClose }: FilesPreviewHeaderProps) => {
   return (
     <DzBox style={{ borderBottom: '1px solid #F5F5F5' }}>
       <Flex justify='space-between'>
@@ -24,25 +20,26 @@ export const FilesPreviewHeader = ({
           <Button
             type='text'
             style={{ fontWeight: type === 'all' ? 600 : 400 }}
-            onClick={() => onTypeChange('all')}>
+            onClick={() => onTypeChange('all')}
+          >
             All
           </Button>
           <Button
             type='text'
             style={{ fontWeight: type === 'documents' ? 600 : 400 }}
-            onClick={() => onTypeChange('documents')}>
+            onClick={() => onTypeChange('documents')}
+          >
             Documents
           </Button>
           <Button
             type='text'
             style={{ fontWeight: type === 'images' ? 600 : 400 }}
-            onClick={() => onTypeChange('images')}>
+            onClick={() => onTypeChange('images')}
+          >
             Images
           </Button>
         </Flex>
-        <DzBox
-          style={{ cursor: 'pointer', marginRight: '0.25rem' }}
-          onClick={onClose}>
+        <DzBox style={{ cursor: 'pointer', marginRight: '0.25rem' }} onClick={onClose}>
           <CloseOutlined />
         </DzBox>
       </Flex>

@@ -35,8 +35,7 @@ const isRenderable = (value: any): boolean => {
   return true;
 };
 
-const isLongText = (value: any): boolean =>
-  typeof value === 'string' && value.length > 100;
+const isLongText = (value: any): boolean => typeof value === 'string' && value.length > 100;
 
 const renderValue = (value: any, label: string): React.ReactNode | null => {
   if (isLongText(value)) {
@@ -68,13 +67,12 @@ export const FieldColumn: FC<FieldColumnProps> = ({ data, handleDownload }) => {
         key={file?.id}
         vertical={field === 'deliveryTemplateId' || field === 'ioFileId'}
         gap='0.5rem'
-        style={{ width: '100%' }}>
+        style={{ width: '100%' }}
+      >
         <Text style={{ wordBreak: 'break-word' }}>
           {normalizedFilename} {file?.fileSize && `(${file?.fileSize})`}
         </Text>
-        <Link
-          onClick={() => downloadFile(file?.id)}
-          style={{ display: 'inline-block' }}>
+        <Link onClick={() => downloadFile(file?.id)} style={{ display: 'inline-block' }}>
           Download
         </Link>
       </Flex>

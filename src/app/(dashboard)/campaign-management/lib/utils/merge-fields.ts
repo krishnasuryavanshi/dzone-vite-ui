@@ -9,6 +9,6 @@ export const mergeFields = (data: any) => {
       });
       return result;
     },
-    [] as any[]
+    [] as any[],
   );
 };

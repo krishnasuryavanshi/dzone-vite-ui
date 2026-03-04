@@ -5,10 +5,7 @@ import { DownOutlined, UpOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
 import React, { useState } from 'react';
-import {
-  DZENT_BG_LIGHT_BLUE,
-  DZENT_TEXT_BLACK,
-} from '@/lib/constants/color-constants';
+import { DZENT_BG_LIGHT_BLUE, DZENT_TEXT_BLACK } from '@/lib/constants/color-constants';
 import { ChatSummaryAccordionItem } from './chat-summary-accordion-item';
 
 type ChatSummaryAccordionProps = {
@@ -16,10 +13,7 @@ type ChatSummaryAccordionProps = {
   sections: DzRecord;
 };
 
-export const ChatSummaryAccordion = ({
-  name,
-  sections,
-}: ChatSummaryAccordionProps) => {
+export const ChatSummaryAccordion = ({ name, sections }: ChatSummaryAccordionProps) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const renderSection = (section: string, index: number) => {
     return (
@@ -37,15 +31,12 @@ export const ChatSummaryAccordion = ({
         backgroundColor: DZENT_BG_LIGHT_BLUE,
         padding: '0.625rem 1rem',
         borderRadius: '5px',
-      }}>
+      }}
+    >
       <Flex vertical gap='0.5rem'>
         <Flex justify='space-between' align='center'>
-          <Text style={{ color: DZENT_TEXT_BLACK, fontSize: '0.875rem' }}>
-            {name}
-          </Text>
-          <DzBox
-            onClick={() => setIsCollapsed(!isCollapsed)}
-            style={{ cursor: 'pointer' }}>
+          <Text style={{ color: DZENT_TEXT_BLACK, fontSize: '0.875rem' }}>{name}</Text>
+          <DzBox onClick={() => setIsCollapsed(!isCollapsed)} style={{ cursor: 'pointer' }}>
             <Hideable show={!isCollapsed}>
               <DownOutlined />
             </Hideable>
@@ -56,10 +47,7 @@ export const ChatSummaryAccordion = ({
         </Flex>
         <Hideable show={!isCollapsed}>
           <Flex vertical gap='0.5rem'>
-            <MapFunction
-              items={Object.keys(sections)}
-              renderItem={renderSection}
-            />
+            <MapFunction items={Object.keys(sections)} renderItem={renderSection} />
           </Flex>
         </Hideable>
       </Flex>

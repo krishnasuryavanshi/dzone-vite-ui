@@ -6,15 +6,9 @@ export const setupTotalCplFieldInitialState = (
   patchFormValues: Function,
   updateFormStepDetails: Function,
 ) => {
-  const isValueAddLineItem = !!form.getFieldValue(
-    LineItemFields.IsValueAddedLineItem,
-  );
+  const isValueAddLineItem = !!form.getFieldValue(LineItemFields.IsValueAddedLineItem);
 
-  updateTargetCostPerLeadField(
-    isValueAddLineItem,
-    patchFormValues,
-    updateFormStepDetails,
-  );
+  updateTargetCostPerLeadField(isValueAddLineItem, patchFormValues, updateFormStepDetails);
 };
 
 export const updateTargetCostPerLeadField = (
@@ -36,9 +30,5 @@ export const updateTargetCostPerLeadField = (
     });
   }
 
-  updateFormStepDetails(
-    LineItemSections.Goals,
-    LineItemFields.TargetCostPerLead,
-    props,
-  );
+  updateFormStepDetails(LineItemSections.Goals, LineItemFields.TargetCostPerLead, props);
 };

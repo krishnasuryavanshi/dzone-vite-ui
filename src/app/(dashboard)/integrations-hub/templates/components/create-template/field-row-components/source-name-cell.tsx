@@ -18,7 +18,8 @@ export const SourceNameCell: FC<ISourceNameCellProps> = ({ name }) => {
           borderRadius: '4px',
           padding: '0.5rem',
           boxShadow: '0px 0px 1px 0px rgba(0, 0, 0, 0.25) inset',
-        }}>
+        }}
+      >
         <Text style={{ color: '#888888' }}>{name}</Text>
       </DzBox>
       <DzBox style={{ width: '2rem' }}>

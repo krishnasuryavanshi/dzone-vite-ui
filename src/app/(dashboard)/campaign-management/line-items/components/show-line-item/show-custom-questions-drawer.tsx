@@ -29,7 +29,8 @@ export const ShowCustomQuestionsDrawer = ({
       placement='right'
       width='50vw'
       footer={null}
-      open={show}>
+      open={show}
+    >
       {/* Custom Close Button */}
       <Button
         icon={<CloseOutlined />}
@@ -45,7 +46,8 @@ export const ShowCustomQuestionsDrawer = ({
           <ListItem
             style={{
               padding: '0.5rem',
-            }}>
+            }}
+          >
             <Title
               level={5}
               style={{
@@ -54,14 +56,16 @@ export const ShowCustomQuestionsDrawer = ({
                 padding: '0.5rem',
                 fontSize: '16px',
                 background: '#f0f0f0',
-              }}>
+              }}
+            >
               {index + 1}. {item.question}
             </Title>
             <div
               style={{
                 ...commonTextCss,
                 marginBottom: '0.2rem',
-              }}>
+              }}
+            >
               <Text strong>Accepted Answers:</Text> {item.acceptedAnswer}
             </div>
             <div style={commonTextCss}>

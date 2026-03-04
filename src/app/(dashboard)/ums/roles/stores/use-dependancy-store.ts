@@ -4,9 +4,7 @@ interface IDependanciesStore {
   dependantActions: Record<string, string[]>;
   setDependantAction: (dependantActions: Record<string, string[]>) => void;
   dependantPermissions: Record<string, string[]>;
-  setDependantPermissions: (
-    dependantPermissions: Record<string, string[]>,
-  ) => void;
+  setDependantPermissions: (dependantPermissions: Record<string, string[]>) => void;
 }
 
 export const useDependanciesStore = create<IDependanciesStore>((set, get) => ({

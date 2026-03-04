@@ -17,10 +17,9 @@ export const ModalHeader: FC<IModalHeaderProps> = ({ title }) => {
         borderRadius: '0.75rem',
         boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.16)',
         height: '2.5rem',
-      }}>
-      <Title
-        level={5}
-        style={{ textAlign: 'center', margin: 0, fontSize: '1rem' }}>
+      }}
+    >
+      <Title level={5} style={{ textAlign: 'center', margin: 0, fontSize: '1rem' }}>
         <Translate i18nKey={title} />
       </Title>
     </Flex>

@@ -11,9 +11,7 @@ import {
 interface IJobTitleRecommendationProps {
   show: boolean;
   isLoading: boolean;
-  handleAddRecommendedJobTitles: (
-    selectedRecommendedJobTitles: string[],
-  ) => void;
+  handleAddRecommendedJobTitles: (selectedRecommendedJobTitles: string[]) => void;
   recommendedJobTitles: Record<string, any>[];
   existingjobTitles: Record<string, string>[];
   disabled?: boolean;
@@ -28,17 +26,13 @@ export const JobTitleRecommendation: FC<IJobTitleRecommendationProps> = ({
   disabled,
 }) => {
   const [open, setOpen] = useState(false);
-  const [selectedRecommendedJobTitles, setSelectedRecommendedJobTitles] =
-    useState<string[]>([]);
+  const [selectedRecommendedJobTitles, setSelectedRecommendedJobTitles] = useState<string[]>([]);
   const [recommendedJobTitlesCount, setRecommendedJobTitlesCount] = useState(0);
   const [existingJTList, setExistingJTList] = useState<string[]>([]);
 
   useEffect(() => {
     if (recommendedJobTitles.length > 0) {
-      const count = recommendedJobTitles.reduce(
-        (acc, item) => acc + item.children.length,
-        0,
-      );
+      const count = recommendedJobTitles.reduce((acc, item) => acc + item.children.length, 0);
       if (count < recommendedJobTitlesCount) {
         setOpen(false);
       } else {
@@ -51,12 +45,11 @@ export const JobTitleRecommendation: FC<IJobTitleRecommendationProps> = ({
   useEffect(() => {
     const existingJTList = existingjobTitles?.map((jt) => jt?.text) || [];
     setExistingJTList(existingJTList);
-    const alreadySelectedFromRecommendationsValues =
-      recommendedJobTitles.flatMap((item) =>
-        item.children
-          .filter((child: any) => existingJTList.includes(child.label))
-          .map((child: any) => child.value),
-      );
+    const alreadySelectedFromRecommendationsValues = recommendedJobTitles.flatMap((item) =>
+      item.children
+        .filter((child: any) => existingJTList.includes(child.label))
+        .map((child: any) => child.value),
+    );
     setSelectedRecommendedJobTitles(alreadySelectedFromRecommendationsValues);
   }, [existingjobTitles]);
 
@@ -94,10 +87,7 @@ export const JobTitleRecommendation: FC<IJobTitleRecommendationProps> = ({
           handleSelectAllChange={handleSelectAllChange}
           onUnselectAll={() => setSelectedRecommendedJobTitles([])}
         />
-        <NoRecommendations
-          onClose={() => setOpen(false)}
-          show={!recommendedJobTitles.length}
-        />
+        <NoRecommendations onClose={() => setOpen(false)} show={!recommendedJobTitles.length} />
       </JobTitleRecommendationDropdownContainer>
     );
   };
@@ -114,7 +104,8 @@ export const JobTitleRecommendation: FC<IJobTitleRecommendationProps> = ({
       arrow={true}
       trigger={['click']}
       placement='bottomLeft'
-      disabled={disabled}>
+      disabled={disabled}
+    >
       <AiPen />
     </Dropdown>
   );

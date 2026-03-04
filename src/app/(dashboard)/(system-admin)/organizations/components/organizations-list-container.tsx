@@ -82,10 +82,9 @@ export const OrganizationsListContainer = () => {
       icon: <WarningOutlined style={{ color: '#E04149' }} />,
       content: (
         <Text>
-          Deactivating this organization (
-          <Text style={{ color: '#3D71FB' }}>{name}</Text>) will immediately
-          revoke their access and permissions associated with the it. Do you
-          want to proceed?
+          Deactivating this organization (<Text style={{ color: '#3D71FB' }}>{name}</Text>) will
+          immediately revoke their access and permissions associated with the it. Do you want to
+          proceed?
         </Text>
       ),
       okText: 'Deactivate',
@@ -118,10 +117,7 @@ export const OrganizationsListContainer = () => {
     <>
       <TableWithPaginationLayout
         header={
-          <OrganizationsListHeader
-            filterInfo={filterInfo}
-            onFiltersChange={handleFiltersChange}
-          />
+          <OrganizationsListHeader filterInfo={filterInfo} onFiltersChange={handleFiltersChange} />
         }
         table={
           <OrganizationList

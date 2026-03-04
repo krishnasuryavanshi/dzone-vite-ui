@@ -2,19 +2,12 @@ import { Translate } from '@/components/i18n';
 import { Hideable } from '@/components/shared/hideable';
 import { MenuProps } from '@/lib/types/uicomponents';
 import { Button, Text, Tooltip } from '@/uicomponents';
-import {
-  DownloadOutlined,
-  ReloadOutlined,
-  SearchOutlined,
-} from '@/uicomponents/icons';
+import { DownloadOutlined, ReloadOutlined, SearchOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
 import { FC, useEffect } from 'react';
 import { FilterDropdownAssignedUser } from '../../components';
 import { useSession } from '@/lib/hooks/use-session';
-import {
-  LineItemActionsEnum,
-  ViewLineItemPermissions,
-} from '@/lib/enums/permissions';
+import { LineItemActionsEnum, ViewLineItemPermissions } from '@/lib/enums/permissions';
 import { usePermissionCheck } from '@/lib/hooks';
 import { HasPermission } from '@/components/auth';
 import { Link } from 'react-router';
@@ -40,26 +33,18 @@ export const LineItemsActions: FC<ILineItemsActionsProps> = ({
   hasActiveFilters = false,
 }) => {
   const user = useSession();
-  const isAssignedToAll = usePermissionCheck(
-    ViewLineItemPermissions.AllLineItems,
-  );
-  const isAssignedToMe = usePermissionCheck(
-    ViewLineItemPermissions.LineItemsAssignedToMe,
-  );
+  const isAssignedToAll = usePermissionCheck(ViewLineItemPermissions.AllLineItems);
+  const isAssignedToMe = usePermissionCheck(ViewLineItemPermissions.LineItemsAssignedToMe);
 
   useEffect(() => {
     if (isAssignedToMe && !isAssignedToAll) {
-      handleAssignedToFilterChange(
-        (user?.data?.user as { userId: string })?.userId,
-      );
+      handleAssignedToFilterChange((user?.data?.user as { userId: string })?.userId);
     }
   }, [isAssignedToMe, isAssignedToAll]);
 
   const handleAssigneToOptionChange = (assignedTo: string) => {
     if (assignedTo === 'me') {
-      handleAssignedToFilterChange(
-        (user?.data?.user as { userId: string })?.userId,
-      );
+      handleAssignedToFilterChange((user?.data?.user as { userId: string })?.userId);
       return;
     }
     handleAssignedToFilterChange(assignedTo);
@@ -129,7 +114,8 @@ export const LineItemsActions: FC<ILineItemsActionsProps> = ({
                 border: '1.5px solid transparent',
                 height: '2.25rem',
                 color: DZONE_CLR_BLACK,
-              }}>
+              }}
+            >
               <Translate i18nKey='pages.lineItems.label.newLineItem' />
             </Button>
           </Link>

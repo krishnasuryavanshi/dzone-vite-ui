@@ -9,19 +9,14 @@ export const useHistoryData = (
   marketerCode?: string,
   formConfig?: any,
 ) => {
-  const { fileMap, validationSettingMap, fetchFileMetadata } =
-    useFileMetadata(marketerCode);
+  const { fileMap, validationSettingMap, fetchFileMetadata } = useFileMetadata(marketerCode);
 
   const {
     data,
     isFetching: loading,
     hasNextPage: hasMore,
     fetchNextPage,
-  } = useLineItemHistoryInfiniteQuery(
-    lineItemId,
-    'LineItemEntity',
-    isOpen && !!lineItemId,
-  );
+  } = useLineItemHistoryInfiniteQuery(lineItemId, 'LineItemEntity', isOpen && !!lineItemId);
 
   const historyData = useMemo(() => {
     if (!data?.pages) return [];

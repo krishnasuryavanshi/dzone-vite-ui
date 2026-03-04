@@ -74,14 +74,7 @@ interface TagElementProps {
   onEdit?: () => void;
 }
 
-const TagElement: FC<TagElementProps> = ({
-  type,
-  color,
-  text,
-  variant,
-  onClose,
-  onEdit,
-}) => {
+const TagElement: FC<TagElementProps> = ({ type, color, text, variant, onClose, onEdit }) => {
   const handleClose = (e: any) => {
     e.stopPropagation();
     if (onClose) {
@@ -102,7 +95,8 @@ const TagElement: FC<TagElementProps> = ({
         fontSize: '1rem',
         border: 'none',
         ...(color ? {} : { backgroundColor: 'rgba(0,0,0,0.06)' }),
-      }}>
+      }}
+    >
       <Flex gap={'0.25rem'}>
         <Text
           style={{
@@ -111,7 +105,8 @@ const TagElement: FC<TagElementProps> = ({
             fontSize: 'inherit',
           }}
           className='ellipsis-text'
-          onClick={handleEdit}>
+          onClick={handleEdit}
+        >
           {text}
         </Text>
         <TagCloseButton onClose={handleClose} show={!!onClose} />

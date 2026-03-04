@@ -25,7 +25,8 @@ export const Navigation: FC<INavigationProps> = ({
         padding: '0.125rem 0.25rem',
         width: 'fit-content',
         marginBottom: '1rem',
-      }}>
+      }}
+    >
       <Flex gap={'0.25rem'} align={'center'}>
         <Text style={{ fontSize: '0.75rem' }}>
           Lead {currentLeadNumber} of {totalLeads}

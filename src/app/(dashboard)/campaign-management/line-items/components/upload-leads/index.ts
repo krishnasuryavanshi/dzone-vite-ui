@@ -1,1 +1,1 @@
-export * from "./upload-leads";
+export * from './upload-leads';

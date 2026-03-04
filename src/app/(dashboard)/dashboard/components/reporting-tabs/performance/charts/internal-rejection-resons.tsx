@@ -7,20 +7,15 @@ import { ChartColumn } from '../../chart-column';
 
 interface IInternalRejectionResonsProps {}
 
-export const InternalRejectionResons: FC<
-  IInternalRejectionResonsProps
-> = ({}) => {
+export const InternalRejectionResons: FC<IInternalRejectionResonsProps> = ({}) => {
   const [chartData, isLoaded] = useFetchReportData<IReportRow>(
     [],
-    PerformanceReportType.InternalRejectionReasons
+    PerformanceReportType.InternalRejectionReasons,
   );
 
   return (
-    <ChartColumn chartTitle="pages.dashboard.label.internalRejectionReasons">
-      <DzPieChart
-        data={chartData as IReportRow[]}
-        loaded={isLoaded}
-      />
+    <ChartColumn chartTitle='pages.dashboard.label.internalRejectionReasons'>
+      <DzPieChart data={chartData as IReportRow[]} loaded={isLoaded} />
     </ChartColumn>
   );
 };

@@ -14,20 +14,14 @@ type CheckboxGroupOptionsProps = {
   form: FormInstance;
 };
 
-export const CheckboxGroupOptions = ({
-  options,
-  name,
-  form,
-}: CheckboxGroupOptionsProps) => {
+export const CheckboxGroupOptions = ({ options, name, form }: CheckboxGroupOptionsProps) => {
   const handleCheckboxChange = (checkedValue: string[]) => {
     form.setFieldValue(name, checkedValue);
   };
 
   const renderCheckbox = (item: DzRecord, index: number) => {
     const selectedValues = form.getFieldValue(name);
-    const boxShadowColor = selectedValues?.includes(item)
-      ? '#3D71FB'
-      : 'rgba(0, 0, 0, 0.16)';
+    const boxShadowColor = selectedValues?.includes(item) ? '#3D71FB' : 'rgba(0, 0, 0, 0.16)';
 
     return (
       <DzBox
@@ -38,7 +32,8 @@ export const CheckboxGroupOptions = ({
           background: CLR_WHITE,
           boxShadow: `0px 0px 4px 0px ${boxShadowColor} inset`,
         }}
-        key={index}>
+        key={index}
+      >
         <Checkbox value={item} onChange={() => {}}>
           <Flex vertical gap={'1rem'}>
             <DzBox>
@@ -56,10 +51,12 @@ export const CheckboxGroupOptions = ({
         paddingBlock: '0.25rem',
         maxHeight: '18rem',
         overflowY: 'auto',
-      }}>
+      }}
+    >
       <CheckboxGroup
         onChange={handleCheckboxChange}
-        style={{ display: 'flex', flexDirection: 'column' }}>
+        style={{ display: 'flex', flexDirection: 'column' }}
+      >
         <MapFunction items={options} renderItem={renderCheckbox} />
       </CheckboxGroup>
     </DzBox>

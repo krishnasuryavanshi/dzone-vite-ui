@@ -1,4 +1,3 @@
-
 import { Input, TextArea } from '@/uicomponents/form/input';
 import styles from './create-integration-modal.module.css';
 import { FormItem } from '@/uicomponents/form';
@@ -7,9 +6,7 @@ interface WebFormContentProps {
   mode?: 'create' | 'retry';
 }
 
-export const WebFormContent: React.FC<WebFormContentProps> = ({
-  mode = 'create',
-}) => {
+export const WebFormContent: React.FC<WebFormContentProps> = ({ mode = 'create' }) => {
   return (
     <>
       <FormItem
@@ -21,8 +18,7 @@ export const WebFormContent: React.FC<WebFormContentProps> = ({
           { required: true, message: 'Name is required' },
           {
             pattern: /^[a-zA-Z0-9$_\- ]+$/,
-            message:
-              'Only alphanumeric characters, spaces, and $, -, _ are allowed',
+            message: 'Only alphanumeric characters, spaces, and $, -, _ are allowed',
           },
           {
             max: 255,
@@ -31,14 +27,13 @@ export const WebFormContent: React.FC<WebFormContentProps> = ({
           {
             validator: (_, value) => {
               if (value && (value.startsWith(' ') || value.endsWith(' '))) {
-                return Promise.reject(
-                  'Leading and trailing spaces are not allowed',
-                );
+                return Promise.reject('Leading and trailing spaces are not allowed');
               }
               return Promise.resolve();
             },
           },
-        ]}>
+        ]}
+      >
         <Input
           placeholder='Enter Integration Name'
           className={`input-field ${styles.inputControl}`}
@@ -68,7 +63,8 @@ export const WebFormContent: React.FC<WebFormContentProps> = ({
             pattern: /^\S.*\S$|^\S$/,
             message: 'No trailing spaces allowed',
           },
-        ]}>
+        ]}
+      >
         <Input
           placeholder='URL'
           className={`input-field ${styles.inputControl}`}

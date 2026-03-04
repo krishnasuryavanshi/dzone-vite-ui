@@ -37,13 +37,10 @@ export const LeadsGridContainer: FC<ILeadsGridContainerProps> = ({
 }) => {
   const leadsList = useLeadsStore((state) => state.leadsList);
   const [isLeadReviewDrawerOpen, setIsLeadReviewDrawerOpen] = useState(false);
-  const [currentLeadTrackingId, setCurrentLeadTrackingId] =
-    useState<string>('');
+  const [currentLeadTrackingId, setCurrentLeadTrackingId] = useState<string>('');
   const [currentLeadId, setCurrentLeadId] = useState<number>(0);
   const hasUpdatePermission = usePermissionCheck(LeadActionsEnum.Update);
-  const hasValidateLeadsPermission = usePermissionCheck(
-    LeadActionsEnum.ValidateLead,
-  );
+  const hasValidateLeadsPermission = usePermissionCheck(LeadActionsEnum.ValidateLead);
 
   const onLeadRowClick = (record: ILead) => {
     if (hasUpdatePermission || hasValidateLeadsPermission) {

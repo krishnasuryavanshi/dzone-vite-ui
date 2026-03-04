@@ -1,10 +1,5 @@
 import { FC, useState } from 'react';
-import {
-  IFilterCampaign,
-  IFilterClient,
-  IFilterLineItem,
-  ISelectedIds,
-} from '../../lib/types';
+import { IFilterCampaign, IFilterClient, IFilterLineItem, ISelectedIds } from '../../lib/types';
 import { Actions } from './actions';
 import { Translate } from '@/components/i18n';
 import { Col, Row } from '@/uicomponents/layout/grid';
@@ -21,9 +16,7 @@ import { executiveUnitType, ReportType, timeFrameType } from '../../lib/enums';
 import { useDashboardFilterDataQuery } from '../../hooks';
 
 interface IReportingFiltersManagerProps {
-  onSubmit: (
-    filterData: IFilterDataPayload | IExecutiveFilterDataPayload,
-  ) => void;
+  onSubmit: (filterData: IFilterDataPayload | IExecutiveFilterDataPayload) => void;
   activeTab: string;
 }
 
@@ -36,9 +29,7 @@ export const ReportingFiltersManager: FC<IReportingFiltersManagerProps> = ({
 
   const [isDownloadDisabled, setIsDownloadDisabled] = useState<boolean>(true);
 
-  const { data: filterData } = useDashboardFilterDataQuery(
-    activeTab !== ReportType.Executive,
-  );
+  const { data: filterData } = useDashboardFilterDataQuery(activeTab !== ReportType.Executive);
   const allLineItems = filterData?.lineItems ?? [];
   const allCampaigns = filterData?.campaigns ?? [];
 
@@ -131,8 +122,7 @@ export const ReportingFiltersManager: FC<IReportingFiltersManagerProps> = ({
           campaignId: lineItem.campaignId,
         }));
 
-      const range =
-        data?.selectedDuration && calculateDateRanges(data.selectedDuration[0]);
+      const range = data?.selectedDuration && calculateDateRanges(data.selectedDuration[0]);
       const filterData = transformFilterDataPayload({
         selectedCampaigns,
         selectedLineItems,

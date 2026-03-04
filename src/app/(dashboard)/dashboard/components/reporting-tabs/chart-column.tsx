@@ -28,7 +28,8 @@ export const ChartColumn: FC<IChartColumnProps> = ({
     <Col {...gridColumns}>
       <ChartCard
         title={chartTitle}
-        extra={hasExtra && <ChartsAdditional label={extraTitle as string} />}>
+        extra={hasExtra && <ChartsAdditional label={extraTitle as string} />}
+      >
         {children}
       </ChartCard>
     </Col>

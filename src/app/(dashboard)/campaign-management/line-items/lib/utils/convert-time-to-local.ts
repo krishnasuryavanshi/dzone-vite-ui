@@ -5,9 +5,7 @@ import { logError } from '@/services/logger';
  * @param utcTime - Time in format "2:45 PM" in UTC
  * @returns Time string in local timezone format "h:mm A"
  */
-export const convertUTCTimeToLocal = (
-  utcTime: string | null,
-): string | null => {
+export const convertUTCTimeToLocal = (utcTime: string | null): string | null => {
   if (!utcTime) return null;
 
   try {
@@ -51,9 +49,7 @@ export const convertUTCTimeToLocal = (
  * @param localTime - Time in format "2:45 PM" in local timezone
  * @returns Time string in UTC format "h:mm A"
  */
-export const convertLocalTimeToUTC = (
-  localTime: string | null,
-): string | null => {
+export const convertLocalTimeToUTC = (localTime: string | null): string | null => {
   if (!localTime) return null;
 
   try {
@@ -79,8 +75,7 @@ export const convertLocalTimeToUTC = (
 
     // Convert back to 12-hour format
     const isPM = utcHours >= 12;
-    const displayHours =
-      utcHours === 0 ? 12 : utcHours > 12 ? utcHours - 12 : utcHours;
+    const displayHours = utcHours === 0 ? 12 : utcHours > 12 ? utcHours - 12 : utcHours;
     const displayMinutes = utcMinutes.toString().padStart(2, '0');
     const displayPeriod = isPM ? 'PM' : 'AM';
 

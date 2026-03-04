@@ -50,16 +50,11 @@ export const PreviewLink: React.FC<PreviewLinkProps> = ({
     color: isDisabled ? '#bfbfbf' : style?.color || defaultStyle.color,
     cursor: isDisabled ? 'not-allowed' : style?.cursor || defaultStyle.cursor,
     pointerEvents: isDisabled ? 'none' : 'auto',
-    textDecoration: isDisabled
-      ? 'none'
-      : style?.textDecoration || defaultStyle.textDecoration,
+    textDecoration: isDisabled ? 'none' : style?.textDecoration || defaultStyle.textDecoration,
   };
 
   return (
-    <Link
-      style={mergedStyle}
-      onClick={handlePreviewClick}
-      disabled={isDisabled}>
+    <Link style={mergedStyle} onClick={handlePreviewClick} disabled={isDisabled}>
       {loading ? 'Loading...' : children}
     </Link>
   );

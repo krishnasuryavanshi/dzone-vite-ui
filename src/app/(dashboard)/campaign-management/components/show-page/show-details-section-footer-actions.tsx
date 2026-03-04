@@ -8,10 +8,7 @@ import { validateCampaign } from '../../campaigns/services';
 import { LoadingOutlined } from '@/uicomponents/icons';
 import { validateLineItem } from '../../line-items/services';
 import { HasPermission } from '@/components/auth';
-import {
-  CampaignActionsEnum,
-  LineItemActionsEnum,
-} from '@/lib/enums/permissions';
+import { CampaignActionsEnum, LineItemActionsEnum } from '@/lib/enums/permissions';
 import { HistoryDrawer } from './history-drawer';
 import { Text } from '@/components/uicomponents';
 import { DZONE_CLR_BLACK } from '@/lib/constants';
@@ -65,24 +62,20 @@ export const ShowDetailsSectionFooterAction = ({
       </Space>
       <Flex justify='end' gap='0.75rem' style={{ marginTop: '0.5rem' }}>
         {type !== 'campaign' && (
-          <Link
-            className='dz-link'
-            onClick={() => setIsHistoryDrawerOpen(true)}>
+          <Link className='dz-link' onClick={() => setIsHistoryDrawerOpen(true)}>
             <Translate i18nKey='History' />
           </Link>
         )}
         <HasPermission
-          permissions={
-            type === 'campaign'
-              ? CampaignActionsEnum.Edit
-              : LineItemActionsEnum.Edit
-          }>
+          permissions={type === 'campaign' ? CampaignActionsEnum.Edit : LineItemActionsEnum.Edit}
+        >
           <Link
             className='dz-link'
             onClick={(e) => {
               e.stopPropagation();
               validateCampaignDetails();
-            }}>
+            }}
+          >
             {isLoading ? (
               <LoadingOutlined style={{ color: DZONE_CLR_BLACK }} />
             ) : (

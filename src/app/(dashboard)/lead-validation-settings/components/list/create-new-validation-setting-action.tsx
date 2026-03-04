@@ -70,7 +70,8 @@ export const CreateNewValidationSettingAction: FC = () => {
             paddingTop: '0.5rem',
             height: '2.25rem',
             color: DZONE_CLR_BLACK,
-          }}>
+          }}
+        >
           <Translate i18nKey='pages.leadValidationSettings.title' />
         </Text>
         <Button
@@ -84,7 +85,8 @@ export const CreateNewValidationSettingAction: FC = () => {
             height: '2.25rem',
             color: DZONE_CLR_BLACK,
           }}
-          onClick={handleOpen}>
+          onClick={handleOpen}
+        >
           <Translate i18nKey='pages.leadValidationSettings.label.createNew' />
         </Button>
       </Flex>
@@ -98,12 +100,14 @@ export const CreateNewValidationSettingAction: FC = () => {
             Name the setting
           </Title>
         }
-        footer={null}>
+        footer={null}
+      >
         <Form
           form={form}
           layout='vertical'
           onFinish={handleStart}
-          initialValues={{ tenantCode: marketerList[0]?.value }}>
+          initialValues={{ tenantCode: marketerList[0]?.value }}
+        >
           <Flex gap={'0.5rem'} vertical style={{ paddingBlock: '1rem' }}>
             <FormItem
               className='input-control form-control-item'
@@ -116,17 +120,16 @@ export const CreateNewValidationSettingAction: FC = () => {
                   pattern: /^\S.*\S$|^\S$/,
                   message: 'No trailing spaces allowed',
                 },
-              ]}>
-              <Input
-                style={{ height: '3rem' }}
-                placeholder='Enter the setting name'
-              />
+              ]}
+            >
+              <Input style={{ height: '3rem' }} placeholder='Enter the setting name' />
             </FormItem>
             <FormItem
               className='input-control form-control-item'
               name='tenantCode'
               label={null}
-              rules={[{ required: true, message: 'This field is required' }]}>
+              rules={[{ required: true, message: 'This field is required' }]}
+            >
               <Select
                 style={{ height: '3rem' }}
                 disabled={marketerList?.length === 1}

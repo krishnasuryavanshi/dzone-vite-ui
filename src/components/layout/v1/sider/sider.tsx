@@ -69,13 +69,11 @@ export const Sider: FC<ISiderProps> = ({ handleBreakpoint }) => {
         onBreakpoint={(broken) => {
           setIsMobile(broken);
           handleBreakpoint(broken);
-        }}>
-        <AppLogo
-          onClick={() => setCollapsed(!collapsed)}
-          showLogo={!collapsed}
-        />
-        <DzBox className="menu-wrapper">
-          <DzBox className="scrollable-menu-container">
+        }}
+      >
+        <AppLogo onClick={() => setCollapsed(!collapsed)} showLogo={!collapsed} />
+        <DzBox className='menu-wrapper'>
+          <DzBox className='scrollable-menu-container'>
             <NavigationMenu isCollapsed={collapsed} />
           </DzBox>
         </DzBox>

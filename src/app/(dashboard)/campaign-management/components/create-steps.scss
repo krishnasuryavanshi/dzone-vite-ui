@@ -47,10 +47,7 @@
     }
   }
 
-  .ant-steps-item-finish
-    > .ant-steps-item-container:hover
-    .ant-steps-item-icon
-    .ant-steps-icon {
+  .ant-steps-item-finish > .ant-steps-item-container:hover .ant-steps-item-icon .ant-steps-icon {
     .anticon svg {
       color: var(--global-white-color);
     }

@@ -7,8 +7,8 @@ export const JobTitleRecommendationNote: FC = () => {
       <Text strong style={{ color: 'inherit', fontSize: 'inherit' }}>
         Note:
       </Text>{' '}
-      Please consider selecting the similar job titles suggested below to ensure
-      that no valuable leads are rejected during validation process.
+      Please consider selecting the similar job titles suggested below to ensure that no valuable
+      leads are rejected during validation process.
     </Text>
   );
 };

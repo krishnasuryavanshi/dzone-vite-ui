@@ -1,9 +1,7 @@
 import { CampaignField } from '../../campaigns/lib/enums';
 import { LineItemFields } from '../../line-items/lib/enums';
 
-export const FILE_KEYS: (CampaignField | LineItemFields)[] = [
-  CampaignField.UploadIoFile,
-];
+export const FILE_KEYS: (CampaignField | LineItemFields)[] = [CampaignField.UploadIoFile];
 export const UNCHANGING_KEYS: (CampaignField | LineItemFields)[] = [
   CampaignField.Status,
   CampaignField.Id,

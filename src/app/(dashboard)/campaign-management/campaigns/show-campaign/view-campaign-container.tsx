@@ -1,4 +1,3 @@
-
 import { DzScrollContainer } from '@/components/layout/v1';
 import { Flex } from '@/uicomponents/layout';
 import { FC, useMemo } from 'react';
@@ -71,10 +70,7 @@ export const ViewCampaignContainer: FC<IViewCampaignContainerProps> = ({
       <DzScrollContainer.Scroll>
         <Flex vertical style={{ padding: '0.5rem', paddingTop: '0rem' }}>
           <ShowItemDetails {...detailsSectionProps} type='campaign' />
-          <LineItemsContainer
-            campaignId={campaignDetails?.campaignId}
-            campaignUuId={campaignId}
-          />
+          <LineItemsContainer campaignId={campaignDetails?.campaignId} campaignUuId={campaignId} />
         </Flex>
       </DzScrollContainer.Scroll>
     </DzScrollContainer>

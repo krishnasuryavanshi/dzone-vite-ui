@@ -25,7 +25,8 @@ export const StatusChangeModal = ({
               fontSize: '1.2rem',
               fontWeight: 500,
               verticalAlign: 'middle',
-            }}>
+            }}
+          >
             <Translate i18nKey='pages.rolesAndPermissions.label.statusChangeTitle' />
           </Text>
         </Flex>
@@ -41,7 +42,8 @@ export const StatusChangeModal = ({
         style: {
           background: CLR_RED_1,
         },
-      }}>
+      }}
+    >
       <Text>
         <Translate i18nKey='pages.rolesAndPermissions.label.statusChangeContent' />
       </Text>

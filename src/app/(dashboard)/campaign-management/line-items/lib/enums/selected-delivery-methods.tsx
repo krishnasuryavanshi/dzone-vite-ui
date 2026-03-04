@@ -1,4 +1,4 @@
 export enum SelectedDeliveryMethod {
-    FormHandlerIntegrate = 'Form Handler - Integrate',
-    PortalConvertr = 'Portal - Convertr'
+  FormHandlerIntegrate = 'Form Handler - Integrate',
+  PortalConvertr = 'Portal - Convertr',
 }

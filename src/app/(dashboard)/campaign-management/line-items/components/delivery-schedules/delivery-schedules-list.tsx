@@ -1,4 +1,3 @@
-
 import { BasicTable } from '@/components/table';
 import { FormatDate } from '@/components/util';
 import { DzBox } from '@/components/layout/v1';
@@ -10,10 +9,7 @@ import { Flex } from '@/uicomponents/layout';
 import { showNotification } from '@/services';
 import React, { useEffect, useState } from 'react';
 import { useRouter } from '@/lib/hooks/use-router';
-import {
-  updateDeliveryScheduleStatus,
-  DeliverySchedule,
-} from '../../services';
+import { updateDeliveryScheduleStatus, DeliverySchedule } from '../../services';
 import { useDeliverySchedulesQuery } from '../../hooks';
 import { useQueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@/lib/query';
@@ -166,9 +162,7 @@ export const DeliverySchedulesList: React.FC<DeliverySchedulesListProps> = ({
             : deliverySchedule.deliveryType}
         </Text>
         {deliverySchedule.deliveryTemplate && (
-          <Text className={styles.secondaryText}>
-            {deliverySchedule.deliveryTemplate}
-          </Text>
+          <Text className={styles.secondaryText}>{deliverySchedule.deliveryTemplate}</Text>
         )}
       </DzBox>
     );
@@ -182,10 +176,7 @@ export const DeliverySchedulesList: React.FC<DeliverySchedulesListProps> = ({
     }
 
     let scheduleDetail = '';
-    if (
-      deliverySchedule.frequency === 'Weekly' &&
-      deliverySchedule.deliveryDay
-    ) {
+    if (deliverySchedule.frequency === 'Weekly' && deliverySchedule.deliveryDay) {
       const dayNames = [
         '',
         'Monday',
@@ -197,10 +188,7 @@ export const DeliverySchedulesList: React.FC<DeliverySchedulesListProps> = ({
         'Sunday',
       ];
       scheduleDetail = dayNames[deliverySchedule.deliveryDay] || '';
-    } else if (
-      deliverySchedule.frequency === 'Monthly' &&
-      deliverySchedule.deliveryDate
-    ) {
+    } else if (deliverySchedule.frequency === 'Monthly' && deliverySchedule.deliveryDate) {
       scheduleDetail = `${deliverySchedule.deliveryDate}`;
     }
 
@@ -230,11 +218,7 @@ export const DeliverySchedulesList: React.FC<DeliverySchedulesListProps> = ({
 
   const nextDeliveryRenderer = (_: unknown, record: unknown) => {
     const deliverySchedule = record as DeliverySchedule;
-    return (
-      <Text className={styles.primaryText}>
-        {deliverySchedule.nextDelivery || '-'}
-      </Text>
-    );
+    return <Text className={styles.primaryText}>{deliverySchedule.nextDelivery || '-'}</Text>;
   };
 
   const performanceRenderer = (_: unknown, record: unknown) => {
@@ -268,7 +252,8 @@ export const DeliverySchedulesList: React.FC<DeliverySchedulesListProps> = ({
         menu={{ items }}
         trigger={['click']}
         placement='bottomRight'
-        disabled={updating === deliverySchedule.id}>
+        disabled={updating === deliverySchedule.id}
+      >
         <Button
           type='text'
           icon={<MoreOutlined />}
@@ -283,21 +268,11 @@ export const DeliverySchedulesList: React.FC<DeliverySchedulesListProps> = ({
   const columns: TableProps<DeliverySchedule>['columns'] = [
     column('Type & Template', 'deliveryType', { width: 200 }, typeRenderer),
     column('Frequency', 'frequency', { width: 200 }, frequencyRenderer),
-    column(
-      'Next Delivery',
-      'nextDelivery',
-      { width: 150 },
-      nextDeliveryRenderer,
-    ),
+    column('Next Delivery', 'nextDelivery', { width: 150 }, nextDeliveryRenderer),
     column('Status', 'status', { width: 120 }, statusRenderer),
     // Temporarily removed lead count column
     // column('Performance', 'leadCount', { width: 180 }, performanceRenderer),
-    column(
-      'Actions',
-      'actions',
-      { width: 80, align: 'center' },
-      actionsRenderer,
-    ),
+    column('Actions', 'actions', { width: 80, align: 'center' }, actionsRenderer),
   ];
 
   if (loading) {

@@ -52,19 +52,10 @@ interface TemplateStoreActions {
   setAiMappingLoading: (loading: boolean) => void;
 
   // Template data actions
-  setInitialTemplateData: (
-    templateData: ITemplateResponse,
-    existingTemplate: boolean,
-  ) => void;
-  updateTemplateData: (
-    updatingTemplateData: Partial<ITemplateResponse>,
-  ) => void;
+  setInitialTemplateData: (templateData: ITemplateResponse, existingTemplate: boolean) => void;
+  updateTemplateData: (updatingTemplateData: Partial<ITemplateResponse>) => void;
   updateFields: (fields: ITemplateFieldResponse[]) => void;
-  updateFieldByIndex: (
-    index: number,
-    field: ITemplateFieldResponse,
-    syncFields?: boolean,
-  ) => void;
+  updateFieldByIndex: (index: number, field: ITemplateFieldResponse, syncFields?: boolean) => void;
   resetTemplateDetails: () => void;
   getUpdatedTemplateDetails: () => ITemplateResponse;
   getVisibleTemplateFields: () => ITemplateFieldResponse[];
@@ -82,9 +73,7 @@ interface TemplateStoreActions {
   // Delivery type actions
   setDeliveryType: (type: string) => void;
   setZapierType: (type: string) => void;
-  updateFormFieldMappingOptions: (
-    options: { label: string; value: string }[],
-  ) => void;
+  updateFormFieldMappingOptions: (options: { label: string; value: string }[]) => void;
   updateIntegrationsList: (
     deliveryType: string,
     integrations: { id: string; name: string }[],
@@ -177,10 +166,7 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
 
     // Calculate visibleFieldsCount
     const visibleFieldsCount =
-      templateData.fields?.reduce(
-        (acc, field) => (field.visible ? acc + 1 : acc),
-        0,
-      ) || 0;
+      templateData.fields?.reduce((acc, field) => (field.visible ? acc + 1 : acc), 0) || 0;
 
     // Calculate isSaveDisabled - for existing templates with a name, enable save
     const isSaveDisabled = !templateData?.name;
@@ -197,9 +183,7 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
       visibleFieldsCount,
       isSaveDisabled,
       // For edit mode, skip to field mapping step
-      currentStep: existingTemplate
-        ? TemplateStep.FieldMapping
-        : TemplateStep.Configuration,
+      currentStep: existingTemplate ? TemplateStep.FieldMapping : TemplateStep.Configuration,
     });
   },
 
@@ -264,9 +248,7 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
       !updatingTemplateData.integrationName
     ) {
       const integrations = integrationsList[newData.deliveryType] || [];
-      const integration = integrations.find(
-        (int) => int.id === newData.integrationId,
-      );
+      const integration = integrations.find((int) => int.id === newData.integrationId);
       if (integration?.name) {
         newData.integrationName = integration.name;
       } else {
@@ -292,9 +274,7 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
     let visibleFieldsCount = 0;
     let destinationFieldNames: string[] = [];
     if (newData?.fields?.length) {
-      destinationFieldNames = newData.fields.map((field) =>
-        field.destination?.toLowerCase(),
-      );
+      destinationFieldNames = newData.fields.map((field) => field.destination?.toLowerCase());
       visibleFieldsCount = newData.fields.reduce(
         (acc, field) => (field.visible ? acc + 1 : acc),
         0,
@@ -303,8 +283,7 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
 
     // Calculate isSaveDisabled
     const errors = state.errors;
-    const isSaveDisabled =
-      !newData?.name || errors.infoError || errors.fieldsError;
+    const isSaveDisabled = !newData?.name || errors.infoError || errors.fieldsError;
 
     set({
       updatedTemplateData: newData,
@@ -323,13 +302,8 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
     } as ITemplateResponse;
 
     // Recalculate derived values
-    const destinationFieldNames = fields.map((field) =>
-      field.destination?.toLowerCase(),
-    );
-    const visibleFieldsCount = fields.reduce(
-      (acc, field) => (field.visible ? acc + 1 : acc),
-      0,
-    );
+    const destinationFieldNames = fields.map((field) => field.destination?.toLowerCase());
+    const visibleFieldsCount = fields.reduce((acc, field) => (field.visible ? acc + 1 : acc), 0);
 
     set({
       updatedTemplateData: newData,
@@ -361,9 +335,7 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
 
   resetTemplateDetails: () => {
     const state = get();
-    const cloneTemplateSourceData = cloneDeep(
-      state.sourceTemplateData as ITemplateResponse,
-    );
+    const cloneTemplateSourceData = cloneDeep(state.sourceTemplateData as ITemplateResponse);
 
     set({
       updatedTemplateData: { ...cloneTemplateSourceData },
@@ -379,17 +351,15 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
 
   getUpdatedTemplateDetails: () => {
     const state = get();
-    const fieldsWithUpdatedLengths = state.updatedTemplateData?.fields?.map(
-      (field) => {
-        const min = field?.characters?.minLength ?? -2;
-        const max = field?.characters?.maxLength ?? -1;
-        return {
-          ...field,
-          minLength: min,
-          maxLength: max,
-        };
-      },
-    );
+    const fieldsWithUpdatedLengths = state.updatedTemplateData?.fields?.map((field) => {
+      const min = field?.characters?.minLength ?? -2;
+      const max = field?.characters?.maxLength ?? -1;
+      return {
+        ...field,
+        minLength: min,
+        maxLength: max,
+      };
+    });
 
     return {
       ...state.updatedTemplateData,
@@ -430,9 +400,7 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
 
     // Recalculate isSaveDisabled
     const isSaveDisabled =
-      !state.updatedTemplateData?.name ||
-      newErrors.infoError ||
-      newErrors.fieldsError;
+      !state.updatedTemplateData?.name || newErrors.infoError || newErrors.fieldsError;
 
     set({ errors: newErrors, isSaveDisabled });
   },
@@ -448,9 +416,7 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
     };
 
     const isSaveDisabled =
-      !state.updatedTemplateData?.name ||
-      newErrors.infoError ||
-      newErrors.fieldsError;
+      !state.updatedTemplateData?.name || newErrors.infoError || newErrors.fieldsError;
 
     set({ errors: newErrors, isSaveDisabled });
   },
@@ -458,11 +424,9 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
   updateReservedNames: (reservedNames) => set({ reservedNames }),
 
   // Field drawer actions
-  closeFieldDrawer: () =>
-    set({ isFieldDrawerOpen: false, selectedFieldIndex: -1 }),
+  closeFieldDrawer: () => set({ isFieldDrawerOpen: false, selectedFieldIndex: -1 }),
 
-  selectField: (index) =>
-    set({ selectedFieldIndex: index, isFieldDrawerOpen: true }),
+  selectField: (index) => set({ selectedFieldIndex: index, isFieldDrawerOpen: true }),
 
   // Delivery type actions
   setDeliveryType: (type) => set({ deliveryType: type }),
@@ -480,8 +444,7 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
     });
   },
 
-  updateFormFieldMappingOptions: (options) =>
-    set({ formFieldMappingOptions: options }),
+  updateFormFieldMappingOptions: (options) => set({ formFieldMappingOptions: options }),
 
   updateIntegrationsList: (deliveryType, integrations) => {
     const state = get();
@@ -533,24 +496,14 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
     });
   },
 
-  setShouldReloadDependentData: (value) =>
-    set({ shouldReloadDependentData: value }),
+  setShouldReloadDependentData: (value) => set({ shouldReloadDependentData: value }),
 
   // Format request data
   formatRequestData: (updatedTemplateDataCopy, isUpdating = false) => {
-    const masterProperties = [
-      'name',
-      'description',
-      'deliveryType',
-      'lineItemId',
-    ];
+    const masterProperties = ['name', 'description', 'deliveryType', 'lineItemId'];
 
     if (updatedTemplateDataCopy.deliveryType === 'HubSpot') {
-      masterProperties.push(
-        'integrationId',
-        'integrationName',
-        'deliveryObject',
-      );
+      masterProperties.push('integrationId', 'integrationName', 'deliveryObject');
     }
 
     if (
@@ -578,9 +531,7 @@ export const useTemplateStore = create<TemplateStore>((set, get) => ({
     }
 
     const fields = updatedTemplateDataCopy.fields.map((field) => {
-      const updatedField = updatedTemplateDataCopy.fields.find(
-        (f) => f.name === field.name,
-      );
+      const updatedField = updatedTemplateDataCopy.fields.find((f) => f.name === field.name);
 
       if (!updatedField) {
         return field;

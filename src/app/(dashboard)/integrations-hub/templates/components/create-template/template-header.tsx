@@ -12,13 +12,10 @@ interface ITemplateHeaderProps {
   templateId?: string;
 }
 
-export const TemplateHeader: FC<ITemplateHeaderProps> = ({
-  existingTemplate,
-}) => {
+export const TemplateHeader: FC<ITemplateHeaderProps> = ({ existingTemplate }) => {
   const { currentStep, resetStore, updatedTemplateData } = useTemplateStore();
 
-  const isFieldMappingStep =
-    currentStep === TemplateStep.FieldMapping || existingTemplate;
+  const isFieldMappingStep = currentStep === TemplateStep.FieldMapping || existingTemplate;
   const lineItemName = updatedTemplateData?.lineItemName || '';
 
   const getHeaderText = () => {
@@ -32,7 +29,8 @@ export const TemplateHeader: FC<ITemplateHeaderProps> = ({
     <Flex
       justify='space-between'
       align='center'
-      style={{ padding: '0.5rem 1rem', paddingBottom: '0' }}>
+      style={{ padding: '0.5rem 1rem', paddingBottom: '0' }}
+    >
       <Flex gap='0.5rem' align='center'>
         <Hideable show={!isFieldMappingStep}>
           <Link to='/integrations-hub/templates' onClick={resetStore}>
@@ -46,7 +44,8 @@ export const TemplateHeader: FC<ITemplateHeaderProps> = ({
                 width: '1.5rem',
                 cursor: 'pointer',
                 paddingTop: '0.25rem',
-              }}>
+              }}
+            >
               <ArrowLeft />
             </Flex>
           </Link>

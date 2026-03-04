@@ -17,12 +17,8 @@ export const MarketersItemsDropdown: FC<IMarketersDropdownProps> = ({
   handleSelectionChange,
 }) => {
   const [selectedValue, setSelectedValue] = useState(null);
-  const filterValues = useFilterDashboardStore(
-    (state: FilterState) => state.filterValues,
-  );
-  const setFilterValues = useFilterDashboardStore(
-    (state: FilterState) => state.setFilterValues,
-  );
+  const filterValues = useFilterDashboardStore((state: FilterState) => state.filterValues);
+  const setFilterValues = useFilterDashboardStore((state: FilterState) => state.setFilterValues);
   const handleComaparisonSelection = (data: any) => {
     if (data) {
       handleSelectionChange &&

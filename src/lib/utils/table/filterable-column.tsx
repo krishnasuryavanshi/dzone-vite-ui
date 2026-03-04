@@ -29,11 +29,7 @@ export function getFilterableColumn(options: IFilterMetadata) {
       />
     ),
     filterDropdown: (props: FilterDropdownProps) => (
-      <FilterDropdown
-        options={filterOptions as any}
-        {...props}
-        disabled={options?.isDisabled}
-      />
+      <FilterDropdown options={filterOptions as any} {...props} disabled={options?.isDisabled} />
     ),
   };
 

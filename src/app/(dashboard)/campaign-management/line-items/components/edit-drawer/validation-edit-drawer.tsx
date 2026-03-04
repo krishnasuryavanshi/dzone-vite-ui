@@ -46,8 +46,7 @@ export const ValidationEditDrawer: React.FC<ValidationEditDrawerProps> = ({
   setEditedData,
   children,
 }) => {
-  const { getValidationSettingRuleSections, activeRule } =
-    useValidationSettingStore();
+  const { getValidationSettingRuleSections, activeRule } = useValidationSettingStore();
   const [ruleSections, setRuleSections] = useState<Record<string, any>[]>([]);
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -66,9 +65,7 @@ export const ValidationEditDrawer: React.FC<ValidationEditDrawerProps> = ({
     }
   }, [activeRule, getValidationSettingRuleSections]);
 
-  const handleSelectionChange = (
-    fileData: Array<{ id: string; isDisabled: boolean }>,
-  ) => {
+  const handleSelectionChange = (fileData: Array<{ id: string; isDisabled: boolean }>) => {
     const updatedFiles = (editedData.files || []).map((file: FileItemType) => {
       const selectedItem = fileData.find((item) => item.id === file.id);
       if (selectedItem) {
@@ -116,9 +113,7 @@ export const ValidationEditDrawer: React.FC<ValidationEditDrawerProps> = ({
             onSave={onSave}
             allowUpload={editConfig.props?.allowUpload ?? true}
             allowDelete={editConfig.props?.allowDelete ?? true}
-            acceptedFileTypes={
-              editConfig.props?.acceptedFileTypes || ['.csv', '.xlsx', '.txt']
-            }
+            acceptedFileTypes={editConfig.props?.acceptedFileTypes || ['.csv', '.xlsx', '.txt']}
             onSelectionChange={handleSelectionChange}
             fileMetadataTypeName={editConfig.fileMetaTypeName}
             {...(editConfig.props || {})}
@@ -129,9 +124,7 @@ export const ValidationEditDrawer: React.FC<ValidationEditDrawerProps> = ({
         return (
           <ChipsEdit
             values={editedData.selectedValues || []}
-            onChange={(chips) =>
-              setEditedData({ ...editedData, selectedValues: chips })
-            }
+            onChange={(chips) => setEditedData({ ...editedData, selectedValues: chips })}
             label={title}
             placeholder={editConfig.props?.placeholder || 'Add New'}
           />
@@ -140,9 +133,7 @@ export const ValidationEditDrawer: React.FC<ValidationEditDrawerProps> = ({
         return (
           <ListSelectionEdit
             values={editedData.selectedValues || []}
-            onChange={(newValues) =>
-              setEditedData({ ...editedData, selectedValues: newValues })
-            }
+            onChange={(newValues) => setEditedData({ ...editedData, selectedValues: newValues })}
             predefinedOptions={editConfig.props?.predefinedOptions || []}
             showSearch={editConfig.props?.showSearch}
             allowCustomRange={editConfig.props?.allowCustomRange}
@@ -168,9 +159,7 @@ export const ValidationEditDrawer: React.FC<ValidationEditDrawerProps> = ({
               <ValidationSettingRuleSection
                 name={section.name}
                 key={index}
-                noBorder={
-                  section.name === 'LOOPBACK_PERIOD' || section.noBorder
-                }
+                noBorder={section.name === 'LOOPBACK_PERIOD' || section.noBorder}
               />
             )}
           />
@@ -194,10 +183,7 @@ export const ValidationEditDrawer: React.FC<ValidationEditDrawerProps> = ({
         },
       }}
       footer={
-        <Flex
-          gap='0.75rem'
-          justify='flex-end'
-          style={{ padding: '1rem 1.5rem' }}>
+        <Flex gap='0.75rem' justify='flex-end' style={{ padding: '1rem 1.5rem' }}>
           <Button onClick={onClose} disabled={isLoading}>
             Cancel
           </Button>
@@ -205,7 +191,8 @@ export const ValidationEditDrawer: React.FC<ValidationEditDrawerProps> = ({
             Save
           </Button>
         </Flex>
-      }>
+      }
+    >
       <DzBox>{renderEditor()}</DzBox>
     </Drawer>
   );

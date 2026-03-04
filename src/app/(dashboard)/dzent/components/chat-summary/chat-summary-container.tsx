@@ -15,17 +15,10 @@ export const ChatSummaryContainer = () => {
   }
 
   return (
-    <Flex
-      vertical
-      gap={'0.5rem'}
-      style={{ height: '100%' }}
-      className='chat-summary-container'>
+    <Flex vertical gap={'0.5rem'} style={{ height: '100%' }} className='chat-summary-container'>
       <SummaryHeader />
       <Hideable show={!!chatSummary}>
-        <Flex
-          vertical
-          gap={'0.5rem'}
-          style={{ overflowY: 'auto', height: 'calc(100% - 2rem)' }}>
+        <Flex vertical gap={'0.5rem'} style={{ overflowY: 'auto', height: 'calc(100% - 2rem)' }}>
           <Hideable show={Object.keys(chatSummary?.campaign || {}).length > 0}>
             <CampaignSummary campaign={chatSummary?.campaign || {}} />
           </Hideable>

@@ -21,33 +21,25 @@ export const setupInitialStates = (
 ) => {
   switch (step) {
     case LineItemSteps.Goals:
-      setupTotalCplFieldInitialState(
-        form,
-        patchFormValues,
-        updateFormStepDetails,
-      );
+      setupTotalCplFieldInitialState(form, patchFormValues, updateFormStepDetails);
       break;
     case LineItemSteps.CustomQuestions:
-      setupCustomQuestionsFieldInitialState(
-        form,
-        patchFormValues,
-        updateFormStepDetails,
-      );
+      setupCustomQuestionsFieldInitialState(form, patchFormValues, updateFormStepDetails);
 
       break;
     case LineItemSteps.Targeting:
       // strip out the job title upload fields, as its not depend on checkbox
-      TargetingUploadFields.filter(
-        (field) => field !== LineItemFields.JobTitleListUpload,
-      ).forEach((field) => {
-        setupUploadField(
-          form,
-          patchFormValues,
-          updateFormStepDetails,
-          field,
-          showSaveAndCloseButtonIfFileChanged,
-        );
-      });
+      TargetingUploadFields.filter((field) => field !== LineItemFields.JobTitleListUpload).forEach(
+        (field) => {
+          setupUploadField(
+            form,
+            patchFormValues,
+            updateFormStepDetails,
+            field,
+            showSaveAndCloseButtonIfFileChanged,
+          );
+        },
+      );
 
       setUpJobTitlesCheck(
         form,

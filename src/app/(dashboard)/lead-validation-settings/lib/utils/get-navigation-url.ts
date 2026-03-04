@@ -5,10 +5,7 @@
  * @param redirectTo - Optional redirect type from query parameter ('view' | 'edit')
  * @returns The URL to redirect to
  */
-export const getNavigationUrl = (
-  lineItemId?: string | null,
-  redirectTo?: string,
-): string => {
+export const getNavigationUrl = (lineItemId?: string | null, redirectTo?: string): string => {
   if (lineItemId) {
     if (redirectTo === 'view') {
       return `/campaign-management/line-items/${lineItemId}`;

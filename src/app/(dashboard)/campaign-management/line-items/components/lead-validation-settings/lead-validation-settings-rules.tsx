@@ -10,9 +10,7 @@ type LeadValidationSettingsRulesProps = {
   isEditing?: boolean;
 };
 
-export const LeadValidationSettingsRules = ({
-  isEditing,
-}: LeadValidationSettingsRulesProps) => {
+export const LeadValidationSettingsRules = ({ isEditing }: LeadValidationSettingsRulesProps) => {
   const { leadValidationSettingConfig } = useValidationSettingStore();
 
   const renderValidationRule = (rule: string) => {
@@ -23,11 +21,9 @@ export const LeadValidationSettingsRules = ({
           boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25) inset',
           marginBlock: '0.5rem',
           borderRadius: '8px',
-        }}>
-        <LeadValidationSettingRuleContainer
-          ruleName={rule}
-          isEditing={isEditing}
-        />
+        }}
+      >
+        <LeadValidationSettingRuleContainer ruleName={rule} isEditing={isEditing} />
       </DzBox>
     );
   };
@@ -49,8 +45,8 @@ export const LeadValidationSettingsRules = ({
 
   const allRules = Object.keys(leadValidationSettingConfig) || [];
 
-  const hasEnabledTargetingAttributes =
-    leadValidationSettingConfig.TARGETING?.sections?.some((section: any) =>
+  const hasEnabledTargetingAttributes = leadValidationSettingConfig.TARGETING?.sections?.some(
+    (section: any) =>
       section.attributes?.some((attribute: any) => {
         const { value } = attribute;
         // Case 1: Value is a simple truthy value (like true, a number, or a non-empty string)
@@ -64,22 +60,15 @@ export const LeadValidationSettingsRules = ({
         }
 
         // Case 3: Value is an object with type and non-empty data array (as you suggested)
-        if (
-          value &&
-          value.type &&
-          Array.isArray(value.data) &&
-          value.data.length > 0
-        ) {
+        if (value && value.type && Array.isArray(value.data) && value.data.length > 0) {
           return true;
         }
 
         return false;
       }),
-    );
-
-  const targetingRulesToRender = allRules.filter((rule) =>
-    targetingRules.includes(rule),
   );
+
+  const targetingRulesToRender = allRules.filter((rule) => targetingRules.includes(rule));
   const validationRulesToRender = allRules.filter(
     (rule) => validationRules.includes(rule) || !targetingRules.includes(rule),
   );
@@ -95,13 +84,11 @@ export const LeadValidationSettingsRules = ({
               fontSize: '1rem',
               marginBottom: '0.5rem',
               display: 'block',
-            }}>
+            }}
+          >
             Targeting
           </Text>
-          <MapFunction
-            items={targetingRulesToRender}
-            renderItem={renderValidationRule}
-          />
+          <MapFunction items={targetingRulesToRender} renderItem={renderValidationRule} />
         </DzBox>
       )}
 
@@ -114,13 +101,11 @@ export const LeadValidationSettingsRules = ({
               fontSize: '1rem',
               marginBottom: '0.5rem',
               display: 'block',
-            }}>
+            }}
+          >
             Validations
           </Text>
-          <MapFunction
-            items={validationRulesToRender}
-            renderItem={renderValidationRule}
-          />
+          <MapFunction items={validationRulesToRender} renderItem={renderValidationRule} />
         </DzBox>
       )}
     </Flex>

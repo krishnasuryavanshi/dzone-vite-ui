@@ -4,11 +4,7 @@ import { Checkbox } from '@/uicomponents/form/input';
 import { Tag } from '@/uicomponents';
 import React, { FC, useEffect, useState } from 'react';
 import { IPermission } from '../../../lib/types';
-import {
-  useDependanciesStore,
-  useEditStore,
-  useSelectedPermissionsStore,
-} from '../../../stores';
+import { useDependanciesStore, useEditStore, useSelectedPermissionsStore } from '../../../stores';
 import './permission-checkbox-container.scss';
 import { showNotification } from '@/services/notification';
 
@@ -17,20 +13,13 @@ interface IPermissionCheckboxProps {
   permission: IPermission;
 }
 
-export const PermissionCheckbox: FC<IPermissionCheckboxProps> = ({
-  actionId,
-  permission,
-}) => {
-  const { selectedPermissions, setSelectedPermissions } =
-    useSelectedPermissionsStore();
+export const PermissionCheckbox: FC<IPermissionCheckboxProps> = ({ actionId, permission }) => {
+  const { selectedPermissions, setSelectedPermissions } = useSelectedPermissionsStore();
   const { dependantPermissions } = useDependanciesStore();
   const { isEditAllowed, isEditing } = useEditStore();
-  const [isParentPermissionNotChecked, setIsParentPermissionNotChecked] =
-    useState(true);
-  const [
-    isParentActionPermissionNotChecked,
-    setIsParentActionPermissionNotChecked,
-  ] = useState(false);
+  const [isParentPermissionNotChecked, setIsParentPermissionNotChecked] = useState(true);
+  const [isParentActionPermissionNotChecked, setIsParentActionPermissionNotChecked] =
+    useState(false);
 
   useEffect(() => {
     checkIfParentPermissionChecked();
@@ -106,7 +95,8 @@ export const PermissionCheckbox: FC<IPermissionCheckboxProps> = ({
         isParentActionPermissionNotChecked // Disable checkbox if parent action permission exists but not checked
       }
       className='dz-permission-checkbox'
-      onChange={(event) => handleCheckboxToggle(event, permission.id)}>
+      onChange={(event) => handleCheckboxToggle(event, permission.id)}
+    >
       <Translate i18nKey={permission.label} />
       <Hideable show={!!permission.internal}>
         <Tag color='green' bordered={false} style={{ marginLeft: '0.5rem' }}>

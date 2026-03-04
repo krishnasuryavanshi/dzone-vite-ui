@@ -7,10 +7,7 @@ import { fileDownload } from '@/services/file-download';
 import { Space } from '@/uicomponents/layout';
 
 interface FileFieldProps {
-  fileIds:
-    | string
-    | string[]
-    | { value: string[] | string; isInclusion: boolean };
+  fileIds: string | string[] | { value: string[] | string; isInclusion: boolean };
   fileMap: Record<string, any>;
 }
 
@@ -50,7 +47,8 @@ export const FileField: FC<FileFieldProps> = ({ fileIds, fileMap }) => {
               alignItems: 'center',
               justifyContent: 'center',
               height: '100%',
-            }}>
+            }}
+          >
             <Button
               style={{
                 all: 'unset',
@@ -62,7 +60,8 @@ export const FileField: FC<FileFieldProps> = ({ fileIds, fileMap }) => {
                 height: '100%',
                 padding: '0 4px',
               }}
-              onClick={() => file && downloadFile(file.id)}>
+              onClick={() => file && downloadFile(file.id)}
+            >
               <DownloadIcon />
             </Button>
           </Space>

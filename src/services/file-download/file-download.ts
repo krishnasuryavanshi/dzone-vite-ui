@@ -32,8 +32,7 @@ export const fileDownload = async (fileId: string) => {
       };
     }
   } catch (error: any) {
-    const errorMsg =
-      error?.message || 'An error occurred while downloading the file';
+    const errorMsg = error?.message || 'An error occurred while downloading the file';
 
     return {
       success: false,

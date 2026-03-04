@@ -7,10 +7,7 @@ interface IOrderNumberProps {
   handleOrderChange: (order: number) => void;
 }
 
-export const OrderNumber: FC<IOrderNumberProps> = ({
-  order,
-  handleOrderChange,
-}) => {
+export const OrderNumber: FC<IOrderNumberProps> = ({ order, handleOrderChange }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [newOrder, setNewOrder] = useState(order);
 
@@ -48,9 +45,7 @@ export const OrderNumber: FC<IOrderNumberProps> = ({
   }
 
   return (
-    <Text
-      style={{ cursor: 'pointer' }}
-      onDoubleClick={() => setIsEditing(true)}>
+    <Text style={{ cursor: 'pointer' }} onDoubleClick={() => setIsEditing(true)}>
       {order}
     </Text>
   );

@@ -2,11 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/lib/query';
 import { fetchOrganizationsByType } from '../services';
 
-export function useOrganizationsByTypeQuery(
-  type: string,
-  userId?: string,
-  enabled = true,
-) {
+export function useOrganizationsByTypeQuery(type: string, userId?: string, enabled = true) {
   return useQuery({
     queryKey: queryKeys.organizations.byType(type, userId),
     queryFn: () => fetchOrganizationsByType(type, userId),

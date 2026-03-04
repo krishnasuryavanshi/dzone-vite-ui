@@ -62,9 +62,7 @@ export const DzTooltip: FC<IDzTooltipProps> = ({
 
   return (
     <DzBox style={wrapperStyle}>
-      <Flex
-        gap={'0.5rem'}
-        align="center">
+      <Flex gap={'0.5rem'} align='center'>
         <div style={indicatorStyle} />
         <Text style={labelStyle}>
           {name}:

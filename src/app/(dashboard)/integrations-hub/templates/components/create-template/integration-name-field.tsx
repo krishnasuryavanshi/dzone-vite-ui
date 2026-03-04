@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import { FormItem, FormInstance } from '@/uicomponents/form';
 import { Select } from '@/uicomponents/form/input';
@@ -61,7 +60,8 @@ export const IntegrationNameField: FC<IntegrationNameFieldProps> = ({
               width: '100%',
               position: 'relative',
               columnGap: '0',
-            }}>
+            }}
+          >
             <Text>
               <Translate i18nKey='pages.templates.label.integrationName' />
             </Text>
@@ -78,7 +78,8 @@ export const IntegrationNameField: FC<IntegrationNameFieldProps> = ({
             )}
           </Space>
         }
-        rules={[{ required: true, message: REQUIRED_FIELD }]}>
+        rules={[{ required: true, message: REQUIRED_FIELD }]}
+      >
         <Select
           placeholder='Select Integration Name'
           style={{ width: '100%' }}
@@ -86,22 +87,15 @@ export const IntegrationNameField: FC<IntegrationNameFieldProps> = ({
           onChange={(value) => {
             const isEditMode = Boolean(templateId);
             const existingIntegrationId = templateData?.integrationId;
-            const isRestoringExistingIntegration =
-              isEditMode && value === existingIntegrationId;
+            const isRestoringExistingIntegration = isEditMode && value === existingIntegrationId;
             const isUserChange = !isInitializing;
 
             // Get integration name from selected option
-            const selectedOption = integrationOptions.find(
-              (opt) => opt.value === value,
-            );
+            const selectedOption = integrationOptions.find((opt) => opt.value === value);
             const integrationName = selectedOption?.label || '';
 
             // Preserve deliveryObject if we're restoring the same integration during initialization
-            if (
-              isRestoringExistingIntegration &&
-              templateData?.deliveryObject &&
-              !isUserChange
-            ) {
+            if (isRestoringExistingIntegration && templateData?.deliveryObject && !isUserChange) {
               // Set form values including the delivery object ID
               form.setFieldsValue({
                 integrationId: value,

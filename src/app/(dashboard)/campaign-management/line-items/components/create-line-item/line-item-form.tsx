@@ -8,27 +8,12 @@ import { Form } from '@/uicomponents/form';
 import useForm from 'antd/lib/form/hooks/useForm';
 import { cloneDeep, debounce } from 'lodash';
 import { useRouter } from '@/lib/hooks/use-router';
-import {
-  FC,
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from 'react';
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useFormStep } from '../../../campaigns/lib/hooks';
-import {
-  getFormFields,
-  getUsersOptions,
-  setupInitialValues,
-} from '../../../campaigns/lib/utils';
+import { getFormFields, getUsersOptions, setupInitialValues } from '../../../campaigns/lib/utils';
 import { CreateFormContent } from '../../../components';
 import { useUpdateQueryState } from '../../../lib/hooks/use-update-query-state';
-import {
-  extractFieldsStepwise,
-  extractRequiredFields,
-  isObjectModified,
-} from '../../../lib/utils';
+import { extractFieldsStepwise, extractRequiredFields, isObjectModified } from '../../../lib/utils';
 import { LineItemFormConfig } from '../../config/forms';
 import { LineItemFields, LineItemSections } from '../../lib/enums';
 import { ICustomRangeDetails, ILineItem } from '../../lib/types';
@@ -37,15 +22,8 @@ import {
   getFormDetails,
   updateFormCollaboratorsValues,
 } from '../../lib/utils';
-import {
-  attachFieldHandlers,
-  isIntegrateConvertrRequired,
-} from '../../lib/utils/attach-handlers';
-import {
-  handleCancel,
-  handleNext,
-  handleSave,
-} from '../../lib/utils/line-item-action-handlers';
+import { attachFieldHandlers, isIntegrateConvertrRequired } from '../../lib/utils/attach-handlers';
+import { handleCancel, handleNext, handleSave } from '../../lib/utils/line-item-action-handlers';
 import { setupInitialStates } from '../../lib/utils/setup-initial-states';
 import { fetchAllCampaigns } from '../../../campaigns/services';
 import { usePrefilledListsByStepQuery } from '../../hooks/use-prefilled-lists-by-step-query';
@@ -86,18 +64,15 @@ export const LineItemForm: FC<ILineItemForm> = ({
     isFormStepInitialized,
     clearFormStepDetailsInfo,
   } = useFormStep();
-  const [showSaveAndCloseButton, setShowSaveAndCloseButton] =
-    useState<boolean>(false);
+  const [showSaveAndCloseButton, setShowSaveAndCloseButton] = useState<boolean>(false);
   const [listsOverrides, setListsOverrides] = useState<Record<string, any[]>>({});
   const [collaborativeCampaignData, setCollaborativeCampaignData] = useState<
     Record<string, any | any[]>
   >({});
-  const [existingLineItemDetails, setExistingLineItemDetails] =
-    useState<Record<string, any>>();
+  const [existingLineItemDetails, setExistingLineItemDetails] = useState<Record<string, any>>();
   const [form] = useForm();
   const [requiredFormFields, setrequiredFormFields] = useState<string[]>([]);
-  const { updateTargetObject, clear: clearUnsavedData } =
-    useUnsavedDataStore();
+  const { updateTargetObject, clear: clearUnsavedData } = useUnsavedDataStore();
 
   const isTargetCplCreateRestricted = useRestrictedAccess(
     RestrictedAccessKeys.CplFieldInLineItemCreate,
@@ -116,9 +91,7 @@ export const LineItemForm: FC<ILineItemForm> = ({
   );
 
   const setupExistingLineItemDetails = () => {
-    const { id, finishedStepId } = getFormDataFromCookie(
-      StorageKey.LineItemForm,
-    );
+    const { id, finishedStepId } = getFormDataFromCookie(StorageKey.LineItemForm);
     setExistingLineItemDetails({ id, finishedStepId });
   };
 
@@ -140,11 +113,7 @@ export const LineItemForm: FC<ILineItemForm> = ({
           Object.keys(lineItemDetails?.collaborators)?.length === 0))
     ) {
       const data = getUsersOptions(collaborativeCampaignData?.collaborators);
-      updateFormCollaboratorsValues(
-        data,
-        patchFormValues,
-        updateFormStepDetails,
-      );
+      updateFormCollaboratorsValues(data, patchFormValues, updateFormStepDetails);
     }
   }, [collaborativeCampaignData, lineItemDetails]);
 
@@ -202,9 +171,7 @@ export const LineItemForm: FC<ILineItemForm> = ({
           tenantCode: selectedMarketer.tenantCode,
         });
 
-        const campaigns = await fetchAndFilterCampaigns(
-          selectedMarketer.tenantCode,
-        );
+        const campaigns = await fetchAndFilterCampaigns(selectedMarketer.tenantCode);
 
         const campaignIdFromData = campaignData?.id || campaignUuid;
 
@@ -223,21 +190,14 @@ export const LineItemForm: FC<ILineItemForm> = ({
         }
       }
     },
-    [
-      lists?.marketers,
-      patchFormValues,
-      fetchAndFilterCampaigns,
-      campaignData,
-      campaignUuid,
-    ],
+    [lists?.marketers, patchFormValues, fetchAndFilterCampaigns, campaignData, campaignUuid],
   );
 
   useEffect(() => {
     if (!lists?.marketers) return;
 
     const marketerCode =
-      form.getFieldValue(LineItemFields.MarketerCode) ||
-      (tenantCode && tenantCode[0]);
+      form.getFieldValue(LineItemFields.MarketerCode) || (tenantCode && tenantCode[0]);
     handleMarketerSelection(marketerCode);
   }, [lists?.marketers, isDzoneUser, tenantCode, campaignData]);
 
@@ -349,40 +309,24 @@ export const LineItemForm: FC<ILineItemForm> = ({
 
   const disableFieldSelection = (campaignData?: ICampaign) => {
     if (isEditing) {
-      updateFormStepDetails(
-        LineItemSections.LineItemDetails,
-        LineItemFields.LineItemIdNumber,
-        {
-          disabled: true,
-          hidden: false,
-        },
-      );
-      updateFormStepDetails(
-        LineItemSections.LineItemDetails,
-        LineItemFields.Status,
-        {
-          disabled: true,
-          hidden: false,
-        },
-      );
-      updateFormStepDetails(
-        LineItemSections.CampaignDetails,
-        LineItemFields.CampaignId,
-        {
-          disabled: true,
-          hidden: false,
-        },
-      );
+      updateFormStepDetails(LineItemSections.LineItemDetails, LineItemFields.LineItemIdNumber, {
+        disabled: true,
+        hidden: false,
+      });
+      updateFormStepDetails(LineItemSections.LineItemDetails, LineItemFields.Status, {
+        disabled: true,
+        hidden: false,
+      });
+      updateFormStepDetails(LineItemSections.CampaignDetails, LineItemFields.CampaignId, {
+        disabled: true,
+        hidden: false,
+      });
     }
     if (campaignData && Object.keys(campaignData).length > 0) {
-      updateFormStepDetails(
-        LineItemSections.CampaignDetails,
-        LineItemFields.CampaignId,
-        {
-          disabled: true,
-          hidden: false,
-        },
-      );
+      updateFormStepDetails(LineItemSections.CampaignDetails, LineItemFields.CampaignId, {
+        disabled: true,
+        hidden: false,
+      });
       patchFormValues({
         marketerCode: campaignData?.tenantCode,
         tenantCode: campaignData?.tenantCode,
@@ -390,23 +334,15 @@ export const LineItemForm: FC<ILineItemForm> = ({
       });
     }
     if (!isDzoneUser || (isDzoneUser && campaignData?.campaignId)) {
-      updateFormStepDetails(
-        LineItemSections.MarketerDetails,
-        LineItemFields.MarketerCode,
-        {
-          disabled: true,
-          hidden: false,
-        },
-      );
+      updateFormStepDetails(LineItemSections.MarketerDetails, LineItemFields.MarketerCode, {
+        disabled: true,
+        hidden: false,
+      });
     } else {
-      updateFormStepDetails(
-        LineItemSections.MarketerDetails,
-        LineItemFields.MarketerCode,
-        {
-          disabled: false,
-          hidden: false,
-        },
-      );
+      updateFormStepDetails(LineItemSections.MarketerDetails, LineItemFields.MarketerCode, {
+        disabled: false,
+        hidden: false,
+      });
     }
   };
 
@@ -436,8 +372,7 @@ export const LineItemForm: FC<ILineItemForm> = ({
       handleMarketerSelection(marketerCode);
     }
     const currentStepData = sanitizeData(
-      getCurrentLineItemStepTargetObject(step, cloneDeep(currentFormData)) ||
-        {},
+      getCurrentLineItemStepTargetObject(step, cloneDeep(currentFormData)) || {},
     );
     updateTargetObject(currentStepData);
     if (existingLineItemDetails?.id) {
@@ -474,8 +409,7 @@ export const LineItemForm: FC<ILineItemForm> = ({
         });
 
         const shouldShowSaveAndCloseButton =
-          hasChanged ||
-          (hasNonRequiredFieldDeletions && !hasRequiredFieldDeletions);
+          hasChanged || (hasNonRequiredFieldDeletions && !hasRequiredFieldDeletions);
         if (hasRequiredFieldDeletions) {
           setShowSaveAndCloseButton(false);
         } else {
@@ -513,7 +447,8 @@ export const LineItemForm: FC<ILineItemForm> = ({
       className='dz-form'
       {...formStepDetails?.meta}
       form={form}
-      onValuesChange={debouncedFormValueChangeHandler}>
+      onValuesChange={debouncedFormValueChangeHandler}
+    >
       <CreateFormContent
         stepFields={formStepDetails}
         lists={lists}

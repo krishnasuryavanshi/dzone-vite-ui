@@ -23,23 +23,19 @@ const lineItemsRegex = /^\/campaign-management\/line-items$/;
 const lineItemDetailRegex = /^\/campaign-management\/line-items\/[^\/]+$/;
 
 const integrationDetailRegex = /^\/integrations-hub\/integrations\/[^\/]+$/;
-const createLineItemRegex =
-  /^\/campaign-management\/line-items(\/[^\/]+)?\/create$/; // /^\/campaign-management\/line-items\/create$/;
+const createLineItemRegex = /^\/campaign-management\/line-items(\/[^\/]+)?\/create$/; // /^\/campaign-management\/line-items\/create$/;
 const updateLineItemRegex = /^\/campaign-management\/line-items\/[^\/]+\/edit$/;
 
-const batchLeadsRegex =
-  /^\/campaign-management\/line-items\/[^\/]+\/batches\/[^\/]+\/leads$/;
+const batchLeadsRegex = /^\/campaign-management\/line-items\/[^\/]+\/batches\/[^\/]+\/leads$/;
 const lineItemLeadsRegex = /^\/campaign-management\/line-items\/[^\/]+\/leads$/;
-const lineItemDeliveryLogsRegex =
-  /^\/campaign-management\/line-items\/[^\/]+\/delivery-logs$/;
+const lineItemDeliveryLogsRegex = /^\/campaign-management\/line-items\/[^\/]+\/delivery-logs$/;
 
 const lineItemsLeadValidationSettingsUpdate =
   /^\/lead-validation-settings\/line-items\/[^\/]+\/settings\/[^\/]+$/;
 const tenantsLeadValidationSettingsUpdate =
   /^\/lead-validation-settings\/organizations\/[^\/]+\/settings\/[^\/]+$/;
 
-const deliveryTemplateUpdate =
-  /^\/integrations-hub\/templates\/[^\/]+\/update$/;
+const deliveryTemplateUpdate = /^\/integrations-hub\/templates\/[^\/]+\/update$/;
 
 const rolesRegexp = /^\/ums\/roles\/[^\/]+$/;
 const usersRegexp = /^\/ums\/users\/[^\/]+$/;
@@ -52,14 +48,10 @@ type PageType = {
 };
 
 export const config: Record<string, PageType[]> = {
-  '/organizations-dashboard': [
-    { url: '/organizations-dashboard', action: 'Organizations.VIEW' },
-  ],
+  '/organizations-dashboard': [{ url: '/organizations-dashboard', action: 'Organizations.VIEW' }],
   '/dashboard': [{ url: '/dashboard', action: 'Dashboard.VIEW' }],
   '/dzent': [{ url: '/dzent', action: 'Dzent.VIEW' }],
-  '/dz-one-ai-coworker': [
-    { url: '/dz-one-ai-coworker', action: 'Dzent.VIEW AI COWORKER' },
-  ],
+  '/dz-one-ai-coworker': [{ url: '/dz-one-ai-coworker', action: 'Dzent.VIEW AI COWORKER' }],
   '/campaign-management': [
     { url: '/campaign-management/campaigns', action: 'Campaign.VIEW' },
     {

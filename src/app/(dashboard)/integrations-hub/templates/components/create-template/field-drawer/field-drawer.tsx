@@ -6,17 +6,12 @@ import { Drawer } from '@/uicomponents/drawers';
 import { FormInstance } from '@/uicomponents/form';
 import { Flex, Space } from '@/uicomponents/layout';
 import { FC } from 'react';
-import {
-  ITemplateFieldResponse,
-} from '../../../lib/types';
+import { ITemplateFieldResponse } from '../../../lib/types';
 import { useTemplateStore } from '../../../stores';
 import { FieldForm } from './field-form';
 import { Footer } from './footer';
 import { Navigation } from './navigation';
-import {
-  useDataTypesQuery,
-  useDataMapperFileUploadMetadataQuery,
-} from '../../../hooks';
+import { useDataTypesQuery, useDataMapperFileUploadMetadataQuery } from '../../../hooks';
 
 interface IFieldDrawerProps {
   form: FormInstance<any>;
@@ -47,10 +42,10 @@ export const FieldDrawer: FC<IFieldDrawerProps> = ({
   const { data: dataTypesResponse } = useDataTypesQuery(isFieldDrawerOpen);
   const dataTypePicklist = dataTypesResponse?.data ?? [];
 
-  const { data: metadataResponse } =
-    useDataMapperFileUploadMetadataQuery(isFieldDrawerOpen);
-  const mapperFileUploadMetadata =
-    metadataResponse?.data?.file?.types?.length ? metadataResponse.data : undefined;
+  const { data: metadataResponse } = useDataMapperFileUploadMetadataQuery(isFieldDrawerOpen);
+  const mapperFileUploadMetadata = metadataResponse?.data?.file?.types?.length
+    ? metadataResponse.data
+    : undefined;
 
   const handleDrawerClose = () => {
     closeFieldDrawer();
@@ -84,7 +79,8 @@ export const FieldDrawer: FC<IFieldDrawerProps> = ({
         <Space style={{ maxHeight: '2rem', height: '2rem' }}>
           <Footer getCurrentFieldData={getCurrentFieldData} />
         </Space>
-      }>
+      }
+    >
       <DzBox style={{ paddingLeft: '2rem' }}>
         <FieldForm
           form={form}

@@ -8,24 +8,13 @@ interface ICollaboratorNameProps {
   label?: string;
 }
 
-export const CollaboratorName: FC<ICollaboratorNameProps> = ({
-  collaborator,
-  label,
-}) => {
+export const CollaboratorName: FC<ICollaboratorNameProps> = ({ collaborator, label }) => {
   if (!isArray(collaborator)) {
-    return (
-      <>{`${collaborator?.firstName || ''} ${collaborator?.lastName || ''}`}</>
-    );
+    return <>{`${collaborator?.firstName || ''} ${collaborator?.lastName || ''}`}</>;
   } else {
     const collaboratorNames = collaborator.map((collaborator) => {
       return `${collaborator?.firstName || ''} ${collaborator?.lastName || ''}`;
     });
-    return (
-      <DrawerListView
-        value={collaboratorNames}
-        label={label as string}
-        lines={1}
-      />
-    );
+    return <DrawerListView value={collaboratorNames} label={label as string} lines={1} />;
   }
 };

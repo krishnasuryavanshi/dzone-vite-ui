@@ -9,9 +9,7 @@ interface IExecutiveIconRendererProps {
   isPositive: boolean | null;
 }
 
-const ExecutiveIconRenderer: FC<IExecutiveIconRendererProps> = ({
-  isPositive,
-}) => {
+const ExecutiveIconRenderer: FC<IExecutiveIconRendererProps> = ({ isPositive }) => {
   if (isPositive === true) {
     return <PositiveReportIcon />;
   } else if (isPositive === false) {

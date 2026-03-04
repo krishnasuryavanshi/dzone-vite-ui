@@ -93,7 +93,8 @@ export const SearchDropdown: FC<ISearchDropdownProps> = ({
       onKeyDown={(e) => e.stopPropagation()}
       onClick={(e) => e.stopPropagation()} // Prevent closing when clicking inside
       vertical
-      gap={'1rem'}>
+      gap={'1rem'}
+    >
       <DzBox>
         <AntdInput
           ref={inputRef}

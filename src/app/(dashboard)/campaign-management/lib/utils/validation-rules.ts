@@ -5,11 +5,7 @@ interface Rule {
   specialCharactersAllowed?: boolean;
   leadingTrailingSpaceAllowed?: boolean;
 }
-export function validationRules(
-  rules: Rule[],
-  key: string,
-  transKey: string,
-): any[] {
+export function validationRules(rules: Rule[], key: string, transKey: string): any[] {
   return rules?.map((rule: any) => {
     let ruleOb = { ...rule };
     if (ruleOb.hasOwnProperty('required')) {

@@ -1,4 +1,3 @@
-
 import { Collapse } from '@/uicomponents';
 import { CheckCircleOutlined, LoadingOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
@@ -13,11 +12,7 @@ interface ProgressBlockProps {
   isActive: boolean;
 }
 
-export const ProgressBlock: FC<ProgressBlockProps> = ({
-  steps,
-  duration,
-  isActive,
-}) => {
+export const ProgressBlock: FC<ProgressBlockProps> = ({ steps, duration, isActive }) => {
   const [elapsed, setElapsed] = useState(0);
   const [isExpanded, setIsExpanded] = useState(true);
 
@@ -37,9 +32,7 @@ export const ProgressBlock: FC<ProgressBlockProps> = ({
   const displayTime = isActive ? elapsed : duration || 0;
   const seconds = Math.floor(displayTime / TIME.MS_PER_SECOND);
 
-  const headerText = isActive
-    ? `Processing... ${seconds}s`
-    : `Processed in ${seconds}s`;
+  const headerText = isActive ? `Processing... ${seconds}s` : `Processed in ${seconds}s`;
 
   const handleCollapseChange = useCallback((keys: string | string[]) => {
     setIsExpanded(Array.isArray(keys) ? keys.includes('1') : keys === '1');
@@ -69,7 +62,8 @@ export const ProgressBlock: FC<ProgressBlockProps> = ({
                 style={{
                   fontSize: '0.8125rem',
                   color: COLORS.GRAY_MEDIUM,
-                }}>
+                }}
+              >
                 {step}
               </Text>
             ))}

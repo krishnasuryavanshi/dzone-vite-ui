@@ -6,10 +6,9 @@ export const attachUploadCheckFieldHandler = (
   patchFormValues: Function,
   updateFormStepDetails: Function,
   toggleField: LineItemFields,
-  showSaveAndCloseButtonIfFileChanged: (val: boolean) => void
+  showSaveAndCloseButtonIfFileChanged: (val: boolean) => void,
 ) => {
-  const fieldMap =
-    LineItemFileUploadMap[toggleField as keyof typeof LineItemFileUploadMap];
+  const fieldMap = LineItemFileUploadMap[toggleField as keyof typeof LineItemFileUploadMap];
 
   const onChange = async (e: any) => {
     patchFormValues({
@@ -21,7 +20,7 @@ export const attachUploadCheckFieldHandler = (
       patchFormValues,
       updateFormStepDetails,
       fieldMap,
-      showSaveAndCloseButtonIfFileChanged
+      showSaveAndCloseButtonIfFileChanged,
     );
   };
 

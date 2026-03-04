@@ -16,12 +16,7 @@ export const ExecutiveCardTitle: FC<ExecutiveCardTitleProps> = ({ title }) => {
         lineHeight: 'normal',
       }}
     >
-      {title || (
-        <Input
-          active
-          style={{ height: '1.5rem', width: '100%' }}
-        />
-      )}
+      {title || <Input active style={{ height: '1.5rem', width: '100%' }} />}
     </Text>
   );
 };

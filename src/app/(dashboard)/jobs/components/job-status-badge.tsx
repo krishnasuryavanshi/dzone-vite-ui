@@ -1,4 +1,3 @@
-
 import { Tag } from '@/uicomponents/tag';
 import { FC } from 'react';
 import { IJob, IJobStep } from '../lib/types';
@@ -56,7 +55,8 @@ export const JobStatusBadge: FC<JobStatusBadgeProps> = ({ status }) => {
         flexShrink: 0,
         lineHeight: '1.4',
         marginRight: 0,
-      }}>
+      }}
+    >
       {status.replace('_', ' ')}
     </Tag>
   );

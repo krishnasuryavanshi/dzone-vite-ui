@@ -1,1 +1,1 @@
-export * from "./undoable-notification";
+export * from './undoable-notification';

@@ -15,17 +15,11 @@ export const isOrderChangeAllowed = (
   }
 
   if (record.visible) {
-    if (
-      disabledArrowIndexes.down >= 0 &&
-      newOrder > disabledArrowIndexes.down + 1
-    ) {
+    if (disabledArrowIndexes.down >= 0 && newOrder > disabledArrowIndexes.down + 1) {
       return false;
     }
   } else {
-    if (
-      disabledArrowIndexes.up >= 0 &&
-      newOrder < disabledArrowIndexes.up + 1
-    ) {
+    if (disabledArrowIndexes.up >= 0 && newOrder < disabledArrowIndexes.up + 1) {
       return false;
     }
   }

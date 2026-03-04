@@ -1,12 +1,5 @@
-
 import { FC } from 'react';
-import {
-  PieChart as RechartsPieChart,
-  Pie,
-  Tooltip,
-  Legend,
-  Cell,
-} from 'recharts';
+import { PieChart as RechartsPieChart, Pie, Tooltip, Legend, Cell } from 'recharts';
 import { DzRecord } from '@/lib/types';
 
 interface PieChartComponentProps {
@@ -34,7 +27,8 @@ export const PieChartComponent: FC<PieChartComponentProps> = ({
         cy='50%'
         outerRadius={80}
         label
-        isAnimationActive={isAnimationActive}>
+        isAnimationActive={isAnimationActive}
+      >
         {data.map((_, i) => (
           <Cell key={i} fill={colors[i % colors.length]} />
         ))}

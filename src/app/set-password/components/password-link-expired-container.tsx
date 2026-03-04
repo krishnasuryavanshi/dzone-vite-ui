@@ -11,17 +11,12 @@ interface IPasswordLinkExpiredContainerProps {
   attemptCount: number;
 }
 
-export const PasswordLinkExpiredContainer: FC<
-  IPasswordLinkExpiredContainerProps
-> = ({ attemptCount }) => {
+export const PasswordLinkExpiredContainer: FC<IPasswordLinkExpiredContainerProps> = ({
+  attemptCount,
+}) => {
   return (
     <Flex justify='center' align='center' style={{ height: '100%' }}>
-      <Flex
-        vertical
-        gap={'3rem'}
-        align='center'
-        justify='center'
-        style={{ width: '25rem' }}>
+      <Flex vertical gap={'3rem'} align='center' justify='center' style={{ width: '25rem' }}>
         <Title level={3} style={{ textAlign: 'center' }}>
           Password Set Up Link Expired
         </Title>

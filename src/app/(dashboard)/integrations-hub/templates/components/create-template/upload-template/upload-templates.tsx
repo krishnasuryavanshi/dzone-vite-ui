@@ -34,9 +34,7 @@ export const UploadTemplates: FC<IUploadTemplatesProps> = ({
   isDisabled,
 }) => {
   const [uploadProps, setUploadProps] = useState<UploadProps>({});
-  const [selectedFile, setSelectedFile] = useState<UploadFile>(
-    {} as UploadFile,
-  );
+  const [selectedFile, setSelectedFile] = useState<UploadFile>({} as UploadFile);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
@@ -89,7 +87,8 @@ export const UploadTemplates: FC<IUploadTemplatesProps> = ({
         type='primary'
         size='large'
         onClick={() => !isLoading && setIsModalOpen(true)}
-        disabled={isDisabled}>
+        disabled={isDisabled}
+      >
         <UploadButtonIcon isLoading={isLoading} label='Upload a Data Mapping' />
       </Button>
       <FileUploadModal

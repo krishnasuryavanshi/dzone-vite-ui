@@ -1,25 +1,17 @@
 import { ActionType, ModuleNames, PermissionsGroupName } from '../enums';
 
-export const getModuleEnumKey = (
-  moduleName: string,
-): ModuleNames | undefined => {
+export const getModuleEnumKey = (moduleName: string): ModuleNames | undefined => {
   const moduleKey = Object.keys(ModuleNames).find(
     (key) => ModuleNames[key as keyof typeof ModuleNames] === moduleName,
   );
   return ModuleNames[moduleKey as keyof typeof ModuleNames];
 };
 
-export const getPermissionsGroupEnumKey = (
-  groupName: string,
-): PermissionsGroupName => {
+export const getPermissionsGroupEnumKey = (groupName: string): PermissionsGroupName => {
   const permissionKeys = Object.keys(PermissionsGroupName).find(
-    (key) =>
-      PermissionsGroupName[key as keyof typeof PermissionsGroupName] ===
-      groupName,
+    (key) => PermissionsGroupName[key as keyof typeof PermissionsGroupName] === groupName,
   );
-  return PermissionsGroupName[
-    permissionKeys as keyof typeof PermissionsGroupName
-  ];
+  return PermissionsGroupName[permissionKeys as keyof typeof PermissionsGroupName];
 };
 
 export const getActionsEnumKey = (actionName: string): ActionType => {

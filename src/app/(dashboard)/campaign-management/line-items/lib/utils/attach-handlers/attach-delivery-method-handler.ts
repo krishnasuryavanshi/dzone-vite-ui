@@ -12,9 +12,5 @@ export const attachDeliveryMethodHandler = (
     isIntegrateConvertrRequired(deliveryMethod, updateFormStepDetails);
   };
 
-  updateFormStepDetails(
-    LineItemSections.Delivery,
-    LineItemFields.DeliveryMethod,
-    { onChange },
-  );
+  updateFormStepDetails(LineItemSections.Delivery, LineItemFields.DeliveryMethod, { onChange });
 };

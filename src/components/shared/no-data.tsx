@@ -20,10 +20,7 @@ export const NoData: FC<INoDataProps> = ({
       subTitle={subTitle}
       extra={
         handleRefresh ? (
-          <Button
-            type='primary'
-            onClick={handleRefresh}
-            data-testid='refresh-button'>
+          <Button type='primary' onClick={handleRefresh} data-testid='refresh-button'>
             Refresh
           </Button>
         ) : null

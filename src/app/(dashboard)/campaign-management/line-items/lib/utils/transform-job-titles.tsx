@@ -2,9 +2,7 @@ import { getAnalyticsJobTitleData } from './get-analytics-job-title-data';
 
 export const transformJobTitles = (data: Record<string, any>) => {
   if (data.jobTitles?.length) {
-    const jobTitles = data.jobTitles.map(
-      ({ text }: Record<string, any>) => text,
-    );
+    const jobTitles = data.jobTitles.map(({ text }: Record<string, any>) => text);
     data.jobTitles = jobTitles.join(', ');
     data.jobTitleRecommendation = getAnalyticsJobTitleData();
     data.isJobTitleListIncluded = false;

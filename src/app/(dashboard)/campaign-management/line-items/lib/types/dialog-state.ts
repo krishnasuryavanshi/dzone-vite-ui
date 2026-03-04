@@ -1,7 +1,7 @@
 export interface IDialogState {
   isDialogOpen: boolean;
-  dialogType: "Progress" | "Success" | "Error";
+  dialogType: 'Progress' | 'Success' | 'Error';
   progress: number;
   message: string;
-  info?: Record<string, string|number|boolean>;
+  info?: Record<string, string | number | boolean>;
 }

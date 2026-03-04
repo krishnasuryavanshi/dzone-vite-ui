@@ -1,1 +1,1 @@
-export * from "./view-campaign-container";
+export * from './view-campaign-container';

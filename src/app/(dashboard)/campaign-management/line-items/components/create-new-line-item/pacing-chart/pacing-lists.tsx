@@ -12,8 +12,7 @@ interface IPacingListsProps {
 const StaticContentHeight = 100;
 
 export const PacingLists: FC<IPacingListsProps> = ({ pacingData }) => {
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
   const column = createColumn();
   const columns: TableProps<IPacingChartType>['columns'] = [
     column('pages.lineItems.pacingChart.serial', 'serialNo', {

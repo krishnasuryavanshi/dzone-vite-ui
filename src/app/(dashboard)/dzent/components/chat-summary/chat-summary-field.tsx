@@ -9,16 +9,10 @@ type ChatSummaryFieldProps = {
   type: string;
 };
 
-export const ChatSummaryField = ({
-  label,
-  value,
-  type,
-}: ChatSummaryFieldProps) => {
+export const ChatSummaryField = ({ label, value, type }: ChatSummaryFieldProps) => {
   return (
     <Flex vertical gap={'0.125rem'}>
-      <Text style={{ fontWeight: 700, fontSize: '0.75rem', color: CLR_GRAY_4 }}>
-        {label}
-      </Text>
+      <Text style={{ fontWeight: 700, fontSize: '0.75rem', color: CLR_GRAY_4 }}>{label}</Text>
       <ChatSummaryFieldValue value={value} type={type} />
     </Flex>
   );

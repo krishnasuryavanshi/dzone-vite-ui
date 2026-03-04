@@ -47,7 +47,8 @@ export const UploadSuccessContent: FC<IUploadSuccessContentProps> = ({
         height: '2.625rem',
       }}
       href={path}
-      onClick={handlClickOnViewLeads}>
+      onClick={handlClickOnViewLeads}
+    >
       <Translate i18nKey='Click to view the leads' />
     </Button>
   );

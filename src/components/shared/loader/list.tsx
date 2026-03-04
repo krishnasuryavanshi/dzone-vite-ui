@@ -5,7 +5,7 @@ import React, { FC } from 'react';
 export const ListLoader: FC = () => {
   return (
     <List
-      size="large"
+      size='large'
       dataSource={[1, 2, 3, 4, 5]}
       renderItem={() => (
         <ListItem>

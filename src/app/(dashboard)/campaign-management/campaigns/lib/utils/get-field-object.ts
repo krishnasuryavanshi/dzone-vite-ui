@@ -1,10 +1,6 @@
 import { find } from 'lodash';
 
-export function getFieldObject(
-  list: any,
-  property: string,
-  fieldName: string
-) {
+export function getFieldObject(list: any, property: string, fieldName: string) {
   for (const section of list) {
     const field = find(section.fields, { [property]: fieldName });
     if (field) {

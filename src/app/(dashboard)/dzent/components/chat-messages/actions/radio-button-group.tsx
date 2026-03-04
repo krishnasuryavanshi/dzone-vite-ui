@@ -15,18 +15,13 @@ type RadioButtonGroupProps = {
   form: FormInstance;
 };
 
-export const RadioButtonGroup = ({
-  options,
-  name,
-  form,
-}: RadioButtonGroupProps) => {
+export const RadioButtonGroup = ({ options, name, form }: RadioButtonGroupProps) => {
   const handleRadioChange = (e: RadioChangeEvent) => {
     form.setFieldValue(name, e.target.value);
   };
   const renderRadio = (item: DzRecord, index: number) => {
     const selectedValue = form.getFieldValue(name);
-    const boxShadowColor =
-      selectedValue === item ? DZENT_BTN_PRIMARY : 'rgba(0, 0, 0, 0.16)';
+    const boxShadowColor = selectedValue === item ? DZENT_BTN_PRIMARY : 'rgba(0, 0, 0, 0.16)';
 
     return (
       <DzBox
@@ -37,7 +32,8 @@ export const RadioButtonGroup = ({
           background: CLR_WHITE,
           boxShadow: `0px 0px 4px 0px ${boxShadowColor} inset`,
         }}
-        key={index}>
+        key={index}
+      >
         <Radio value={item}>
           <Flex vertical gap={'1rem'}>
             <DzBox>
@@ -55,10 +51,9 @@ export const RadioButtonGroup = ({
         paddingBlock: '0.25rem',
         maxHeight: '18rem',
         overflowY: 'auto',
-      }}>
-      <RadioGroup
-        onChange={handleRadioChange}
-        style={{ display: 'flex', flexDirection: 'column' }}>
+      }}
+    >
+      <RadioGroup onChange={handleRadioChange} style={{ display: 'flex', flexDirection: 'column' }}>
         <MapFunction items={options} renderItem={renderRadio} />
       </RadioGroup>
     </DzBox>

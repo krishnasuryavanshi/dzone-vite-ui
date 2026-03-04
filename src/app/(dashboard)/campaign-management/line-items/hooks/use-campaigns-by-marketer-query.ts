@@ -2,10 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/lib/query';
 import { fetchCampaignsByMarketer } from '../services';
 
-export function useCampaignsByMarketerQuery(
-  tenantCode: string | undefined,
-  enabled = true,
-) {
+export function useCampaignsByMarketerQuery(tenantCode: string | undefined, enabled = true) {
   return useQuery({
     queryKey: queryKeys.campaigns.campaignsByMarketer(tenantCode ?? ''),
     queryFn: async () => {

@@ -66,10 +66,9 @@ export const DzFunnelChart: FC<IDzFunnelChartProps> = ({ data, loaded }) => {
         fontSize={'0.75rem'}
         fontWeight={400}
         height={height}
-        width={100}>
-        {name.length > yAxisLabelCharacters
-          ? `${name.slice(0, yAxisLabelCharacters)}...`
-          : name}
+        width={100}
+      >
+        {name.length > yAxisLabelCharacters ? `${name.slice(0, yAxisLabelCharacters)}...` : name}
       </text>
     );
   };
@@ -92,7 +91,8 @@ export const DzFunnelChart: FC<IDzFunnelChartProps> = ({ data, loaded }) => {
           data={funnelData}
           width={'70%'}
           isAnimationActive
-          legendType='circle'>
+          legendType='circle'
+        >
           <LabelList
             position='middle'
             fill='#FFF'

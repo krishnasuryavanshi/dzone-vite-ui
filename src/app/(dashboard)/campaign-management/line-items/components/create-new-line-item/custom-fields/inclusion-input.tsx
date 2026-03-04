@@ -12,11 +12,7 @@ interface IInclusionInputProps {
   form: FormInstance;
 }
 
-export const InclusionInput: FC<IInclusionInputProps> = ({
-  name,
-  fieldIndex,
-  form,
-}) => {
+export const InclusionInput: FC<IInclusionInputProps> = ({ name, fieldIndex, form }) => {
   const type = useWatch(['customFields', `${fieldIndex}`, 'type'], form);
   const format = useWatch(['customFields', `${fieldIndex}`, 'format'], form);
 
@@ -33,23 +29,19 @@ export const InclusionInput: FC<IInclusionInputProps> = ({
           <>
             Only these values will be accepted during Validation.
             <br />
-            Type a value and press Enter to add it. Add multiple values by
-            separating them with commas.
+            Type a value and press Enter to add it. Add multiple values by separating them with
+            commas.
           </>
-        }>
-        <InfoCircleOutlined
-          style={{ color: '#8c8c8c', fontSize: '0.875rem' }}
-        />
+        }
+      >
+        <InfoCircleOutlined style={{ color: '#8c8c8c', fontSize: '0.875rem' }} />
       </Tooltip>
     </span>
   );
 
   if (type === 'Date') {
     return (
-      <FormItem
-        name={name}
-        label={labelWithTooltip}
-        className='input-control form-control-item'>
+      <FormItem name={name} label={labelWithTooltip} className='input-control form-control-item'>
         <ChipsDatePicker
           placeholder='Select Date'
           format={getDateFormat()}
@@ -61,17 +53,8 @@ export const InclusionInput: FC<IInclusionInputProps> = ({
   }
 
   return (
-    <FormItem
-      name={name}
-      label={labelWithTooltip}
-      className='input-control form-control-item'>
-      <ChipsInput
-        placeholder='Add More'
-        type={type}
-        format={format}
-        fieldName={name}
-        form={form}
-      />
+    <FormItem name={name} label={labelWithTooltip} className='input-control form-control-item'>
+      <ChipsInput placeholder='Add More' type={type} format={format} fieldName={name} form={form} />
     </FormItem>
   );
 };

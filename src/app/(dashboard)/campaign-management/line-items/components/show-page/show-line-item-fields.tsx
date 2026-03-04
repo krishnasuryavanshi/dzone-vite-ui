@@ -28,10 +28,7 @@ export const ShowLineItemFields: FC<IShowLineItemFieldsProps> = ({
   formConfig,
   summaryViewFields,
 }) => {
-  const { fieldsList } = useShowFieldsData(
-    itemDetails! as ILineItem,
-    formConfig,
-  );
+  const { fieldsList } = useShowFieldsData(itemDetails! as ILineItem, formConfig);
   const [fieldsToDisplay, setFieldsToDisplay] = useState<any[]>([]);
 
   useEffect(() => {
@@ -57,8 +54,7 @@ export const ShowLineItemFields: FC<IShowLineItemFieldsProps> = ({
                   field.value !== null &&
                   field.value !== '' &&
                   (!Array.isArray(field.value) || field.value.length > 0) &&
-                  (!(typeof field.value === 'object') ||
-                    Object.keys(field.value).length > 0),
+                  (!(typeof field.value === 'object') || Object.keys(field.value).length > 0),
               ),
             )
             .map((group) => ({
@@ -70,8 +66,7 @@ export const ShowLineItemFields: FC<IShowLineItemFieldsProps> = ({
                   field.value !== null &&
                   field.value !== '' &&
                   (!Array.isArray(field.value) || field.value.length > 0) &&
-                  (!(typeof field.value === 'object') ||
-                    Object.keys(field.value).length > 0),
+                  (!(typeof field.value === 'object') || Object.keys(field.value).length > 0),
               ),
             }))
         : [];
@@ -85,17 +80,17 @@ export const ShowLineItemFields: FC<IShowLineItemFieldsProps> = ({
     <>
       {fieldsToDisplay.map((fieldGroup: any, groupIndex: number) => (
         <Fragment key={groupIndex}>
-          {fieldGroup.sectionLabel &&
-            fieldGroup.sectionLabel !== 'Basic Details' && (
-              <Text strong>{fieldGroup.sectionLabel}</Text>
-            )}
+          {fieldGroup.sectionLabel && fieldGroup.sectionLabel !== 'Basic Details' && (
+            <Text strong>{fieldGroup.sectionLabel}</Text>
+          )}
           <DzBox
             style={{
               margin: '0.25rem 0 1rem 0',
               background: DZONE_CLR_GRAY_4,
               overflow: 'hidden',
               borderRadius: '0.5rem',
-            }}>
+            }}
+          >
             {Array.isArray(fieldGroup.fields) &&
               fieldGroup.fields
                 .reduce((rows: any[][], field: any, index: number) => {
@@ -104,46 +99,37 @@ export const ShowLineItemFields: FC<IShowLineItemFieldsProps> = ({
                   rows[chunkIndex].push(field);
                   return rows;
                 }, [])
-                .map(
-                  (
-                    rowFields: any[],
-                    rowIndex: number,
-                    allRows: string | any[],
-                  ) => (
-                    <Space
-                      key={rowIndex}
-                      direction='vertical'
-                      style={{
-                        width: '100%',
-                        borderBottom:
-                          allRows.length > 1 && rowIndex !== allRows.length - 1
-                            ? '1px solid #e5e7eb'
-                            : undefined,
-                        padding: '1rem',
-                      }}>
-                      <Row gutter={[16, 16]}>
-                        {rowFields.map((field) => {
-                          return (
-                            <FieldColumn
-                              key={field.field}
-                              data={field}
-                              itemDetails={itemDetails}
-                            />
-                          );
-                        })}
-                      </Row>
-                    </Space>
-                  ),
-                )}
+                .map((rowFields: any[], rowIndex: number, allRows: string | any[]) => (
+                  <Space
+                    key={rowIndex}
+                    direction='vertical'
+                    style={{
+                      width: '100%',
+                      borderBottom:
+                        allRows.length > 1 && rowIndex !== allRows.length - 1
+                          ? '1px solid #e5e7eb'
+                          : undefined,
+                      padding: '1rem',
+                    }}
+                  >
+                    <Row gutter={[16, 16]}>
+                      {rowFields.map((field) => {
+                        return (
+                          <FieldColumn key={field.field} data={field} itemDetails={itemDetails} />
+                        );
+                      })}
+                    </Row>
+                  </Space>
+                ))}
           </DzBox>
         </Fragment>
       ))}
       <Hideable
         show={
-          (!!itemDetails?.customFields?.length ||
-            !!itemDetails?.customFieldInstructions) &&
+          (!!itemDetails?.customFields?.length || !!itemDetails?.customFieldInstructions) &&
           !isCollapsed
-        }>
+        }
+      >
         <HasPermission permissions={LineItemActionsEnum.ViewCustomFields}>
           <CustomFieldsDisplay
             customFields={(itemDetails.customFields as ICustomField[]) || []}

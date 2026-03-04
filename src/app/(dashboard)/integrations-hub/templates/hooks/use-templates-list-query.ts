@@ -2,11 +2,7 @@ import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { queryKeys } from '@/lib/query';
 import { fetchTemplates } from '../services';
 
-export function useTemplatesListQuery(
-  page: number,
-  size: number,
-  enabled = true,
-) {
+export function useTemplatesListQuery(page: number, size: number, enabled = true) {
   return useQuery({
     queryKey: queryKeys.templates.list({ page, size }),
     queryFn: async () => {

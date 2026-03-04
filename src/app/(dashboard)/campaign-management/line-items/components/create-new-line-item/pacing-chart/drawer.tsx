@@ -34,7 +34,8 @@ export const PacingChartDrawer: FC<PacingChartDrawerProps> = ({
             color: '#fff',
           }}
         />
-      }>
+      }
+    >
       <PacingLists pacingData={pacingSchedule} />
     </Drawer>
   );

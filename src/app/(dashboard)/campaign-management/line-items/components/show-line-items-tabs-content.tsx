@@ -6,10 +6,7 @@ import { ScheduledDeliveryBar } from './scheduled-delivery-bar';
 import { DeliverySchedulesList } from './delivery-schedules';
 import { HasPermission } from '@/components/auth';
 import { DzBox } from '@/components/layout/v1';
-import {
-  DeliveryTemplateActionsEnum,
-  LeadActionsEnum,
-} from '@/lib/enums/permissions';
+import { DeliveryTemplateActionsEnum, LeadActionsEnum } from '@/lib/enums/permissions';
 import { DeliverySchedule } from '../services';
 import { usePermissionCheck } from '@/lib/hooks/use-action-permission-check';
 import { JobsContainer } from '@/app/(dashboard)/jobs/components';
@@ -30,9 +27,7 @@ export const ShowLineItemsTabsContent: FC<IShowLineTabsContent> = ({
 }) => {
   const [schedulesCount, setSchedulesCount] = useState<number>(0);
   const [refreshTrigger, setRefreshTrigger] = useState<number>(0);
-  const canScheduleDelivery = usePermissionCheck(
-    LeadActionsEnum.ScheduleDelivery,
-  );
+  const canScheduleDelivery = usePermissionCheck(LeadActionsEnum.ScheduleDelivery);
 
   const processedSessionTenantCode = Array.isArray(sessionTenantCode)
     ? sessionTenantCode.join(',')
@@ -48,12 +43,9 @@ export const ShowLineItemsTabsContent: FC<IShowLineTabsContent> = ({
     ((schedule: DeliverySchedule) => void) | null
   >(null);
 
-  const handleRegisterEditHandler = useCallback(
-    (handler: (schedule: DeliverySchedule) => void) => {
-      setBarEditHandler(() => handler);
-    },
-    [],
-  );
+  const handleRegisterEditHandler = useCallback((handler: (schedule: DeliverySchedule) => void) => {
+    setBarEditHandler(() => handler);
+  }, []);
 
   return (
     <>
@@ -89,16 +81,9 @@ export const ShowLineItemsTabsContent: FC<IShowLineTabsContent> = ({
           </>
         )}
       </HasPermission>
-      <SummaryContainer
-        show={activeTab === LineItemsTabType.Summary}
-        lineItemId={lineItemId}
-      />
+      <SummaryContainer show={activeTab === LineItemsTabType.Summary} lineItemId={lineItemId} />
       {activeTab === LineItemsTabType.Jobs && (
-        <JobsContainer
-          lineItemId={lineItemId}
-          showHeader={false}
-          hideLineItemColumn={true}
-        />
+        <JobsContainer lineItemId={lineItemId} showHeader={false} hideLineItemColumn={true} />
       )}
     </>
   );

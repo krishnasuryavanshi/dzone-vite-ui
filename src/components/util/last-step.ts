@@ -12,7 +12,5 @@ export const lastStep = (step?: number | string, title?: string) => {
     LineItemStepValues &&
     LineItemStepValues.length > 0 &&
     Number(step) === LineItemStepValues.length - 1;
-  return title === 'createLineItem'
-    ? isLastStepForCreateLineITem
-    : isLastStepForCampaignForm;
+  return title === 'createLineItem' ? isLastStepForCreateLineITem : isLastStepForCampaignForm;
 };

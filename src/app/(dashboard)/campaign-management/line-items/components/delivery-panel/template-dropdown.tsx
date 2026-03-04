@@ -23,10 +23,7 @@ export const TemplateDropdown: FC<ITemplateDropdownProps> = ({
   tenantCode,
   lineItemId,
 }) => {
-  const { data: templatesResponse } = useDeliveryTemplatesByMarketerQuery(
-    tenantCode,
-    lineItemId,
-  );
+  const { data: templatesResponse } = useDeliveryTemplatesByMarketerQuery(tenantCode, lineItemId);
 
   const templatesData = templatesResponse?.data ?? [];
 
@@ -41,10 +38,7 @@ export const TemplateDropdown: FC<ITemplateDropdownProps> = ({
 
   const isTemplateSelected = Boolean(selectedTemplate);
 
-  const filterTemplateOptions = (
-    input: string,
-    option: DefaultOptionType | undefined,
-  ) => {
+  const filterTemplateOptions = (input: string, option: DefaultOptionType | undefined) => {
     if (!option || input.length < 3) {
       return false;
     }
@@ -70,10 +64,7 @@ export const TemplateDropdown: FC<ITemplateDropdownProps> = ({
 
   return (
     <Flex vertical style={{ width: '100%' }}>
-      <Flex
-        justify='space-between'
-        align='center'
-        style={{ marginBottom: '0.5rem' }}>
+      <Flex justify='space-between' align='center' style={{ marginBottom: '0.5rem' }}>
         <Text style={{ fontWeight: 'bold' }}>
           <Translate i18nKey='Delivery Template' />
         </Text>

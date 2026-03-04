@@ -15,13 +15,11 @@ export const ValidationSettingRuleSection = ({
   name,
   noBorder = false,
 }: ValidationSettingRuleSectionProps) => {
-  const [leadValidationSettingSection, setLeadValidationSettingSection] =
-    useState<DzRecord | null>(null);
-  const {
-    leadValidationSettingConfig,
-    activeRule,
-    getValidationSettingRuleSection,
-  } = useValidationSettingStore();
+  const [leadValidationSettingSection, setLeadValidationSettingSection] = useState<DzRecord | null>(
+    null,
+  );
+  const { leadValidationSettingConfig, activeRule, getValidationSettingRuleSection } =
+    useValidationSettingStore();
 
   useEffect(() => {
     if (!leadValidationSettingConfig || !activeRule) {
@@ -60,10 +58,9 @@ export const ValidationSettingRuleSection = ({
                 borderRadius: '5px',
                 border: '1px solid #EAF1FF',
               }
-        }>
-        <ValidationSettingRuleSectionInput
-          section={leadValidationSettingSection}
-        />
+        }
+      >
+        <ValidationSettingRuleSectionInput section={leadValidationSettingSection} />
       </DzBox>
     </Flex>
   );

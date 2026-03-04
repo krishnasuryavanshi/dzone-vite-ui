@@ -102,19 +102,13 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
 }) => {
   const [inputValue, setInputValue] = useState('');
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [recommendedJobTitles, setRecommendedJobTitles] = useState<
-    Record<string, any>[]
-  >([]);
-  const [isRecommendedJobTitlesLoading, setIsRecommendedJobTitlesLoading] =
-    useState(false);
+  const [recommendedJobTitles, setRecommendedJobTitles] = useState<Record<string, any>[]>([]);
+  const [isRecommendedJobTitlesLoading, setIsRecommendedJobTitlesLoading] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedRecommendations, setSelectedRecommendations] = useState<
-    string[]
-  >([]);
+  const [selectedRecommendations, setSelectedRecommendations] = useState<string[]>([]);
 
   const isJobTitleField =
-    label.toLowerCase().includes('job title') ||
-    label.toLowerCase().includes('jobtitle');
+    label.toLowerCase().includes('job title') || label.toLowerCase().includes('jobtitle');
 
   useEffect(() => {
     // Update selected recommendations when values change
@@ -124,9 +118,7 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
       // Update already selected items
       const alreadySelectedValues = recommendedJobTitles.flatMap((item) =>
         (item.children || [])
-          .filter((child: any) =>
-            existingLabels.includes((child.label || '').toLowerCase()),
-          )
+          .filter((child: any) => existingLabels.includes((child.label || '').toLowerCase()))
           .map((child: any) => child.value),
       );
 
@@ -282,8 +274,7 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
     const newChips = selectedRecommendations
       .filter(
         (value) =>
-          selectedLabels[value] &&
-          !existingLabels.includes(selectedLabels[value].toLowerCase()),
+          selectedLabels[value] && !existingLabels.includes(selectedLabels[value].toLowerCase()),
       )
       .map((value) => ({
         id: selectedLabels[value],
@@ -316,10 +307,7 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
     if (!recommendedJobTitles.length) {
       return (
         <DzBox style={styles.recommendationDropdownContainer}>
-          <Flex
-            justify='center'
-            align='center'
-            style={styles.noRecommendationsContainer}>
+          <Flex justify='center' align='center' style={styles.noRecommendationsContainer}>
             No recommendations available
           </Flex>
         </DzBox>
@@ -332,55 +320,43 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
     );
 
     const isAllSelected =
-      selectedRecommendations.length === allValues.length &&
-      allValues.length > 0;
+      selectedRecommendations.length === allValues.length && allValues.length > 0;
 
     // Get existing labels to filter out already added items
     const existingLabels = values.map((v) => v.label.toLowerCase());
 
     return (
       <DzBox style={styles.recommendationDropdownContainer}>
-        <Flex
-          justify='space-between'
-          align='center'
-          style={styles.recommendationHeader}>
+        <Flex justify='space-between' align='center' style={styles.recommendationHeader}>
           <Text strong style={styles.recommendationTitle}>
             Suggestions
           </Text>
-          <Button
-            type='link'
-            onClick={() => setSelectedRecommendations([])}
-            style={{ padding: 0 }}>
+          <Button type='link' onClick={() => setSelectedRecommendations([])} style={{ padding: 0 }}>
             Unselect All
           </Button>
         </Flex>
 
         <Text style={styles.recommendationNote}>
-          Note: Please consider selecting the similar job titles suggested below
-          to ensure that no valuable leads are rejected during validation
-          process.
+          Note: Please consider selecting the similar job titles suggested below to ensure that no
+          valuable leads are rejected during validation process.
         </Text>
 
         <Flex justify='space-between' style={styles.selectAllContainer}>
           <Checkbox
             checked={isAllSelected}
             onChange={handleSelectAllChange}
-            style={{ fontWeight: 600 }}>
+            style={{ fontWeight: 600 }}
+          >
             Select All
           </Checkbox>
         </Flex>
 
-        <Flex
-          vertical
-          style={styles.recommendationsList as React.CSSProperties}>
+        <Flex vertical style={styles.recommendationsList as React.CSSProperties}>
           {recommendedJobTitles.map((group, groupIndex) => {
-            if (!group.name || !group.children || !group.children.length)
-              return null;
+            if (!group.name || !group.children || !group.children.length) return null;
 
             return (
-              <DzBox
-                key={`group-${groupIndex}`}
-                style={styles.recommendationGroup}>
+              <DzBox key={`group-${groupIndex}`} style={styles.recommendationGroup}>
                 <Text strong style={styles.recommendationGroupTitle}>
                   {group.name}
                 </Text>
@@ -391,7 +367,8 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
                     display: 'flex',
                     flexDirection: 'column',
                     gap: '0.375rem',
-                  }}>
+                  }}
+                >
                   {group.children.map((item: any) => {
                     const isAlreadyAdded = existingLabels.includes(
                       (item.label || '').toLowerCase(),
@@ -402,7 +379,8 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
                         key={item.value}
                         value={item.value}
                         disabled={isAlreadyAdded}
-                        style={{ marginLeft: 0 }}>
+                        style={{ marginLeft: 0 }}
+                      >
                         {item.label}
                       </Checkbox>
                     );
@@ -418,7 +396,8 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
           <Button
             type='primary'
             onClick={handleAddSelectedRecommendations}
-            disabled={selectedRecommendations.length === 0}>
+            disabled={selectedRecommendations.length === 0}
+          >
             Add
           </Button>
         </Flex>
@@ -429,11 +408,7 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
   return (
     <DzBox>
       {/* Input + buttons */}
-      <Flex
-        align='center'
-        justify='space-between'
-        gap='0.5rem'
-        style={{ marginBottom: '1rem' }}>
+      <Flex align='center' justify='space-between' gap='0.5rem' style={{ marginBottom: '1rem' }}>
         <Input
           placeholder={placeholder}
           value={inputValue}
@@ -475,7 +450,8 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
               dropdownRender={renderDropdown}
               arrow={true}
               trigger={['click']}
-              placement='bottomLeft'>
+              placement='bottomLeft'
+            >
               <Button
                 onClick={() => {
                   if (inputValue.trim() && !isRecommendedJobTitlesLoading) {
@@ -488,11 +464,10 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
                   padding: 0,
                 }}
                 title='Get suggestions'
-                disabled={isRecommendedJobTitlesLoading}>
+                disabled={isRecommendedJobTitlesLoading}
+              >
                 {isRecommendedJobTitlesLoading ? (
-                  <LoadingOutlined
-                    style={{ fontSize: '1.25rem', color: '#4F46E5' }}
-                  />
+                  <LoadingOutlined style={{ fontSize: '1.25rem', color: '#4F46E5' }} />
                 ) : (
                   <AiPen style={{ fontSize: '1.25rem', color: '#4F46E5' }} />
                 )}
@@ -508,7 +483,8 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
           borderRadius: '0.375rem',
           padding: '1rem',
           background: '#F9FAFB',
-        }}>
+        }}
+      >
         <Flex wrap='wrap' gap='0.5rem'>
           {values.map((chip) => (
             <Tag
@@ -516,14 +492,14 @@ export const ChipsEdit: React.FC<ChipsEditProps> = ({
               closable
               onClose={() => handleRemove(chip)}
               style={{
-                backgroundColor:
-                  hoveredItem === chip.id ? '#EBF3FE' : '#FFFFFF',
+                backgroundColor: hoveredItem === chip.id ? '#EBF3FE' : '#FFFFFF',
                 border: '1px solid #D1D5DB',
                 borderRadius: '4px',
                 padding: '0.25rem 0.5rem',
               }}
               onMouseEnter={() => setHoveredItem(chip.id)}
-              onMouseLeave={() => setHoveredItem(null)}>
+              onMouseLeave={() => setHoveredItem(null)}
+            >
               {chip.label}
             </Tag>
           ))}

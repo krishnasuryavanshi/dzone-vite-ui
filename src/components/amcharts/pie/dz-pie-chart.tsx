@@ -1,4 +1,3 @@
-
 import React, { useLayoutEffect, useRef } from 'react';
 import * as am5 from '@amcharts/amcharts5';
 import * as am5percent from '@amcharts/amcharts5/percent';
@@ -151,12 +150,7 @@ export default function DZPieAmChart({
       const value = valField && ctx ? ctx[valField] : undefined;
 
       if (onResolveTooltip) {
-        const resolved = onResolveTooltip(
-          ctx ?? {},
-          categoryValue,
-          tooltipText,
-          series,
-        );
+        const resolved = onResolveTooltip(ctx ?? {}, categoryValue, tooltipText, series);
         if (resolved !== undefined) return resolved;
       }
 
@@ -215,8 +209,7 @@ export default function DZPieAmChart({
           const di: any = (target as any).dataItem;
           const ctx: Record<string, any> | undefined = di?.dataContext;
           if (!ctx) return String(_text ?? '');
-          const catField =
-            (series.get('categoryField') as string) || categoryKey;
+          const catField = (series.get('categoryField') as string) || categoryKey;
           return (ctx[catField] ?? '') as string;
         } catch (err) {
           return String(_text ?? '');

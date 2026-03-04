@@ -13,11 +13,7 @@ type DaterangePickerActionProps = {
   form: FormInstance;
 };
 
-export const DaterangePickerAction = ({
-  validations,
-  name,
-  form,
-}: DaterangePickerActionProps) => {
+export const DaterangePickerAction = ({ validations, name, form }: DaterangePickerActionProps) => {
   const handleRangeChange = (
     dates: [Dayjs | null, Dayjs | null] | null,
     dateStrings: [string, string],
@@ -33,16 +29,8 @@ export const DaterangePickerAction = ({
       <RangePicker
         style={{ height: '2rem', width: '20rem', background: CLR_WHITE }}
         format={'DD MMM, YYYY'}
-        minDate={
-          validations?.minDate
-            ? dateObject(validations.minDate)
-            : dateObject('1970-01-01')
-        }
-        maxDate={
-          validations?.maxDate
-            ? dateObject(validations.maxDate)
-            : dateObject('2070-01-01')
-        }
+        minDate={validations?.minDate ? dateObject(validations.minDate) : dateObject('1970-01-01')}
+        maxDate={validations?.maxDate ? dateObject(validations.maxDate) : dateObject('2070-01-01')}
         onChange={handleRangeChange}
       />
     </DzBox>

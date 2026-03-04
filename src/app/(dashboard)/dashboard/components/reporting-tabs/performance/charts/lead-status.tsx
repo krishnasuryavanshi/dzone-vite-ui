@@ -10,18 +10,16 @@ interface ILeadStatusProps {}
 export const LeadStatus: FC<ILeadStatusProps> = ({}) => {
   const [chartData, isLoaded] = useFetchReportData<IReportRowWithPercentage>(
     [],
-    PerformanceReportType.LeadStatus
+    PerformanceReportType.LeadStatus,
   );
 
   return (
     <ChartColumn
-      chartTitle="pages.dashboard.label.leadStatus"
+      chartTitle='pages.dashboard.label.leadStatus'
       extraTitle={'pages.dashboard.label.statusAndCount'}
-      hasExtra>
-      <DzFunnelChart
-        data={chartData as IReportRowWithPercentage[]}
-        loaded={isLoaded}
-      />
+      hasExtra
+    >
+      <DzFunnelChart data={chartData as IReportRowWithPercentage[]} loaded={isLoaded} />
     </ChartColumn>
   );
 };

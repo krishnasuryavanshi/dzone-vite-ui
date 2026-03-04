@@ -53,7 +53,8 @@ export const DzCheckboxDropdown: FC<IDzCheckboxDropdownProps> = ({
           instantFilter={instantFilter}
         />
       )}
-      onOpenChange={handleOpenChange}>
+      onOpenChange={handleOpenChange}
+    >
       {renderButton ? (
         renderButton({
           onClick: (e: any) => {
@@ -66,7 +67,8 @@ export const DzCheckboxDropdown: FC<IDzCheckboxDropdownProps> = ({
           onClick={(e) => {
             e.preventDefault();
             setIsOpen(!isOpen);
-          }}>
+          }}
+        >
           {label}
           <DownOutlined />
         </Button>

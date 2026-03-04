@@ -16,10 +16,7 @@ interface UseFileUploadLogicReturn {
   resetFileState: () => void;
 }
 
-export const useFtpFileUpload = (
-  form: any,
-  open: boolean,
-): UseFileUploadLogicReturn => {
+export const useFtpFileUpload = (form: any, open: boolean): UseFileUploadLogicReturn => {
   const { data: session } = useSession();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
   const [isUploading, setIsUploading] = useState(false);
@@ -97,8 +94,7 @@ export const useFtpFileUpload = (
     name: 'privateKeyFile',
     fileList,
     maxCount: 1,
-    accept:
-      uploadMetadata?.allowedExtensions?.join(',') || ACCEPTED_FILE_EXTENSIONS,
+    accept: uploadMetadata?.allowedExtensions?.join(',') || ACCEPTED_FILE_EXTENSIONS,
     beforeUpload: handleFileUpload,
     onChange: ({ fileList: newFileList }) => {
       // Only update fileList if it's not an empty array from removal

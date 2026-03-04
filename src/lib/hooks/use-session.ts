@@ -11,8 +11,15 @@ const noop = () => {};
 
 export function useSession() {
   const {
-    isLoading, isAuthenticated, user, roles, tenantCode,
-    isDzoneUser, tenantType, modules, moduleAccessList,
+    isLoading,
+    isAuthenticated,
+    user,
+    roles,
+    tenantCode,
+    isDzoneUser,
+    tenantType,
+    modules,
+    moduleAccessList,
   } = useAuthStore(
     useShallow((s) => ({
       isLoading: s.isLoading,
@@ -24,7 +31,7 @@ export function useSession() {
       tenantType: s.tenantType,
       modules: s.modules,
       moduleAccessList: s.moduleAccessList,
-    }))
+    })),
   );
 
   const accessToken = useTokenStore((s) => s.accessToken);
@@ -61,7 +68,18 @@ export function useSession() {
       status: 'authenticated' as SessionStatus,
       update: noop,
     };
-  }, [isLoading, isAuthenticated, user, roles, tenantCode, isDzoneUser, tenantType, modules, moduleAccessList, accessToken]);
+  }, [
+    isLoading,
+    isAuthenticated,
+    user,
+    roles,
+    tenantCode,
+    isDzoneUser,
+    tenantType,
+    modules,
+    moduleAccessList,
+    accessToken,
+  ]);
 }
 
 export async function getSession(): Promise<Session | null> {

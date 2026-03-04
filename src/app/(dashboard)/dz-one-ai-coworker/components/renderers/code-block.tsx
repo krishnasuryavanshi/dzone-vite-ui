@@ -1,4 +1,3 @@
-
 import { FC, useEffect, useRef, useState, useCallback } from 'react';
 import { Button } from '@/uicomponents';
 import { CopyOutlined, CheckOutlined } from '@/uicomponents/icons';
@@ -50,7 +49,8 @@ export const CodeBlock: FC<CodeBlockProps> = ({ language, code }) => {
         overflow: 'hidden',
         margin: '0.5rem 0',
         backgroundColor: '#2d2d2d',
-      }}>
+      }}
+    >
       <Flex
         justify='space-between'
         align='center'
@@ -58,16 +58,16 @@ export const CodeBlock: FC<CodeBlockProps> = ({ language, code }) => {
           padding: '0.5rem 1rem',
           backgroundColor: '#1e1e1e',
           borderBottom: '1px solid #404040',
-        }}>
-        <Text style={{ color: '#a0a0a0', fontSize: '0.75rem' }}>
-          {displayLanguage}
-        </Text>
+        }}
+      >
+        <Text style={{ color: '#a0a0a0', fontSize: '0.75rem' }}>{displayLanguage}</Text>
         <Button
           type='text'
           size='small'
           icon={copied ? <CheckOutlined /> : <CopyOutlined />}
           onClick={handleCopy}
-          style={{ color: '#a0a0a0' }}>
+          style={{ color: '#a0a0a0' }}
+        >
           {copied ? 'Copied!' : 'Copy'}
         </Button>
       </Flex>
@@ -78,7 +78,8 @@ export const CodeBlock: FC<CodeBlockProps> = ({ language, code }) => {
           overflow: 'auto',
           fontSize: '0.875rem',
           lineHeight: 1.5,
-        }}>
+        }}
+      >
         <code ref={codeRef} className={`language-${displayLanguage}`}>
           {code.trim()}
         </code>

@@ -17,12 +17,9 @@ export const SendLinkButton: FC<ISendLinkButtonProps> = ({ isLinkSent }) => {
         background: DZONE_CLR_BLACK,
         border: 'none',
         borderRadius: '3.125rem',
-      }}>
-      <Button
-        size='large'
-        style={{ border: 'none' }}
-        block={true}
-        htmlType='submit'>
+      }}
+    >
+      <Button size='large' style={{ border: 'none' }} block={true} htmlType='submit'>
         <Translate show={isLinkSent} i18nKey='form.forgotPassword.resend' />
         <Translate show={!isLinkSent} i18nKey='form.forgotPassword.next' />
       </Button>

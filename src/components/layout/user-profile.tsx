@@ -31,17 +31,13 @@ export const UserProfile = () => {
     <div className='user-profile-menu'>
       <Button className='user-profile-menu-item' type='text' block>
         <Settings />
-        <Text className='user-profile-menu-item-text'>
-          {translate('Account Settings')}
-        </Text>
+        <Text className='user-profile-menu-item-text'>{translate('Account Settings')}</Text>
       </Button>
 
       <Link to='/profile'>
         <Button className='user-profile-menu-item' type='text' block>
           <UserIcon />
-          <Text className='user-profile-menu-item-text'>
-            {translate('Profile')}
-          </Text>
+          <Text className='user-profile-menu-item-text'>{translate('Profile')}</Text>
         </Button>
       </Link>
       <div className='user-profile-menu-divider' />
@@ -52,7 +48,8 @@ export const UserProfile = () => {
         block
         danger
         disabled={logoutInProgress}
-        onClick={handleLogout}>
+        onClick={handleLogout}
+      >
         <LogoutOutlined className='user-profile-menu-item-icon' />
         <Text className='user-profile-menu-item-text' type='danger'>
           {translate('Log Out')}

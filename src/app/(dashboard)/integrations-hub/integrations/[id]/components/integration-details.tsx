@@ -1,4 +1,3 @@
-
 import { DzBox } from '@/components/layout/v1/dz-box';
 import { BasicTable } from '@/components/table';
 import { FormatDate } from '@/components/util';
@@ -26,12 +25,9 @@ interface Template {
 
 const StaticContentHeight = 210;
 
-export const IntegrationDetails: React.FC<IntegrationDetailsProps> = ({
-  integrationId,
-}) => {
+export const IntegrationDetails: React.FC<IntegrationDetailsProps> = ({ integrationId }) => {
   const router = useRouter();
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
 
   const {
     data: response,
@@ -79,13 +75,9 @@ export const IntegrationDetails: React.FC<IntegrationDetailsProps> = ({
 
   if (loading) {
     return (
-      <DzBox
-        className={styles.integrationDetails}
-        style={{ textAlign: 'center', padding: '40px' }}>
+      <DzBox className={styles.integrationDetails} style={{ textAlign: 'center', padding: '40px' }}>
         <Spin size='large' />
-        <Text style={{ display: 'block', marginTop: '16px' }}>
-          Loading integration details...
-        </Text>
+        <Text style={{ display: 'block', marginTop: '16px' }}>Loading integration details...</Text>
       </DzBox>
     );
   }
@@ -98,7 +90,8 @@ export const IntegrationDetails: React.FC<IntegrationDetailsProps> = ({
             type='text'
             icon={<ArrowLeftOutlined />}
             onClick={handleBack}
-            className='back-button'>
+            className='back-button'
+          >
             Back
           </Button>
         </DzBox>
@@ -127,7 +120,8 @@ export const IntegrationDetails: React.FC<IntegrationDetailsProps> = ({
             type='text'
             icon={<ArrowLeftOutlined />}
             onClick={handleBack}
-            className='back-button'>
+            className='back-button'
+          >
             Back
           </Button>
         </DzBox>
@@ -157,8 +151,7 @@ export const IntegrationDetails: React.FC<IntegrationDetailsProps> = ({
             style={{ fontSize: '14px', color: '#595959', cursor: 'pointer' }}
           />
           <Text strong style={{ marginBottom: '0' }}>
-            {integrationData?.name || integrationData?.type || 'Integration'}{' '}
-            Details
+            {integrationData?.name || integrationData?.type || 'Integration'} Details
           </Text>
         </Flex>
 

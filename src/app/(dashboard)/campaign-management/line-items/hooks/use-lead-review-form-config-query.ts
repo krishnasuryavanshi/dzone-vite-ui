@@ -2,11 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/lib/query';
 import { fetchLeadReviewFormConfig } from '../services';
 
-export function useLeadReviewFormConfigQuery(
-  type: string,
-  lineItemId?: string,
-  enabled = true,
-) {
+export function useLeadReviewFormConfigQuery(type: string, lineItemId?: string, enabled = true) {
   return useQuery({
     queryKey: queryKeys.leads.reviewFormConfig(type, lineItemId),
     queryFn: async () => {

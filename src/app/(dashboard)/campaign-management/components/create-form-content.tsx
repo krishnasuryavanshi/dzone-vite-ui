@@ -27,12 +27,7 @@ export const CreateFormContent: FC<ICreateFormContentProps> = ({
 
   const renderSections = (item: any) => {
     return (
-      <CreateFormSection
-        section={item}
-        transKey={transKey}
-        lists={lists}
-        entityId={entityId}
-      />
+      <CreateFormSection section={item} transKey={transKey} lists={lists} entityId={entityId} />
     );
   };
 

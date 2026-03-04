@@ -8,9 +8,7 @@ interface IUsersEditContainerProps {
   userId: string;
 }
 
-export const UsersEditContainer: FC<IUsersEditContainerProps> = ({
-  userId,
-}) => {
+export const UsersEditContainer: FC<IUsersEditContainerProps> = ({ userId }) => {
   const { data } = useUserDetailQuery(userId, !!userId);
   const user = data?.data ?? null;
 

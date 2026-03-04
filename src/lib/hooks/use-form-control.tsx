@@ -30,9 +30,7 @@ export function useFormControl(field: any) {
 
   if (field.input.type === FieldType.CustomComponent) {
     const CustomComponent = field.component;
-    return (
-      <CustomComponent customProps={{ ...field.customProps, ...field.input }} />
-    );
+    return <CustomComponent customProps={{ ...field.customProps, ...field.input }} />;
   }
   if (field.input.type === FieldType.FileUpload) {
     return <FileUpload {...field.input} />;
@@ -42,10 +40,9 @@ export function useFormControl(field: any) {
       <Checkbox
         {...field.input}
         style={{ width: '100%' }}
-        className={`input-field ${field.input.type} ${field.item.name}`}>
-        {field.item.showLabelInControl && field.item.label
-          ? t(field.item.label)
-          : null}
+        className={`input-field ${field.input.type} ${field.item.name}`}
+      >
+        {field.item.showLabelInControl && field.item.label ? t(field.item.label) : null}
       </Checkbox>
     );
   }
@@ -57,9 +54,9 @@ export function useFormControl(field: any) {
         value={field.input.value}
         style={{
           display: 'flex',
-          flexDirection:
-            (field.input.layout === 'horizontal' && 'row') || 'column',
-        }}>
+          flexDirection: (field.input.layout === 'horizontal' && 'row') || 'column',
+        }}
+      >
         {options.map((option: any) => {
           return (
             <Radio key={option.value} value={option.value}>
@@ -106,7 +103,8 @@ export function useFormControl(field: any) {
         maxTagPlaceholder: (omittedValues: Record<string, any>[]) => (
           <span
             onMouseEnter={(e) => showDrawer(e, omittedValues)}
-            style={{ display: 'inline-block', cursor: 'pointer' }}>
+            style={{ display: 'inline-block', cursor: 'pointer' }}
+          >
             {`+ ${omittedValues.length} more`}
           </span>
         ),
@@ -128,7 +126,8 @@ export function useFormControl(field: any) {
         maxTagPlaceholder: (omittedValues: Record<string, any>[]) => (
           <span
             onMouseEnter={(e) => showDrawer(e, omittedValues)}
-            style={{ display: 'inline-block', cursor: 'pointer' }}>
+            style={{ display: 'inline-block', cursor: 'pointer' }}
+          >
             {`+ ${omittedValues.length} more`}
           </span>
         ),

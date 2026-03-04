@@ -26,27 +26,19 @@ const handleUpload = async (
 };
 
 export const addFieldProperties = (
-  updateFormStepDetails: (
-    sectionName: string,
-    fieldName: string,
-    partialField: any,
-  ) => void,
+  updateFormStepDetails: (sectionName: string, fieldName: string, partialField: any) => void,
   patchFormValues: (values: any) => void,
   isFileChanged: (chnaged: boolean) => void,
 ) => {
   const debouncedHandleFileChange = debounce(handleUpload, 500);
-  updateFormStepDetails(
-    CampaignFormSection.CampaignDetails,
-    CampaignField.UploadIoFile,
-    {
-      uploadProps: {
-        accept: `.PDF`, // TODO: file format
-        showUploadList: false,
-        name: 'file',
-        onChange(info) {
-          debouncedHandleFileChange(info, patchFormValues, isFileChanged);
-        },
-      } as UploadProps,
-    }
-  );
+  updateFormStepDetails(CampaignFormSection.CampaignDetails, CampaignField.UploadIoFile, {
+    uploadProps: {
+      accept: `.PDF`, // TODO: file format
+      showUploadList: false,
+      name: 'file',
+      onChange(info) {
+        debouncedHandleFileChange(info, patchFormValues, isFileChanged);
+      },
+    } as UploadProps,
+  });
 };

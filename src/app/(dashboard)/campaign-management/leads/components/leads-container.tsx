@@ -1,4 +1,3 @@
-
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { SimplePagination } from '@/uicomponents';
 import { FC, useMemo, useState } from 'react';
@@ -22,17 +21,14 @@ export const LeadsContainer: FC<IleadsContainerProps> = ({ batchId }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
   const [filteredInfo, setFilteredInfo] = useState<Filters<ILead>>({});
-  const [disableExportButton, setDisableExportButton] =
-    useState<boolean>(false);
+  const [disableExportButton, setDisableExportButton] = useState<boolean>(false);
   const [isSearchDisabled] = useState<boolean>(true);
   const [isFilterDisabled] = useState<boolean>(true);
   const [isRefreshDisabled] = useState<boolean>(true);
 
   const extraParams = useMemo(() => {
     const nonEmptyKeys = Object.keys(filteredInfo)
-      .filter(
-        (key) => filteredInfo[key] !== null && filteredInfo[key] !== undefined,
-      )
+      .filter((key) => filteredInfo[key] !== null && filteredInfo[key] !== undefined)
       .reduce(
         (acc, key) => {
           if (key === 'sortBy' || key === 'sortOrder') {

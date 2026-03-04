@@ -15,5 +15,4 @@ export const generateTempFileId = (): string =>
     .toString(36)
     .slice(2, 2 + UI.RANDOM_ID_LENGTH)}`;
 
-export const generateConnectionId = (): string =>
-  `${ID_PREFIX.CONNECTION}${Date.now()}`;
+export const generateConnectionId = (): string => `${ID_PREFIX.CONNECTION}${Date.now()}`;

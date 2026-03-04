@@ -27,7 +27,7 @@ export const ErrorFallback = () => {
             : error.statusText || 'An unexpected error occurred.'
         }
         extra={
-          <Button type="primary" onClick={() => navigate('/')}>
+          <Button type='primary' onClick={() => navigate('/')}>
             Go Home
           </Button>
         }
@@ -35,20 +35,19 @@ export const ErrorFallback = () => {
     );
   }
 
-  const errorMessage =
-    error instanceof Error ? error.message : 'An unexpected error occurred.';
+  const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred.';
   const errorStack = error instanceof Error ? error.stack : undefined;
 
   return (
     <Result
-      status="500"
-      title="Something went wrong"
-      subTitle="An unexpected error occurred. Please try again."
+      status='500'
+      title='Something went wrong'
+      subTitle='An unexpected error occurred. Please try again.'
       extra={[
-        <Button key="home" type="primary" onClick={() => navigate('/')}>
+        <Button key='home' type='primary' onClick={() => navigate('/')}>
           Go Home
         </Button>,
-        <Button key="retry" onClick={() => window.location.reload()}>
+        <Button key='retry' onClick={() => window.location.reload()}>
           Try Again
         </Button>,
       ]}
@@ -58,13 +57,11 @@ export const ErrorFallback = () => {
         items={[
           {
             key: 'details',
-            label: <Text type="secondary">Technical Details</Text>,
+            label: <Text type='secondary'>Technical Details</Text>,
             children: (
               <>
                 <Text strong>{errorMessage}</Text>
-                {errorStack && (
-                  <pre className={styles.stackTrace}>{errorStack}</pre>
-                )}
+                {errorStack && <pre className={styles.stackTrace}>{errorStack}</pre>}
               </>
             ),
           },

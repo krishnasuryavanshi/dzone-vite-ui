@@ -3,10 +3,7 @@ import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { authenticatedRequest } from '@/services/backend-request';
 
-export const fetchPermissionsByActionId = async (
-  actionId: string,
-  moduleId: string,
-) => {
+export const fetchPermissionsByActionId = async (actionId: string, moduleId: string) => {
   try {
     const resource = transformPath(ApiResources.PermissionsByActionId, {
       moduleId,

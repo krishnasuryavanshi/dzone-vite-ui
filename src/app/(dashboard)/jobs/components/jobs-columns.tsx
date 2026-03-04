@@ -1,4 +1,3 @@
-
 import { TableProps } from '@/lib/types/uicomponents';
 import { createColumn, Filters, Sorter } from '@/lib/utils/table';
 import { IJob } from '../lib/types';
@@ -13,13 +12,7 @@ const formatDate = (date: string) => {
 
 const JOB_TYPE_FILTERS = ['UPSERT', 'VALIDATION', 'PUBLISH', 'REVALIDATION'];
 
-const JOB_STATUS_FILTERS = [
-  'PENDING',
-  'IN_PROGRESS',
-  'SUCCESS',
-  'FAILED',
-  'CANCELLED',
-];
+const JOB_STATUS_FILTERS = ['PENDING', 'IN_PROGRESS', 'SUCCESS', 'FAILED', 'CANCELLED'];
 
 interface GetJobsColumnsProps {
   filterInfo: Filters<IJob>;

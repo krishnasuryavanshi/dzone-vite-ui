@@ -34,14 +34,7 @@ export const getFileExtension = (filename: string): string => {
 /**
  * File icon types for display
  */
-export type FileIconType =
-  | 'image'
-  | 'pdf'
-  | 'doc'
-  | 'xls'
-  | 'csv'
-  | 'txt'
-  | 'file';
+export type FileIconType = 'image' | 'pdf' | 'doc' | 'xls' | 'csv' | 'txt' | 'file';
 
 /**
  * Get appropriate icon type for file based on extension

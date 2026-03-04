@@ -21,9 +21,7 @@ export const MessageFeedback = ({
   feedbackGiven,
 }: MessageFeedbackProps) => {
   const { setCurrentFeedbackGiven } = useDzentStore();
-  const [selected, setSelected] = useState<'up' | 'down' | null>(
-    feedbackGiven || null,
-  );
+  const [selected, setSelected] = useState<'up' | 'down' | null>(feedbackGiven || null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFeedback = async (rating: 'up' | 'down') => {
@@ -57,14 +55,10 @@ export const MessageFeedback = ({
 
   return (
     <Flex gap='0.5rem' className={styles.feedbackContainer}>
-      <div
-        className={styles.feedbackButton}
-        onClick={() => handleFeedback('up')}>
+      <div className={styles.feedbackButton} onClick={() => handleFeedback('up')}>
         👍
       </div>
-      <div
-        className={styles.feedbackButton}
-        onClick={() => handleFeedback('down')}>
+      <div className={styles.feedbackButton} onClick={() => handleFeedback('down')}>
         👎
       </div>
     </Flex>

@@ -44,10 +44,7 @@ export const isObjectModified = (
         if (formatDate(originalValue) !== formatDate(updatedValue)) {
           return true;
         }
-      } else if (
-        typeof updatedValue === 'boolean' ||
-        typeof originalValue === 'boolean'
-      ) {
+      } else if (typeof updatedValue === 'boolean' || typeof originalValue === 'boolean') {
         // Compare boolean values
         if (updatedValue !== originalValue) {
           return true;
@@ -65,10 +62,7 @@ export const isObjectModified = (
 
   // Check for deletions: if there are keys in original that are not in updated
   for (const key in original) {
-    if (
-      !UNCHANGING_KEYS.includes(key as CampaignField | LineItemFields) &&
-      !(key in updated)
-    ) {
+    if (!UNCHANGING_KEYS.includes(key as CampaignField | LineItemFields) && !(key in updated)) {
       return true;
     }
   }

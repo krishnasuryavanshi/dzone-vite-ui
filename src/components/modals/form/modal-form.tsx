@@ -1,13 +1,13 @@
-import { ModalProps } from "@/lib/types/uicomponents";
-import { Modal } from "@/uicomponents";
-import { Form } from "@/uicomponents/form";
-import React, { FC, PropsWithChildren, ReactNode } from "react";
-import { FormFooter } from "./form-footer";
+import { ModalProps } from '@/lib/types/uicomponents';
+import { Modal } from '@/uicomponents';
+import { Form } from '@/uicomponents/form';
+import React, { FC, PropsWithChildren, ReactNode } from 'react';
+import { FormFooter } from './form-footer';
 
-import "./modal-form.scss";
-import { FormHeader } from "./form-header";
-import { FormSubHeader } from "./form-sub-header";
-import { DzBox } from "@/components/layout/v1";
+import './modal-form.scss';
+import { FormHeader } from './form-header';
+import { FormSubHeader } from './form-sub-header';
+import { DzBox } from '@/components/layout/v1';
 
 interface IModalFormProps extends ModalProps, PropsWithChildren {
   handleCancel: () => void;
@@ -26,8 +26,8 @@ export const ModalForm: FC<IModalFormProps> = ({
 }) => {
   return (
     <Modal
-      className="dz-modal-form"
-      width={modalProps.width || "70%"}
+      className='dz-modal-form'
+      width={modalProps.width || '70%'}
       open={modalProps.open}
       onCancel={handleCancel}
       footer={modalProps.footer || null}
@@ -35,19 +35,16 @@ export const ModalForm: FC<IModalFormProps> = ({
       {...modalProps}
     >
       <FormHeader heading={formProps.heading}></FormHeader>
-      <DzBox className="extra-content">{extra ? extra : null}</DzBox>
+      <DzBox className='extra-content'>{extra ? extra : null}</DzBox>
       <Form
         {...formProps.meta}
         form={formProps.form}
         onFinish={formProps.onFinish}
-        className="dz-form"
+        className='dz-form'
       >
         <FormSubHeader subHeading={formProps.subHeading}></FormSubHeader>
-        <DzBox className="dz-modal-form-body">{children}</DzBox>
-        <FormFooter
-          onCancel={handleCancel}
-          onSubmit={handleSubmit}
-        ></FormFooter>
+        <DzBox className='dz-modal-form-body'>{children}</DzBox>
+        <FormFooter onCancel={handleCancel} onSubmit={handleSubmit}></FormFooter>
       </Form>
     </Modal>
   );

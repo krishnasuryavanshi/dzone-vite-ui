@@ -30,11 +30,7 @@ interface IShowLeadsProps {
   tenantCode?: string;
 }
 
-export const ShowLeads: FC<IShowLeadsProps> = ({
-  lineItemId,
-  show,
-  tenantCode,
-}) => {
+export const ShowLeads: FC<IShowLeadsProps> = ({ lineItemId, show, tenantCode }) => {
   const setSelectedIds = useLeadsStore((state) => state.setSelectedIds);
   const leadsData = useLeadsStore((state) => state.leadsData);
   const updateLeadsData = useLeadsStore((state) => state.updateLeadsData);
@@ -171,11 +167,7 @@ export const ShowLeads: FC<IShowLeadsProps> = ({
         sortOrder: sortOrder[0] as 'asc' | 'desc',
         currentPage: 1,
       });
-    } else if (
-      !sortBy &&
-      !sortOrder &&
-      (leadsData.sortBy || leadsData.sortOrder)
-    ) {
+    } else if (!sortBy && !sortOrder && (leadsData.sortBy || leadsData.sortOrder)) {
       updateLeadsData({
         sortBy: null,
         sortOrder: null,
@@ -235,7 +227,8 @@ export const ShowLeads: FC<IShowLeadsProps> = ({
                     height: '2.25rem',
                     display: 'inline-flex',
                     alignItems: 'center',
-                  }}>
+                  }}
+                >
                   <Translate i18nKey='Clear Filters' />
                 </Button>
               </Tooltip>

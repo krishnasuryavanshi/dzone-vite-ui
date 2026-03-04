@@ -10,14 +10,11 @@ interface IInternalRejectRateProps {}
 export const InternalRejectRate: FC<IInternalRejectRateProps> = ({}) => {
   const [chartData, isLoaded] = useFetchReportData<IReportRow>(
     [],
-    PerformanceReportType.InternalRejectRate
+    PerformanceReportType.InternalRejectRate,
   );
   return (
-    <ChartColumn chartTitle="pages.dashboard.label.internalRejectRate">
-      <DzPieChart
-        data={chartData as IReportRow[]}
-        loaded={isLoaded}
-      />
+    <ChartColumn chartTitle='pages.dashboard.label.internalRejectRate'>
+      <DzPieChart data={chartData as IReportRow[]} loaded={isLoaded} />
     </ChartColumn>
   );
 };

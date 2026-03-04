@@ -8,29 +8,26 @@ interface ISelectedPermissionsState {
   getAllSelectedPermissions: () => string[];
 }
 
-export const useSelectedPermissionsStore = create<ISelectedPermissionsState>(
-  (set, get) => ({
-    selectedPermissions: {},
+export const useSelectedPermissionsStore = create<ISelectedPermissionsState>((set, get) => ({
+  selectedPermissions: {},
 
-    setSelectedPermissions: (actionId, permissions) =>
-      set((state) => ({
-        selectedPermissions: {
-          ...state.selectedPermissions,
-          [actionId]: permissions,
-        },
-      })),
+  setSelectedPermissions: (actionId, permissions) =>
+    set((state) => ({
+      selectedPermissions: {
+        ...state.selectedPermissions,
+        [actionId]: permissions,
+      },
+    })),
 
-    setBulkSelectedPermissions: (permissions) =>
-      set(() => ({
-        selectedPermissions: permissions,
-      })),
+  setBulkSelectedPermissions: (permissions) =>
+    set(() => ({
+      selectedPermissions: permissions,
+    })),
 
-    resetSelectedPermissions: () =>
-      set(() => ({
-        selectedPermissions: {},
-      })),
+  resetSelectedPermissions: () =>
+    set(() => ({
+      selectedPermissions: {},
+    })),
 
-    getAllSelectedPermissions: () =>
-      Object.values(get().selectedPermissions).flat(),
-  }),
-);
+  getAllSelectedPermissions: () => Object.values(get().selectedPermissions).flat(),
+}));

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -98,10 +97,7 @@ export const getTimezoneAbbreviation = (tz?: string) => {
   const isDST = () => {
     const jan = new Date(now.getFullYear(), 0, 1);
     const jul = new Date(now.getFullYear(), 6, 1);
-    return (
-      Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset()) !==
-      now.getTimezoneOffset()
-    );
+    return Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset()) !== now.getTimezoneOffset();
   };
 
   // Handle US timezones with DST
@@ -113,16 +109,10 @@ export const getTimezoneAbbreviation = (tz?: string) => {
 
   // Handle European timezones with DST
   if (timezone === 'Europe/London') return isDST() ? 'BST' : 'GMT';
-  if (
-    timezone.startsWith('Europe/') &&
-    TIMEZONE_ABBREVIATIONS[timezone] === 'CET'
-  ) {
+  if (timezone.startsWith('Europe/') && TIMEZONE_ABBREVIATIONS[timezone] === 'CET') {
     return isDST() ? 'CEST' : 'CET';
   }
-  if (
-    timezone.startsWith('Europe/') &&
-    TIMEZONE_ABBREVIATIONS[timezone] === 'EET'
-  ) {
+  if (timezone.startsWith('Europe/') && TIMEZONE_ABBREVIATIONS[timezone] === 'EET') {
     return isDST() ? 'EEST' : 'EET';
   }
 
@@ -219,10 +209,7 @@ export const formatDateWithTimezone = (
 /**
  * Render date with timezone tooltip
  */
-export const renderDateWithTooltip = (
-  date: string,
-  displayFormat: string = 'DD MMM YYYY',
-) => {
+export const renderDateWithTooltip = (date: string, displayFormat: string = 'DD MMM YYYY') => {
   if (!date) return null;
 
   const browserTz = getBrowserTimezone();
@@ -243,7 +230,8 @@ export const renderDateWithTooltip = (
       overlayInnerStyle={{
         backgroundColor: 'rgba(0, 0, 0, 0.85)',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-      }}>
+      }}
+    >
       <span>{displayDate}</span>
     </Tooltip>
   );
@@ -261,9 +249,7 @@ export const renderDateTimeWithTooltip = (
 
   // Display datetime in user's timezone
   const displayDateTime = formatDateWithTimezone(date, displayFormat);
-  const displayText = showTimezoneInDisplay
-    ? `${displayDateTime} ${tzAbbr}`
-    : displayDateTime;
+  const displayText = showTimezoneInDisplay ? `${displayDateTime} ${tzAbbr}` : displayDateTime;
 
   const tooltipContent = `Timezone: ${tzAbbr}`;
 
@@ -278,7 +264,8 @@ export const renderDateTimeWithTooltip = (
       overlayInnerStyle={{
         backgroundColor: 'rgba(0, 0, 0, 0.85)',
         boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
-      }}>
+      }}
+    >
       <span>{displayText}</span>
     </Tooltip>
   );

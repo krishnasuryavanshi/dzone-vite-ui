@@ -6,9 +6,7 @@ import {
 
 export const useFileMetadata = (marketerCode?: string) => {
   const [fileMap, setFileMap] = useState<Record<string, any>>({});
-  const [validationSettingMap, setValidationSettingMap] = useState<
-    Record<string, string>
-  >({});
+  const [validationSettingMap, setValidationSettingMap] = useState<Record<string, string>>({});
 
   const isFileId = (value: string): boolean => {
     return /^[a-f0-9-]{36}$/.test(value);
@@ -19,13 +17,9 @@ export const useFileMetadata = (marketerCode?: string) => {
 
     if (typeof value === 'object' && value !== null && 'value' in value) {
       if (Array.isArray(value.value)) {
-        return value.value.filter(
-          (v: string) => typeof v === 'string' && isFileId(v),
-        );
+        return value.value.filter((v: string) => typeof v === 'string' && isFileId(v));
       }
-      return typeof value.value === 'string' && isFileId(value.value)
-        ? [value.value]
-        : [];
+      return typeof value.value === 'string' && isFileId(value.value) ? [value.value] : [];
     }
 
     if (Array.isArray(value)) {
@@ -45,17 +39,10 @@ export const useFileMetadata = (marketerCode?: string) => {
     for (const item of diff) {
       const isJobTitle = item.name?.toLowerCase().includes('jobtitle');
       if (item.type === 'File') {
-        allFileIds.push(
-          ...extractFileIds(item.from),
-          ...extractFileIds(item.to),
-        );
+        allFileIds.push(...extractFileIds(item.from), ...extractFileIds(item.to));
       }
 
-      if (
-        item.from &&
-        typeof item.from === 'object' &&
-        'isInclusion' in item.from
-      ) {
+      if (item.from && typeof item.from === 'object' && 'isInclusion' in item.from) {
         if (!isJobTitle || item.from.isInclusion) {
           allFileIds.push(...extractFileIds(item.from));
         }
@@ -71,11 +58,7 @@ export const useFileMetadata = (marketerCode?: string) => {
         for (const lvl of item.level) {
           const isNestedJobTitle = lvl.type?.toLowerCase().includes('jobtitle');
 
-          if (
-            lvl.from &&
-            typeof lvl.from === 'object' &&
-            'isInclusion' in lvl.from
-          ) {
+          if (lvl.from && typeof lvl.from === 'object' && 'isInclusion' in lvl.from) {
             if (!isNestedJobTitle || lvl.from.isInclusion) {
               allFileIds.push(...extractFileIds(lvl.from));
             }

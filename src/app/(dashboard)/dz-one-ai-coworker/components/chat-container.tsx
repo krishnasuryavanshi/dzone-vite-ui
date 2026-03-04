@@ -1,4 +1,3 @@
-
 import { Flex } from '@/uicomponents/layout';
 import { ChatHeader } from './chat-header';
 import { MessageList } from './message-list';
@@ -11,15 +10,10 @@ import { useCallback, useRef } from 'react';
 
 export const ChatContainer = () => {
   const inputDisabled = useAiAgentStore((state) => state.inputDisabled);
-  const streamingConversationId = useAiAgentStore(
-    (state) => state.streamingConversationId,
-  );
-  const currentConversationId = useAiAgentStore(
-    (state) => state.currentConversationId,
-  );
+  const streamingConversationId = useAiAgentStore((state) => state.streamingConversationId);
+  const currentConversationId = useAiAgentStore((state) => state.currentConversationId);
   const isCurrentConversationStreaming =
-    streamingConversationId === currentConversationId &&
-    streamingConversationId !== null;
+    streamingConversationId === currentConversationId && streamingConversationId !== null;
   const tenantCode = useAiAgentStore((state) => state.tenantCode);
   const isDraggingOver = useAiAgentStore((state) => state.isDraggingOver);
   const setDraggingOver = useAiAgentStore((state) => state.setDraggingOver);
@@ -55,7 +49,8 @@ export const ChatContainer = () => {
         borderRadius: '0.75rem',
         margin: '0.5rem 0.5rem 1rem 0.5rem',
       }}
-      {...dragHandlers}>
+      {...dragHandlers}
+    >
       <ChatHeader />
       <Flex
         vertical
@@ -63,7 +58,8 @@ export const ChatContainer = () => {
           flex: 1,
           position: 'relative',
           overflow: 'hidden',
-        }}>
+        }}
+      >
         <DropZoneOverlay isVisible={isDragging} />
         <MessageList />
         <InputArea onFileUploadRef={fileUploadHandlerRef} />

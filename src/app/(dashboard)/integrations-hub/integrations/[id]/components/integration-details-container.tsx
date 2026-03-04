@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { DzBox } from '@/components/layout/v1/dz-box';
 import { IntegrationDetails } from './integration-details';
@@ -9,9 +8,9 @@ interface IntegrationDetailsContainerProps {
   integrationId: string;
 }
 
-export const IntegrationDetailsContainer: React.FC<
-  IntegrationDetailsContainerProps
-> = ({ integrationId }) => {
+export const IntegrationDetailsContainer: React.FC<IntegrationDetailsContainerProps> = ({
+  integrationId,
+}) => {
   return (
     <HasPermission permissions={IntegrationsActionsEnum.View} showAccessDenied>
       <DzBox className='integration-details-container'>

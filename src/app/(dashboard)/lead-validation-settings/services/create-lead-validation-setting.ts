@@ -9,12 +9,9 @@ export async function createLeadValidationSetting(
 ) {
   try {
     return authenticatedRequest({
-      resource: transformPath(
-        ApiResources.MarketersLeadValidationSettings,
-        {
-          tenantCode,
-        },
-      ),
+      resource: transformPath(ApiResources.MarketersLeadValidationSettings, {
+        tenantCode,
+      }),
       apiHost: ApiHost.PlatformService,
       method: HttpMethod.POST,
       data: requestData,

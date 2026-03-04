@@ -10,17 +10,15 @@ interface ILeadsByCountryProps {}
 export const LeadsByCountry: FC<ILeadsByCountryProps> = ({}) => {
   const [chartData, isLoaded] = useFetchReportData<IBaseReportRow>(
     [],
-    ReachReportType.LeadsByCountry
+    ReachReportType.LeadsByCountry,
   );
   return (
     <ChartColumn
-      chartTitle="pages.dashboard.label.leadsByCountry"
+      chartTitle='pages.dashboard.label.leadsByCountry'
       extraTitle={'pages.dashboard.label.count'}
-      hasExtra>
-      <DzBarChart
-        data={chartData as IBaseReportRow[]}
-        loaded={isLoaded}
-      />
+      hasExtra
+    >
+      <DzBarChart data={chartData as IBaseReportRow[]} loaded={isLoaded} />
     </ChartColumn>
   );
 };

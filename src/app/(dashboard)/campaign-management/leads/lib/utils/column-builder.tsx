@@ -1,4 +1,3 @@
-
 import React from 'react';
 import dayjs from 'dayjs';
 import utc from 'dayjs/plugin/utc';
@@ -133,9 +132,7 @@ export const buildDynamicColumns = (
 
       // Filter line item columns based on lineItemId
       const isLineItemColumn =
-        col.key === 'lineItem.lineItemId' ||
-        col.key === 'lineItemName' ||
-        col.key === 'supplier';
+        col.key === 'lineItem.lineItemId' || col.key === 'lineItemName' || col.key === 'supplier';
 
       if (isLineItemColumn) {
         // Show line item columns only when lineItemId is null (showing all leads)

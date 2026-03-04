@@ -1,6 +1,6 @@
-import { SkeletonProps } from "antd/lib/skeleton";
-import { Skeleton as AntdSkeleton } from "antd";
-import React, { FC, PropsWithChildren } from "react";
+import { SkeletonProps } from 'antd/lib/skeleton';
+import { Skeleton as AntdSkeleton } from 'antd';
+import React, { FC, PropsWithChildren } from 'react';
 
 const { Input, Avatar } = AntdSkeleton;
 

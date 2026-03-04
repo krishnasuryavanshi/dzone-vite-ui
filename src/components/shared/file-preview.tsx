@@ -19,11 +19,7 @@ type FilePreviewProps = {
   variant?: 'light' | 'transparent';
 };
 
-export const FilePreview = ({
-  file,
-  handleRemoveFile,
-  variant,
-}: FilePreviewProps) => {
+export const FilePreview = ({ file, handleRemoveFile, variant }: FilePreviewProps) => {
   const handleDownloadFile = async () => {
     const res = await fileDownload(file.id);
   };
@@ -42,38 +38,30 @@ export const FilePreview = ({
         padding: '1rem',
         width: '100%',
         background: variant === 'light' ? '#fff' : 'transparent',
-      }}>
-      <Flex
-        justify='space-between'
-        gap={'1rem'}
-        align='center'
-        style={{ width: '100%' }}>
+      }}
+    >
+      <Flex justify='space-between' gap={'1rem'} align='center' style={{ width: '100%' }}>
         <Flex gap={'0.5rem'} align='center'>
           <DzBox
             style={{
               borderRadius: '5px',
               border: '1px solid rgba(35, 90, 237, 0.16)',
               padding: '0.5rem',
-            }}>
+            }}
+          >
             <FileOutlined style={{ fontSize: '2rem', color: '#3D71FB' }} />
           </DzBox>
           <DzBox style={{ flex: 1 }}>
             <Hideable show={file.variant !== 'error'}>
               <Flex vertical gap='0.25rem'>
                 <DzBox>
-                  <Text
-                    strong
-                    ellipsis
-                    title={file.name}
-                    style={{ maxWidth: '10rem' }}>
+                  <Text strong ellipsis title={file.name} style={{ maxWidth: '10rem' }}>
                     {file.name}
                   </Text>
                 </DzBox>
                 <DzBox>
                   <Text type='secondary'>
-                    {typeof file.size === 'number'
-                      ? convertFromBytes(file.size)
-                      : file.size}
+                    {typeof file.size === 'number' ? convertFromBytes(file.size) : file.size}
                   </Text>
                 </DzBox>
               </Flex>

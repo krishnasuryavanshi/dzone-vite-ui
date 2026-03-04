@@ -1,2 +1,2 @@
-export * from "./card";
-export * from "./meta";
+export * from './card';
+export * from './meta';

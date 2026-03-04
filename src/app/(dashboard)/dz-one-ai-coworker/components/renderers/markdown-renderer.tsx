@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
@@ -66,21 +65,16 @@ export const MarkdownRenderer: FC<MarkdownRendererProps> = ({ content }) => {
           },
           a({ href, children }) {
             return (
-              <a
-                href={href}
-                target='_blank'
-                rel='noopener noreferrer'
-                className={styles.link}>
+              <a href={href} target='_blank' rel='noopener noreferrer' className={styles.link}>
                 {children}
               </a>
             );
           },
           blockquote({ children }) {
-            return (
-              <blockquote className={styles.blockquote}>{children}</blockquote>
-            );
+            return <blockquote className={styles.blockquote}>{children}</blockquote>;
           },
-        }}>
+        }}
+      >
         {content}
       </ReactMarkdown>
     </div>

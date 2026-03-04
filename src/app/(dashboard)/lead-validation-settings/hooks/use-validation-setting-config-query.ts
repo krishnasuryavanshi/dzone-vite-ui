@@ -18,26 +18,12 @@ export function useValidationSettingConfigQuery(
         return fetchLeadValidationSettingMetadata();
       }
 
-      if (
-        info?.tenantCode &&
-        info?.leadValidationSettingId &&
-        !info?.lineItemId
-      ) {
-        return fetchMarketersLeadValidationSetting(
-          info.tenantCode,
-          info.leadValidationSettingId,
-        );
+      if (info?.tenantCode && info?.leadValidationSettingId && !info?.lineItemId) {
+        return fetchMarketersLeadValidationSetting(info.tenantCode, info.leadValidationSettingId);
       }
 
-      if (
-        !info?.tenantCode &&
-        info?.leadValidationSettingId &&
-        info?.lineItemId
-      ) {
-        return fetchLineItemsLeadValidationSetting(
-          info.lineItemId,
-          info.leadValidationSettingId,
-        );
+      if (!info?.tenantCode && info?.leadValidationSettingId && info?.lineItemId) {
+        return fetchLineItemsLeadValidationSetting(info.lineItemId, info.leadValidationSettingId);
       }
 
       throw new Error('Invalid configuration params');

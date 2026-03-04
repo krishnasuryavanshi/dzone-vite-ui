@@ -2,22 +2,14 @@ import { Tag } from '@/uicomponents/tag';
 import { Tooltip } from '@/uicomponents/tooltip';
 import { FC } from 'react';
 
-export type TransformHistoryStatus =
-  | 'PENDING'
-  | 'PROCESSING'
-  | 'FAILED'
-  | 'ERROR'
-  | 'SUCCESS';
+export type TransformHistoryStatus = 'PENDING' | 'PROCESSING' | 'FAILED' | 'ERROR' | 'SUCCESS';
 
 interface TransformHistoryStatusBadgeProps {
   status: TransformHistoryStatus;
   errorMessage?: string | null;
 }
 
-const statusConfig: Record<
-  TransformHistoryStatus,
-  { color: string; text: string }
-> = {
+const statusConfig: Record<TransformHistoryStatus, { color: string; text: string }> = {
   PENDING: { color: 'default', text: 'Pending' },
   PROCESSING: { color: 'processing', text: 'Processing' },
   FAILED: { color: 'error', text: 'Failed' },
@@ -25,9 +17,10 @@ const statusConfig: Record<
   SUCCESS: { color: 'success', text: 'Success' },
 };
 
-export const TransformHistoryStatusBadge: FC<
-  TransformHistoryStatusBadgeProps
-> = ({ status, errorMessage }) => {
+export const TransformHistoryStatusBadge: FC<TransformHistoryStatusBadgeProps> = ({
+  status,
+  errorMessage,
+}) => {
   const config = statusConfig[status] || statusConfig.PENDING;
   const hasError = (status === 'FAILED' || status === 'ERROR') && errorMessage;
 

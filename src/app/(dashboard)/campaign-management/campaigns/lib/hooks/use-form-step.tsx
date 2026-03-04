@@ -4,11 +4,7 @@ export const useFormStep = () => {
   const [formStepDetails, setFormStepDetails] = useState<any>(null);
   const [isFormStepInitialized, setIsFormStepInitialized] = useState(0);
 
-  const updateFormStepDetails = (
-    sectionName: string,
-    fieldName: string,
-    partialField: any,
-  ) => {
+  const updateFormStepDetails = (sectionName: string, fieldName: string, partialField: any) => {
     formStepDetails.step.forEach((step: any) => {
       if (step.key === sectionName) {
         step.fields.forEach((field: any) => {

@@ -30,11 +30,7 @@ export const ChipsDatePicker: FC<IChipsDatePickerProps> = ({
 
   useEffect(() => {
     // When format changes, re-format all existing date chips
-    if (
-      prevFormatRef.current &&
-      prevFormatRef.current !== format &&
-      value.length > 0
-    ) {
+    if (prevFormatRef.current && prevFormatRef.current !== format && value.length > 0) {
       const reformattedDates = value.map((dateStr) => {
         const parsedDate = dayjs(dateStr, prevFormatRef.current, true);
         if (parsedDate.isValid()) {
@@ -57,10 +53,7 @@ export const ChipsDatePicker: FC<IChipsDatePickerProps> = ({
     const now = Date.now();
 
     // Skip if this date was just added (within 100ms) - prevents double trigger on "Today" click
-    if (
-      lastAddedRef.current?.date === formattedDate &&
-      now - lastAddedRef.current.time < 100
-    ) {
+    if (lastAddedRef.current?.date === formattedDate && now - lastAddedRef.current.time < 100) {
       return;
     }
 
@@ -76,8 +69,7 @@ export const ChipsDatePicker: FC<IChipsDatePickerProps> = ({
     // Check if value exists in opposite field (inclusion/suppression conflict)
     if (form && fieldName && fieldName.length >= 2) {
       const currentFieldName = fieldName[fieldName.length - 1];
-      const siblingFieldName =
-        currentFieldName === 'inclusion' ? 'exclusion' : 'inclusion';
+      const siblingFieldName = currentFieldName === 'inclusion' ? 'exclusion' : 'inclusion';
 
       // Construct the full path: ['customFields', fieldIndex, siblingFieldName]
       const siblingPath = ['customFields', fieldName[0], siblingFieldName];
@@ -116,7 +108,8 @@ export const ChipsDatePicker: FC<IChipsDatePickerProps> = ({
         padding: '0.25rem 1rem 1rem 1rem',
         boxShadow: '0px 0px 4px 0px rgba(0, 0, 0, 0.25) inset',
         backgroundColor: '#fff',
-      }}>
+      }}
+    >
       <DatePicker
         variant='borderless'
         placeholder={placeholder}
@@ -128,11 +121,7 @@ export const ChipsDatePicker: FC<IChipsDatePickerProps> = ({
       {value.length > 0 && (
         <Flex gap='0.5rem' wrap='wrap'>
           {value.map((chip, index) => (
-            <ChipItem
-              key={index}
-              label={chip}
-              onClose={() => handleRemoveChip(index)}
-            />
+            <ChipItem key={index} label={chip} onClose={() => handleRemoveChip(index)} />
           ))}
         </Flex>
       )}

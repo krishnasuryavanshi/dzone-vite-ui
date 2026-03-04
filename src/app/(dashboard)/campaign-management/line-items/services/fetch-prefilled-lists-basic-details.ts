@@ -7,10 +7,7 @@ import { fetchOrganizationsByType } from '@/app/(dashboard)/(system-admin)/organ
 export const fetchPrefilledListsBasicDetails = async (userId?: string) => {
   let lists: Record<OptionsKeys, any[]> = {} as Record<OptionsKeys, any[]>;
 
-  const { data: marketerData } = await fetchOrganizationsByType(
-    'Marketer',
-    userId,
-  );
+  const { data: marketerData } = await fetchOrganizationsByType('Marketer', userId);
   let marketerList = marketerData?.map(({ id, name: label, code }: any) => ({
     label,
     value: code,
@@ -18,18 +15,14 @@ export const fetchPrefilledListsBasicDetails = async (userId?: string) => {
     id,
   }));
   lists[OptionsKeys.Marketers] = marketerList;
-  lists[OptionsKeys.Products] = await fetchListByPicklistType(
-    LineItemPicklistMappings.Products,
-  );
+  lists[OptionsKeys.Products] = await fetchListByPicklistType(LineItemPicklistMappings.Products);
   lists[OptionsKeys.DeliveryDays] = await fetchListByPicklistType(
     LineItemPicklistMappings.DeliveryDays,
   );
   lists[OptionsKeys.DeliveryMethod] = await fetchListByPicklistType(
     LineItemPicklistMappings.DeliveryMethods,
   );
-  lists[OptionsKeys.Pacing] = await fetchListByPicklistType(
-    LineItemPicklistMappings.Pacing,
-  );
+  lists[OptionsKeys.Pacing] = await fetchListByPicklistType(LineItemPicklistMappings.Pacing);
   lists[OptionsKeys.PacingSchedules] = await fetchListByPicklistType(
     LineItemPicklistMappings.PacingSchedules,
   );

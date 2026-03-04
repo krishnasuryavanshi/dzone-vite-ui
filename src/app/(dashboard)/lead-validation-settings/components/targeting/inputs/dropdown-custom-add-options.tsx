@@ -31,10 +31,7 @@ export const DropdownCustomAddOptions = ({
     max: null,
   });
 
-  const validateNumbers = (
-    field: 'min' | 'max',
-    val: { min: number; max: number },
-  ) => {
+  const validateNumbers = (field: 'min' | 'max', val: { min: number; max: number }) => {
     const newErrors = { ...errors };
     if (field === 'min') {
       newErrors.max = null;
@@ -69,9 +66,7 @@ export const DropdownCustomAddOptions = ({
   };
 
   const handleAddOption = () => {
-    const existingOption = options.find(
-      (option) => option.value === `${values.min}-${values.max}`,
-    );
+    const existingOption = options.find((option) => option.value === `${values.min}-${values.max}`);
     if (existingOption) {
       onCancel();
       return true;
@@ -141,9 +136,8 @@ export const DropdownCustomAddOptions = ({
             type='text'
             size='small'
             onClick={handleAddOption}
-            disabled={
-              !!(!(values.min >= 0) || !values.max || errors.min || errors.max)
-            }>
+            disabled={!!(!(values.min >= 0) || !values.max || errors.min || errors.max)}
+          >
             <Text strong style={{ color: '#235AED' }}>
               Save
             </Text>

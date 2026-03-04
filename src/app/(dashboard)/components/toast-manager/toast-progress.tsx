@@ -11,17 +11,11 @@ interface IToastProgressProps {
   title: string;
 }
 
-export const ToastProgress: FC<IToastProgressProps> = ({
-  progress,
-  show,
-  title,
-}) => {
+export const ToastProgress: FC<IToastProgressProps> = ({ progress, show, title }) => {
   if (!show) return null;
   return (
     <Flex align='flex-start' gap='1rem' style={{ width: '100%' }}>
-      <Spin
-        indicator={<LoadingOutlined style={{ fontSize: '2.25rem' }} spin />}
-      />
+      <Spin indicator={<LoadingOutlined style={{ fontSize: '2.25rem' }} spin />} />
       <Flex vertical gap={'0.5rem'} style={{ flex: 1 }}>
         <Flex justify='space-between' align='center'>
           <Text strong>
@@ -29,12 +23,7 @@ export const ToastProgress: FC<IToastProgressProps> = ({
           </Text>
           <CloseOutlined color='#000' />
         </Flex>
-        <Progress
-          percent={progress}
-          status='active'
-          showInfo={false}
-          trailColor='#fff'
-        />
+        <Progress percent={progress} status='active' showInfo={false} trailColor='#fff' />
       </Flex>
     </Flex>
   );

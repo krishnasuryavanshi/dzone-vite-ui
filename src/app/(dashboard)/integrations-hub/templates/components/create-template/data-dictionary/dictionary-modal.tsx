@@ -28,7 +28,8 @@ export const DataDictionaryModal: FC<IDataDictionaryModalProps> = ({
       open={isModalOpen}
       onCancel={closeDictionaryModal}
       footer={null}
-      closable={true}>
+      closable={true}
+    >
       <DictionaryModalBody dataDictionaryList={dataDictionaryList} />
     </Modal>
   );

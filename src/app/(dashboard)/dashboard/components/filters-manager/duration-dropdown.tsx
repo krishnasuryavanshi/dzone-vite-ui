@@ -1,5 +1,5 @@
-import { DzDropdown } from "@/components/shared/custom";
-import React, { FC, ReactNode } from "react";
+import { DzDropdown } from '@/components/shared/custom';
+import React, { FC, ReactNode } from 'react';
 
 interface IDurationDropdownProps {
   availableDurations?: { key: string; label: ReactNode }[];
@@ -15,25 +15,25 @@ export const DurationDropdown: FC<IDurationDropdownProps> = ({
   const handleDurationSelection = (data: any) => {
     handleSelectionChange &&
       handleSelectionChange({
-        type: "selectedDurations",
+        type: 'selectedDurations',
         selectedItems: data.selectedKeys,
       });
   };
 
   return (
     <DzDropdown
-      className="dz-dropdown filter-dropdown filter-dropdown-Campaigns"
+      className='dz-dropdown filter-dropdown filter-dropdown-Campaigns'
       items={availableDurations}
-      label="Duration"
+      label='Duration'
       multiple={false}
       selectedItems={selectedDurations}
       onSelect={handleDurationSelection}
       searchable={false}
     >
-      {(selectedDurations?.includes("week") && "This Week") ||
-        (selectedDurations?.includes("month") && "This Month") ||
-        (selectedDurations?.includes("quarter") && "This Quarter") ||
-        (selectedDurations?.includes("year") && "This Year")}
+      {(selectedDurations?.includes('week') && 'This Week') ||
+        (selectedDurations?.includes('month') && 'This Month') ||
+        (selectedDurations?.includes('quarter') && 'This Quarter') ||
+        (selectedDurations?.includes('year') && 'This Year')}
     </DzDropdown>
   );
 };

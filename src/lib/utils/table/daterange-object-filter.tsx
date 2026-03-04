@@ -32,10 +32,7 @@ export const DateRangeObjectFilter: FC<IDateRangeObjectFilterProps> = ({
     ) {
       // If it's an array with an object inside
       const filterValue = selectedKeys[0] as DateRangeValue;
-      if (
-        filterValue &&
-        (filterValue.from !== undefined || filterValue.to !== undefined)
-      ) {
+      if (filterValue && (filterValue.from !== undefined || filterValue.to !== undefined)) {
         setRange({
           from: filterValue.from ? dayjs(filterValue.from) : null,
           to: filterValue.to ? dayjs(filterValue.to) : null,
@@ -43,11 +40,7 @@ export const DateRangeObjectFilter: FC<IDateRangeObjectFilterProps> = ({
       } else {
         setRange(null);
       }
-    } else if (
-      selectedKeys &&
-      typeof selectedKeys === 'object' &&
-      !Array.isArray(selectedKeys)
-    ) {
+    } else if (selectedKeys && typeof selectedKeys === 'object' && !Array.isArray(selectedKeys)) {
       // If it's a direct object
       const filterValue = selectedKeys as unknown as DateRangeValue;
       if (filterValue.from !== undefined || filterValue.to !== undefined) {
@@ -91,10 +84,7 @@ export const DateRangeObjectFilter: FC<IDateRangeObjectFilterProps> = ({
   }, [debouncedConfirm]);
 
   // This fires when dates are being selected (including partial selection)
-  const onCalendarChange = (
-    dates: null | (Dayjs | null)[],
-    dateStrings: string[],
-  ) => {
+  const onCalendarChange = (dates: null | (Dayjs | null)[], dateStrings: string[]) => {
     if (dates && (dates[0] || dates[1])) {
       // Update local state
       const newRange = {
@@ -142,9 +132,7 @@ export const DateRangeObjectFilter: FC<IDateRangeObjectFilterProps> = ({
   };
 
   // Convert object range back to array format for RangePicker
-  const rangeValue: [Dayjs | null, Dayjs | null] | null = range
-    ? [range.from, range.to]
-    : null;
+  const rangeValue: [Dayjs | null, Dayjs | null] | null = range ? [range.from, range.to] : null;
 
   return (
     <Flex
@@ -152,7 +140,8 @@ export const DateRangeObjectFilter: FC<IDateRangeObjectFilterProps> = ({
       className='dz-calendar-dark'
       onKeyDown={(e) => e.stopPropagation()}
       vertical
-      gap={'1rem'}>
+      gap={'1rem'}
+    >
       <DzBox>
         <RangePicker
           format='YYYY-MM-DD'

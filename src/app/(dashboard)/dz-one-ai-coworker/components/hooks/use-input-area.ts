@@ -1,11 +1,6 @@
-
 import { useState, useCallback, useRef, useEffect } from 'react';
 import { useAiAgentStore } from '../../store/use-ai-agent-store';
-import {
-  streamChatDirect,
-  cancelStream,
-  uploadChatFiles,
-} from '../../services';
+import { streamChatDirect, cancelStream, uploadChatFiles } from '../../services';
 import { FileAttachment, StreamChunk, FileUploadStatus } from '../../lib/types';
 
 export const useInputArea = (
@@ -18,20 +13,13 @@ export const useInputArea = (
 
   // Store state selectors
   const inputDisabled = useAiAgentStore((state) => state.inputDisabled);
-  const isTenantUnavailable = useAiAgentStore(
-    (state) => state.isTenantUnavailable,
-  );
+  const isTenantUnavailable = useAiAgentStore((state) => state.isTenantUnavailable);
   const sessionId = useAiAgentStore((state) => state.sessionId);
   const tenantCode = useAiAgentStore((state) => state.tenantCode);
-  const currentConversationId = useAiAgentStore(
-    (state) => state.currentConversationId,
-  );
-  const streamingConversationId = useAiAgentStore(
-    (state) => state.streamingConversationId,
-  );
+  const currentConversationId = useAiAgentStore((state) => state.currentConversationId);
+  const streamingConversationId = useAiAgentStore((state) => state.streamingConversationId);
   const isCurrentConversationStreaming =
-    streamingConversationId === currentConversationId &&
-    streamingConversationId !== null;
+    streamingConversationId === currentConversationId && streamingConversationId !== null;
   const isAnyStreamActive = streamingConversationId !== null;
   const attachments = useAiAgentStore((state) => state.attachments);
   const isUploading = useAiAgentStore((state) => state.isUploading);
@@ -40,39 +28,21 @@ export const useInputArea = (
   // Store actions
   const initSession = useAiAgentStore((state) => state.initSession);
   const isSessionExpired = useAiAgentStore((state) => state.isSessionExpired);
-  const updateSessionActivity = useAiAgentStore(
-    (state) => state.updateSessionActivity,
-  );
+  const updateSessionActivity = useAiAgentStore((state) => state.updateSessionActivity);
   const addUserMessage = useAiAgentStore((state) => state.addUserMessage);
-  const startAssistantMessage = useAiAgentStore(
-    (state) => state.startAssistantMessage,
-  );
-  const setAssistantMessageContent = useAiAgentStore(
-    (state) => state.setAssistantMessageContent,
-  );
-  const setAssistantMessageError = useAiAgentStore(
-    (state) => state.setAssistantMessageError,
-  );
-  const finishAssistantMessage = useAiAgentStore(
-    (state) => state.finishAssistantMessage,
-  );
+  const startAssistantMessage = useAiAgentStore((state) => state.startAssistantMessage);
+  const setAssistantMessageContent = useAiAgentStore((state) => state.setAssistantMessageContent);
+  const setAssistantMessageError = useAiAgentStore((state) => state.setAssistantMessageError);
+  const finishAssistantMessage = useAiAgentStore((state) => state.finishAssistantMessage);
   const addProgressStep = useAiAgentStore((state) => state.addProgressStep);
   const setThinking = useAiAgentStore((state) => state.setThinking);
-  const addNewConversation = useAiAgentStore(
-    (state) => state.addNewConversation,
-  );
-  const updateConversationTitle = useAiAgentStore(
-    (state) => state.updateConversationTitle,
-  );
+  const addNewConversation = useAiAgentStore((state) => state.addNewConversation);
+  const updateConversationTitle = useAiAgentStore((state) => state.updateConversationTitle);
 
   // File attachment actions
   const addAttachment = useAiAgentStore((state) => state.addAttachment);
-  const updateAttachmentProgress = useAiAgentStore(
-    (state) => state.updateAttachmentProgress,
-  );
-  const updateAttachmentStatus = useAiAgentStore(
-    (state) => state.updateAttachmentStatus,
-  );
+  const updateAttachmentProgress = useAiAgentStore((state) => state.updateAttachmentProgress);
+  const updateAttachmentStatus = useAiAgentStore((state) => state.updateAttachmentStatus);
   const removeAttachment = useAiAgentStore((state) => state.removeAttachment);
   const clearAttachments = useAiAgentStore((state) => state.clearAttachments);
   const setUploading = useAiAgentStore((state) => state.setUploading);
@@ -86,8 +56,7 @@ export const useInputArea = (
   // Handle file upload
   const handleFilesUpload = useCallback(
     async (files: File[]) => {
-      if (!tenantCode || inputDisabled || isCurrentConversationStreaming)
-        return;
+      if (!tenantCode || inputDisabled || isCurrentConversationStreaming) return;
 
       setUploading(true);
 
@@ -248,15 +217,10 @@ export const useInputArea = (
     // Initialize session if not exists or expired
     let currentSessionId = sessionId;
     if (!currentSessionId || isSessionExpired()) {
-      const sessionInitSuccess = await initSession(
-        tenantCode,
-        currentConversationId || undefined,
-      );
+      const sessionInitSuccess = await initSession(tenantCode, currentConversationId || undefined);
 
       if (!sessionInitSuccess) {
-        setAssistantMessageError(
-          'Failed to initialize session. Please try again.',
-        );
+        setAssistantMessageError('Failed to initialize session. Please try again.');
         finishAssistantMessage();
         return;
       }
@@ -317,9 +281,7 @@ export const useInputArea = (
       },
       (error: Error) => {
         connectionIdRef.current = null;
-        setAssistantMessageError(
-          error.message || 'An error occurred. Please try again.',
-        );
+        setAssistantMessageError(error.message || 'An error occurred. Please try again.');
         finishAssistantMessage();
       },
     );
@@ -377,18 +339,12 @@ export const useInputArea = (
     setUploading(false);
   }, [clearAttachments, setUploading]);
 
-  const handleChange = useCallback(
-    (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-      setValue(e.target.value);
-    },
-    [],
-  );
+  const handleChange = useCallback((e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(e.target.value);
+  }, []);
 
-  const uploadingCount = attachments.filter(
-    (a) => a.status === FileUploadStatus.UPLOADING,
-  ).length;
-  const canSend =
-    !!value.trim() && !isCurrentConversationStreaming && !isUploading;
+  const uploadingCount = attachments.filter((a) => a.status === FileUploadStatus.UPLOADING).length;
+  const canSend = !!value.trim() && !isCurrentConversationStreaming && !isUploading;
 
   return {
     // State

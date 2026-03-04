@@ -10,9 +10,7 @@ interface IReachReportsProps {
 export const ReachReports: FC<IReachReportsProps> = ({ show }) => {
   if (!show) return null;
   return (
-    <Flex
-      gap="0"
-      vertical>
+    <Flex gap='0' vertical>
       <CountsContainer />
       <ChartsContainer />
     </Flex>

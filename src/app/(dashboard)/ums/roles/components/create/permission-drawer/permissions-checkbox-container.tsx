@@ -15,9 +15,13 @@ interface IPermissionsCheckboxContainerProps {
   onSelectAll: (isChecked: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const PermissionsCheckboxContainer: FC<
-  IPermissionsCheckboxContainerProps
-> = ({ permissions, searchTerm, isAllSelected, onSelectAll, actionId }) => {
+export const PermissionsCheckboxContainer: FC<IPermissionsCheckboxContainerProps> = ({
+  permissions,
+  searchTerm,
+  isAllSelected,
+  onSelectAll,
+  actionId,
+}) => {
   const { isEditAllowed, isEditing } = useEditStore();
 
   const hasMultiplePermissions = permissions.length > 1;
@@ -29,7 +33,8 @@ export const PermissionsCheckboxContainer: FC<
           className='dz-permission-checkbox'
           checked={isAllSelected}
           onChange={onSelectAll}
-          disabled={!isEditAllowed && isEditing}>
+          disabled={!isEditAllowed && isEditing}
+        >
           <Space style={{ fontWeight: 700 }}>
             <Translate i18nKey='Select All' />
           </Space>
@@ -37,11 +42,7 @@ export const PermissionsCheckboxContainer: FC<
       )}
       {permissions.map((permission: IPermission) => {
         return (
-          <PermissionCheckbox
-            key={permission.id}
-            actionId={actionId}
-            permission={permission}
-          />
+          <PermissionCheckbox key={permission.id} actionId={actionId} permission={permission} />
         );
       })}
     </>

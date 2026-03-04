@@ -1,9 +1,4 @@
-
-import {
-  CloseOutlined,
-  FileImageOutlined,
-  FileTextOutlined,
-} from '@/uicomponents/icons';
+import { CloseOutlined, FileImageOutlined, FileTextOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
 import { Progress } from '@/uicomponents';
 import { Hideable } from '@/components/shared';
@@ -31,16 +26,11 @@ const AttachmentItem = ({ attachment, onRemove }: AttachmentItemProps) => {
     <div className={styles.thumbnailWrapper}>
       <div
         className={`${styles.thumbnail} ${isError ? styles.thumbnailError : ''}`}
-        title={attachment.name}>
-        <Flex
-          vertical
-          align='center'
-          justify='center'
-          className={styles.documentPreview}>
+        title={attachment.name}
+      >
+        <Flex vertical align='center' justify='center' className={styles.documentPreview}>
           <FileIcon className={styles.documentIcon} />
-          <span className={styles.documentType}>
-            {getDocumentLabel(attachment.name)}
-          </span>
+          <span className={styles.documentType}>{getDocumentLabel(attachment.name)}</span>
         </Flex>
 
         <Hideable show={isUploading}>
@@ -63,26 +53,20 @@ const AttachmentItem = ({ attachment, onRemove }: AttachmentItemProps) => {
         className={styles.removeButton}
         onClick={() => onRemove(attachment.id)}
         type='button'
-        aria-label={`Remove ${attachment.name}`}>
+        aria-label={`Remove ${attachment.name}`}
+      >
         <CloseOutlined className={styles.removeIcon} />
       </button>
     </div>
   );
 };
 
-export const AttachmentPreview = ({
-  attachments,
-  onRemove,
-}: AttachmentPreviewProps) => {
+export const AttachmentPreview = ({ attachments, onRemove }: AttachmentPreviewProps) => {
   return (
     <Hideable show={attachments.length > 0}>
       <Flex wrap='wrap' gap='0.5rem' className={styles.container}>
         {attachments.map((attachment) => (
-          <AttachmentItem
-            key={attachment.id}
-            attachment={attachment}
-            onRemove={onRemove}
-          />
+          <AttachmentItem key={attachment.id} attachment={attachment} onRemove={onRemove} />
         ))}
       </Flex>
     </Hideable>

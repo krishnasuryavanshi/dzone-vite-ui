@@ -49,37 +49,31 @@ export const SupplierCardSparkline: FC<ISupplierCardSparklineProps> = ({
         height: '7rem',
         minWidth: '12.5rem',
         backgroundColor: DZONE_CLR_GRAY_4,
-      }}>
+      }}
+    >
       <SupplierCardTitle title={title || waitingToGoLiveData?.name} />
       <SupplierCardSubTitle subTitle={subTitle} />
       <Flex
         gap='0.5rem'
         justify='space-between'
-        style={{ paddingTop: '1rem', paddingLeft: '1rem' }}>
+        style={{ paddingTop: '1rem', paddingLeft: '1rem' }}
+      >
         <Flex vertical style={{ flex: '1 1 auto' }}>
           <SupplierCardMetrics
             data={current}
             record={waitingToGoLiveData}
             isCurrency={isCurrencyMetric}
           />
-          {previous && (
-            <SupplierCardMetrics data={previous} isPrevious={true} />
-          )}
+          {previous && <SupplierCardMetrics data={previous} isPrevious={true} />}
         </Flex>
         <Flex gap='0.25rem' vertical>
           {/* {hasCurrentData && <SupplierIconRenderer isPositive={isPositive} />} */}
-          {percent && (
-            <PercentDisplay isPositive={isPositive} percent={percent} />
-          )}
+          {percent && <PercentDisplay isPositive={isPositive} percent={percent} />}
         </Flex>
         <Flex vertical style={{ flex: '0 1 180px', minWidth: '100px' }}>
           {sparklineData && (
             <div style={{ height: '100%', width: '100%' }}>
-              <DZAmSparkline
-                id={`${id}-sparkline`}
-                data={sparklineData}
-                color={sparklineColor}
-              />
+              <DZAmSparkline id={`${id}-sparkline`} data={sparklineData} color={sparklineColor} />
             </div>
           )}
         </Flex>

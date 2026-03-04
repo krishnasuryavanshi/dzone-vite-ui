@@ -28,12 +28,10 @@ async function fetchAllDestinationFields(
       deliveryObjectId,
     );
     if (dropdownResponse?.data) {
-      dropdownOptions = dropdownResponse.data.map(
-        (field: { value: string; name: string }) => ({
-          label: field.name,
-          value: field.value,
-        }),
-      );
+      dropdownOptions = dropdownResponse.data.map((field: { value: string; name: string }) => ({
+        label: field.name,
+        value: field.value,
+      }));
     }
   }
 
@@ -47,16 +45,10 @@ async function fetchAllDestinationFields(
       deliveryObjectId,
     );
   } else if (deliveryType === 'WebForm') {
-    formFieldsResponse = await fetchWebformFormFields(
-      deliveryType,
-      integrationId,
-    );
+    formFieldsResponse = await fetchWebformFormFields(deliveryType, integrationId);
   } else if (deliveryType === 'Zapier') {
     if (zapierType && zapierType !== 'Zaps') {
-      formFieldsResponse = await fetchWebformFormFields(
-        deliveryType,
-        integrationId,
-      );
+      formFieldsResponse = await fetchWebformFormFields(deliveryType, integrationId);
     }
   }
 
@@ -82,12 +74,7 @@ export function useDestinationFieldsQuery(
       zapierType,
     }),
     queryFn: () =>
-      fetchAllDestinationFields(
-        deliveryType,
-        integrationId,
-        deliveryObjectId,
-        zapierType,
-      ),
+      fetchAllDestinationFields(deliveryType, integrationId, deliveryObjectId, zapierType),
     enabled: !!deliveryType && !!integrationId && enabled,
   });
 }

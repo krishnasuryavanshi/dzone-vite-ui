@@ -8,22 +8,17 @@ import { DownloadLineItemFilesType } from '../lib/enums';
 const LineItemResources: Record<string, string> = {
   [DownloadLineItemFilesType.DownloadDeliveryTemplateFile]:
     ApiResources.DownloadDeliveryTemplateFile,
-  [DownloadLineItemFilesType.DownloadIntentKeywordsFile]:
-    ApiResources.DownloadIntentKeywordsFile,
-  [DownloadLineItemFilesType.DownloadJobTitleListFile]:
-    ApiResources.DownloadJobTitleListFile,
-  [DownloadLineItemFilesType.DownloadSuppressionFile]:
-    ApiResources.DownloadSuppressionFile,
+  [DownloadLineItemFilesType.DownloadIntentKeywordsFile]: ApiResources.DownloadIntentKeywordsFile,
+  [DownloadLineItemFilesType.DownloadJobTitleListFile]: ApiResources.DownloadJobTitleListFile,
+  [DownloadLineItemFilesType.DownloadSuppressionFile]: ApiResources.DownloadSuppressionFile,
   [DownloadLineItemFilesType.DownloadTALFile]: ApiResources.DownloadTALFile,
-  [DownloadLineItemFilesType.DownloadTechnologyFile]:
-    ApiResources.DownloadTechnologyFile,
+  [DownloadLineItemFilesType.DownloadTechnologyFile]: ApiResources.DownloadTechnologyFile,
 };
 
 export const downloadLineItemFiles = async (lineItemId: string, data: any) => {
   try {
     const { fileType, fileId } = data;
-    const resource =
-      LineItemResources[fileType as keyof typeof LineItemResources];
+    const resource = LineItemResources[fileType as keyof typeof LineItemResources];
 
     const response = await authenticatedRequest({
       resource: `${resource}/${lineItemId}`,

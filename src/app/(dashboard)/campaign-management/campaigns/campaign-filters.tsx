@@ -1,21 +1,14 @@
 import { Translate } from '@/components/i18n';
 import { Hideable } from '@/components/shared/hideable';
 import { Button, Text, Tooltip } from '@/uicomponents';
-import {
-  DownloadOutlined,
-  ReloadOutlined,
-  SearchOutlined,
-} from '@/uicomponents/icons';
+import { DownloadOutlined, ReloadOutlined, SearchOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
 import { FC, useEffect } from 'react';
 import { MenuProps } from '@/lib/types/uicomponents';
 import { FilterDropdownAssignedUser } from '../components';
 import { useSession } from '@/lib/hooks/use-session';
 import { HasPermission } from '@/components/auth';
-import {
-  CampaignActionsEnum,
-  ViewCampaignPermissions,
-} from '@/lib/enums/permissions';
+import { CampaignActionsEnum, ViewCampaignPermissions } from '@/lib/enums/permissions';
 import { usePermissionCheck } from '@/lib/hooks';
 import { CLR_BLACK, DZONE_CLR_BLACK, DZONE_CLR_GRAY_2 } from '@/lib/constants';
 import { Link } from 'react-router';
@@ -41,26 +34,18 @@ export const CammpainFilters: FC<ICammpainFiltersProps> = ({
 }) => {
   const user = useSession();
 
-  const isAssignedToAll = usePermissionCheck(
-    ViewCampaignPermissions.AllCampaigns,
-  );
-  const isAssignedToMe = usePermissionCheck(
-    ViewCampaignPermissions.CampaignsAssignedToMe,
-  );
+  const isAssignedToAll = usePermissionCheck(ViewCampaignPermissions.AllCampaigns);
+  const isAssignedToMe = usePermissionCheck(ViewCampaignPermissions.CampaignsAssignedToMe);
 
   useEffect(() => {
     if (isAssignedToMe && !isAssignedToAll) {
-      handleAssignedToFilterChange(
-        (user?.data?.user as { userId: string })?.userId,
-      );
+      handleAssignedToFilterChange((user?.data?.user as { userId: string })?.userId);
     }
   }, [isAssignedToMe, isAssignedToAll]);
 
   const handleAssigneToOptionChange = (assignedTo: string) => {
     if (assignedTo === 'me') {
-      handleAssignedToFilterChange(
-        (user?.data?.user as { userId: string })?.userId,
-      );
+      handleAssignedToFilterChange((user?.data?.user as { userId: string })?.userId);
       return;
     }
     handleAssignedToFilterChange(assignedTo);
@@ -87,15 +72,10 @@ export const CammpainFilters: FC<ICammpainFiltersProps> = ({
     },
   ].filter(Boolean) as MenuProps['items'];
 
-  const isCreateCampaignAllowed = usePermissionCheck(
-    CampaignActionsEnum.Create,
-  );
+  const isCreateCampaignAllowed = usePermissionCheck(CampaignActionsEnum.Create);
 
   return (
-    <Flex
-      gap='0.75rem'
-      justify={isCreateCampaignAllowed ? 'space-between' : 'end'}
-      align='center'>
+    <Flex gap='0.75rem' justify={isCreateCampaignAllowed ? 'space-between' : 'end'} align='center'>
       <Flex gap='0.75rem' align='center'>
         <Text
           style={{
@@ -104,7 +84,8 @@ export const CammpainFilters: FC<ICammpainFiltersProps> = ({
             paddingTop: '0.5rem',
             height: '2.25rem',
             color: DZONE_CLR_BLACK,
-          }}>
+          }}
+        >
           <Translate i18nKey='pages.campaigns.title' />
         </Text>
       </Flex>
@@ -153,7 +134,8 @@ export const CammpainFilters: FC<ICammpainFiltersProps> = ({
                 border: '1.5px solid transparent',
                 color: CLR_BLACK,
                 height: '2.25rem',
-              }}>
+              }}
+            >
               <Translate i18nKey='pages.campaigns.label.newCampaign' />
             </Button>
           </Link>

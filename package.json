@@ -16,7 +16,9 @@
     "preview": "vite preview",
     "start": "serve -s dist -l 3001",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,scss,css,json}'",
+    "format:check": "prettier --check 'src/**/*.{ts,tsx,js,jsx,scss,css,json}'"
   },
   "dependencies": {
     "@amcharts/amcharts5": "^5.13.6",
@@ -56,6 +58,7 @@
     "@vitejs/plugin-react": "^5.1.4",
     "babel-plugin-react-compiler": "^1.0.0",
     "eslint-plugin-react-compiler": "^19.1.0-rc.2",
+    "prettier": "^3.8.1",
     "rollup-plugin-visualizer": "^7.0.0",
     "sass": "^1.74.1",
     "typescript": "^5.6.0",

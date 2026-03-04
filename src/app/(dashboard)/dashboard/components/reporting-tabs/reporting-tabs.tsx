@@ -12,22 +12,13 @@ interface IReportingTabsProps {
   handleTabChange: (key: string) => void;
 }
 
-export const ReportingTabs: FC<IReportingTabsProps> = ({
-  activeTab,
-  handleTabChange,
-}) => {
-  const isExecutiveDashboardAvailable = usePermissionCheck(
-    DashboardPermissions.DashboardExecutive,
-  );
-  const isBillingDashboardAvailable = usePermissionCheck(
-    DashboardPermissions.DashboardBilling,
-  );
+export const ReportingTabs: FC<IReportingTabsProps> = ({ activeTab, handleTabChange }) => {
+  const isExecutiveDashboardAvailable = usePermissionCheck(DashboardPermissions.DashboardExecutive);
+  const isBillingDashboardAvailable = usePermissionCheck(DashboardPermissions.DashboardBilling);
   const isPerformanceDashboardAvailable = usePermissionCheck(
     DashboardPermissions.DashboardPerformance,
   );
-  const isReachDashboardAvailable = usePermissionCheck(
-    DashboardPermissions.DashboardReach,
-  );
+  const isReachDashboardAvailable = usePermissionCheck(DashboardPermissions.DashboardReach);
   const [items] = useState([
     {
       key: ReportType.Executive,
@@ -50,17 +41,13 @@ export const ReportingTabs: FC<IReportingTabsProps> = ({
       permissions: isReachDashboardAvailable,
     },
   ]);
-  const [allowedItems, setAllowedItems] = useState<Record<string, unknown>[]>(
-    [],
-  );
+  const [allowedItems, setAllowedItems] = useState<Record<string, unknown>[]>([]);
 
   useEffect(() => {
     const filteredItems = items.filter((item) => item.permissions);
     setAllowedItems(filteredItems);
     if (filteredItems.length > 0) {
-      const isActiveTabAllowed = filteredItems.some(
-        (item) => item.key === activeTab,
-      );
+      const isActiveTabAllowed = filteredItems.some((item) => item.key === activeTab);
       if (!isActiveTabAllowed) {
         handleTabChange(filteredItems[0].key as string);
       }

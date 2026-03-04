@@ -13,9 +13,6 @@ export const collaboratorNameRenderer = (value: ICollaborator) => {
   );
 };
 
-export const assignedToNamesRenderer = (
-  value: ICollaborator[],
-  record: ICampaign | ILineItem,
-) => {
+export const assignedToNamesRenderer = (value: ICollaborator[], record: ICampaign | ILineItem) => {
   return <AssignedToCell value={value} record={record} />;
 };

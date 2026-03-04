@@ -3,11 +3,7 @@ import { cloneDeep } from 'lodash';
 import { create } from 'zustand';
 import { immer } from 'zustand/middleware/immer';
 import { formatChatSummary } from '../lib/utils';
-import {
-  fetchConversationById,
-  fetchConversations,
-  postUserMessage,
-} from '../services';
+import { fetchConversationById, fetchConversations, postUserMessage } from '../services';
 import { usePermissionsStore } from '@/stores/permissions-store';
 
 interface DzentStore {
@@ -171,9 +167,7 @@ export const useDzentStore = create<DzentStore>()(
 
     fetchConversationDetails: async (conversation: DzRecord) => {
       try {
-        const { data } = await fetchConversationById(
-          conversation.conversationId,
-        );
+        const { data } = await fetchConversationById(conversation.conversationId);
         const conversations: DzRecord[] = [];
         if (data?.length) {
           data.map((record: DzRecord) => {
@@ -192,13 +186,9 @@ export const useDzentStore = create<DzentStore>()(
           });
         }
 
-        const lastSystemMessage = data
-          .slice()
-          .find((record: DzRecord) => record.role === 'system');
+        const lastSystemMessage = data.slice().find((record: DzRecord) => record.role === 'system');
 
-        const chatSummary = formatChatSummary(
-          lastSystemMessage?.content?.summary,
-        );
+        const chatSummary = formatChatSummary(lastSystemMessage?.content?.summary);
 
         set({
           conversation: conversations,
@@ -294,11 +284,9 @@ export const useDzentStore = create<DzentStore>()(
       const originalSystemMessage = cloneDeep(systemMessage);
       let systemMessageWithoutAction = systemMessage;
       if (systemMessageWithoutAction) {
-        systemMessageWithoutAction = systemMessageWithoutAction.map(
-          ({ message }: DzRecord) => {
-            return { message };
-          },
-        );
+        systemMessageWithoutAction = systemMessageWithoutAction.map(({ message }: DzRecord) => {
+          return { message };
+        });
       }
 
       set({

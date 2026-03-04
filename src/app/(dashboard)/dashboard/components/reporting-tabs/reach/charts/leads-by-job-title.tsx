@@ -10,17 +10,15 @@ interface ILeadsByJobTitleProps {}
 export const LeadsByJobTitle: FC<ILeadsByJobTitleProps> = ({}) => {
   const [chartData, isLoaded] = useFetchReportData<IBaseReportRow>(
     [],
-    ReachReportType.LeadsByJobTitle
+    ReachReportType.LeadsByJobTitle,
   );
   return (
     <ChartColumn
-      chartTitle="pages.dashboard.label.leadsByJobTitle"
+      chartTitle='pages.dashboard.label.leadsByJobTitle'
       extraTitle={'pages.dashboard.label.count'}
-      hasExtra>
-      <DzBarChart
-        data={chartData as IBaseReportRow[]}
-        loaded={isLoaded}
-      />
+      hasExtra
+    >
+      <DzBarChart data={chartData as IBaseReportRow[]} loaded={isLoaded} />
     </ChartColumn>
   );
 };

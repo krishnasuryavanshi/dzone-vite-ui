@@ -1,4 +1,3 @@
-
 import React, { useCallback, useMemo, useRef, useEffect } from 'react';
 import { Pacing } from '../../../../lib/enums/pacing.enum';
 import dayjs from 'dayjs';
@@ -7,21 +6,14 @@ import { debounce } from 'lodash';
 import type { MenuProps } from 'antd';
 import { Flex } from '@/components/uicomponents/layout/flex';
 import type { ColumnsType } from 'antd/es/table';
-import type {
-  PacingPeriod,
-  ScheduleItem,
-} from '../../../../services/fetch-pacing-schedule';
+import type { PacingPeriod, ScheduleItem } from '../../../../services/fetch-pacing-schedule';
 import { getDailySchedules, getFilteredPeriods } from '../utils';
 import { LeadCountWarning } from '../lead-count-warning';
 import styles from '../../pacing-chart-drawer.module.css';
 import { Space } from '@/uicomponents/layout';
 import { Checkbox, InputNumber } from '@/uicomponents/form';
 import { Dropdown } from '@/uicomponents/dropdown';
-import {
-  CaretDownOutlined,
-  CaretUpOutlined,
-  FilterFilled,
-} from '@/uicomponents/icons';
+import { CaretDownOutlined, CaretUpOutlined, FilterFilled } from '@/uicomponents/icons';
 import { Table } from '@/uicomponents/table';
 
 interface PacingTableSectionProps {
@@ -90,9 +82,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
     // Check the period's pacing period date range
     if (period.pacingPeriod) {
       // Parse the date range from pacingPeriod string (e.g., "Jan 1 - Jan 7, 2024")
-      const dateMatch = period.pacingPeriod.match(
-        /(\w+\s+\d+)\s*-\s*(\w+\s+\d+),?\s*(\d{4})/,
-      );
+      const dateMatch = period.pacingPeriod.match(/(\w+\s+\d+)\s*-\s*(\w+\s+\d+),?\s*(\d{4})/);
       if (dateMatch) {
         const endDateStr = `${dateMatch[2]}, ${dateMatch[3]}`;
         const endDate = dayjs(endDateStr, 'MMM D, YYYY').startOf('day');
@@ -109,7 +99,8 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
         <Space onClick={(e) => e.stopPropagation()}>
           <Checkbox
             checked={hideZeroLeadCount}
-            onChange={(e) => setHideZeroLeadCount(e.target.checked)}>
+            onChange={(e) => setHideZeroLeadCount(e.target.checked)}
+          >
             Hide dates with &ldquo;0&rdquo; Lead Count
           </Checkbox>
         </Space>
@@ -120,10 +111,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
   const renderFilterHeader = () => (
     <Space style={{ justifyContent: 'space-between', width: '100%' }}>
       <span>Leads Required</span>
-      <Dropdown
-        menu={{ items: filterMenuItems }}
-        trigger={['click']}
-        placement='bottomRight'>
+      <Dropdown menu={{ items: filterMenuItems }} trigger={['click']} placement='bottomRight'>
         <FilterFilled
           style={{
             color: hideZeroLeadCount ? '#000000' : '#8c8c8c',
@@ -163,10 +151,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
         key: 'LeadsCount',
         width: 150,
         render: (value, record) => {
-          const isDisabled =
-            isReadOnly ||
-            isPastDate(record.date) ||
-            overflowDisabledPermanently;
+          const isDisabled = isReadOnly || isPastDate(record.date) || overflowDisabledPermanently;
           return (
             <InputNumber
               value={value}
@@ -175,11 +160,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
                 // Child row - don't pass isParent flag
                 // Use debounced version to prevent rapid API calls
                 if (debouncedHandleLeadsCountChangeRef.current) {
-                  debouncedHandleLeadsCountChangeRef.current(
-                    val,
-                    record.id,
-                    false,
-                  );
+                  debouncedHandleLeadsCountChangeRef.current(val, record.id, false);
                 }
               }}
               style={{
@@ -187,9 +168,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
                 height: '32px',
                 display: 'flex',
                 alignItems: 'center',
-                ...(overflowDisabledPermanently
-                  ? { opacity: 0.6, cursor: 'not-allowed' }
-                  : {}),
+                ...(overflowDisabledPermanently ? { opacity: 0.6, cursor: 'not-allowed' } : {}),
               }}
               disabled={isDisabled}
               title={
@@ -242,10 +221,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
         key: 'LeadsCount',
         width: 120,
         render: (value, record) => {
-          const isDisabled =
-            isReadOnly ||
-            containsPastDates(record) ||
-            overflowDisabledPermanently;
+          const isDisabled = isReadOnly || containsPastDates(record) || overflowDisabledPermanently;
           return (
             <InputNumber
               value={value}
@@ -254,11 +230,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
                 // Pass true as isParent flag for parent rows
                 // Use debounced version to prevent rapid API calls
                 if (debouncedHandleLeadsCountChangeRef.current) {
-                  debouncedHandleLeadsCountChangeRef.current(
-                    val,
-                    record.id,
-                    true,
-                  );
+                  debouncedHandleLeadsCountChangeRef.current(val, record.id, true);
                 }
               }}
               onPressEnter={(e: any) => {
@@ -271,9 +243,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
                 height: '32px',
                 display: 'flex',
                 alignItems: 'center',
-                ...(overflowDisabledPermanently
-                  ? { opacity: 0.6, cursor: 'not-allowed' }
-                  : {}),
+                ...(overflowDisabledPermanently ? { opacity: 0.6, cursor: 'not-allowed' } : {}),
               }}
               disabled={isDisabled}
               title={
@@ -328,10 +298,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
         key: 'LeadsCount',
         width: 200,
         render: (value, record) => {
-          const isDisabled =
-            isReadOnly ||
-            isPastDate(record.date) ||
-            overflowDisabledPermanently;
+          const isDisabled = isReadOnly || isPastDate(record.date) || overflowDisabledPermanently;
           return (
             <InputNumber
               value={value}
@@ -345,9 +312,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
                 height: '32px',
                 display: 'flex',
                 alignItems: 'center',
-                ...(overflowDisabledPermanently
-                  ? { opacity: 0.6, cursor: 'not-allowed' }
-                  : {}),
+                ...(overflowDisabledPermanently ? { opacity: 0.6, cursor: 'not-allowed' } : {}),
               }}
               disabled={isDisabled}
               title={
@@ -362,12 +327,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
         },
       },
     ];
-  }, [
-    handleLeadsCountChange,
-    isReadOnly,
-    isPastDate,
-    overflowDisabledPermanently,
-  ]);
+  }, [handleLeadsCountChange, isReadOnly, isPastDate, overflowDisabledPermanently]);
 
   const dailyData = useMemo(() => {
     return getDailySchedules(editedData, hideZeroLeadCount);
@@ -377,12 +337,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
     return getFilteredPeriods(editedData, hideZeroLeadCount);
   }, [editedData, hideZeroLeadCount]);
 
-  if (
-    loading ||
-    pacingSchedule === Pacing.UNCAPPED ||
-    !targetLeadGoal ||
-    targetLeadGoal <= 0
-  ) {
+  if (loading || pacingSchedule === Pacing.UNCAPPED || !targetLeadGoal || targetLeadGoal <= 0) {
     return null;
   }
 
@@ -415,10 +370,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
             expandedRowRender: (record) => {
               // Make sure we're using the latest data from record.schedules
               const childTableData = record.schedules
-                .filter(
-                  (schedule: any) =>
-                    !hideZeroLeadCount || schedule.LeadsCount > 0,
-                )
+                .filter((schedule: any) => !hideZeroLeadCount || schedule.LeadsCount > 0)
                 .map((schedule: any, index: number) => ({
                   ...schedule,
                   period: index + 1,
@@ -427,8 +379,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
 
               // Calculate the actual total from child schedules
               const weeklyTotal = record.schedules.reduce(
-                (sum: number, schedule: ScheduleItem) =>
-                  sum + (schedule.LeadsCount || 0),
+                (sum: number, schedule: ScheduleItem) => sum + (schedule.LeadsCount || 0),
                 0,
               );
               // Parent's target value
@@ -466,8 +417,7 @@ export const PacingTableSection: React.FC<PacingTableSectionProps> = ({
               );
             },
             expandedRowClassName: () => styles.expandedRow,
-            rowExpandable: (record) =>
-              record.schedules && record.schedules.length > 0,
+            rowExpandable: (record) => record.schedules && record.schedules.length > 0,
             expandIcon: ({ expanded, onExpand, record }) =>
               expanded ? (
                 <CaretUpOutlined

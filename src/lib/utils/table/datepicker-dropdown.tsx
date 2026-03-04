@@ -53,11 +53,7 @@ export const DatepickerDropdown: FC<IDatepickerDropdownProps> = ({
   };
 
   return (
-    <Flex
-      style={{ padding: 8 }}
-      onKeyDown={(e) => e.stopPropagation()}
-      vertical
-      gap={'1rem'}>
+    <Flex style={{ padding: 8 }} onKeyDown={(e) => e.stopPropagation()} vertical gap={'1rem'}>
       <DzBox>
         <DatePicker
           format={{

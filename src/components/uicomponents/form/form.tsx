@@ -11,9 +11,6 @@ export const Form: FC<IFormProps> = ({ children, ...rest }) => {
 };
 
 export const useForm = AntdForm.useForm;
-export const useWatch = (
-  namePath: string | string[],
-  formInstance?: FormInstance,
-) => {
+export const useWatch = (namePath: string | string[], formInstance?: FormInstance) => {
   return AntdForm.useWatch(namePath, formInstance);
 };

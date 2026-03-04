@@ -1,20 +1,13 @@
-
 import { formatDate } from '@/lib/utils';
 import { isObject, pick } from 'lodash';
 import { UnsavedLineItemTargetFields } from '../constants';
 import { LineItemSteps } from '../enums';
 
-export const getCurrentLineItemStepTargetObject = (
-  step: number,
-  values: any,
-) => {
+export const getCurrentLineItemStepTargetObject = (step: number, values: any) => {
   let stepData = null;
   switch (step) {
     case LineItemSteps.BasicDetails:
-      stepData = pick(
-        values,
-        UnsavedLineItemTargetFields[LineItemSteps.BasicDetails],
-      );
+      stepData = pick(values, UnsavedLineItemTargetFields[LineItemSteps.BasicDetails]);
       break;
 
     case LineItemSteps.Goals:
@@ -28,10 +21,7 @@ export const getCurrentLineItemStepTargetObject = (
       break;
 
     case LineItemSteps.DeliveryAndPacing:
-      stepData = pick(
-        values,
-        UnsavedLineItemTargetFields[LineItemSteps.DeliveryAndPacing],
-      );
+      stepData = pick(values, UnsavedLineItemTargetFields[LineItemSteps.DeliveryAndPacing]);
       stepData.deliveryTemplateId = values?.deliveryTemplate?.id;
       stepData.targetDeliveryStartDate = values?.targetDeliveryStartDate
         ? formatDate(values?.targetDeliveryStartDate)
@@ -39,17 +29,11 @@ export const getCurrentLineItemStepTargetObject = (
       break;
 
     case LineItemSteps.CustomQuestions:
-      stepData = pick(
-        values,
-        UnsavedLineItemTargetFields[LineItemSteps.CustomQuestions],
-      );
+      stepData = pick(values, UnsavedLineItemTargetFields[LineItemSteps.CustomQuestions]);
       break;
 
     case LineItemSteps.Targeting:
-      stepData = pick(
-        values,
-        UnsavedLineItemTargetFields[LineItemSteps.Targeting],
-      );
+      stepData = pick(values, UnsavedLineItemTargetFields[LineItemSteps.Targeting]);
       stepData.jobTitleListUploadId = values?.jobTitleFileDetails?.id;
       stepData.talUploadId = values?.talFileDetails?.id;
       stepData.suppressionUploadId = values?.suppressionFileDetails?.id;

@@ -1,4 +1,3 @@
-
 import { Progress } from '@/uicomponents';
 import { CloseOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
@@ -26,7 +25,8 @@ export const UploadProgress = ({
         style={{
           padding: '0.5rem 1rem',
           borderBottom: '1px solid #f0f0f0',
-        }}>
+        }}
+      >
         <Flex vertical style={{ flex: 1 }}>
           <Text style={{ fontSize: '0.75rem', color: '#595959' }}>
             Uploading {fileCount} file{fileCount > 1 ? 's' : ''}...

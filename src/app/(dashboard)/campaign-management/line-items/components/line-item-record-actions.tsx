@@ -44,9 +44,7 @@ export const LineItemRecordActions: FC<IRecordActionsProps> = ({
     [LineItemActionsEnum.View]: usePermissionCheck(LineItemActionsEnum.View),
     [LineItemActionsEnum.Edit]: usePermissionCheck(LineItemActionsEnum.Edit),
     [LeadActionsEnum.View]: usePermissionCheck(LeadActionsEnum.View),
-    [LineItemActionsEnum.Create]: usePermissionCheck(
-      LineItemActionsEnum.Create,
-    ),
+    [LineItemActionsEnum.Create]: usePermissionCheck(LineItemActionsEnum.Create),
   };
 
   const ACTION_MAPPING: Partial<
@@ -67,13 +65,13 @@ export const LineItemRecordActions: FC<IRecordActionsProps> = ({
         onClick={(e) => {
           e.stopPropagation();
           validateLineItemDetails(lineItemId as string);
-        }}>
+        }}
+      >
         Edit Line Item
       </Link>
     ),
     [LeadActionsEnum.View]: (lineItemId, stopPropagation) => (
-      <Link
-        href={`/campaign-management/leads?lineItemId=${lineItemId}&tenantCode=${tenantCode}`}>
+      <Link href={`/campaign-management/leads?lineItemId=${lineItemId}&tenantCode=${tenantCode}`}>
         View Leads
       </Link>
     ),
@@ -113,13 +111,11 @@ export const LineItemRecordActions: FC<IRecordActionsProps> = ({
   const getDropdownMenus = (lineItemId: string) => {
     const stopPropagation = (e: SyntheticEvent) => e.stopPropagation();
 
-    const itemsConfig: ItemConfig[] = Object.entries(ACTION_MAPPING).map(
-      ([key, render]) => ({
-        key,
-        permission: key as PermissionKeys,
-        label: render(lineItemId, tenantCode ?? '', stopPropagation),
-      }),
-    );
+    const itemsConfig: ItemConfig[] = Object.entries(ACTION_MAPPING).map(([key, render]) => ({
+      key,
+      permission: key as PermissionKeys,
+      label: render(lineItemId, tenantCode ?? '', stopPropagation),
+    }));
 
     const filteredMenu = itemsConfig
       .filter((item) => permissions[item.permission])
@@ -134,9 +130,7 @@ export const LineItemRecordActions: FC<IRecordActionsProps> = ({
 
   return (
     <>
-      <Dropdown
-        menu={{ items: getDropdownMenus(lineItemId) }}
-        placement='bottomLeft'>
+      <Dropdown menu={{ items: getDropdownMenus(lineItemId) }} placement='bottomLeft'>
         <Button
           onClick={(e) => e.stopPropagation()}
           icon={<ThreeDotsActionsIcon />}

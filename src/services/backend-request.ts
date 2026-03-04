@@ -36,7 +36,11 @@ export const authenticatedRequest = async ({
     return response.data;
   } catch (error: any) {
     if (error.status === 401 || error.status === 403) {
-      logger.warn('Auth: auto-logout triggered', { status: error.status, resource: rest.resource, url: rest.url });
+      logger.warn('Auth: auto-logout triggered', {
+        status: error.status,
+        resource: rest.resource,
+        url: rest.url,
+      });
       // Clear all auth state (client-side logout)
       useAuthStore.getState().clear();
       useTokenStore.getState().clearToken();

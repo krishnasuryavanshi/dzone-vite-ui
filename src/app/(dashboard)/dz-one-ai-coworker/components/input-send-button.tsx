@@ -1,4 +1,3 @@
-
 import { SendOutlined } from '@/uicomponents/icons';
 import { Hideable } from '@/components/shared';
 import { COLORS } from '../lib/constants/colors';
@@ -10,12 +9,7 @@ interface InputSendButtonProps {
   onStop: () => void;
 }
 
-export const InputSendButton = ({
-  isStreaming,
-  canSend,
-  onSend,
-  onStop,
-}: InputSendButtonProps) => {
+export const InputSendButton = ({ isStreaming, canSend, onSend, onStop }: InputSendButtonProps) => {
   return (
     <>
       <Hideable show={isStreaming}>

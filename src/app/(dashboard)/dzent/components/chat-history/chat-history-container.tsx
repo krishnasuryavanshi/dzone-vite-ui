@@ -1,11 +1,7 @@
 import { Translate } from '@/components/i18n/translate';
 import { DzBox } from '@/components/layout/v1';
 import { Hideable } from '@/components/shared';
-import {
-  DZONE_PURPLE,
-  DZENT_BTN_DARK,
-  DZENT_TEXT_WHITE,
-} from '@/lib/constants/color-constants';
+import { DZONE_PURPLE, DZENT_BTN_DARK, DZENT_TEXT_WHITE } from '@/lib/constants/color-constants';
 import { Button, Modal, Text } from '@/uicomponents';
 import { ExclamationCircleFilled } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout/flex';
@@ -15,11 +11,7 @@ import styles from './chat-history-container.module.css';
 import { EmptyHistory } from './empty-history';
 import { MarketerSelection } from './marketer-selection';
 
-export const ChatHistoryContainer = ({
-  fullHeight = false,
-}: {
-  fullHeight?: boolean;
-}) => {
+export const ChatHistoryContainer = ({ fullHeight = false }: { fullHeight?: boolean }) => {
   const [isOpened, setIsOpened] = useState(false);
 
   const {
@@ -64,7 +56,8 @@ export const ChatHistoryContainer = ({
         className='chat-summary-container'
         style={{
           height: '100%',
-        }}>
+        }}
+      >
         <Flex justify='space-between' align='end'>
           <Text strong underline style={{ color: DZONE_PURPLE }}>
             <Translate i18nKey='Chats' />
@@ -79,24 +72,22 @@ export const ChatHistoryContainer = ({
                 borderColor: DZENT_BTN_DARK,
                 color: DZENT_TEXT_WHITE,
               }}
-              onClick={handleNewChatAction}>
+              onClick={handleNewChatAction}
+            >
               <Translate i18nKey='New' />
             </Button>
           </Flex>
         </Flex>
         <Hideable show={!!chatHistory?.length}>
-          <Flex
-            vertical
-            style={{ overflowY: 'auto', height: scrollAreaHeight }}>
+          <Flex vertical style={{ overflowY: 'auto', height: scrollAreaHeight }}>
             {chatHistory?.map((chat) => {
-              const isActive =
-                activeHistoricalConversation?.conversationId ===
-                chat.conversationId;
+              const isActive = activeHistoricalConversation?.conversationId === chat.conversationId;
               return (
                 <DzBox
                   className={`${styles.chatHistoryItem} ${isActive ? styles.active : ''}`}
                   key={chat.conversationId}
-                  onClick={() => setActiveHistoricalConversation?.(chat)}>
+                  onClick={() => setActiveHistoricalConversation?.(chat)}
+                >
                   <Text ellipsis text14 title={chat.title}>
                     {chat.title}
                   </Text>
@@ -130,15 +121,12 @@ export const ChatHistoryContainer = ({
           <>
             <CancelBtn />
             <OkBtn />
-            <Button
-              size='small'
-              type='primary'
-              onClick={initializeNewConversation}
-              danger>
+            <Button size='small' type='primary' onClick={initializeNewConversation} danger>
               Start New
             </Button>
           </>
-        )}>
+        )}
+      >
         <Text>
           <Translate i18nKey='Campaign Creation/Modification is in progress.' />
         </Text>

@@ -65,22 +65,13 @@ export const CustomFieldRow: FC<ICustomFieldRowProps> = ({
           <FieldRequiredCheckbox name={[field, 'required']} />
         </Col>
         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
-          <InclusionInput
-            name={[field, 'inclusion']}
-            fieldIndex={field}
-            form={form}
-          />
+          <InclusionInput name={[field, 'inclusion']} fieldIndex={field} form={form} />
         </Col>
         <Col xs={24} sm={24} md={24} lg={12} xl={12} xxl={12}>
-          <SuppressionInput
-            name={[field, 'exclusion']}
-            fieldIndex={field}
-            form={form}
-          />
+          <SuppressionInput name={[field, 'exclusion']} fieldIndex={field} form={form} />
         </Col>
       </Row>
-      <DzBox
-        style={{ width: '2.5rem', paddingLeft: '1rem', paddingTop: '2rem' }}>
+      <DzBox style={{ width: '2.5rem', paddingLeft: '1rem', paddingTop: '2rem' }}>
         <DeleteFieldButton
           onClick={() => remove(index)}
           disabled={isDefinitionLocked && fieldObject?.name}

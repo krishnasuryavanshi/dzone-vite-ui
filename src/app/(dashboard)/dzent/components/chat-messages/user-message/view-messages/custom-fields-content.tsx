@@ -14,17 +14,12 @@ interface ICustomFieldsContentProps {
   children?: React.ReactNode;
 }
 
-export const CustomFieldsContent = ({
-  data,
-  children,
-}: ICustomFieldsContentProps) => {
+export const CustomFieldsContent = ({ data, children }: ICustomFieldsContentProps) => {
   const { customFields, customFieldInstructions } = data;
 
   const renderField = (field: DzRecord, index: number) => {
     const srNo = field.position || index + 1;
-    const typeDisplay = field.format
-      ? `${field.type} (${field.format})`
-      : field.type;
+    const typeDisplay = field.format ? `${field.type} (${field.format})` : field.type;
 
     return (
       <Flex key={index} vertical gap='0.25rem' style={{ marginLeft: '0.5rem' }}>

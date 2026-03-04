@@ -1,14 +1,6 @@
-
 import { DzBox } from '@/components/layout/v1';
 import { Link } from '@/uicomponents';
-import {
-  FC,
-  PropsWithChildren,
-  ReactNode,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { FC, PropsWithChildren, ReactNode, useEffect, useRef, useState } from 'react';
 
 interface ITruncatedTextProps extends PropsWithChildren {
   lines?: number;
@@ -49,14 +41,12 @@ export const TruncatedText: FC<ITruncatedTextProps> = ({
           whiteSpace: 'normal',
         }}
         ref={textRef}
-        data-testid='truncated-text'>
+        data-testid='truncated-text'
+      >
         {children}
       </div>
       {isOverflow && (
-        <Link
-          className='expand-link'
-          style={{ cursor: 'pointer' }}
-          onClick={onExpand}>
+        <Link className='expand-link' style={{ cursor: 'pointer' }} onClick={onExpand}>
           {symbol}
         </Link>
       )}

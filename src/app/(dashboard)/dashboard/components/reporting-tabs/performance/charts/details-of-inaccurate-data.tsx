@@ -7,18 +7,17 @@ import { ChartColumn } from '../../chart-column';
 
 interface IDetailsOfInaccurateDataProps {}
 
-export const DetailsOfInaccurateData: FC<
-  IDetailsOfInaccurateDataProps
-> = ({}) => {
+export const DetailsOfInaccurateData: FC<IDetailsOfInaccurateDataProps> = ({}) => {
   const [chartData, isLoaded] = useFetchReportData<IBaseReportRow>(
     [],
-    PerformanceReportType.DetailsOfInaccurateData
+    PerformanceReportType.DetailsOfInaccurateData,
   );
   return (
     <ChartColumn
-      chartTitle="pages.dashboard.label.detailsOfInaccurateData"
-      extraTitle="pages.dashboard.label.count"
-      hasExtra>
+      chartTitle='pages.dashboard.label.detailsOfInaccurateData'
+      extraTitle='pages.dashboard.label.count'
+      hasExtra
+    >
       <DzBarChart data={chartData as IBaseReportRow[]} loaded={isLoaded} />
     </ChartColumn>
   );

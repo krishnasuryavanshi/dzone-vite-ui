@@ -61,7 +61,8 @@ export const DzDropdown: FC<IDzDropdownProps> = ({
         style={{
           ...contentStyle,
           height: `${height + 'rem'}`,
-        }}>
+        }}
+      >
         <DzScrollContainer vertical scoll='inside'>
           <DzScrollContainer.Sticky>
             <DzSerachDropdown
@@ -104,7 +105,8 @@ export const DzDropdown: FC<IDzDropdownProps> = ({
       trigger={['click']}
       dropdownRender={(menus) => renderDropdown(menus, items?.length as number)}
       onOpenChange={handleOpenChange}
-      arrow>
+      arrow
+    >
       <Flex vertical gap='0.125rem'>
         <Text style={{ color: '#4F4F4F' }}>
           <Translate i18nKey={label as string} />

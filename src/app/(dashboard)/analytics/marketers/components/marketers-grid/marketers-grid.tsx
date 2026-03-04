@@ -35,8 +35,7 @@ export const MarketersGrids = ({ data }: marketerGridProps) => {
             item?.supplier_names
           ),
           days_left_overdue: (() => {
-            if (!item?.days_left_overdue && item?.days_left_overdue !== 0)
-              return '-';
+            if (!item?.days_left_overdue && item?.days_left_overdue !== 0) return '-';
             const value = item.days_left_overdue.toString();
             const hasEndDate = value.includes('(end date)');
             return {
@@ -61,9 +60,7 @@ export const MarketersGrids = ({ data }: marketerGridProps) => {
     setCurrentPage(page);
     setPageSize(pageSize);
     if (page > 1) {
-      setMarketersList(
-        tableData?.slice(pageSize * (page - 1), pageSize * page),
-      );
+      setMarketersList(tableData?.slice(pageSize * (page - 1), pageSize * page));
     } else {
       setMarketersList(tableData?.slice(0, 25));
     }

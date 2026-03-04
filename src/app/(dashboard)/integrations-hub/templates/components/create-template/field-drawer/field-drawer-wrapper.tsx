@@ -5,8 +5,7 @@ import { FieldDrawerContainer } from './field-drawer-container';
 interface IFieldDrawerWrapperProps extends PropsWithChildren {}
 
 export const FieldDrawerWrapper: FC<IFieldDrawerWrapperProps> = ({}) => {
-  const { selectedFieldIndex, isFieldDrawerOpen, closeFieldDrawer } =
-    useTemplateStore();
+  const { selectedFieldIndex, isFieldDrawerOpen, closeFieldDrawer } = useTemplateStore();
 
   if (selectedFieldIndex === -1 || !isFieldDrawerOpen) {
     return null;

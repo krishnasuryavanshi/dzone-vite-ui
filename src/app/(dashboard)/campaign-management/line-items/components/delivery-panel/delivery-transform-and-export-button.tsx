@@ -10,14 +10,16 @@ interface IDeliveryTransformAndExportButtonProps {
   selectedTemplate: ITemplateInfo | null;
 }
 
-export const DeliveryTransformAndExportButton: FC<
-  IDeliveryTransformAndExportButtonProps
-> = ({ openModal, selectedTemplate }) => (
+export const DeliveryTransformAndExportButton: FC<IDeliveryTransformAndExportButtonProps> = ({
+  openModal,
+  selectedTemplate,
+}) => (
   <Button
     type='primary'
     className='dz-btn-action-1'
     onClick={openModal}
-    disabled={!selectedTemplate}>
+    disabled={!selectedTemplate}
+  >
     <Flex gap='0.2rem'>
       <Translate i18nKey='pages.transformAndExport' />
       <TransformAndExport disabled={!selectedTemplate} />

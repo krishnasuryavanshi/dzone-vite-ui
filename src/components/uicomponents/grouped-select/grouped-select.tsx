@@ -11,11 +11,7 @@ interface ISelectProps extends SelectProps {
   }[];
 }
 
-export const GroupedSelect: FC<ISelectProps> = ({
-  options,
-  children,
-  ...rest
-}) => {
+export const GroupedSelect: FC<ISelectProps> = ({ options, children, ...rest }) => {
   return (
     <AntdSelect {...rest}>
       {options.map((group) => (
@@ -26,10 +22,7 @@ export const GroupedSelect: FC<ISelectProps> = ({
           title={group.title}
         >
           {group?.options?.map((option) => (
-            <AntdSelect.Option
-              key={option.value}
-              value={option.value}
-            >
+            <AntdSelect.Option key={option.value} value={option.value}>
               {option.label}
             </AntdSelect.Option>
           ))}

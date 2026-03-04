@@ -9,10 +9,7 @@ import { HasPermission } from '@/components/auth';
 import { LineItemActionsEnum } from '@/lib/enums/permissions';
 import { useValidationSettingStore } from '@/app/(dashboard)/lead-validation-settings/store';
 import { showNotification } from '@/services';
-import {
-  ValidationEditDrawer,
-  EditConfig,
-} from '../../edit-drawer/validation-edit-drawer';
+import { ValidationEditDrawer, EditConfig } from '../../edit-drawer/validation-edit-drawer';
 import { EditICon } from '@/uicomponents/icons/svgs';
 import { VALIDATION_LABEL_MAP } from '@/app/(dashboard)/campaign-management/lib/constants/validation-label-map';
 import { updateLineItemsLeadValidationSettingRule } from '@/app/(dashboard)/lead-validation-settings/services';
@@ -45,8 +42,7 @@ export const RuleContainer = ({
 
   const configRuleName = VALIDATION_LABEL_MAP[ruleName] || ruleName;
 
-  const { leadValidationSettingConfig, setActiveRule } =
-    useValidationSettingStore();
+  const { leadValidationSettingConfig, setActiveRule } = useValidationSettingStore();
 
   const handleEdit = () => {
     if (!leadValidationSettingConfig?.[ruleName]) {
@@ -72,11 +68,7 @@ export const RuleContainer = ({
             } else if (attr.value && typeof attr.value === 'object') {
               // For complex values like in TARGETING rule
               sectionData[attr.name] = attr.value;
-            } else if (
-              attr.value !== false &&
-              attr.value !== null &&
-              attr.value !== undefined
-            ) {
+            } else if (attr.value !== false && attr.value !== null && attr.value !== undefined) {
               // For other non-false values
               sectionData[attr.name] = attr.value;
             }
@@ -126,9 +118,7 @@ export const RuleContainer = ({
           label: attr.label,
         })) || [];
 
-      values = values.map(
-        (val) => fieldLabels.find((f: any) => f.id === val)?.label || val,
-      );
+      values = values.map((val) => fieldLabels.find((f: any) => f.id === val)?.label || val);
     }
 
     if (values.length === 0) {
@@ -177,13 +167,11 @@ export const RuleContainer = ({
       // Special handling for DUPLICATE_VALIDATION which has multiple sections
       if (activeRuleName === 'DUPLICATE_VALIDATION') {
         // Get the latest values from the store's selectedValues
-        const { selectedValues: currentSelectedValues } =
-          useValidationSettingStore.getState();
+        const { selectedValues: currentSelectedValues } = useValidationSettingStore.getState();
         const sections: Record<string, any[]> = {};
 
         // Process each section in the duplicate validation config
-        const ruleSections =
-          leadValidationSettingConfig?.[activeRuleName]?.sections || [];
+        const ruleSections = leadValidationSettingConfig?.[activeRuleName]?.sections || [];
 
         for (const section of ruleSections) {
           const sectionName = section.name;
@@ -199,9 +187,7 @@ export const RuleContainer = ({
                 {
                   name: lookbackField.name,
                   value:
-                    lookbackValue !== undefined &&
-                    lookbackValue !== null &&
-                    lookbackValue !== ''
+                    lookbackValue !== undefined && lookbackValue !== null && lookbackValue !== ''
                       ? lookbackValue
                       : null,
                 },
@@ -250,26 +236,21 @@ export const RuleContainer = ({
       }
       // Handle other checkbox-based validations
       else if (
-        [
-          'MANDATORY_VALIDATION',
-          'SYNTAX_VALIDATION',
-          'INTEGRITY_VALIDATION',
-        ].includes(activeRuleName)
+        ['MANDATORY_VALIDATION', 'SYNTAX_VALIDATION', 'INTEGRITY_VALIDATION'].includes(
+          activeRuleName,
+        )
       ) {
         // Get the actual section name from config (e.g., MANDATORY_FIELDS)
-        const sectionName =
-          leadValidationSettingConfig?.[activeRuleName]?.sections?.[0]?.name;
+        const sectionName = leadValidationSettingConfig?.[activeRuleName]?.sections?.[0]?.name;
 
         // Get the latest values from the store's selectedValues for this section
         // The ValidationRuleCheckboxGroup updates selectedValues[sectionName]
-        const { selectedValues: currentSelectedValues } =
-          useValidationSettingStore.getState();
+        const { selectedValues: currentSelectedValues } = useValidationSettingStore.getState();
         dataToSave = currentSelectedValues[sectionName] || {};
 
         // Get all possible fields from the config
         const allFields =
-          leadValidationSettingConfig?.[activeRuleName]?.sections?.[0]
-            ?.attributes || [];
+          leadValidationSettingConfig?.[activeRuleName]?.sections?.[0]?.attributes || [];
 
         attributes = allFields.map((field: any) => ({
           name: field.name,
@@ -309,17 +290,11 @@ export const RuleContainer = ({
       }
       // For rules with radio selections (EMAIL_VALIDATION, TARGETING_VALIDATION, OPT_IN_VALIDATION)
       else if (
-        [
-          'EMAIL_VALIDATION',
-          'TARGETING_VALIDATION',
-          'OPT_IN_VALIDATION',
-        ].includes(activeRuleName)
+        ['EMAIL_VALIDATION', 'TARGETING_VALIDATION', 'OPT_IN_VALIDATION'].includes(activeRuleName)
       ) {
         // Get the section name and values from store
-        const { selectedValues: currentSelectedValues } =
-          useValidationSettingStore.getState();
-        const sectionName =
-          leadValidationSettingConfig?.[activeRuleName]?.sections?.[0]?.name;
+        const { selectedValues: currentSelectedValues } = useValidationSettingStore.getState();
+        const sectionName = leadValidationSettingConfig?.[activeRuleName]?.sections?.[0]?.name;
         dataToSave = currentSelectedValues[sectionName || activeRuleName] || {};
 
         // These typically have a single selected value
@@ -331,10 +306,8 @@ export const RuleContainer = ({
       // Default handler for other rule types
       else {
         // Get the section name and values from store
-        const { selectedValues: currentSelectedValues } =
-          useValidationSettingStore.getState();
-        const sectionName =
-          leadValidationSettingConfig?.[activeRuleName]?.sections?.[0]?.name;
+        const { selectedValues: currentSelectedValues } = useValidationSettingStore.getState();
+        const sectionName = leadValidationSettingConfig?.[activeRuleName]?.sections?.[0]?.name;
         dataToSave = currentSelectedValues[sectionName || activeRuleName] || {};
 
         attributes = Object.entries(dataToSave).map(([key, value]) => ({
@@ -393,14 +366,16 @@ export const RuleContainer = ({
         padding: '0.25rem 0.5rem',
         borderRadius: '4px',
         fontSize: '0.75rem',
-      }}>
+      }}
+    >
       <Text
         style={{
           color: '#235AED',
           fontSize: '0.75rem',
           fontWeight: 600,
           lineHeight: '1rem',
-        }}>
+        }}
+      >
         {item}
       </Text>
     </DzBox>
@@ -414,14 +389,16 @@ export const RuleContainer = ({
           border: ruleName !== 'TARGETING' ? '1px solid #E5E7EB' : 'none',
           borderRadius: ruleName !== 'TARGETING' ? '8px' : 'none',
           position: 'relative',
-        }}>
+        }}
+      >
         {/* Header Section - Hidden for TARGETING as it has its own section header */}
         {ruleName !== 'TARGETING' && (
           <DzBox
             style={{
               padding: '0.75rem 1rem',
               borderBottom: children ? '1px solid #E5E7EB' : 'none',
-            }}>
+            }}
+          >
             <Flex justify='space-between' align='center'>
               <Flex align='center' gap={'0.5rem'}>
                 <Text
@@ -431,15 +408,13 @@ export const RuleContainer = ({
                     fontWeight: 600,
                     color: '#374151',
                     lineHeight: '1.25rem',
-                  }}>
+                  }}
+                >
                   {header}
                 </Text>
                 <Hideable show={extra?.length > 0}>
                   <Flex gap={'0.375rem'}>
-                    <MapFunction
-                      items={extra}
-                      renderItem={renderExtraContent}
-                    />
+                    <MapFunction items={extra} renderItem={renderExtraContent} />
                   </Flex>
                 </Hideable>
               </Flex>
@@ -450,8 +425,7 @@ export const RuleContainer = ({
                   </Text>
                 )}
                 {showEditButton && (
-                  <HasPermission
-                    permissions={[LineItemActionsEnum.EditValidationSettings]}>
+                  <HasPermission permissions={[LineItemActionsEnum.EditValidationSettings]}>
                     <CustomTooltip title='Edit'>
                       <DzBox
                         style={{
@@ -461,7 +435,8 @@ export const RuleContainer = ({
                           border: '1px solid #ddd',
                           cursor: 'pointer',
                         }}
-                        onClick={handleEdit}>
+                        onClick={handleEdit}
+                      >
                         <EditICon />
                       </DzBox>
                     </CustomTooltip>
@@ -474,15 +449,15 @@ export const RuleContainer = ({
 
         {/* Edit button for TARGETING - positioned absolutely in top right */}
         {ruleName === 'TARGETING' && showEditButton && (
-          <HasPermission
-            permissions={[LineItemActionsEnum.EditValidationSettings]}>
+          <HasPermission permissions={[LineItemActionsEnum.EditValidationSettings]}>
             <DzBox
               style={{
                 position: 'absolute',
                 top: '0.5rem',
                 right: '0.5rem',
                 zIndex: 1,
-              }}>
+              }}
+            >
               <CustomTooltip title='Edit'>
                 <DzBox
                   style={{
@@ -492,7 +467,8 @@ export const RuleContainer = ({
                     border: '1px solid #ddd',
                     cursor: 'pointer',
                   }}
-                  onClick={handleEdit}>
+                  onClick={handleEdit}
+                >
                   <EditICon />
                 </DzBox>
               </CustomTooltip>
@@ -505,7 +481,8 @@ export const RuleContainer = ({
           <DzBox
             style={{
               padding: ruleName !== 'TARGETING' ? '0.75rem 1rem' : '0',
-            }}>
+            }}
+          >
             {children}
           </DzBox>
         </Hideable>

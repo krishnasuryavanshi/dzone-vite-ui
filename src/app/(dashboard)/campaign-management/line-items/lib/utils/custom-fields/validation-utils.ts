@@ -1,8 +1,5 @@
 // Validation utilities for custom field data types
-import {
-  parsePhoneNumberFromString,
-  isValidPhoneNumber,
-} from 'libphonenumber-js';
+import { parsePhoneNumberFromString, isValidPhoneNumber } from 'libphonenumber-js';
 
 // Custom date formats used across the application
 export const CUSTOM_DATE_FORMATS = [

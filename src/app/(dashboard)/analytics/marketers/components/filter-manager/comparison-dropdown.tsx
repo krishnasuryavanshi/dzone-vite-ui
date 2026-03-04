@@ -17,9 +17,7 @@ export const ComparisonDropdown: FC<IComparisonDropdownProps> = ({
   handleSelectionChange,
 }) => {
   const [selectedValue, setSelectedValue] = useState<string | null>('week');
-  const filterValues = useFilterDashboardStore(
-    (state: FilterState) => state.filterValues,
-  );
+  const filterValues = useFilterDashboardStore((state: FilterState) => state.filterValues);
   const handleComaparisonSelection = (data: any) => {
     if (data) {
       handleSelectionChange &&

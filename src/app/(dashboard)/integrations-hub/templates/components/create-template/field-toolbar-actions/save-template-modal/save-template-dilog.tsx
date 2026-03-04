@@ -22,7 +22,8 @@ export const SaveTemplateDilog: FC<ISaveTemplateDilogProps> = ({
       title={<DilogHeader />}
       footer={null}
       destroyOnClose
-      maskClosable={false}>
+      maskClosable={false}
+    >
       <DilogBody handleClose={handleCancel} handleUpdate={handleActivity} />
     </Modal>
   );

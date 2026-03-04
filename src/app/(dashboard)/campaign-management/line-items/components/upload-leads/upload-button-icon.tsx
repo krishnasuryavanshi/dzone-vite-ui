@@ -7,10 +7,7 @@ interface IUploadButtonIconProps {
   label?: string;
 }
 
-export const UploadButtonIcon: FC<IUploadButtonIconProps> = ({
-  isLoading,
-  label = 'upload',
-}) => {
+export const UploadButtonIcon: FC<IUploadButtonIconProps> = ({ isLoading, label = 'upload' }) => {
   if (isLoading) {
     return <LoadingOutlined style={{ marginLeft: '0.5rem' }} />;
   }

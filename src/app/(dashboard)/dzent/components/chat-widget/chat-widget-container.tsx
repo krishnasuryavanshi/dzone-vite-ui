@@ -48,16 +48,15 @@ export const ChatWidgetContainer = () => {
       <DzBox style={{ paddingInline: '0.75rem' }}>
         <ChatWidgetHeader />
       </DzBox>
-      <DzBox
-        style={{ flex: 1, padding: '1.25rem 1rem' }}
-        className='chat-messages-wrapper'>
+      <DzBox style={{ flex: 1, padding: '1.25rem 1rem' }} className='chat-messages-wrapper'>
         <div
           className='chat-messages-container-outer'
           ref={messagesOuterRef}
           style={{
             maxHeight: `calc(100vh - 12.5rem - ${chatFooterHeight}px)`,
             overflowY: 'auto',
-          }}>
+          }}
+        >
           <ChatMessagesContainer />
           <div style={{ height: 2, width: 2 }} ref={hiddenLastRef}></div>
         </div>
@@ -72,7 +71,8 @@ export const ChatWidgetContainer = () => {
           right: 0,
           background: CLR_WHITE,
           zIndex: 10,
-        }}>
+        }}
+      >
         <DzBox style={{ paddingInline: '0.75rem' }}>
           <ChatWidgetFooter />
         </DzBox>

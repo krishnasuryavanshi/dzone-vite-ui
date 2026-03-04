@@ -33,13 +33,11 @@ export const JobTitle: FC<IJobTitleProps> = ({
   const [jtList, setJtList] = useState<Record<string, any>[]>([]);
   const [jobTitles, setJobTitles] = useState<Record<string, any>[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [recommendedJobTitles, setRecommendedJobTitles] = useState<
-    Record<string, any>[]
-  >([]);
-  const [selectedRecommendedJobTitlesMap, setSelectedRecommendedJobTitlesMap] =
-    useState<Record<string, string[]>>({});
-  const [isRecommendedJobTitlesLoading, setIsRecommendedJobTitlesLoading] =
-    useState(false);
+  const [recommendedJobTitles, setRecommendedJobTitles] = useState<Record<string, any>[]>([]);
+  const [selectedRecommendedJobTitlesMap, setSelectedRecommendedJobTitlesMap] = useState<
+    Record<string, string[]>
+  >({});
+  const [isRecommendedJobTitlesLoading, setIsRecommendedJobTitlesLoading] = useState(false);
 
   const debouncedStoreRecommendedJobTitlesAnalytics = debounce(
     storeRecommendedJobTitlesAnalytics,
@@ -90,9 +88,7 @@ export const JobTitle: FC<IJobTitleProps> = ({
         ...selectedRecommendedJobTitlesMap,
         [tag.text]: [],
       });
-      setRecommendedJobTitles(
-        recommendedJobTitles.filter((jt) => jt.name !== tag.text),
-      );
+      setRecommendedJobTitles(recommendedJobTitles.filter((jt) => jt.name !== tag.text));
     }
 
     const jtList = jobTitles.filter((t) => !removing.includes(t.text));
@@ -106,9 +102,7 @@ export const JobTitle: FC<IJobTitleProps> = ({
   };
 
   const addUserEnteredTag = (tag: string) => {
-    const isExisting = jobTitles.some(
-      (jt) => jt.text.toLowerCase() === tag.toLowerCase(),
-    );
+    const isExisting = jobTitles.some((jt) => jt.text.toLowerCase() === tag.toLowerCase());
     if (isExisting) {
       showNotification({
         message: `${tag} already exists`,
@@ -116,10 +110,7 @@ export const JobTitle: FC<IJobTitleProps> = ({
       });
       return;
     }
-    const jtList = [
-      { text: tag, type: JobTitleTokenType.UserEntered },
-      ...jobTitles,
-    ];
+    const jtList = [{ text: tag, type: JobTitleTokenType.UserEntered }, ...jobTitles];
     setJobTitles(jtList);
     handleChange(jtList);
     fetchRecommendedJobTitles(tag);
@@ -144,13 +135,8 @@ export const JobTitle: FC<IJobTitleProps> = ({
     }
   };
 
-  const handleAddRecommendedJobTitles = (
-    selectedRecommendedJobTitles: string[],
-  ) => {
-    const { newJobTitles } = separateJobTitles(
-      selectedRecommendedJobTitles,
-      jobTitles,
-    );
+  const handleAddRecommendedJobTitles = (selectedRecommendedJobTitles: string[]) => {
+    const { newJobTitles } = separateJobTitles(selectedRecommendedJobTitles, jobTitles);
 
     if (newJobTitles.length) {
       const jtResponseMap = { ...selectedRecommendedJobTitlesMap };

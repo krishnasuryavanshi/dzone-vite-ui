@@ -1,4 +1,3 @@
-
 import { useMemo } from 'react';
 import { useQueries } from '@tanstack/react-query';
 import { queryKeys } from '@/lib/query';
@@ -80,8 +79,6 @@ export function useFilterOptions(
 }
 
 // Export alias for backward compatibility with existing code
-export const useAllFilterOptions = (
-  fieldNames: string[],
-): MultipleFieldsReturn => {
+export const useAllFilterOptions = (fieldNames: string[]): MultipleFieldsReturn => {
   return useFilterOptions(fieldNames) as MultipleFieldsReturn;
 };

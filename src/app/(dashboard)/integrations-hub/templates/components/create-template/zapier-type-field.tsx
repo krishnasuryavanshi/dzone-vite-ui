@@ -1,4 +1,3 @@
-
 import { FormItem } from '@/uicomponents/form';
 import { Select } from '@/uicomponents/form/input/select';
 import { Col } from '@/uicomponents/layout/grid';
@@ -24,14 +23,16 @@ export const ZapierTypeField: React.FC<ZapierTypeFieldProps> = ({
         className='input-control form-control-item'
         name='zapierType'
         label='Source Type'
-        rules={[{ required: true, message: REQUIRED_FIELD }]}>
+        rules={[{ required: true, message: REQUIRED_FIELD }]}
+      >
         <Select
           placeholder='Select Type'
           style={{ width: '100%' }}
           onChange={onTypeChange}
           disabled={Boolean(templateId && !isEditTemplateAllowed)}
           allowClear
-          value={zapierType || undefined}>
+          value={zapierType || undefined}
+        >
           {ZAPIER_TYPE_OPTIONS.map((option) => (
             <Select.Option key={option.value} value={option.value}>
               {option.label}

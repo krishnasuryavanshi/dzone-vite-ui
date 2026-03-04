@@ -1,4 +1,3 @@
-
 import { Input, InputPassword, Select } from '@/uicomponents/form/input';
 import { IntegrationLabel } from '@/lib/enums';
 import styles from './create-integration-modal.module.css';
@@ -31,8 +30,7 @@ export const HubSpotFormContent: React.FC<HubSpotFormContentProps> = ({
           { required: true, message: 'Name is required' },
           {
             pattern: /^[a-zA-Z0-9$_\- ]+$/,
-            message:
-              'Only alphanumeric characters, spaces, and $, -, _ are allowed',
+            message: 'Only alphanumeric characters, spaces, and $, -, _ are allowed',
           },
           {
             max: 255,
@@ -41,14 +39,13 @@ export const HubSpotFormContent: React.FC<HubSpotFormContentProps> = ({
           {
             validator: (_, value) => {
               if (value && (value.startsWith(' ') || value.endsWith(' '))) {
-                return Promise.reject(
-                  'Leading and trailing spaces are not allowed',
-                );
+                return Promise.reject('Leading and trailing spaces are not allowed');
               }
               return Promise.resolve();
             },
           },
-        ]}>
+        ]}
+      >
         <Input
           placeholder='Enter Integration Name'
           className={`input-field ${styles.inputControl}`}
@@ -61,7 +58,8 @@ export const HubSpotFormContent: React.FC<HubSpotFormContentProps> = ({
         name='label'
         label='Environment Label'
         className='input-control form-control-item'
-        rules={[{ required: true, message: 'Environment is required' }]}>
+        rules={[{ required: true, message: 'Environment is required' }]}
+      >
         <Select
           placeholder='Select the Integration Label'
           options={labelOptions}
@@ -80,7 +78,8 @@ export const HubSpotFormContent: React.FC<HubSpotFormContentProps> = ({
             pattern: /^\S.*\S$|^\S$/,
             message: 'No trailing spaces allowed',
           },
-        ]}>
+        ]}
+      >
         <InputPassword
           placeholder='Enter your Token'
           className={`input-field ${styles.inputControl}`}

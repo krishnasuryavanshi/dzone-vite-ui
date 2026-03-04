@@ -11,16 +11,9 @@ interface IMarketerChartCardProps extends PropsWithChildren {
   extra?: ReactNode;
 }
 
-export const ChartCard: FC<IMarketerChartCardProps> = ({
-  title,
-  extra,
-  children,
-}) => {
+export const ChartCard: FC<IMarketerChartCardProps> = ({ title, extra, children }) => {
   return (
-    <Card
-      className='dz-one-chart-card'
-      title={<Translate i18nKey={title} />}
-      extra={extra}>
+    <Card className='dz-one-chart-card' title={<Translate i18nKey={title} />} extra={extra}>
       <DzBox>
         <Flex align='center' justify='center'>
           <DzBox style={{ width: '100%' }}>{children}</DzBox>

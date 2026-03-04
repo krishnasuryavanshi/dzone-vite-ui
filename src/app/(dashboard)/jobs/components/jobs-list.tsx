@@ -1,4 +1,3 @@
-
 import { FC, useMemo } from 'react';
 import { Table } from '@/uicomponents/table';
 import { useScrollableTableHeight } from '@/lib/hooks';
@@ -27,19 +26,14 @@ export const JobsList: FC<JobsListProps> = ({
   onRowClick,
   hideLineItemColumn = false,
 }) => {
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
 
   const columns = useMemo(
     () => getJobsColumns({ filterInfo, sorterInfo, hideLineItemColumn }),
     [filterInfo, sorterInfo, hideLineItemColumn],
   );
 
-  const handleChange = (
-    _pagination: any,
-    filters: Filters<IJob>,
-    sorter: Sorter<IJob>,
-  ) => {
+  const handleChange = (_pagination: any, filters: Filters<IJob>, sorter: Sorter<IJob>) => {
     handleFiltersChange(filters);
     handleSorterChange(sorter);
   };

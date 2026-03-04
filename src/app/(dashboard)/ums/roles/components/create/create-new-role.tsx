@@ -16,7 +16,8 @@ export const CreateNewRole = () => {
           border: '1.5px solid transparent',
           color: CLR_BLACK,
           height: '2.25rem',
-        }}>
+        }}
+      >
         <Translate i18nKey='pages.rolesAndPermissions.label.createNewRole' />
       </Button>
     </Link>

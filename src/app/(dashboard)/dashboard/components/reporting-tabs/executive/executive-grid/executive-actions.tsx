@@ -6,9 +6,7 @@ import { IExcecutiveGrids } from '../types';
 import { ThreeDotsActionsIcon } from '@/uicomponents/icons/svgs';
 import { Link } from 'react-router';
 
-export const ExecutiveGridActions: FC<{ executive: IExcecutiveGrids }> = ({
-  executive,
-}) => {
+export const ExecutiveGridActions: FC<{ executive: IExcecutiveGrids }> = ({ executive }) => {
   const getDropdownMenus = (executive: IExcecutiveGrids) => {
     const stopPropagation = (e: SyntheticEvent) => e.stopPropagation();
     const baseLink = `/campaign-management/campaigns/${executive.campaignUUID}`;
@@ -26,9 +24,7 @@ export const ExecutiveGridActions: FC<{ executive: IExcecutiveGrids }> = ({
   };
 
   return (
-    <Dropdown
-      menu={{ items: getDropdownMenus(executive) }}
-      placement='bottomLeft'>
+    <Dropdown menu={{ items: getDropdownMenus(executive) }} placement='bottomLeft'>
       <Button
         onClick={(e) => e.stopPropagation()}
         icon={<ThreeDotsActionsIcon />}

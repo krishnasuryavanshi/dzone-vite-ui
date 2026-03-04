@@ -1,8 +1,4 @@
-export function saveFileFromBlob(
-  data: BlobPart,
-  fileName: string,
-  type: string,
-) {
+export function saveFileFromBlob(data: BlobPart, fileName: string, type: string) {
   const bom = new Uint8Array([0xef, 0xbb, 0xbf]);
   const bufferArray = [data];
   if (!fileName.endsWith('.xlsx') && !fileName.endsWith('.xls')) {

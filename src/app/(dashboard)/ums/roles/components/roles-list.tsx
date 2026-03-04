@@ -19,13 +19,9 @@ interface IRolesListProps {
   updateRolesStatus: (id: string, status: string) => Promise<void>;
 }
 
-export const RolesList: FC<IRolesListProps> = ({
-  allRoles,
-  updateRolesStatus,
-}) => {
+export const RolesList: FC<IRolesListProps> = ({ allRoles, updateRolesStatus }) => {
   const router = useRouter();
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
 
   const handleRowClick = (record: IRoles) => {
     if (record?.editable) {
@@ -111,9 +107,7 @@ export const RolesList: FC<IRolesListProps> = ({
       hasPagination={false}
       scrollableHeight={scrollableTableHeight}
       onClick={(record: any) => handleRowClick(record)}
-      rowHref={(record: IRoles) =>
-        record?.editable ? `/ums/roles/${record.id}` : undefined
-      }
+      rowHref={(record: IRoles) => (record?.editable ? `/ums/roles/${record.id}` : undefined)}
       handleChange={handleChange}
     />
   );

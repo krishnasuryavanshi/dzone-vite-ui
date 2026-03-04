@@ -10,10 +10,7 @@ export default function CampaignDetailsPage() {
   return (
     <>
       <title>Campaign Details | DZ One</title>
-      <ViewCampaignContainer
-        campaignId={campaignId!}
-        isDzoneUser={isDzoneUser}
-      />
+      <ViewCampaignContainer campaignId={campaignId!} isDzoneUser={isDzoneUser} />
     </>
   );
 }

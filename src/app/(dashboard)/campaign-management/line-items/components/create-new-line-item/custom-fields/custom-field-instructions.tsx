@@ -7,12 +7,9 @@ export const CustomFieldInstructions: FC = () => {
     <FormItem
       name='customFieldInstructions'
       label='Custom Field Instructions if any'
-      className='input-control form-control-item'>
-      <TextArea
-        placeholder='Enter Custom Field Instructions'
-        className='input-field'
-        rows={2}
-      />
+      className='input-control form-control-item'
+    >
+      <TextArea placeholder='Enter Custom Field Instructions' className='input-field' rows={2} />
     </FormItem>
   );
 };

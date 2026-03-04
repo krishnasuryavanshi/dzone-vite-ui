@@ -5,10 +5,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useLineItemFilterOptionsQuery } from '../../hooks/use-line-item-filter-options-query';
 import { LineItemFields } from '../enums';
 
-export function useLineItemFilterOptions(
-  hasFilters?: boolean,
-  assignedTo?: string,
-) {
+export function useLineItemFilterOptions(hasFilters?: boolean, assignedTo?: string) {
   const [options, setOptions] = useState({
     isReady: false,
     dynamicFilters: {},
@@ -17,13 +14,9 @@ export function useLineItemFilterOptions(
 
   const [userId, setUserId] = useState<string | null>(null);
 
-  const { data: filterOptionsData } = useLineItemFilterOptionsQuery(
-    hasFilters === true,
-  );
+  const { data: filterOptionsData } = useLineItemFilterOptionsQuery(hasFilters === true);
 
-  const isCplColumnHidden = useRestrictedAccess(
-    RestrictedAccessKeys.CplColumnInLineItemList,
-  );
+  const isCplColumnHidden = useRestrictedAccess(RestrictedAccessKeys.CplColumnInLineItemList);
 
   const dynamicFilters = useMemo(() => {
     if (!filterOptionsData) return {};
@@ -69,9 +62,9 @@ export function useLineItemFilterOptions(
 
   useEffect(() => {
     if (userId) {
-      const currentUser = dynamicFilters?.[
-        LineItemFields.AssignedTo
-      ]?.filters?.find((user: any) => user.value === userId);
+      const currentUser = dynamicFilters?.[LineItemFields.AssignedTo]?.filters?.find(
+        (user: any) => user.value === userId,
+      );
       setOptions((prev) => ({
         ...prev,
         isReady: !!filterOptionsData || hasFilters === false,

@@ -1,4 +1,3 @@
-
 import { Button, Dropdown, Text, Tooltip } from '@/uicomponents';
 import { DownOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
@@ -11,15 +10,11 @@ interface MarketerSelectionProps {
   onMarketerChange?: () => void;
 }
 
-export const MarketerSelection: FC<MarketerSelectionProps> = ({
-  onMarketerChange,
-}) => {
+export const MarketerSelection: FC<MarketerSelectionProps> = ({ onMarketerChange }) => {
   const tenantCode = useAiAgentStore((state) => state.tenantCode);
   const marketerList = useAiAgentStore((state) => state.marketerList);
   const setTenantCode = useAiAgentStore((state) => state.setTenantCode);
-  const isTenantUnavailable = useAiAgentStore(
-    (state) => state.isTenantUnavailable,
-  );
+  const isTenantUnavailable = useAiAgentStore((state) => state.isTenantUnavailable);
 
   const currentMarketer = useMemo(
     () => marketerList?.find((marketer) => marketer.value === tenantCode),
@@ -27,10 +22,7 @@ export const MarketerSelection: FC<MarketerSelectionProps> = ({
   );
 
   const displayLabel = useMemo(
-    () =>
-      isTenantUnavailable
-        ? 'Old Tenant'
-        : currentMarketer?.label || 'Select Marketer',
+    () => (isTenantUnavailable ? 'Old Tenant' : currentMarketer?.label || 'Select Marketer'),
     [isTenantUnavailable, currentMarketer],
   );
 
@@ -92,7 +84,8 @@ export const MarketerSelection: FC<MarketerSelectionProps> = ({
           items: menuItems,
           style: { maxHeight: '18rem', overflow: 'auto' },
         }}
-        trigger={['click']}>
+        trigger={['click']}
+      >
         <Tooltip title={displayLabel}>
           <Button style={buttonStyle}>
             <Text ellipsis strong style={{ color: textColor }}>

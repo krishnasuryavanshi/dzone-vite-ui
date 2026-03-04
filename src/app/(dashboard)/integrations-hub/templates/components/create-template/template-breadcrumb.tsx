@@ -20,11 +20,7 @@ export const TemplateBreadcrumb: React.FC<ITemplateBreadcrumbProps> = ({
       title: <Translate i18nKey='pages.delivery.title' />,
     },
     {
-      title: (
-        <AppLink
-          link={`/integrations-hub/templates`}
-          label='pages.templates.title'></AppLink>
-      ),
+      title: <AppLink link={`/integrations-hub/templates`} label='pages.templates.title'></AppLink>,
     },
     {
       title: <Translate i18nKey='pages.templates.label.createTemplate' />,

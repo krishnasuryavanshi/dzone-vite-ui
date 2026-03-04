@@ -20,9 +20,7 @@ interface ICustomFieldsDisplayProps {
   customFields: ICustomField[];
 }
 
-export const CustomFieldsDisplay: FC<ICustomFieldsDisplayProps> = ({
-  customFields,
-}) => {
+export const CustomFieldsDisplay: FC<ICustomFieldsDisplayProps> = ({ customFields }) => {
   const [drawerState, setDrawerState] = useState<{
     open: boolean;
     title: string;
@@ -72,7 +70,8 @@ export const CustomFieldsDisplay: FC<ICustomFieldsDisplayProps> = ({
                 backgroundColor: '#fff',
                 border: '1px solid #E5E7EB',
                 borderRadius: '0.5rem',
-              }}>
+              }}
+            >
               {/* Header with field name and required badge */}
               <Flex align='center' gap='0.5rem'>
                 <Text strong style={{ fontSize: '0.875rem' }}>
@@ -97,10 +96,7 @@ export const CustomFieldsDisplay: FC<ICustomFieldsDisplayProps> = ({
                   <TruncatedTagList
                     items={inclusionValues}
                     onViewAll={() =>
-                      handleViewAll(
-                        `${field.name} - Inclusion Values`,
-                        field.inclusion || '',
-                      )
+                      handleViewAll(`${field.name} - Inclusion Values`, field.inclusion || '')
                     }
                   />
                 </Flex>
@@ -115,10 +111,7 @@ export const CustomFieldsDisplay: FC<ICustomFieldsDisplayProps> = ({
                   <TruncatedTagList
                     items={exclusionValues}
                     onViewAll={() =>
-                      handleViewAll(
-                        `${field.name} - Suppression Values`,
-                        field.exclusion || '',
-                      )
+                      handleViewAll(`${field.name} - Suppression Values`, field.exclusion || '')
                     }
                   />
                 </Flex>

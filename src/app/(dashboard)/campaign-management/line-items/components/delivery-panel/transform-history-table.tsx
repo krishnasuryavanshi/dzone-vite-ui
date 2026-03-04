@@ -1,8 +1,4 @@
-import {
-  useState,
-  useImperativeHandle,
-  useEffect,
-} from 'react';
+import { useState, useImperativeHandle, useEffect } from 'react';
 import { BasicTable } from '@/components/table/basic-table';
 import { Button, Tooltip } from '@/uicomponents';
 import { DownloadOutlined } from '@ant-design/icons';
@@ -19,11 +15,7 @@ import { dateRenderer } from '../../../lib/utils/renderers';
 
 interface TransformHistoryTableProps {
   lineItemId: string;
-  onPaginationChange?: (pagination: {
-    current: number;
-    pageSize: number;
-    total: number;
-  }) => void;
+  onPaginationChange?: (pagination: { current: number; pageSize: number; total: number }) => void;
   ref?: React.Ref<TransformHistoryTableRef>;
 }
 
@@ -32,15 +24,15 @@ export interface TransformHistoryTableRef {
   handlePageChange: (page: number, pageSize?: number) => void;
 }
 
-export const TransformHistoryTable = ({ lineItemId, onPaginationChange, ref }: TransformHistoryTableProps) => {
+export const TransformHistoryTable = ({
+  lineItemId,
+  onPaginationChange,
+  ref,
+}: TransformHistoryTableProps) => {
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
-  const { data: response, refetch } = useTransformationHistoryQuery(
-    lineItemId,
-    page,
-    pageSize,
-  );
+  const { data: response, refetch } = useTransformationHistoryQuery(lineItemId, page, pageSize);
 
   const data = response?.data ?? [];
   const total = response?.total ?? 0;
@@ -96,7 +88,8 @@ export const TransformHistoryTable = ({ lineItemId, onPaginationChange, ref }: T
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
                 width: '160px',
-              }}>
+              }}
+            >
               {filename}
             </span>
           </Tooltip>
@@ -123,7 +116,8 @@ export const TransformHistoryTable = ({ lineItemId, onPaginationChange, ref }: T
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap',
                 width: '130px',
-              }}>
+              }}
+            >
               {templateName}
             </span>
           </Tooltip>
@@ -135,14 +129,8 @@ export const TransformHistoryTable = ({ lineItemId, onPaginationChange, ref }: T
       dataIndex: 'status',
       key: 'status',
       width: 100,
-      render: (
-        status: TransformHistoryStatus,
-        record: TransformationHistoryItem,
-      ) => (
-        <TransformHistoryStatusBadge
-          status={status}
-          errorMessage={record.errorMessage}
-        />
+      render: (status: TransformHistoryStatus, record: TransformationHistoryItem) => (
+        <TransformHistoryStatusBadge status={status} errorMessage={record.errorMessage} />
       ),
     },
     {
@@ -164,15 +152,14 @@ export const TransformHistoryTable = ({ lineItemId, onPaginationChange, ref }: T
                 type='primary'
                 icon={<DownloadOutlined />}
                 size='small'
-                onClick={() => handleDownload(record.file!.id)}>
+                onClick={() => handleDownload(record.file!.id)}
+              >
                 Download
               </Button>
             </Tooltip>
           )}
           {record.status === 'PROCESSING' && <span>Processing...</span>}
-          {(record.status === 'FAILED' || record.status === 'ERROR') && (
-            <span>-</span>
-          )}
+          {(record.status === 'FAILED' || record.status === 'ERROR') && <span>-</span>}
         </Space>
       ),
     },

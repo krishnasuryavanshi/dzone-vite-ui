@@ -26,7 +26,8 @@ export const ChipItem: FC<IChipItemProps> = ({ label, onClose }) => {
           border: '1px solid #6366F1',
           borderRadius: '8px',
           maxWidth: '100%',
-        }}>
+        }}
+      >
         <Text
           ellipsis
           style={{
@@ -34,7 +35,8 @@ export const ChipItem: FC<IChipItemProps> = ({ label, onClose }) => {
             minWidth: 0,
             fontSize: '0.875rem',
             color: '#374151',
-          }}>
+          }}
+        >
           {label}
         </Text>
         <CloseOutlined

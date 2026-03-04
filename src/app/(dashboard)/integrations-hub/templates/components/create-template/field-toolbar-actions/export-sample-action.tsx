@@ -17,16 +17,10 @@ export const ExportSampleAction: FC<IExportSampleProps> = ({}) => {
   }
 
   const exportSample = async () => {
-    const { data, headers } = await exportDeliveryTemplateSample(
-      templateId as string,
-    );
+    const { data, headers } = await exportDeliveryTemplateSample(templateId as string);
     if (data) {
       const fileName = headers.get('content-disposition').split('filename=')[1];
-      saveFileFromBlob(
-        data,
-        fileName.replaceAll('"', ''),
-        headers.get('content-type'),
-      );
+      saveFileFromBlob(data, fileName.replaceAll('"', ''), headers.get('content-type'));
     }
   };
 
@@ -36,9 +30,9 @@ export const ExportSampleAction: FC<IExportSampleProps> = ({}) => {
       size='small'
       style={{ boxShadow: 'none' }}
       disabled={!existingTemplate}
-      onClick={exportSample}>
-      <DownloadOutlined />{' '}
-      <Translate i18nKey='pages.templates.label.exportSample' />
+      onClick={exportSample}
+    >
+      <DownloadOutlined /> <Translate i18nKey='pages.templates.label.exportSample' />
     </Button>
   );
 };

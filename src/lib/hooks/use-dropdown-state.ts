@@ -17,9 +17,7 @@ export const useDropdownState = (
 ) => {
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [filteredOptions, setFilteredOptions] = useState<Option[]>([]);
-  const [allOptions, setAllOptions] = useState<
-    { label: string; value: string }[]
-  >([]);
+  const [allOptions, setAllOptions] = useState<{ label: string; value: string }[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Create debounced apply function for instant filtering
@@ -66,9 +64,7 @@ export const useDropdownState = (
   };
 
   const onChangeAll: CheckboxProps['onChange'] = (e) => {
-    const newSelection = e.target.checked
-      ? options.map(({ value }) => value)
-      : [];
+    const newSelection = e.target.checked ? options.map(({ value }) => value) : [];
     setSelectedOptions(newSelection);
 
     // Apply changes instantly with debouncing when instant filter is enabled
@@ -84,9 +80,7 @@ export const useDropdownState = (
       setFilteredOptions(allOptions);
     } else {
       setFilteredOptions(
-        allOptions.filter(({ label }) =>
-          label.toLowerCase().includes(value.toLowerCase()),
-        ),
+        allOptions.filter(({ label }) => label.toLowerCase().includes(value.toLowerCase())),
       );
     }
   };

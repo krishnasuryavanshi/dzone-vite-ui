@@ -17,21 +17,13 @@ export const prefilledLists = async (userId?: string) => {
   lists[OptionsKeys.Marketers] = marketerList;
 
   const goalsResponse = await fetchStepsPrefilledSteps('goals');
-  lists[OptionsKeys.CampaignGoals] = getOptions(
-    goalsResponse?.data?.campaignGoals,
-  );
+  lists[OptionsKeys.CampaignGoals] = getOptions(goalsResponse?.data?.campaignGoals);
 
   const step4Response = await fetchStepsPrefilledSteps('delivery');
-  lists[OptionsKeys.InvoicingTerm] = getOptions(
-    step4Response?.data?.invoicingTerm,
-  );
+  lists[OptionsKeys.InvoicingTerm] = getOptions(step4Response?.data?.invoicingTerm);
   lists[OptionsKeys.PaymentTerm] = getOptions(step4Response?.data?.paymentTerm);
-  lists[OptionsKeys.DeliveryMethod] = getOptions(
-    step4Response?.data?.deliveryMethod,
-  );
-  lists[OptionsKeys.DeliveryDays] = getOptions(
-    step4Response?.data?.deliveryDays,
-  );
+  lists[OptionsKeys.DeliveryMethod] = getOptions(step4Response?.data?.deliveryMethod);
+  lists[OptionsKeys.DeliveryDays] = getOptions(step4Response?.data?.deliveryDays);
 
   return lists;
 };

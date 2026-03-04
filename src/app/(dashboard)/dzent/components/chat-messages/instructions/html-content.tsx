@@ -11,12 +11,7 @@ type HtmlContentProps = {
   isUserInput?: boolean; // Flag to indicate if content is from user
 };
 
-export const HtmlContent = ({
-  htmlStr,
-  color,
-  style,
-  isUserInput = false,
-}: HtmlContentProps) => {
+export const HtmlContent = ({ htmlStr, color, style, isUserInput = false }: HtmlContentProps) => {
   if (!htmlStr) return null;
 
   // If this is user input, always escape HTML to display literally
@@ -37,7 +32,8 @@ export const HtmlContent = ({
           fontSize: '0.875rem',
           color: color || 'inherit',
           ...style,
-        }}>
+        }}
+      >
         <div
           dangerouslySetInnerHTML={{ __html: escapedHtml }}
           style={{
@@ -50,22 +46,13 @@ export const HtmlContent = ({
 
   // For system/AI content, check if it contains HTML
   const hasHtmlTag = /<[^>]+>/.test(htmlStr);
-  const processedHtml = hasHtmlTag
-    ? htmlStr
-    : htmlStr?.replace(/\n/g, '<br />');
+  const processedHtml = hasHtmlTag ? htmlStr : htmlStr?.replace(/\n/g, '<br />');
 
   // Sanitize system content to prevent XSS but allow safe HTML
   const sanitizedHtml = DOMPurify.sanitize(processedHtml, {
     ADD_ATTR: ['target'],
     FORBID_TAGS: ['script', 'style'],
-    FORBID_ATTR: [
-      'onerror',
-      'onclick',
-      'onload',
-      'onmouseover',
-      'onfocus',
-      'onblur',
-    ],
+    FORBID_ATTR: ['onerror', 'onclick', 'onload', 'onmouseover', 'onfocus', 'onblur'],
   });
 
   return (
@@ -75,7 +62,8 @@ export const HtmlContent = ({
         fontSize: '0.875rem',
         color: color || 'inherit',
         ...style,
-      }}>
+      }}
+    >
       <div
         dangerouslySetInnerHTML={{ __html: sanitizedHtml }}
         style={{

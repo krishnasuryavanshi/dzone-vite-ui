@@ -10,13 +10,10 @@ export async function updateMarketersLeadValidationSetting(
 ) {
   try {
     return authenticatedRequest({
-      resource: transformPath(
-        ApiResources.MarketersLeadValidationSettingById,
-        {
-          tenantCode,
-          settingId: leadValidationSettingId,
-        },
-      ),
+      resource: transformPath(ApiResources.MarketersLeadValidationSettingById, {
+        tenantCode,
+        settingId: leadValidationSettingId,
+      }),
       apiHost: ApiHost.PlatformService,
       method: HttpMethod.PUT,
       data: requestData,

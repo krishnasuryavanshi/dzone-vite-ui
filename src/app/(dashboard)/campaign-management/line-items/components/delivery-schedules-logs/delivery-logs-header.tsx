@@ -1,4 +1,3 @@
-
 import { Button, Form, FormItem, useForm, Text } from '@/uicomponents';
 import { RangePicker, Select } from '@/uicomponents/form/input';
 import { Flex } from '@/uicomponents/layout';
@@ -12,10 +11,7 @@ interface DeliveryLogsHeaderProps {
   lineItemId?: string;
 }
 
-export const DeliveryLogsHeader = ({
-  scheduleId,
-  lineItemId,
-}: DeliveryLogsHeaderProps) => {
+export const DeliveryLogsHeader = ({ scheduleId, lineItemId }: DeliveryLogsHeaderProps) => {
   const router = useRouter();
   const { filters, setFilters, resetFilters } = useDeliveryLogsStore();
   const [form] = useForm();
@@ -33,9 +29,7 @@ export const DeliveryLogsHeader = ({
     setFilters({ [field]: filterValue });
   };
 
-  const handleDateRangeChange = (
-    dates: [dayjs.Dayjs | null, dayjs.Dayjs | null] | null,
-  ) => {
+  const handleDateRangeChange = (dates: [dayjs.Dayjs | null, dayjs.Dayjs | null] | null) => {
     if (dates) {
       setFilters({
         startDate: dates[0]?.format('YYYY-MM-DD'),
@@ -62,10 +56,7 @@ export const DeliveryLogsHeader = ({
     <>
       <Flex justify='space-between' align='center' className={styles.headerTop}>
         <Flex gap='middle' align='center'>
-          <Button
-            type='text'
-            onClick={handleBack}
-            className={styles.backButton}>
+          <Button type='text' onClick={handleBack} className={styles.backButton}>
             Back
           </Button>
           <Text strong style={{ marginBottom: '0' }}>

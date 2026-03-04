@@ -1,10 +1,4 @@
-import {
-  Checkbox,
-  DatePicker,
-  Input,
-  InputNumber,
-  TextArea,
-} from '@/uicomponents/form/input';
+import { Checkbox, DatePicker, Input, InputNumber, TextArea } from '@/uicomponents/form/input';
 import React from 'react';
 import { renderSelect } from '../line-items/components/create-new-line-item/render-select';
 import { PacingChartPreview } from '../line-items/components/create-new-line-item/pacing-chart';
@@ -40,21 +34,9 @@ export const renderField = (
   };
   switch (field.fieldType) {
     case 'text':
-      return (
-        <Input
-          className='input-field'
-          style={{ height: '3rem' }}
-          {...commonProps}
-        />
-      );
+      return <Input className='input-field' style={{ height: '3rem' }} {...commonProps} />;
     case 'number':
-      return (
-        <InputNumber
-          className='input-field'
-          style={{ width: '100%' }}
-          {...commonProps}
-        />
-      );
+      return <InputNumber className='input-field' style={{ width: '100%' }} {...commonProps} />;
     case 'textArea':
       return <TextArea className='input-field' {...commonProps} />;
     case 'multiselect':
@@ -89,14 +71,10 @@ export const renderField = (
 
         // For target end date, disable dates before target start date
         if (field.field === CampaignField.TargetEndDate) {
-          const targetStartDate = form.getFieldValue(
-            CampaignField.TargetStartDate,
-          );
+          const targetStartDate = form.getFieldValue(CampaignField.TargetStartDate);
           if (targetStartDate) {
             // Disable dates before target start date
-            return (
-              current && current.isBefore(dayjs(targetStartDate).startOf('day'))
-            );
+            return current && current.isBefore(dayjs(targetStartDate).startOf('day'));
           }
           // If no start date set, just disable past dates
           return current && current.isBefore(dayjs().startOf('day'));
@@ -147,7 +125,8 @@ export const renderField = (
         <Checkbox
           checked={fieldValue}
           disabled={field.isReadOnly}
-          onChange={(e) => form.setFieldValue(field.field, e.target.checked)}>
+          onChange={(e) => form.setFieldValue(field.field, e.target.checked)}
+        >
           {field.label}
         </Checkbox>
       );

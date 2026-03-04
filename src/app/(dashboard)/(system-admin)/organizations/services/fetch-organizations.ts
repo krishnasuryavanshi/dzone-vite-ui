@@ -1,11 +1,7 @@
 import { ApiResources, HttpMethod } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { authenticatedRequest } from '@/services/backend-request';
-import {
-  Filters,
-  Sorter,
-  processFiltersWithDateRange,
-} from '@/lib/utils/table';
+import { Filters, Sorter, processFiltersWithDateRange } from '@/lib/utils/table';
 import { IOrganization } from '../lib/types';
 
 export const fetchOrganizations = async (
@@ -22,9 +18,7 @@ export const fetchOrganizations = async (
   const sortField = sorter?.field as string;
   const sortOrder = sorter?.order;
   const sort =
-    sortField && sortOrder
-      ? `${sortField},${sortOrder === 'ascend' ? 'ASC' : 'DESC'}`
-      : undefined;
+    sortField && sortOrder ? `${sortField},${sortOrder === 'ascend' ? 'ASC' : 'DESC'}` : undefined;
 
   const params: Record<string, any> = { page, size };
   if (sort) params.sort = sort;

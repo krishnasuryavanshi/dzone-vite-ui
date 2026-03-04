@@ -14,7 +14,8 @@ export const DzScrollContainer = ({
 }) => (
   <DzBox style={{ position: 'relative', height: '100%' }}>
     <DzBox
-      className={`dz-scroll-container scroll-${scoll} ${vertical ? 'verical' : 'horizontal'} `}>
+      className={`dz-scroll-container scroll-${scoll} ${vertical ? 'verical' : 'horizontal'} `}
+    >
       {children}
     </DzBox>
   </DzBox>

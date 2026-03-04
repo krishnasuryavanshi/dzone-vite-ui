@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { DatePicker } from '@/uicomponents/form/input';
 import { Space } from '@/uicomponents/layout/space';
@@ -41,9 +40,7 @@ export const PacingModals: React.FC<PacingModalsProps> = ({
   isEditMode = false,
 }) => {
   // Local state to handle temporary date changes in the modal
-  const [localDateRange, setLocalDateRange] = useState<[Dayjs, Dayjs] | null>(
-    dateRange,
-  );
+  const [localDateRange, setLocalDateRange] = useState<[Dayjs, Dayjs] | null>(dateRange);
 
   // Sync local state with parent state when modal opens
   useEffect(() => {
@@ -80,16 +77,13 @@ export const PacingModals: React.FC<PacingModalsProps> = ({
             // Validation 2: Check if Target Start Date exists and validate against it
             if (targetStartDate) {
               const targetStartDayjs =
-                typeof targetStartDate === 'string'
-                  ? dayjs(targetStartDate)
-                  : targetStartDate;
+                typeof targetStartDate === 'string' ? dayjs(targetStartDate) : targetStartDate;
 
               // Target Delivery Start Date cannot be before Target Start Date
               if (localDateRange[0].isBefore(targetStartDayjs, 'day')) {
                 showNotification({
                   type: 'error',
-                  message:
-                    'Target Delivery Start Date cannot be before Target Start Date.',
+                  message: 'Target Delivery Start Date cannot be before Target Start Date.',
                 });
                 return;
               }
@@ -117,12 +111,14 @@ export const PacingModals: React.FC<PacingModalsProps> = ({
           }
         }}
         okText='Apply'
-        cancelText='Cancel'>
+        cancelText='Cancel'
+      >
         <Space direction='vertical' size='middle' style={{ width: '100%' }}>
           <Space
             direction='horizontal'
             size='small'
-            style={{ width: '100%', alignItems: 'flex-end' }}>
+            style={{ width: '100%', alignItems: 'flex-end' }}
+          >
             <Space direction='vertical' size='small' style={{ flex: 1 }}>
               <Text style={{ fontSize: '0.875rem', color: '#666' }}>
                 Target Delivery Start Date
@@ -178,9 +174,7 @@ export const PacingModals: React.FC<PacingModalsProps> = ({
             />
 
             <Space direction='vertical' size='small' style={{ flex: 1 }}>
-              <Text style={{ fontSize: '0.875rem', color: '#666' }}>
-                Target End Date
-              </Text>
+              <Text style={{ fontSize: '0.875rem', color: '#666' }}>Target End Date</Text>
               <DatePicker
                 value={localDateRange ? localDateRange[1] : null}
                 onChange={(rawDate) => {
@@ -197,9 +191,7 @@ export const PacingModals: React.FC<PacingModalsProps> = ({
                 style={{ width: '200px' }}
                 placeholder='Target End Date'
                 disabled={
-                  isEditMode &&
-                  dateFieldRestrictions &&
-                  !dateFieldRestrictions.canEditTargetEndDate
+                  isEditMode && dateFieldRestrictions && !dateFieldRestrictions.canEditTargetEndDate
                 }
                 disabledDate={(current) => {
                   if (!current) return false;
@@ -219,16 +211,9 @@ export const PacingModals: React.FC<PacingModalsProps> = ({
                   }
 
                   // In edit mode, apply status-based restrictions
-                  if (
-                    isEditMode &&
-                    dateFieldRestrictions?.getMinTargetEndDate
-                  ) {
-                    const minTargetEndDate =
-                      dateFieldRestrictions.getMinTargetEndDate();
-                    if (
-                      minTargetEndDate &&
-                      current.isBefore(minTargetEndDate, 'day')
-                    ) {
+                  if (isEditMode && dateFieldRestrictions?.getMinTargetEndDate) {
+                    const minTargetEndDate = dateFieldRestrictions.getMinTargetEndDate();
+                    if (minTargetEndDate && current.isBefore(minTargetEndDate, 'day')) {
                       return true;
                     }
                   }

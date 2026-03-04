@@ -1,8 +1,5 @@
 import { StepsProgress, StorageKey } from '@/lib/enums';
-import {
-  createCookieForExistingRecord,
-  saveFormDataInCookie,
-} from '@/services';
+import { createCookieForExistingRecord, saveFormDataInCookie } from '@/services';
 import { cloneDeep, pick } from 'lodash';
 import { CreateCampaignConfig } from '../../campaigns/config/form';
 import { LineItemFormConfig } from '../../line-items/config/forms';

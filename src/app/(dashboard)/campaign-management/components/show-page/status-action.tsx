@@ -35,9 +35,7 @@ export const StatusAction: FC<IStatusActionProps> = ({ record }) => {
   const isLoading = updateStatusMutation.isPending;
 
   const handleChange = (value: string) => {
-    const status = combinedOptions.find(
-      (status: any) => status?.value === value,
-    );
+    const status = combinedOptions.find((status: any) => status?.value === value);
     setSelectedStatus({
       ...status,
       name: status?.value,
@@ -104,12 +102,7 @@ export const StatusAction: FC<IStatusActionProps> = ({ record }) => {
     return (
       <Spin
         style={{ marginLeft: '30%' }}
-        indicator={
-          <LoadingOutlined
-            style={{ fontSize: 24, color: `${CLR_BLUE_LIGHT}` }}
-            spin
-          />
-        }
+        indicator={<LoadingOutlined style={{ fontSize: 24, color: `${CLR_BLUE_LIGHT}` }} spin />}
       />
     );
   }
@@ -122,7 +115,8 @@ export const StatusAction: FC<IStatusActionProps> = ({ record }) => {
           onCancel={handleCancel}
           footer={null}
           closable={false}
-          className='confirm-cancel-modal'>
+          className='confirm-cancel-modal'
+        >
           <ConfirmationModal
             className='confirmation-modal'
             title={selectedStatus?.title}
@@ -148,7 +142,8 @@ export const StatusAction: FC<IStatusActionProps> = ({ record }) => {
               setUpdateStatus(false);
             }
           }}
-          onChange={handleChange}>
+          onChange={handleChange}
+        >
           {combinedOptions.map((status: any) => {
             return (
               <Select.Option key={status?.value} value={status?.value}>
@@ -163,14 +158,12 @@ export const StatusAction: FC<IStatusActionProps> = ({ record }) => {
         <DzBox
           onClick={(e) => {
             e.stopPropagation();
-            if (
-              record.status?.value !== LineItemStatus.CANCELLED &&
-              isUpdateStatusAllowed
-            ) {
+            if (record.status?.value !== LineItemStatus.CANCELLED && isUpdateStatusAllowed) {
               // Making it static here as Cancelled and Paid status we cant promote or demote here
               setUpdateStatus(true);
             }
-          }}>
+          }}
+        >
           <CampaignStatus status={record.status} />
         </DzBox>
       )}

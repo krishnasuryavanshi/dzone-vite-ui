@@ -13,24 +13,13 @@ export async function fetchFilterData() {
   const lineItems: IFilterLineItem[] = [
     {
       key: 'all',
-      label: (
-        <FilterMenuItemLabel
-          name='pages.lineItems.label.allLineItems'
-          id={''}
-          all
-        />
-      ),
+      label: <FilterMenuItemLabel name='pages.lineItems.label.allLineItems' id={''} all />,
     } as IFilterLineItem,
   ];
   const campaigns: Record<string, IFilterCampaign> = {
     all: {
       key: 'all',
-      label: (
-        <FilterMenuItemLabel
-          name='pages.campaigns.label.allCampaigns'
-          id={''}
-        />
-      ),
+      label: <FilterMenuItemLabel name='pages.campaigns.label.allCampaigns' id={''} />,
     } as IFilterCampaign,
   };
 
@@ -49,9 +38,7 @@ export async function fetchFilterData() {
     if (!campaigns[campaign.id]) {
       campaigns[campaign.id] = {
         key: campaign.id,
-        label: (
-          <FilterMenuItemLabel name={campaign.name} id={campaign.campaignId} />
-        ),
+        label: <FilterMenuItemLabel name={campaign.name} id={campaign.campaignId} />,
         value: campaign.id,
         campaignId: campaign.campaignId,
         name: campaign.name,

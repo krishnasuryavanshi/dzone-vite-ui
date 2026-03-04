@@ -51,14 +51,9 @@ export const FieldForm: FC<IFieldFormProps> = ({
     formFieldMappingOptions,
   } = useTemplateStore();
   const editPermission = usePermissionCheck(DeliveryTemplateActionsEnum.Edit);
-  const createPermission = usePermissionCheck(
-    DeliveryTemplateActionsEnum.Create,
-  );
-  const isEditTemplateAllowed = templateId
-    ? !editPermission
-    : !createPermission;
-  const [uploadedFile, setUploadedFile] =
-    useState<IDataMapperFileDetails | null>(null);
+  const createPermission = usePermissionCheck(DeliveryTemplateActionsEnum.Create);
+  const isEditTemplateAllowed = templateId ? !editPermission : !createPermission;
+  const [uploadedFile, setUploadedFile] = useState<IDataMapperFileDetails | null>(null);
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   // Calculate mapping options for HubSpot/WebForm delivery type based on current field's fieldValue
@@ -70,23 +65,11 @@ export const FieldForm: FC<IFieldFormProps> = ({
     ) {
       return formFieldMappingOptions;
     }
-    if (
-      deliveryType === 'HubSpot' &&
-      templateField?.fieldValue &&
-      masterFieldMappings
-    ) {
-      return getFieldMappingOptions(
-        templateField.fieldValue,
-        masterFieldMappings,
-      );
+    if (deliveryType === 'HubSpot' && templateField?.fieldValue && masterFieldMappings) {
+      return getFieldMappingOptions(templateField.fieldValue, masterFieldMappings);
     }
     return [];
-  }, [
-    deliveryType,
-    formFieldMappingOptions,
-    templateField?.fieldValue,
-    masterFieldMappings,
-  ]);
+  }, [deliveryType, formFieldMappingOptions, templateField?.fieldValue, masterFieldMappings]);
 
   useEffect(() => {
     if (templateField) {
@@ -124,9 +107,7 @@ export const FieldForm: FC<IFieldFormProps> = ({
     const validationError = validateDestinationName(
       destination,
       reservedNames,
-      destinationFieldNames?.filter(
-        (name) => name !== templateField?.destination.toLowerCase(),
-      ),
+      destinationFieldNames?.filter((name) => name !== templateField?.destination.toLowerCase()),
       DESTINATION_FIELD_NAME,
       updateFieldErrorStatus,
     );
@@ -156,13 +137,13 @@ export const FieldForm: FC<IFieldFormProps> = ({
                 <Tooltip
                   placement='right'
                   overlayClassName='custom-tooltip'
-                  title={
-                    <Translate i18nKey='pages.templates.label.dataMapperTooltip' />
-                  }>
+                  title={<Translate i18nKey='pages.templates.label.dataMapperTooltip' />}
+                >
                   <InfoCircleOutlined style={{ marginLeft: '5px' }} />
                 </Tooltip>
               </Text>
-            }>
+            }
+          >
             <Flex gap='.5rem' align='center'>
               <UploadTemplates
                 onFileUpload={handleFileUpload}

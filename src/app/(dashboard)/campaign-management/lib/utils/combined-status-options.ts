@@ -5,26 +5,16 @@ export const combinedStatusOptions = (statusList: any, record?: ILineItem) => {
     return status?.name === record?.status?.name;
   });
   const promotionStatuses =
-    currentStatus?.promotionStatuses.filter(
-      (status: string) => status !== 'NA',
-    ) || [];
+    currentStatus?.promotionStatuses.filter((status: string) => status !== 'NA') || [];
   const demotionStatuses =
-    currentStatus?.demotionStatuses.filter(
-      (status: string) => status !== 'NA',
-    ) || [];
+    currentStatus?.demotionStatuses.filter((status: string) => status !== 'NA') || [];
 
-  const createOptions = (
-    statuses: string[],
-    type: 'promotion' | 'demotion',
-  ) => {
+  const createOptions = (statuses: string[], type: 'promotion' | 'demotion') => {
     return statuses
       .map((key) => {
-        const status = statusList.data.find(
-          (status: { key: string }) => status.key === key,
-        );
+        const status = statusList.data.find((status: { key: string }) => status.key === key);
         if (status) {
-          const { title, description, positiveMessage, negativeMessage } =
-            status;
+          const { title, description, positiveMessage, negativeMessage } = status;
           return {
             label: status.value,
             value: status.name,

@@ -26,8 +26,7 @@ export const getChangedFields = (initial: any, current: any) => {
         changedFields[key] = formattedCurrent;
       }
     } else if (key === 'ioFileId') {
-      const getId = (val: any) =>
-        typeof val === 'object' && val !== null ? val.id : val;
+      const getId = (val: any) => (typeof val === 'object' && val !== null ? val.id : val);
 
       const initialId = getId(cleanedInitial[key]);
       const currentId = getId(cleanedCurrent[key]);
@@ -35,10 +34,7 @@ export const getChangedFields = (initial: any, current: any) => {
       if (initialId !== currentId) {
         changedFields['ioFileId'] = currentId === undefined ? null : currentId;
       }
-    } else if (
-      JSON.stringify(cleanedInitial[key]) !==
-      JSON.stringify(cleanedCurrent[key])
-    ) {
+    } else if (JSON.stringify(cleanedInitial[key]) !== JSON.stringify(cleanedCurrent[key])) {
       changedFields[key] = cleanedCurrent[key];
     }
   }

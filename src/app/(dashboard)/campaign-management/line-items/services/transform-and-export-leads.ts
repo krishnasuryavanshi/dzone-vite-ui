@@ -3,9 +3,7 @@ import { ApiHost } from '@/lib/constants';
 import { authenticatedRequest } from '@/services/backend-request';
 import { ITransformAndExportLeads } from '../lib/types';
 
-export const transformAndExportLeads = async (
-  requestPayload: ITransformAndExportLeads,
-) => {
+export const transformAndExportLeads = async (requestPayload: ITransformAndExportLeads) => {
   try {
     const response = await authenticatedRequest({
       resource: ApiResources.TransformAndExportLeads,

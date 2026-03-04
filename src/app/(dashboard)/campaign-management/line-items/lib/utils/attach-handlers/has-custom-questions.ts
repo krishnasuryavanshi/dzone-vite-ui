@@ -10,16 +10,10 @@ export const attachHasCustomQuestionsFieldHandler = (
       [LineItemFields.HasCustomQuestions]: e.target.checked,
     });
 
-    updateCustomQuestionsField(
-      e.target.checked,
-      patchFormValues,
-      updateFormStepDetails,
-    );
+    updateCustomQuestionsField(e.target.checked, patchFormValues, updateFormStepDetails);
   };
 
-  updateFormStepDetails(
-    LineItemSections.CustomQuestions,
-    LineItemFields.HasCustomQuestions,
-    { onChange },
-  );
+  updateFormStepDetails(LineItemSections.CustomQuestions, LineItemFields.HasCustomQuestions, {
+    onChange,
+  });
 };

@@ -13,10 +13,7 @@ export const CustomFieldsActions: React.FC<ICustomFieldsActionsProps> = ({
   handleCancel,
 }) => {
   return (
-    <Flex
-      justify='end'
-      gap='0.5rem'
-      style={{ marginBottom: '3rem', marginRight: '2rem' }}>
+    <Flex justify='end' gap='0.5rem' style={{ marginBottom: '3rem', marginRight: '2rem' }}>
       <Button onClick={handleCancel}>Cancel</Button>
       {loading ? (
         <LoaderButton style={{ width: '9.5rem' }} />

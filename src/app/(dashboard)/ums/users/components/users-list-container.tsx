@@ -87,10 +87,9 @@ export const UsersListContainer = () => {
       icon: <WarningOutlined style={{ color: '#E04149' }} />,
       content: (
         <Text>
-          Deactivating this user (
-          <Text style={{ color: '#3D71FB' }}>{username}</Text>) will immediately
-          revoke their access and permissions associated with the role. Do you
-          want to proceed?
+          Deactivating this user (<Text style={{ color: '#3D71FB' }}>{username}</Text>) will
+          immediately revoke their access and permissions associated with the role. Do you want to
+          proceed?
         </Text>
       ),
       okText: 'Deactivate',
@@ -158,11 +157,7 @@ export const UsersListContainer = () => {
             onFiltersChange={handleFiltersChange}
             emptyText={
               org ? (
-                <Flex
-                  justify='center'
-                  align='center'
-                  gap='0.5rem'
-                  style={{ marginTop: '1rem' }}>
+                <Flex justify='center' align='center' gap='0.5rem' style={{ marginTop: '1rem' }}>
                   <Text style={{ color: '#707070' }}>
                     No users are mapped to {orgName || 'this organization'}
                   </Text>

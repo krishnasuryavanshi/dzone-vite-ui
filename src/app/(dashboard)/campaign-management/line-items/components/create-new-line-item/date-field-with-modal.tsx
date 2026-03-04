@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { DatePicker } from '@/uicomponents/form/input';
 import { FormInstance } from '@/uicomponents/form';
@@ -57,8 +56,7 @@ export const DateFieldWithModal: React.FC<DateFieldWithModalProps> = ({
 
           // Don't apply the change immediately - store it as pending and show modal
           const currentValue = form.getFieldValue(field.field);
-          const currentDate =
-            currentValue && dayjs(currentValue).isValid() ? currentValue : null;
+          const currentDate = currentValue && dayjs(currentValue).isValid() ? currentValue : null;
 
           // Special handling for Target Start Date changes that affect Target Delivery Start Date
           if (field.field === LineItemFields.LineItemTargetStartDate) {
@@ -79,12 +77,9 @@ export const DateFieldWithModal: React.FC<DateFieldWithModalProps> = ({
                 currentStartDate: currentDate
                   ? dayjs(currentDate).format('DD MMM YYYY')
                   : 'Not set',
-                currentDeliveryDate: dayjs(
-                  currentTargetDeliveryStartDate,
-                ).format('DD MMM YYYY'),
+                currentDeliveryDate: dayjs(currentTargetDeliveryStartDate).format('DD MMM YYYY'),
                 newStartDate: date.format('DD MMM YYYY'),
-                suggestedDeliveryDate:
-                  newDeliveryStartDate.format('DD MMM YYYY'),
+                suggestedDeliveryDate: newDeliveryStartDate.format('DD MMM YYYY'),
                 pendingDate: date,
                 isExtensionModal: true,
                 fieldLabel: 'Target Start Date',
@@ -94,10 +89,7 @@ export const DateFieldWithModal: React.FC<DateFieldWithModalProps> = ({
               // For new items without delivery date, set directly without modal
               const newDeliveryStartDate = date.add(7, 'day');
               form.setFieldValue(LineItemFields.LineItemTargetStartDate, date);
-              form.setFieldValue(
-                LineItemFields.TargetDeliveryStartDate,
-                newDeliveryStartDate,
-              );
+              form.setFieldValue(LineItemFields.TargetDeliveryStartDate, newDeliveryStartDate);
               form.setFields([
                 { name: LineItemFields.LineItemTargetStartDate, errors: [] },
                 { name: LineItemFields.TargetDeliveryStartDate, errors: [] },
@@ -112,24 +104,16 @@ export const DateFieldWithModal: React.FC<DateFieldWithModalProps> = ({
               LineItemFields.TargetDeliveryStartDate,
             );
 
-            if (
-              targetDeliveryStartDate &&
-              dayjs(targetDeliveryStartDate).isValid()
-            ) {
+            if (targetDeliveryStartDate && dayjs(targetDeliveryStartDate).isValid()) {
               const deliveryDate = dayjs(targetDeliveryStartDate);
 
               // Check if Target End Date is same or before Target Delivery Start Date
-              if (
-                date.isSame(deliveryDate, 'day') ||
-                date.isBefore(deliveryDate, 'day')
-              ) {
+              if (date.isSame(deliveryDate, 'day') || date.isBefore(deliveryDate, 'day')) {
                 form.setFieldValue(field.field, date);
                 form.setFields([
                   {
                     name: field.field,
-                    errors: [
-                      'Target End Date must be after Target Delivery Start Date',
-                    ],
+                    errors: ['Target End Date must be after Target Delivery Start Date'],
                   },
                 ]);
                 return;
@@ -139,9 +123,7 @@ export const DateFieldWithModal: React.FC<DateFieldWithModalProps> = ({
 
           // For Target Delivery Start Date, check if it's before Target End Date
           if (field.field === LineItemFields.TargetDeliveryStartDate) {
-            const targetEndDate = form.getFieldValue(
-              LineItemFields.LineItemTargetEndDate,
-            );
+            const targetEndDate = form.getFieldValue(LineItemFields.LineItemTargetEndDate);
 
             if (targetEndDate && dayjs(targetEndDate).isValid()) {
               const endDate = dayjs(targetEndDate);
@@ -152,9 +134,7 @@ export const DateFieldWithModal: React.FC<DateFieldWithModalProps> = ({
                 form.setFields([
                   {
                     name: LineItemFields.LineItemTargetEndDate,
-                    errors: [
-                      'Target End Date must be after Target Delivery Start Date',
-                    ],
+                    errors: ['Target End Date must be after Target Delivery Start Date'],
                   },
                 ]);
                 return;
@@ -168,17 +148,13 @@ export const DateFieldWithModal: React.FC<DateFieldWithModalProps> = ({
 
           // Clear related field errors if dates are now valid
           if (field.field === LineItemFields.TargetDeliveryStartDate) {
-            const targetEndDate = form.getFieldValue(
-              LineItemFields.LineItemTargetEndDate,
-            );
+            const targetEndDate = form.getFieldValue(LineItemFields.LineItemTargetEndDate);
             if (
               targetEndDate &&
               dayjs(targetEndDate).isValid() &&
               date.isBefore(dayjs(targetEndDate), 'day')
             ) {
-              form.setFields([
-                { name: LineItemFields.LineItemTargetEndDate, errors: [] },
-              ]);
+              form.setFields([{ name: LineItemFields.LineItemTargetEndDate, errors: [] }]);
             }
           }
 
@@ -191,9 +167,7 @@ export const DateFieldWithModal: React.FC<DateFieldWithModalProps> = ({
               dayjs(targetDeliveryStartDate).isValid() &&
               date.isAfter(dayjs(targetDeliveryStartDate), 'day')
             ) {
-              form.setFields([
-                { name: LineItemFields.LineItemTargetEndDate, errors: [] },
-              ]);
+              form.setFields([{ name: LineItemFields.LineItemTargetEndDate, errors: [] }]);
             }
           }
         }}
@@ -211,32 +185,15 @@ export const DateFieldWithModal: React.FC<DateFieldWithModalProps> = ({
             if (modalState.isExtensionModal) {
               // Handle Target Start Date extension with delivery date update
               const newDeliveryStartDate = modalState.pendingDate.add(7, 'day');
-              form.setFieldValue(
-                LineItemFields.LineItemTargetStartDate,
-                modalState.pendingDate,
-              );
-              form.setFieldValue(
-                LineItemFields.TargetDeliveryStartDate,
-                newDeliveryStartDate,
-              );
+              form.setFieldValue(LineItemFields.LineItemTargetStartDate, modalState.pendingDate);
+              form.setFieldValue(LineItemFields.TargetDeliveryStartDate, newDeliveryStartDate);
 
               // Check if the new start date invalidates the end date
-              const currentTargetEndDate = form.getFieldValue(
-                LineItemFields.LineItemTargetEndDate,
-              );
-              if (
-                currentTargetEndDate &&
-                dayjs(currentTargetEndDate).isValid()
-              ) {
+              const currentTargetEndDate = form.getFieldValue(LineItemFields.LineItemTargetEndDate);
+              if (currentTargetEndDate && dayjs(currentTargetEndDate).isValid()) {
                 if (
-                  modalState.pendingDate.isAfter(
-                    dayjs(currentTargetEndDate),
-                    'day',
-                  ) ||
-                  modalState.pendingDate.isSame(
-                    dayjs(currentTargetEndDate),
-                    'day',
-                  )
+                  modalState.pendingDate.isAfter(dayjs(currentTargetEndDate), 'day') ||
+                  modalState.pendingDate.isSame(dayjs(currentTargetEndDate), 'day')
                 ) {
                   form.setFields([
                     {
@@ -249,9 +206,7 @@ export const DateFieldWithModal: React.FC<DateFieldWithModalProps> = ({
                     },
                     {
                       name: LineItemFields.LineItemTargetEndDate,
-                      errors: [
-                        'Target End Date must be after Target Start Date',
-                      ],
+                      errors: ['Target End Date must be after Target Start Date'],
                     },
                   ]);
                 } else {

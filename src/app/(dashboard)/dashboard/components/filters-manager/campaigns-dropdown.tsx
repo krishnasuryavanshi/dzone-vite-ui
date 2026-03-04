@@ -7,10 +7,7 @@ import { debounce } from 'lodash';
 interface ICampaignsDropdownProps {
   availableCampaigns: IFilterCampaign[];
   selectedCampaigns?: string[];
-  handleSelectionChange: (data: {
-    type: string;
-    selectedItems: string[];
-  }) => void;
+  handleSelectionChange: (data: { type: string; selectedItems: string[] }) => void;
 }
 
 export const CampaignsDropdown: FC<ICampaignsDropdownProps> = ({
@@ -24,9 +21,7 @@ export const CampaignsDropdown: FC<ICampaignsDropdownProps> = ({
     setCampaigns(availableCampaigns);
     if (!selectedCampaigns?.includes('all')) {
       const campaigns = availableCampaigns.map((campaign) => campaign.key);
-      const selectedItems = selectedCampaigns?.filter((id) =>
-        campaigns.includes(id),
-      );
+      const selectedItems = selectedCampaigns?.filter((id) => campaigns.includes(id));
       handleSelectionChange &&
         handleSelectionChange({
           type: 'selectedCampaigns',
@@ -36,20 +31,15 @@ export const CampaignsDropdown: FC<ICampaignsDropdownProps> = ({
   }, [availableCampaigns]);
 
   const handleCampaignSelection = (data: any) => {
-    const selectedItems = getSelectedItems(
-      selectedCampaigns as string[],
-      data.selectedKeys,
-    );
-    handleSelectionChange &&
-      handleSelectionChange({ type: 'selectedCampaigns', selectedItems });
+    const selectedItems = getSelectedItems(selectedCampaigns as string[], data.selectedKeys);
+    handleSelectionChange && handleSelectionChange({ type: 'selectedCampaigns', selectedItems });
   };
 
   const handleSeach = (value: string) => {
     setCampaigns(
       availableCampaigns?.filter(
         (campaign) =>
-          campaign.key === 'all' ||
-          campaign?.name?.toLowerCase().includes(value.toLowerCase()),
+          campaign.key === 'all' || campaign?.name?.toLowerCase().includes(value.toLowerCase()),
       ),
     );
   };
@@ -63,7 +53,8 @@ export const CampaignsDropdown: FC<ICampaignsDropdownProps> = ({
       label='pages.campaigns.title'
       selectedItems={selectedCampaigns}
       onSelect={handleCampaignSelection}
-      handleSearch={debouncedSearch}>
+      handleSearch={debouncedSearch}
+    >
       {(selectedCampaigns?.includes('all') && 'All Campaigns') ||
         (selectedCampaigns?.length === 0 && 'No Campaign') ||
         (selectedCampaigns?.length === 1 && '1 Campaign') ||

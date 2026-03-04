@@ -1,5 +1,5 @@
-import React from "react";
-import { LeadsContainer } from "./components";
+import React from 'react';
+import { LeadsContainer } from './components';
 
 const LeadsPage = () => {
   return (

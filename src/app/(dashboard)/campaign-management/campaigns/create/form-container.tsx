@@ -31,26 +31,22 @@ export const FormContainer: FC<IContainerProps> = (props) => {
   } = useCampaignForm(props);
   return (
     <Form form={form} onFinish={handleSubmit} layout='vertical'>
-      <Row
-        gutter={16}
-        justify='start'
-        style={{ paddingLeft: '0.5rem', marginBottom: '2rem' }}>
+      <Row gutter={16} justify='start' style={{ paddingLeft: '0.5rem', marginBottom: '2rem' }}>
         <Text
           style={{
             color: '#464343',
             fontSize: '0.875rem',
             fontWeight: 'bold',
             textAlign: 'center',
-          }}>
+          }}
+        >
           <Translate i18nKey='pages.campaigns.label.requiredInfo' />
         </Text>
       </Row>
       {Object.keys(groupedFields).map((group) => (
         <Row key={group} gutter={16}>
           {groupedFields[group]
-            .sort(
-              (a: { order: number }, b: { order: number }) => a.order - b.order,
-            )
+            .sort((a: { order: number }, b: { order: number }) => a.order - b.order)
             .map((field: any, index: React.Key | null | undefined) => {
               if (field.hidden) {
                 return (
@@ -65,7 +61,8 @@ export const FormContainer: FC<IContainerProps> = (props) => {
                     className='input-control form-control-item'
                     label={field.fieldType === 'checkbox' ? '' : field.label}
                     name={field.field}
-                    rules={processFieldRules(field)}>
+                    rules={processFieldRules(field)}
+                  >
                     {renderField(field, lists, form, marketerCode, {
                       ioFiles: form.getFieldValue('ioFileId'),
                     })}
@@ -83,7 +80,8 @@ export const FormContainer: FC<IContainerProps> = (props) => {
             htmlType='submit'
             type='primary'
             disabled={!hasChanges}
-            style={{ boxShadow: 'none' }}>
+            style={{ boxShadow: 'none' }}
+          >
             {props?.campaignUUId ? 'Update Campaign' : 'Create Campaign'}
           </Button>
         )}

@@ -1,10 +1,7 @@
 import { StepsProgress, StorageKey } from '@/lib/enums';
 import { normalizeDates } from '@/lib/utils';
 import { getCombinedDataFromCookies } from '@/lib/utils/get-combined-data-from-cookies';
-import {
-  deleteFormDataFromCookie,
-  saveFormDataInCookie,
-} from '@/services/cookie-stepper-form';
+import { deleteFormDataFromCookie, saveFormDataInCookie } from '@/services/cookie-stepper-form';
 import { showNotification } from '@/services/notification';
 import { FormInstance } from '@/uicomponents/form';
 import { AppRouterInstance } from '@/lib/hooks/use-router';
@@ -73,8 +70,7 @@ export const onHandleSave = async (
       StorageKey.CampaignForm,
     );
 
-    combinedData[CampaignField.UploadIoFile] =
-      combinedData[CampaignField.UploadIoFile]?.id;
+    combinedData[CampaignField.UploadIoFile] = combinedData[CampaignField.UploadIoFile]?.id;
 
     let changedData = combinedData;
 
@@ -104,9 +100,7 @@ export const onHandleSave = async (
       }
     });
     const id = existingCampaignDetails?.id;
-    const data = id
-      ? await putCreateCampaign(changedData, id)
-      : await createCampaign(combinedData);
+    const data = id ? await putCreateCampaign(changedData, id) : await createCampaign(combinedData);
 
     if (data.data) {
       showNotification({ message: data.message });

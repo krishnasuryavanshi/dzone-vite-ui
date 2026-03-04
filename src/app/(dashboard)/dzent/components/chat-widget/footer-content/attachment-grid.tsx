@@ -20,15 +20,10 @@ export const AttachmentGrid = ({
     return (
       <DzBox
         style={{
-          width:
-            fullwidth || ['lg', 'md', 'sm', 'xs'].includes(currentScreenSize)
-              ? '100%'
-              : '49%',
-        }}>
-        <FilePreview
-          file={file}
-          handleRemoveFile={() => handleRemoveFile(file.id)}
-        />
+          width: fullwidth || ['lg', 'md', 'sm', 'xs'].includes(currentScreenSize) ? '100%' : '49%',
+        }}
+      >
+        <FilePreview file={file} handleRemoveFile={() => handleRemoveFile(file.id)} />
       </DzBox>
     );
   };
@@ -37,16 +32,15 @@ export const AttachmentGrid = ({
     <Hideable show={attachments.length > 0}>
       <DzBox style={{ width: '100%', padding: '0 1rem 0.5rem 1rem' }}>
         <Flex
-          vertical={
-            ['lg', 'md', 'sm', 'xs'].includes(currentScreenSize) ? true : false
-          }
+          vertical={['lg', 'md', 'sm', 'xs'].includes(currentScreenSize) ? true : false}
           className='attachment-grid'
           wrap='wrap'
           gap='0.5rem'
           style={{
             maxHeight: '8rem',
             overflowY: 'auto',
-          }}>
+          }}
+        >
           <MapFunction items={attachments} renderItem={renderFilePreview} />
         </Flex>
       </DzBox>

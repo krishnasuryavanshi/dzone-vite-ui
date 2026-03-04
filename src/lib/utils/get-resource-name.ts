@@ -7,10 +7,7 @@ const isMatchingUrl = (url: string, pattern: string): boolean => {
   return regex.test(url);
 };
 
-const isMatchingResourceUrls = (
-  url: string,
-  matchers: string[]
-): string | null => {
+const isMatchingResourceUrls = (url: string, matchers: string[]): string | null => {
   for (const pattern of matchers) {
     if (isMatchingUrl(url, pattern)) {
       return pattern;
@@ -22,7 +19,7 @@ const isMatchingResourceUrls = (
 export const getResourceName = (
   url: string,
   customResources: ICustomResource[],
-  resources?: IResourceItem[]
+  resources?: IResourceItem[],
 ) => {
   // 1. Check custom resources first (edit/create pages)
   for (const resource of customResources) {

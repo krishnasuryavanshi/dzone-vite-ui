@@ -2,11 +2,7 @@ import isEqual from 'lodash/isEqual';
 import { CampaignField } from '../../campaigns/lib/enums';
 import { LineItemFields } from '../../line-items/lib/enums';
 import { formatDate } from '@/lib/utils';
-import {
-  UNCHANGING_KEYS,
-  FILE_KEYS,
-  dateKeys,
-} from './keys-required-for-changed-data';
+import { UNCHANGING_KEYS, FILE_KEYS, dateKeys } from './keys-required-for-changed-data';
 
 export const getChangedData = (
   currentData: Record<string, any>,
@@ -33,10 +29,7 @@ export const getChangedData = (
         if (formatDate(originalValue) !== formatDate(updatedValue)) {
           changedData[key] = currentData[key];
         }
-      } else if (
-        typeof currentData[key] === 'object' &&
-        typeof previousData[key] === 'object'
-      ) {
+      } else if (typeof currentData[key] === 'object' && typeof previousData[key] === 'object') {
         // Compare objects by their `id` if they have an `id` property
         if (currentData[key]?.id && previousData[key]?.id) {
           if (currentData[key].id !== previousData[key].id) {

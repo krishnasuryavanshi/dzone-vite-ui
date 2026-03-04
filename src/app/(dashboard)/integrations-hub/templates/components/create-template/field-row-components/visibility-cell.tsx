@@ -4,10 +4,7 @@ import { ITemplateFieldResponse } from '../../../lib/types';
 
 interface IVisibilityCellProps {
   templateField: ITemplateFieldResponse;
-  handleVisibilityChange: (
-    isVisible: boolean,
-    templateField: ITemplateFieldResponse,
-  ) => void;
+  handleVisibilityChange: (isVisible: boolean, templateField: ITemplateFieldResponse) => void;
   isEditTemplateAllowed: boolean;
 }
 

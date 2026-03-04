@@ -30,12 +30,10 @@ export const FileUpload: FC<IFileUploadProps> = ({
     <Flex gap='.5rem' align='center' style={inputContainerStyles}>
       <Upload
         {...{ ...uploadProps, showUploadList: false, disabled }}
-        className='file-upload form-control file-upload-control'>
+        className='file-upload form-control file-upload-control'
+      >
         <Button type='primary' size='large'>
-          <UploadButtonContent
-            uploading={uploading}
-            uploadLabel={uploadLabel}
-          />
+          <UploadButtonContent uploading={uploading} uploadLabel={uploadLabel} />
         </Button>
       </Upload>
       {value && (
@@ -46,15 +44,13 @@ export const FileUpload: FC<IFileUploadProps> = ({
             maxWidth: '15rem',
             textDecoration: 'underline',
           }}
-          className='ellipsis-text'>
+          className='ellipsis-text'
+        >
           {value?.fileName}
         </Text>
       )}
       {value && uploadProps?.onRemove && (
-        <DeleteOutlined
-          style={{ color: '#ED2326' }}
-          onClick={uploadProps?.onRemove}
-        />
+        <DeleteOutlined style={{ color: '#ED2326' }} onClick={uploadProps?.onRemove} />
       )}
     </Flex>
   );

@@ -1,11 +1,5 @@
-
 import { Text } from '@/uicomponents/text';
-import {
-  CaretUpFilled,
-  CaretDownFilled,
-  RiseOutlined,
-  FallOutlined,
-} from '@ant-design/icons';
+import { CaretUpFilled, CaretDownFilled, RiseOutlined, FallOutlined } from '@ant-design/icons';
 import { PacingSummaryStatus } from '../../lib/types';
 import { PacingStatusTag } from './pacing-status-tag';
 import { Flex } from '@/uicomponents/layout';
@@ -93,10 +87,7 @@ const getColumnConfig = (
 ): Record<string, any> => ({
   periodLabel: {
     title: (
-      <Flex
-        align='center'
-        style={{ cursor: 'pointer' }}
-        onClick={() => handlers.onSort()}>
+      <Flex align='center' style={{ cursor: 'pointer' }} onClick={() => handlers.onSort()}>
         <Text strong>{getPeriodTitle(pacingType, isChild)}</Text>
         <SortIcon sortOrder={handlers.sortOrder} />
       </Flex>
@@ -131,16 +122,14 @@ const getColumnConfig = (
     dataIndex: 'delivered',
     key: 'delivered',
     width: COL_WIDTHS.delivered,
-    render: (value: number | null) =>
-      value !== null ? value.toLocaleString() : '-',
+    render: (value: number | null) => (value !== null ? value.toLocaleString() : '-'),
   },
   held: {
     title: 'Held',
     dataIndex: 'held',
     key: 'held',
     width: COL_WIDTHS.held,
-    render: (value: number | undefined) =>
-      value !== undefined ? value.toLocaleString() : '-',
+    render: (value: number | undefined) => (value !== undefined ? value.toLocaleString() : '-'),
   },
   status: {
     title: 'Status',
@@ -149,14 +138,11 @@ const getColumnConfig = (
     width: COL_WIDTHS.status,
     ...statusFilterConfig,
     filteredValue: handlers.statusFilter.length ? handlers.statusFilter : null,
-    render: (status: PacingSummaryStatus) => (
-      <PacingStatusTag status={status} />
-    ),
+    render: (status: PacingSummaryStatus) => <PacingStatusTag status={status} />,
   },
 });
 
-const capitalize = (str: string): string =>
-  str.charAt(0).toUpperCase() + str.slice(1);
+const capitalize = (str: string): string => str.charAt(0).toUpperCase() + str.slice(1);
 
 export const generateColumnsFromData = (
   dataKeys: string[],

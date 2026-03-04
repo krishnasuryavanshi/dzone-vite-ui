@@ -47,7 +47,8 @@ const FieldCard: FC<FieldCardProps> = ({ field, type }) => {
         padding: '0.75rem',
         border: '1px solid #f0f0f0',
         borderRadius: '4px',
-      }}>
+      }}
+    >
       <Text type='secondary' style={{ fontSize: '0.875rem' }}>
         Position ({type}):
       </Text>
@@ -112,10 +113,7 @@ const FieldCard: FC<FieldCardProps> = ({ field, type }) => {
   );
 };
 
-export const CustomFieldBlock: FC<CustomFieldBlockProps> = ({
-  oldFields,
-  newFields,
-}) => {
+export const CustomFieldBlock: FC<CustomFieldBlockProps> = ({ oldFields, newFields }) => {
   const maxLength = Math.max(oldFields?.length || 0, newFields?.length || 0);
 
   if (maxLength === 0) {

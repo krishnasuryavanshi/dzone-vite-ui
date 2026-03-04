@@ -3,9 +3,7 @@
  * @param filteredInfo - Object containing filter values
  * @returns boolean indicating if any filters are active
  */
-export const hasActiveFilters = (
-  filteredInfo: Record<string, any>,
-): boolean => {
+export const hasActiveFilters = (filteredInfo: Record<string, any>): boolean => {
   return Object.values(filteredInfo).some(
     (value) =>
       value !== null &&
@@ -32,9 +30,7 @@ export const isFilterValueActive = (value: any): boolean => {
  * @param filteredInfo - Object containing filter values
  * @returns Object with only active filters
  */
-export const getActiveFilters = (
-  filteredInfo: Record<string, any>,
-): Record<string, any> => {
+export const getActiveFilters = (filteredInfo: Record<string, any>): Record<string, any> => {
   return Object.entries(filteredInfo).reduce(
     (acc, [key, value]) => {
       if (isFilterValueActive(value)) {

@@ -11,8 +11,7 @@ const marketerColumnConfig = [
     title: 'Line Item',
     dataIndex: 'line_item_name',
     key: 'lineItemName',
-    sorter: (a: any, b: any) =>
-      a.line_item_name?.localeCompare(b.line_item_name), // sortable
+    sorter: (a: any, b: any) => a.line_item_name?.localeCompare(b.line_item_name), // sortable
     width: 200,
   },
   {
@@ -54,8 +53,7 @@ const marketerColumnConfig = [
     dataIndex: 'target_start_date',
     key: 'targetStartDate',
     sorter: (a: any, b: any) =>
-      new Date(a.target_start_date).getTime() -
-      new Date(b.target_start_date).getTime(),
+      new Date(a.target_start_date).getTime() - new Date(b.target_start_date).getTime(),
     width: 180,
     // Optionally, render formatted date string here if needed
     render: (date: string) =>
@@ -72,8 +70,7 @@ const marketerColumnConfig = [
     dataIndex: 'actual_start_date',
     key: 'actualStartDate',
     sorter: (a: any, b: any) =>
-      new Date(a.actual_start_date).getTime() -
-      new Date(b.actual_start_date).getTime(),
+      new Date(a.actual_start_date).getTime() - new Date(b.actual_start_date).getTime(),
     width: 180,
     // Optionally, render formatted date string here if needed
     render: (date: string) => {
@@ -122,8 +119,7 @@ const marketerColumnConfig = [
     title: 'At-Risk to Deliver',
     dataIndex: 'at_risk_to_deliver',
     key: 'atRiskToDeliver',
-    sorter: (a: any, b: any) =>
-      a.at_risk_to_deliver?.localeCompare(b.at_risk_to_deliver), // sortable
+    sorter: (a: any, b: any) => a.at_risk_to_deliver?.localeCompare(b.at_risk_to_deliver), // sortable
     width: 180,
     render: (value: string) => {
       // if the value is exactly "%", return null (renders nothing)
@@ -165,10 +161,7 @@ const marketerColumnConfig = [
       };
 
       // Reverse the comparison to fix the sorting order
-      return (
-        getNumericValue(b?.days_left_overdue) -
-        getNumericValue(a?.days_left_overdue)
-      );
+      return getNumericValue(b?.days_left_overdue) - getNumericValue(a?.days_left_overdue);
     },
     render: (val: any) => {
       if (!val || val === '-') return '-';
@@ -182,8 +175,7 @@ const marketerColumnConfig = [
     title: 'At-Risk Reason',
     dataIndex: 'at_risk_reason',
     key: 'atRiskReason',
-    sorter: (a: any, b: any) =>
-      a.at_risk_reason?.localeCompare(b.at_risk_reason), // sortable
+    sorter: (a: any, b: any) => a.at_risk_reason?.localeCompare(b.at_risk_reason), // sortable
     width: 250,
   },
   // We dont need action column for now

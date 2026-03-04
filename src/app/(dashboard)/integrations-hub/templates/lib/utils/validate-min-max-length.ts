@@ -13,12 +13,7 @@ export const validateMinMaxLengthSync = (
   minLength?: number | null,
   maxLength?: number | null,
 ) => {
-  const error = validateMinMaxLength(
-    updateFieldErrorStatus,
-    minLength,
-    maxLength,
-    currentField,
-  );
+  const error = validateMinMaxLength(updateFieldErrorStatus, minLength, maxLength, currentField);
 
   if (error.error) {
     // Set the error for specific fields
@@ -55,10 +50,8 @@ export const validateMinMaxLength = (
   let error = { error: false, field: '', message: '' };
 
   // Convert empty strings to undefined and ensure min/max are numbers
-  minLength =
-    minLength === '' || minLength === null ? undefined : Number(minLength);
-  maxLength =
-    maxLength === '' || maxLength === null ? undefined : Number(maxLength);
+  minLength = minLength === '' || minLength === null ? undefined : Number(minLength);
+  maxLength = maxLength === '' || maxLength === null ? undefined : Number(maxLength);
 
   // Validation for minLength
   if (currentField === 'minLength') {

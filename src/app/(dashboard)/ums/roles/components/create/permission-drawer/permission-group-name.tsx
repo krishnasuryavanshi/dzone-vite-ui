@@ -17,10 +17,7 @@ interface IPermissionGroupNameProps {
   actionId: string;
 }
 
-export const PermissionGroupName: FC<IPermissionGroupNameProps> = ({
-  groupName,
-  actionId,
-}) => {
+export const PermissionGroupName: FC<IPermissionGroupNameProps> = ({ groupName, actionId }) => {
   const { selectedModule, modules } = useModulesStore();
   const [message, setMessage] = useState<string>('');
 
@@ -35,9 +32,8 @@ export const PermissionGroupName: FC<IPermissionGroupNameProps> = ({
         const actionEnumKey = getActionsEnumKey(actionName);
 
         setMessage(
-          MessageDetails[moduleEnumKey!]?.[actionEnumKey]?.groupTooltip?.[
-            permissionEnumKey
-          ] || 'Only selected field will be visible to users.',
+          MessageDetails[moduleEnumKey!]?.[actionEnumKey]?.groupTooltip?.[permissionEnumKey] ||
+            'Only selected field will be visible to users.',
         );
       }
     }
@@ -50,7 +46,8 @@ export const PermissionGroupName: FC<IPermissionGroupNameProps> = ({
           fontSize: '1.125rem',
           paddingRight: '0.2rem',
           color: DZONE_CLR_BLACK,
-        }}>
+        }}
+      >
         <Translate i18nKey={groupName} />
       </Space>
       <Tooltip
@@ -60,7 +57,8 @@ export const PermissionGroupName: FC<IPermissionGroupNameProps> = ({
           fontSize: '12px',
           textAlign: 'center',
         }}
-        title={<Translate i18nKey={message} />}>
+        title={<Translate i18nKey={message} />}
+      >
         <InfoCircleOutlined />
       </Tooltip>
     </Flex>

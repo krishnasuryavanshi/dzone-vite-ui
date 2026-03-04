@@ -8,9 +8,7 @@ interface ExtendedApiRequestConfig extends IApiRequestConfig {
   includeResponseHeaders?: boolean;
 }
 
-const convertToAxiosHeaders = (
-  headers: Record<string, string>,
-): AxiosHeaders => {
+const convertToAxiosHeaders = (headers: Record<string, string>): AxiosHeaders => {
   const axiosHeaders = new AxiosHeaders();
   for (const key in headers) {
     if (headers.hasOwnProperty(key)) {
@@ -33,10 +31,7 @@ export const apiRequest = async ({
       ...rest.headers,
     };
 
-    if (
-      responseType === 'arraybuffer' &&
-      requestName !== 'exportFilteredLeads'
-    ) {
+    if (responseType === 'arraybuffer' && requestName !== 'exportFilteredLeads') {
       defaultHeaders['Content-Type'] = 'blob';
     }
 

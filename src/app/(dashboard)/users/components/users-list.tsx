@@ -22,38 +22,36 @@ interface DataType {
 export const UsersList = () => {
   const columns: TableProps<DataType>['columns'] = [
     {
-      title: <Translate i18nKey="label.name" />,
+      title: <Translate i18nKey='label.name' />,
       dataIndex: 'name',
       key: 'name',
       render: (name, { avatar }) => (
-        <Flex
-          gap="0.75rem"
-          align="center">
+        <Flex gap='0.75rem' align='center'>
           <UserAvatar url={avatar} />
           <Text>{name}</Text>
         </Flex>
       ),
     },
     {
-      title: <Translate i18nKey="label.email" />,
+      title: <Translate i18nKey='label.email' />,
       dataIndex: 'email',
       key: 'email',
       render: (email) => <Text>{email}</Text>,
     },
     {
-      title: <Translate i18nKey="label.phone" />,
+      title: <Translate i18nKey='label.phone' />,
       dataIndex: 'phone',
       key: 'phone',
       render: (phone) => <Text>{phone}</Text>,
     },
     {
-      title: <Translate i18nKey="label.created" />,
+      title: <Translate i18nKey='label.created' />,
       dataIndex: 'created',
       key: 'created',
       render: (created) => <Text>{created}</Text>,
     },
     {
-      title: <Translate i18nKey="label.status" />,
+      title: <Translate i18nKey='label.status' />,
       dataIndex: 'status',
       key: 'status',
       render: (status: { name: string; value: string }) => {
@@ -64,7 +62,7 @@ export const UsersList = () => {
       },
     },
     {
-      title: <Translate i18nKey="label.actions" />,
+      title: <Translate i18nKey='label.actions' />,
       dataIndex: 'actions',
       render: () => <UserAction />,
     },
@@ -108,11 +106,6 @@ export const UsersList = () => {
   ];
 
   return (
-    <BasicTable
-      style={{ marginTop: '1rem' }}
-      columns={columns}
-      data={data}
-      hasPagination={false}
-    />
+    <BasicTable style={{ marginTop: '1rem' }} columns={columns} data={data} hasPagination={false} />
   );
 };

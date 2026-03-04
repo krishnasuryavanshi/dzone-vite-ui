@@ -10,13 +10,10 @@ export async function updateLineItemsLeadValidationSetting(
 ) {
   try {
     return authenticatedRequest({
-      resource: transformPath(
-        ApiResources.LineItemsLeadValidationSettingById,
-        {
-          lineItemId,
-          settingId: leadValidationSettingId,
-        },
-      ),
+      resource: transformPath(ApiResources.LineItemsLeadValidationSettingById, {
+        lineItemId,
+        settingId: leadValidationSettingId,
+      }),
       apiHost: ApiHost.PlatformService,
       method: HttpMethod.PUT,
       data: requestData,

@@ -7,19 +7,17 @@ import { ChartColumn } from '../../chart-column';
 
 interface IDollarAmountForBillableLeadsProps {}
 
-export const DollarAmountForBillableLeads: FC<
-  IDollarAmountForBillableLeadsProps
-> = ({}) => {
+export const DollarAmountForBillableLeads: FC<IDollarAmountForBillableLeadsProps> = ({}) => {
   const [chartData, isLoaded] = useFetchReportData<IReportRow>(
     [],
-    BillingReportType.DollarAmountForBillableLeads
+    BillingReportType.DollarAmountForBillableLeads,
   );
 
   return (
-    <ChartColumn chartTitle="pages.dashboard.label.dollarAmountForBilledLeads">
+    <ChartColumn chartTitle='pages.dashboard.label.dollarAmountForBilledLeads'>
       <DzPieChart
         data={chartData as IReportRow[]}
-        legendPlacement="left"
+        legendPlacement='left'
         prependDollarInLabel
         loaded={isLoaded}
       />

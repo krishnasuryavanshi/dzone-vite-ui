@@ -11,9 +11,7 @@ import { DZONE_CLR_BLACK } from '@/lib/constants';
 interface ITemplateListHeaderProps {}
 
 export const TemplateListHeader: FC<ITemplateListHeaderProps> = () => {
-  const isCreatePermission = usePermissionCheck(
-    DeliveryTemplateActionsEnum.Create,
-  );
+  const isCreatePermission = usePermissionCheck(DeliveryTemplateActionsEnum.Create);
   return (
     <Flex justify={'space-between'} align='center'>
       <Text
@@ -21,7 +19,8 @@ export const TemplateListHeader: FC<ITemplateListHeaderProps> = () => {
           color: DZONE_CLR_BLACK,
           fontWeight: 600,
           fontSize: '1.125rem',
-        }}>
+        }}
+      >
         <Translate i18nKey='pages.templates.title' />
       </Text>
       <HasPermission permissions={DeliveryTemplateActionsEnum.Create}>

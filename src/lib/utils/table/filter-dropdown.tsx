@@ -20,12 +20,8 @@ export const FilterDropdown: FC<IFilterDropdownProps> = ({
   disabled,
 }) => {
   const [selectedFilters, setSelectedFilters] = useState(selectedKeys || []);
-  const [allOptions, setAllOptions] = useState<
-    { label: string; value: string }[]
-  >([]);
-  const [filteredOptions, setFilteredOptions] = useState<
-    { label: string; value: string }[]
-  >([]);
+  const [allOptions, setAllOptions] = useState<{ label: string; value: string }[]>([]);
+  const [filteredOptions, setFilteredOptions] = useState<{ label: string; value: string }[]>([]);
 
   useEffect(() => {
     const all = options.map(({ text: label, value }) => ({
@@ -65,9 +61,7 @@ export const FilterDropdown: FC<IFilterDropdownProps> = ({
   };
 
   const onChangeAll: CheckboxProps['onChange'] = (e) => {
-    const newFilters = e.target.checked
-      ? options.map(({ value }) => value)
-      : [];
+    const newFilters = e.target.checked ? options.map(({ value }) => value) : [];
     setSelectedFilters(newFilters);
     // Trigger API call immediately when "Select All" changes
     debouncedConfirm(newFilters);
@@ -79,9 +73,7 @@ export const FilterDropdown: FC<IFilterDropdownProps> = ({
       setFilteredOptions(allOptions);
     } else {
       setFilteredOptions(
-        allOptions.filter(({ label }) =>
-          label.toLowerCase().includes(value.toLowerCase()),
-        ),
+        allOptions.filter(({ label }) => label.toLowerCase().includes(value.toLowerCase())),
       );
     }
   };
@@ -91,7 +83,8 @@ export const FilterDropdown: FC<IFilterDropdownProps> = ({
       style={{ padding: 8 }}
       className='filter-dropdown-container dz-checkbox-dark'
       vertical
-      gap={'1rem'}>
+      gap={'1rem'}
+    >
       <DzBox>
         <Input
           placeholder='Search'
@@ -104,7 +97,8 @@ export const FilterDropdown: FC<IFilterDropdownProps> = ({
         <Checkbox
           disabled={disabled}
           onChange={onChangeAll}
-          checked={selectedFilters?.length === options.length}>
+          checked={selectedFilters?.length === options.length}
+        >
           Select All
         </Checkbox>
       </DzBox>

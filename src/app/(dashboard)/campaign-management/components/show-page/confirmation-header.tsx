@@ -8,10 +8,7 @@ interface IConfirmationHeaderProps {
   archiveLeads?: boolean;
 }
 
-export const ConfirmationHeader: React.FC<IConfirmationHeaderProps> = ({
-  title,
-  archiveLeads,
-}) => {
+export const ConfirmationHeader: React.FC<IConfirmationHeaderProps> = ({ title, archiveLeads }) => {
   const { t } = useTranslation();
   return (
     <Row
@@ -21,11 +18,10 @@ export const ConfirmationHeader: React.FC<IConfirmationHeaderProps> = ({
         padding: '1.25rem',
         borderRadius: '0.75rem',
         boxShadow: `rgba(0, 0, 0, 0.16) 0px 2px 6px 0px`,
-      }}>
+      }}
+    >
       {archiveLeads ? (
-        <AlertTriangle
-          style={{ verticalAlign: 'middle', marginRight: '0.75rem' }}
-        />
+        <AlertTriangle style={{ verticalAlign: 'middle', marginRight: '0.75rem' }} />
       ) : (
         <ExclamationCircleOutlined
           style={{
@@ -35,9 +31,7 @@ export const ConfirmationHeader: React.FC<IConfirmationHeaderProps> = ({
           }}
         />
       )}
-      <p style={{ fontWeight: 600, fontSize: '1.125rem', margin: 0 }}>
-        {t(title!)}
-      </p>
+      <p style={{ fontWeight: 600, fontSize: '1.125rem', margin: 0 }}>{t(title!)}</p>
     </Row>
   );
 };

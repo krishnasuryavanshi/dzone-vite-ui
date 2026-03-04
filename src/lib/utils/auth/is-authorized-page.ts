@@ -2,11 +2,7 @@
 
 import { config } from './should-validate-path';
 
-const isAuthorizedPage = (
-  parent: string,
-  path: string,
-  moduleAccess: Record<string, boolean>,
-) => {
+const isAuthorizedPage = (parent: string, path: string, moduleAccess: Record<string, boolean>) => {
   const pages = config[parent] || [];
   if (!pages.length) {
     return false;

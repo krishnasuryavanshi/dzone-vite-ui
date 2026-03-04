@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import { FormItem, FormInstance } from '@/uicomponents/form';
 import { Select } from '@/uicomponents/form/input';
@@ -22,11 +21,7 @@ interface HubSpotDeliveryFieldsProps {
   }[];
   deliveryType: string;
   updateTemplateData: (data: any) => void;
-  fetchFormFieldsData: (
-    deliveryType: string,
-    integrationId: string,
-    objectId: string,
-  ) => void;
+  fetchFormFieldsData: (deliveryType: string, integrationId: string, objectId: string) => void;
 }
 
 export const HubSpotDeliveryFields: FC<HubSpotDeliveryFieldsProps> = ({
@@ -49,7 +44,8 @@ export const HubSpotDeliveryFields: FC<HubSpotDeliveryFieldsProps> = ({
             <Translate i18nKey='pages.templates.label.deliveryObject' />
           </Text>
         }
-        rules={[{ required: true, message: REQUIRED_FIELD }]}>
+        rules={[{ required: true, message: REQUIRED_FIELD }]}
+      >
         <Select
           placeholder='Select an Object'
           style={{ width: '100%' }}
@@ -61,9 +57,7 @@ export const HubSpotDeliveryFields: FC<HubSpotDeliveryFieldsProps> = ({
             });
 
             // Find the selected object details and update context immediately
-            const selectedObject = deliveryObjectOptions.find(
-              (opt) => opt.value === value,
-            );
+            const selectedObject = deliveryObjectOptions.find((opt) => opt.value === value);
 
             if (selectedObject) {
               const deliveryObjectData = {
@@ -77,37 +71,28 @@ export const HubSpotDeliveryFields: FC<HubSpotDeliveryFieldsProps> = ({
 
               // Fetch form fields for the selected delivery object
               if (deliveryType && form.getFieldValue('integrationId')) {
-                fetchFormFieldsData(
-                  deliveryType,
-                  form.getFieldValue('integrationId'),
-                  value,
-                );
+                fetchFormFieldsData(deliveryType, form.getFieldValue('integrationId'), value);
               }
             }
           }}
-          disabled={Boolean(templateId && !isEditTemplateAllowed)}>
+          disabled={Boolean(templateId && !isEditTemplateAllowed)}
+        >
           {deliveryObjectOptions.map((option) => (
-            <Select.Option
-              key={option.value}
-              value={option.value}
-              label={option.name}>
+            <Select.Option key={option.value} value={option.value} label={option.name}>
               <Flex
                 justify='space-between'
                 align='center'
-                style={{ width: '100%', padding: '4px 0' }}>
+                style={{ width: '100%', padding: '4px 0' }}
+              >
                 <Space direction='vertical' size={0}>
-                  <Text style={{ fontSize: '0.875rem', fontWeight: 700 }}>
-                    {option.name}
-                  </Text>
-                  <Text
-                    type='secondary'
-                    style={{ fontSize: '0.75rem', fontWeight: 400 }}>
-                    {option.fieldCount}{' '}
-                    {option.fieldCount === 1 ? 'Field' : 'Fields'}
+                  <Text style={{ fontSize: '0.875rem', fontWeight: 700 }}>{option.name}</Text>
+                  <Text type='secondary' style={{ fontSize: '0.75rem', fontWeight: 400 }}>
+                    {option.fieldCount} {option.fieldCount === 1 ? 'Field' : 'Fields'}
                   </Text>
                 </Space>
-                {form.getFieldValue('selectedDeliveryObjectId') ===
-                  option.value && <BlueTickIcon size={16} color='#1890ff' />}
+                {form.getFieldValue('selectedDeliveryObjectId') === option.value && (
+                  <BlueTickIcon size={16} color='#1890ff' />
+                )}
               </Flex>
             </Select.Option>
           ))}

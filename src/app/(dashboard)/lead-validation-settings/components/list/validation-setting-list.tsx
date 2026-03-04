@@ -1,4 +1,3 @@
-
 import React, { FC } from 'react';
 import { IValidationSettingRow } from '../../lib/types';
 import { FormatDate } from '@/components/util';
@@ -25,8 +24,7 @@ export const ValidationSettingList: FC<IValidationSettingListProps> = ({
   handleRowClick,
   rowHref,
 }) => {
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
 
   const actionsRenderer = (_val: any, record: any) => (
     <ValidationSettingRecordAction validationSetting={record} />
@@ -42,12 +40,7 @@ export const ValidationSettingList: FC<IValidationSettingListProps> = ({
       ellipsis: true,
       width: 350,
     }),
-    column(
-      'pages.leadValidationSettings.label.updatedAt',
-      'createdAt',
-      {},
-      createdOnRenderer,
-    ),
+    column('pages.leadValidationSettings.label.updatedAt', 'createdAt', {}, createdOnRenderer),
     column(
       'pages.leadValidationSettings.label.actions',
       'actions',
@@ -62,9 +55,7 @@ export const ValidationSettingList: FC<IValidationSettingListProps> = ({
       columns={columns}
       data={validationSettings}
       hasPagination={false}
-      onClick={(record: IValidationSettingRow) =>
-        handleRowClick && handleRowClick(record)
-      }
+      onClick={(record: IValidationSettingRow) => handleRowClick && handleRowClick(record)}
       rowHref={rowHref}
       scrollableHeight={scrollableTableHeight}
     />

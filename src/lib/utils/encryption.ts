@@ -1,4 +1,4 @@
-import Cryptr from "./cryptr";
+import Cryptr from './cryptr';
 
 const SecretKey = `${import.meta.env.VITE_SECRET_KEY ?? import.meta.env.VITE_SECRET_KEY}`;
 

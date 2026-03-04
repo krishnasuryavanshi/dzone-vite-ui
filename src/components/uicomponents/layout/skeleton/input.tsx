@@ -5,7 +5,5 @@ import React, { FC } from 'react';
 const AntdSkeletonInput = Skeleton.Input;
 
 export const SkeletonInput: FC<SkeletonInputProps> = (props) => {
-  return (
-    <AntdSkeletonInput {...props} />
-  )
-}
+  return <AntdSkeletonInput {...props} />;
+};

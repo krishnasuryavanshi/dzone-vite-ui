@@ -1,9 +1,4 @@
-import {
-  LineItemFields,
-  LineItemFileUploadTypes,
-  LineItemSections,
-  LineItemSteps,
-} from '../enums';
+import { LineItemFields, LineItemFileUploadTypes, LineItemSections, LineItemSteps } from '../enums';
 
 export const LineItemFileUploadMap = {
   [LineItemFields.JobTitleListUpload]: {

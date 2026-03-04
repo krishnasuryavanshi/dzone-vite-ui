@@ -1,10 +1,7 @@
 import { Flex } from '@/uicomponents/layout';
 import { FC, useEffect, useState } from 'react';
 import { IGroupPermissions, IPermission } from '../../../lib/types';
-import {
-  usePermissionsStore,
-  useSelectedPermissionsStore,
-} from '../../../stores';
+import { usePermissionsStore, useSelectedPermissionsStore } from '../../../stores';
 import { PermissionGroupName } from './permission-group-name';
 import { PermissionSearchInput } from './permission-search-input';
 import { PermissionsCheckboxContainer } from './permissions-checkbox-container';
@@ -19,8 +16,7 @@ export const BodyContent: FC<IBodyContent> = ({ open, onClose, actionId }) => {
   const { allPermissions } = usePermissionsStore();
   const [permissions, setPermissions] = useState<IGroupPermissions[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
-  const { selectedPermissions, setSelectedPermissions } =
-    useSelectedPermissionsStore();
+  const { selectedPermissions, setSelectedPermissions } = useSelectedPermissionsStore();
 
   useEffect(() => {
     if (open && actionId && allPermissions) {
@@ -46,12 +42,8 @@ export const BodyContent: FC<IBodyContent> = ({ open, onClose, actionId }) => {
   };
 
   const isAllSelected = (group: IGroupPermissions) => {
-    const filteredPermissionIds = group.attributes.map(
-      (permission: IPermission) => permission.id,
-    );
-    return filteredPermissionIds.every((id) =>
-      (selectedPermissions[actionId] || []).includes(id),
-    );
+    const filteredPermissionIds = group.attributes.map((permission: IPermission) => permission.id);
+    return filteredPermissionIds.every((id) => (selectedPermissions[actionId] || []).includes(id));
   };
 
   const handleSelectAll = (group: IGroupPermissions, isChecked: boolean) => {
@@ -78,20 +70,15 @@ export const BodyContent: FC<IBodyContent> = ({ open, onClose, actionId }) => {
           // check if children actions same permission is checked
           const childrenActionId = permission.actionsMapping?.childrenActions;
           if (!childrenActionId?.length) return true;
-          const isSomeChildrenActionsPermissionChecked = childrenActionId.some(
-            (childActionId) => {
-              return selectedPermissions[childActionId]?.includes(
-                permission.id,
-              );
-            },
-          );
+          const isSomeChildrenActionsPermissionChecked = childrenActionId.some((childActionId) => {
+            return selectedPermissions[childActionId]?.includes(permission.id);
+          });
           return !isSomeChildrenActionsPermissionChecked;
         })
         .map((permission: IPermission) => permission.id);
 
       const filteredPermissions = selectedPermissionsOfAction.filter(
-        (permissionId) =>
-          !allowedPermissionsForDeselectAll.includes(permissionId),
+        (permissionId) => !allowedPermissionsForDeselectAll.includes(permissionId),
       );
       setSelectedPermissions(actionId, filteredPermissions);
     }
@@ -118,10 +105,7 @@ export const BodyContent: FC<IBodyContent> = ({ open, onClose, actionId }) => {
                 searchTerm={searchTerm}
                 isAllSelected={isAllSelected(group as IGroupPermissions)}
                 onSelectAll={(event: React.ChangeEvent<HTMLInputElement>) => {
-                  handleSelectAll(
-                    group as IGroupPermissions,
-                    event.target.checked,
-                  );
+                  handleSelectAll(group as IGroupPermissions, event.target.checked);
                 }}
               />
             </Flex>

@@ -25,11 +25,10 @@ export const AiCampaignCreate = () => {
           borderRadius: '10px 10px 0 0',
           padding: '0.75rem',
           width: '40rem',
-        }}>
+        }}
+      >
         <Flex justify='space-between' gap={'3rem'}>
-          <Flex
-            gap='0.75rem'
-            style={{ paddingLeft: '0.5rem', paddingBlock: '0.75rem' }}>
+          <Flex gap='0.75rem' style={{ paddingLeft: '0.5rem', paddingBlock: '0.75rem' }}>
             <DzBox>
               <DzentAiIcon />
             </DzBox>

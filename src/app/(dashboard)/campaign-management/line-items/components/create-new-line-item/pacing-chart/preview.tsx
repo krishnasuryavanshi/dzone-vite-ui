@@ -1,4 +1,3 @@
-
 import { Tooltip, Button } from 'antd';
 import { EyeOutlined } from '@ant-design/icons';
 import React, { useEffect, useState } from 'react';
@@ -50,9 +49,7 @@ export const PacingChartPreview: React.FC<IPacingChartPreviewProps> = ({
   pacingScheduleOptions,
 }) => {
   const [open, setOpen] = useState(false);
-  const [updatedPacingData, setUpdatedPacingData] = useState<
-    PacingPeriod[] | null
-  >(null);
+  const [updatedPacingData, setUpdatedPacingData] = useState<PacingPeriod[] | null>(null);
 
   // Always show preview button in all modes
   const shouldShowPreview = true;
@@ -62,8 +59,7 @@ export const PacingChartPreview: React.FC<IPacingChartPreviewProps> = ({
   // - In view mode, always preview-only
   // - When pacing is "No Pacing", always preview-only (nothing to edit)
   // Otherwise, allow editing when lineItemId exists
-  const isPreviewOnly =
-    !lineItemId || isViewMode || pacing === PacingType.NO_PACING;
+  const isPreviewOnly = !lineItemId || isViewMode || pacing === PacingType.NO_PACING;
 
   // Trigger API call with updated data when opening in edit mode
   const handleButtonClick = async (e: React.MouseEvent) => {
@@ -85,8 +81,7 @@ export const PacingChartPreview: React.FC<IPacingChartPreviewProps> = ({
       if (!currentValues.targetLeadGoal || currentValues.targetLeadGoal <= 0) {
         showNotification({
           type: 'error',
-          message:
-            'Please enter a valid Target Lead Goal before viewing pacing',
+          message: 'Please enter a valid Target Lead Goal before viewing pacing',
         });
         return;
       }
@@ -110,8 +105,7 @@ export const PacingChartPreview: React.FC<IPacingChartPreviewProps> = ({
       if (!currentValues.targetDeliveryStartDate) {
         showNotification({
           type: 'error',
-          message:
-            'Please enter Target Delivery Start Date before viewing pacing',
+          message: 'Please enter Target Delivery Start Date before viewing pacing',
         });
         return;
       }
@@ -119,9 +113,7 @@ export const PacingChartPreview: React.FC<IPacingChartPreviewProps> = ({
       // Validate date relationships
       const targetStartDate = dayjs(currentValues.lineItemTargetStartDate);
       const targetEndDate = dayjs(currentValues.lineItemTargetEndDate);
-      const targetDeliveryStartDate = dayjs(
-        currentValues.targetDeliveryStartDate,
-      );
+      const targetDeliveryStartDate = dayjs(currentValues.targetDeliveryStartDate);
 
       // Check if dates are valid
       if (
@@ -164,17 +156,14 @@ export const PacingChartPreview: React.FC<IPacingChartPreviewProps> = ({
       if (targetDeliveryStartDate.isBefore(targetStartDate, 'day')) {
         showNotification({
           type: 'error',
-          message:
-            'Target Delivery Start Date cannot be before Target Start Date',
+          message: 'Target Delivery Start Date cannot be before Target Start Date',
         });
         return;
       }
 
       // Check if field errors exist
       const fieldErrors = form.getFieldsError();
-      const hasErrors = fieldErrors.some(
-        (field: any) => field.errors && field.errors.length > 0,
-      );
+      const hasErrors = fieldErrors.some((field: any) => field.errors && field.errors.length > 0);
       if (hasErrors) {
         showNotification({
           type: 'error',
@@ -231,12 +220,9 @@ export const PacingChartPreview: React.FC<IPacingChartPreviewProps> = ({
             // Call fetchPacingSchedule API to get updated pacing strategy
             const updatedSchedule = await fetchPacingSchedule({
               lineItemId: lineItemId,
-              lineItemTargetStartDate:
-                formatDate(currentValues.lineItemTargetStartDate) || '',
-              targetDeliveryStartDate:
-                formatDate(currentValues.targetDeliveryStartDate) || '',
-              lineItemTargetEndDate:
-                formatDate(currentValues.lineItemTargetEndDate) || '',
+              lineItemTargetStartDate: formatDate(currentValues.lineItemTargetStartDate) || '',
+              targetDeliveryStartDate: formatDate(currentValues.targetDeliveryStartDate) || '',
+              lineItemTargetEndDate: formatDate(currentValues.lineItemTargetEndDate) || '',
               targetLeadGoal: Number(currentValues.targetLeadGoal) || 0,
               pacingSchedule: pacingSchedule,
               pacing: pacing,
@@ -282,7 +268,8 @@ export const PacingChartPreview: React.FC<IPacingChartPreviewProps> = ({
           background: '#fff',
         }}
         title={'Edit/Preview Pacing Chart'}
-        placement='right'>
+        placement='right'
+      >
         <Button
           type='default'
           icon={<EyeOutlined />}
@@ -291,7 +278,8 @@ export const PacingChartPreview: React.FC<IPacingChartPreviewProps> = ({
             border: `1px solid ${DZONE_CLR_BLACK}`,
             borderRadius: '4px',
           }}
-          onClick={handleButtonClick}>
+          onClick={handleButtonClick}
+        >
           View/Edit Pacing
         </Button>
       </Tooltip>

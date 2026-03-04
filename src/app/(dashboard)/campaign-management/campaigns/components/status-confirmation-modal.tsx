@@ -16,9 +16,7 @@ export const ConfirmationModal: React.FC<IConfirmationModal> = ({
 }) => {
   return (
     <Flex vertical className={className}>
-      <ConfirmationHeader
-        title={'Are you sure you want to archive this campaign?'}
-      />
+      <ConfirmationHeader title={'Are you sure you want to archive this campaign?'} />
       <ConfirmationDescription
         description={
           'Once archived, you won’t be able to change its status or book it in the future.'

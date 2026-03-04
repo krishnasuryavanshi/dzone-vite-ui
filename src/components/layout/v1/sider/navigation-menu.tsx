@@ -22,9 +22,7 @@ export const NavigationMenu: FC<INavigationMenuProps> = ({ isCollapsed }) => {
     const resourceName = getResourceName(pathname, customResources, allResources);
     const selectedResource = allResources.find((r) => r.name === resourceName);
     setOpenKeys(
-      selectedResource?.meta?.parent && !isCollapsed
-        ? [selectedResource?.meta?.parent]
-        : [],
+      selectedResource?.meta?.parent && !isCollapsed ? [selectedResource?.meta?.parent] : [],
     );
     setSelectedKeys(selectedResource ? [selectedResource.name] : []);
   }, [pathname, isCollapsed]);

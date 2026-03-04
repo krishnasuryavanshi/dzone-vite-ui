@@ -1,4 +1,3 @@
-
 import { CloudUploadOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
@@ -12,12 +11,7 @@ interface DropZoneOverlayProps {
 export const DropZoneOverlay = ({ isVisible }: DropZoneOverlayProps) => {
   return (
     <Hideable show={isVisible}>
-      <Flex
-        className={styles.overlay}
-        vertical
-        align='center'
-        justify='center'
-        gap='0.5rem'>
+      <Flex className={styles.overlay} vertical align='center' justify='center' gap='0.5rem'>
         <CloudUploadOutlined className={styles.icon} />
         <Text className={styles.text}>Drop files here to upload</Text>
       </Flex>

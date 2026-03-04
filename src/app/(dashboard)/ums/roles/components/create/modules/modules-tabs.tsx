@@ -12,8 +12,7 @@ interface IModuleTabsProps {
 }
 
 export const ModuleTabs: FC<IModuleTabsProps> = memo(({ roleDetails }) => {
-  const { modules, selectedModule, setSelectedModule, setSelectedModuleId } =
-    useModulesStore();
+  const { modules, selectedModule, setSelectedModule, setSelectedModuleId } = useModulesStore();
   const [items, setItems] = useState<any[]>([]);
 
   const handleTabClick = (tab: string) => {

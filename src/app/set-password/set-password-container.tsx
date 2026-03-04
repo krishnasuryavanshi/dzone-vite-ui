@@ -1,11 +1,7 @@
 import { Hideable } from '@/components/shared';
 import { useQueryState } from '@/lib/hooks';
 import { FC, useMemo } from 'react';
-import {
-  PasswordLinkExpiredContainer,
-  SetPassword,
-  SetPasswordEntry,
-} from './components';
+import { PasswordLinkExpiredContainer, SetPassword, SetPasswordEntry } from './components';
 import { useQuery } from '@tanstack/react-query';
 import { validateSetPasswordToken } from './services';
 

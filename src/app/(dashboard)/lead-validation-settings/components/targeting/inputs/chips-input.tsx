@@ -4,11 +4,7 @@ import { Flex } from '@/uicomponents/layout';
 import { Tag } from '@/uicomponents/tag';
 import React, { useState } from 'react';
 import { useValidationSettingStore } from '../../../store';
-import {
-  processChipInput,
-  shouldCreateChip,
-  processPastedText,
-} from '@/lib/utils/chip-utils';
+import { processChipInput, shouldCreateChip, processPastedText } from '@/lib/utils/chip-utils';
 
 type ChipsInputProps = {
   cssClassName?: string;
@@ -91,7 +87,8 @@ export const ChipsInput = ({
             }}
             closable
             onClose={() => !isReadOnly && handleRemoveOption(option)}
-            key={`${option}-${index}`}>
+            key={`${option}-${index}`}
+          >
             {option}
           </Tag>
         ))}

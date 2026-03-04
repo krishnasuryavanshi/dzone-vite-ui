@@ -11,10 +11,7 @@ type MandatoryValidationsProps = {
   isEditing?: boolean;
 };
 
-export const MandatoryValidations = ({
-  ruleName,
-  isEditing,
-}: MandatoryValidationsProps) => {
+export const MandatoryValidations = ({ ruleName, isEditing }: MandatoryValidationsProps) => {
   const [header, setHeader] = useState<string>('');
   const [extra, setExtra] = useState<string[]>([]);
   const [fields, setFields] = useState<string[]>([]);
@@ -37,16 +34,9 @@ export const MandatoryValidations = ({
 
   return (
     <>
-      <RuleContainer
-        header={header}
-        extra={extra}
-        ruleName={ruleName}
-        showEditButton={isEditing}>
+      <RuleContainer header={header} extra={extra} ruleName={ruleName} showEditButton={isEditing}>
         <Hideable show={fields.length > 0}>
-          <TruncatedTagList
-            items={fields}
-            onViewAll={() => setIsDrawerOpen(true)}
-          />
+          <TruncatedTagList items={fields} onViewAll={() => setIsDrawerOpen(true)} />
         </Hideable>
       </RuleContainer>
       <DrawerShowList

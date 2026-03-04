@@ -22,12 +22,12 @@ export const FieldToolbar: FC<IFieldToolbarProps> = () => {
         padding: '0.5rem',
         marginBottom: '0.5rem',
         background: DZONE_CLR_GRAY_4,
-      }}>
+      }}
+    >
       <Flex justify='space-between'>
         <Flex gap={'0.5rem'} align='center'>
           <Text style={{ color: DZONE_CLR_BLACK }}>
-            {visibleFieldsCount}{' '}
-            <Translate i18nKey='pages.templates.label.fieldsVisible' />
+            {visibleFieldsCount} <Translate i18nKey='pages.templates.label.fieldsVisible' />
           </Text>
           <ExportSampleAction />
         </Flex>

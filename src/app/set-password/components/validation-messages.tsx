@@ -8,9 +8,7 @@ interface IValidationMessagesProps {
   customValidation: Record<string, { message: string; isPassed: boolean }>;
 }
 
-export const ValidationMessages: FC<IValidationMessagesProps> = ({
-  customValidation,
-}) => {
+export const ValidationMessages: FC<IValidationMessagesProps> = ({ customValidation }) => {
   if (!Object.keys(customValidation)?.length) {
     return null;
   }
@@ -30,7 +28,8 @@ export const ValidationMessages: FC<IValidationMessagesProps> = ({
             <Text
               style={{
                 color: customValidation[key].isPassed ? '#1A9F0B' : '#95989A',
-              }}>
+              }}
+            >
               {customValidation[key].message}
             </Text>
           </DzBox>

@@ -39,10 +39,7 @@ export const DzRadioDropdown: FC<IDzRadioDropdownProps> = ({
   };
 
   const filteredOptions = useMemo(
-    () =>
-      options.filter((opt) =>
-        opt.label.toLowerCase().includes(search.toLowerCase()),
-      ),
+    () => options.filter((opt) => opt.label.toLowerCase().includes(search.toLowerCase())),
     [options, search],
   );
 
@@ -65,7 +62,8 @@ export const DzRadioDropdown: FC<IDzRadioDropdownProps> = ({
             boxShadow: '0px 0px 4px rgba(0, 0, 0, 0.25)',
           }}
           vertical
-          gap={'1rem'}>
+          gap={'1rem'}
+        >
           <DzBox>
             <Input
               placeholder='Search'
@@ -78,7 +76,8 @@ export const DzRadioDropdown: FC<IDzRadioDropdownProps> = ({
             <RadioGroup
               value={selected}
               onChange={handleChange}
-              style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+              style={{ display: 'flex', flexDirection: 'column', gap: 8 }}
+            >
               {filteredOptions.length > 0 ? (
                 filteredOptions.map((opt) => (
                   <Radio key={opt.value} value={opt.value}>
@@ -86,15 +85,14 @@ export const DzRadioDropdown: FC<IDzRadioDropdownProps> = ({
                   </Radio>
                 ))
               ) : (
-                <div style={{ padding: '1rem', color: '#888' }}>
-                  No results found
-                </div>
+                <div style={{ padding: '1rem', color: '#888' }}>No results found</div>
               )}
             </RadioGroup>
           </DzBox>
         </Flex>
       )}
-      onOpenChange={handleOpenChange}>
+      onOpenChange={handleOpenChange}
+    >
       <Button style={{ ...style }} className='dz-btn-action-1'>
         {label}
         <DownOutlined />

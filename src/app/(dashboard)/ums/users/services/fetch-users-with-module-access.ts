@@ -3,10 +3,7 @@ import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string';
 import { authenticatedRequest } from '@/services/backend-request';
 
-export const fetchUsersWithModuleAccess = (
-  moduleName: string,
-  tenantCode: string,
-) => {
+export const fetchUsersWithModuleAccess = (moduleName: string, tenantCode: string) => {
   try {
     return authenticatedRequest({
       resource: transformPath(ApiResources.UsersWithModuleAccess, { moduleName }),

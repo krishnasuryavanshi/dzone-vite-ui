@@ -11,11 +11,7 @@ export interface IFieldValuesSectionProps {
   onViewAll: () => void;
 }
 
-export const FieldValuesSection: FC<IFieldValuesSectionProps> = ({
-  label,
-  values,
-  onViewAll,
-}) => {
+export const FieldValuesSection: FC<IFieldValuesSectionProps> = ({ label, values, onViewAll }) => {
   if (values.length === 0) return null;
 
   const tooltipTitle =
@@ -31,15 +27,14 @@ export const FieldValuesSection: FC<IFieldValuesSectionProps> = ({
         borderRadius: '0.25rem',
         padding: '0.5rem',
         backgroundColor: '#F9FAFB',
-      }}>
+      }}
+    >
       <Flex align='center' gap='0.25rem'>
         <Text strong text14>
           {label}
         </Text>
         <Tooltip title={tooltipTitle}>
-          <InfoCircleOutlined
-            style={{ color: '#8c8c8c', fontSize: '0.875rem' }}
-          />
+          <InfoCircleOutlined style={{ color: '#8c8c8c', fontSize: '0.875rem' }} />
         </Tooltip>
       </Flex>
       <TruncatedTagList items={values} onViewAll={onViewAll} />

@@ -67,8 +67,7 @@ export const validateDestinationName = (
   // 7. Check if the name already exists (case insensitive check)
   if (
     destinationFieldNames?.some(
-      (existingName) =>
-        existingName.toLowerCase() === destinationName.toLowerCase(),
+      (existingName) => existingName.toLowerCase() === destinationName.toLowerCase(),
     )
   ) {
     error = { error: true, message: DESTINATION_NAME_ALREADY_EXISTED };

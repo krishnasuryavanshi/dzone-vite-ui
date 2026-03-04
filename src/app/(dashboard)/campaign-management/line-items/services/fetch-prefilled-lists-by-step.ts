@@ -4,10 +4,7 @@ import { LineItemPicklistMappings, LineItemSteps } from '../lib/enums';
 import { fetchLineItemFormPicklists } from './fetch-line-item-form-picklists';
 import { fetchOrganizationsByType } from '@/app/(dashboard)/(system-admin)/organizations/services';
 
-export const fetchPrefilledListsByStep = async (
-  step: LineItemSteps,
-  userId?: string,
-) => {
+export const fetchPrefilledListsByStep = async (step: LineItemSteps, userId?: string) => {
   let lists: Record<OptionsKeys, any[]> = {} as Record<OptionsKeys, any[]>;
   switch (step) {
     case LineItemSteps.BasicDetails: {
@@ -34,9 +31,7 @@ export const fetchPrefilledListsByStep = async (
       lists[OptionsKeys.DeliveryMethod] = await fetchListByPicklistType(
         LineItemPicklistMappings.DeliveryMethods,
       );
-      lists[OptionsKeys.Pacing] = await fetchListByPicklistType(
-        LineItemPicklistMappings.Pacing,
-      );
+      lists[OptionsKeys.Pacing] = await fetchListByPicklistType(LineItemPicklistMappings.Pacing);
       break;
     }
     case LineItemSteps.Targeting: {
@@ -46,10 +41,9 @@ export const fetchPrefilledListsByStep = async (
       lists[OptionsKeys.JobLevels] = await fetchListByPicklistType(
         LineItemPicklistMappings.JobLevels,
       );
-      lists[OptionsKeys.CompanySizesEmployeeCount] =
-        await fetchListByPicklistType(
-          LineItemPicklistMappings.CompanySizesByEmployeeCount,
-        );
+      lists[OptionsKeys.CompanySizesEmployeeCount] = await fetchListByPicklistType(
+        LineItemPicklistMappings.CompanySizesByEmployeeCount,
+      );
       lists[OptionsKeys.CompanySizesRevenue] = await fetchListByPicklistType(
         LineItemPicklistMappings.CompanySizesByRevenue,
       );

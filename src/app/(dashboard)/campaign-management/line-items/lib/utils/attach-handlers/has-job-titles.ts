@@ -22,9 +22,5 @@ export const hasJobTitles = (
     );
   };
 
-  updateFormStepDetails(
-    LineItemSections.JobTitleCheck,
-    LineItemFields.HasJobTitles,
-    { onChange },
-  );
+  updateFormStepDetails(LineItemSections.JobTitleCheck, LineItemFields.HasJobTitles, { onChange });
 };

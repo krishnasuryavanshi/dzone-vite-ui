@@ -8,19 +8,11 @@ export const getFormattedLineItemSourceObject = (lineItem: any) => {
   sourceObject.deliveryMethod = lineItem?.deliveryMethod?.name;
   sourceObject.pacing = lineItem?.pacing?.name;
 
-  sourceObject.deliveryDays = lineItem?.deliveryDays?.map(
-    ({ name }: any) => name,
-  );
-  sourceObject.jobFunctions = lineItem?.jobFunctions?.map(
-    ({ name }: any) => name,
-  );
+  sourceObject.deliveryDays = lineItem?.deliveryDays?.map(({ name }: any) => name);
+  sourceObject.jobFunctions = lineItem?.jobFunctions?.map(({ name }: any) => name);
   sourceObject.jobLevels = lineItem?.jobLevels?.map(({ name }: any) => name);
-  sourceObject.companySizeCount = lineItem?.companySizeCount?.map(
-    ({ name }: any) => name,
-  );
-  sourceObject.companySizeRevenue = lineItem?.companySizeRevenue?.map(
-    ({ name }: any) => name,
-  );
+  sourceObject.companySizeCount = lineItem?.companySizeCount?.map(({ name }: any) => name);
+  sourceObject.companySizeRevenue = lineItem?.companySizeRevenue?.map(({ name }: any) => name);
   sourceObject.industries = [];
   lineItem?.industries?.forEach(({ industries }: any) => {
     industries.forEach(({ name, type }: any) => {

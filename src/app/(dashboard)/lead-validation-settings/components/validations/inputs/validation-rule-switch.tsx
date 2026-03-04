@@ -38,9 +38,7 @@ export const ValidationRuleSwitch = ({
           />
           <Flex vertical gap={'0.5rem'}>
             <DzBox>
-              <Text style={{ marginLeft: '0.5rem', color: '#333' }}>
-                {item.label}
-              </Text>
+              <Text style={{ marginLeft: '0.5rem', color: '#333' }}>{item.label}</Text>
             </DzBox>
             <DzBox>
               <FieldAdditionalContent config={item.config} />

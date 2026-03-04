@@ -248,7 +248,8 @@ export const CreateIntegrationModal: FC<CreateIntegrationModalProps> = ({
       title={null}
       footer={null}
       centered
-      className={styles.createIntegrationModal}>
+      className={styles.createIntegrationModal}
+    >
       <div className={styles.modalContent}>
         <div className={styles.iconContainer}>
           {isWebForm ? (
@@ -292,37 +293,29 @@ export const CreateIntegrationModal: FC<CreateIntegrationModalProps> = ({
           onFinish={handleSubmit}
           autoComplete='off'
           initialValues={
-            !isWebForm && !isZapier && !isFtp
-              ? { label: IntegrationLabel.PRODUCTION }
-              : undefined
-          }>
+            !isWebForm && !isZapier && !isFtp ? { label: IntegrationLabel.PRODUCTION } : undefined
+          }
+        >
           {isWebForm ? (
             <WebFormContent mode={mode} />
           ) : isZapier ? (
             <ZapierFormContent mode={mode} />
           ) : isFtp ? (
-            <FtpFormContent
-              ref={ftpFormRef}
-              mode={mode}
-              form={form}
-              open={open}
-            />
+            <FtpFormContent ref={ftpFormRef} mode={mode} form={form} open={open} />
           ) : (
             <HubSpotFormContent mode={mode} integrationType={integrationType} />
           )}
 
           <Flex className={styles.buttonContainer}>
-            <Button
-              onClick={handleCancel}
-              disabled={loading}
-              className={styles.cancelButton}>
+            <Button onClick={handleCancel} disabled={loading} className={styles.cancelButton}>
               Cancel
             </Button>
             <Button
               type='primary'
               htmlType='submit'
               loading={loading}
-              className={styles.submitButton}>
+              className={styles.submitButton}
+            >
               {mode === 'create' ? 'Save and Connect' : 'Update and Retry'}
             </Button>
           </Flex>

@@ -11,11 +11,7 @@ interface IFileViewProps {
   label: string;
 }
 
-export const FileView: FC<IFileViewProps> = ({
-  handleDownloadFiles,
-  value,
-  label,
-}) => {
+export const FileView: FC<IFileViewProps> = ({ handleDownloadFiles, value, label }) => {
   return (
     <Flex gap={'0.5rem'} align='center'>
       <Button

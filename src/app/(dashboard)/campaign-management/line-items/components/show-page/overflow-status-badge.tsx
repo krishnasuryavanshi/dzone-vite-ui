@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Badge, Tooltip } from '@/components/uicomponents';
 import { Space } from '@/components/uicomponents/layout';
@@ -8,9 +7,7 @@ interface OverflowStatusBadgeProps {
   value: boolean;
 }
 
-export const OverflowStatusBadge: React.FC<OverflowStatusBadgeProps> = ({
-  value,
-}) => {
+export const OverflowStatusBadge: React.FC<OverflowStatusBadgeProps> = ({ value }) => {
   if (!value) return null;
 
   return (
@@ -25,7 +22,8 @@ export const OverflowStatusBadge: React.FC<OverflowStatusBadgeProps> = ({
       />
       <Tooltip
         title='Lead overflow is enabled for this line item. All pacing caps are disabled, suppliers can publish leads without restrictions, and the line item is permanently in "No Pacing" mode. This action was logged for audit purposes.'
-        placement='top'>
+        placement='top'
+      >
         <InfoCircleOutlined
           style={{
             color: '#faad14',

@@ -11,19 +11,12 @@ type DropdownCustomProps = {
   sectionName: string;
 };
 
-export const DropdownCustom = ({
-  attribute,
-  sectionName,
-}: DropdownCustomProps) => {
-  const [isCustomOptionFormOpened, setIsCustomOptionFormOpened] =
-    useState(false);
-  const [options, setOptions] = useState<{ label: string; value: string }[]>(
-    [],
-  );
+export const DropdownCustom = ({ attribute, sectionName }: DropdownCustomProps) => {
+  const [isCustomOptionFormOpened, setIsCustomOptionFormOpened] = useState(false);
+  const [options, setOptions] = useState<{ label: string; value: string }[]>([]);
   const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
-  const { selectedValues, setSelectedValues, isReadOnly } =
-    useValidationSettingStore();
+  const { selectedValues, setSelectedValues, isReadOnly } = useValidationSettingStore();
 
   useEffect(() => {
     if (selectedValues?.[sectionName]?.[attribute.name]?.data?.length > 0) {
@@ -49,8 +42,7 @@ export const DropdownCustom = ({
 
   useEffect(() => {
     if (selectedValues?.[sectionName]?.[attribute.name]?.data?.length > 0) {
-      const selectedOptions =
-        selectedValues[sectionName][attribute.name].data || [];
+      const selectedOptions = selectedValues[sectionName][attribute.name].data || [];
 
       if (selectedOptions?.length) {
         setOptions((prev) => {
@@ -112,14 +104,9 @@ export const DropdownCustom = ({
     <DzBox className='dropdown-custom'>
       <Flex vertical>
         {options.length > 1 ? (
-          <DzBox
-            className='dropdown-option'
-            style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}>
+          <DzBox className='dropdown-option' style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}>
             <Flex justify='space-between'>
-              <DzBox
-                onClick={() =>
-                  !isReadOnly && setSelectedOptions(options.map((o) => o.value))
-                }>
+              <DzBox onClick={() => !isReadOnly && setSelectedOptions(options.map((o) => o.value))}>
                 <Text strong>Select All</Text>
               </DzBox>
             </Flex>
@@ -130,28 +117,28 @@ export const DropdownCustom = ({
             maxHeight: '15rem',
             overflowY: 'auto',
             marginRight: '-6px',
-          }}>
+          }}
+        >
           {options.length > 0
-            ? options.map(
-                ({ label, value }: { label: string; value: string }) => (
-                  <DzBox
-                    className={`dropdown-option ${selectedOptions.includes(value) ? 'selected' : ''}`}
-                    style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}
-                    key={value}
-                    onClick={() => !isReadOnly && handleOptionSelect(value)}>
-                    <Flex justify='space-between'>
+            ? options.map(({ label, value }: { label: string; value: string }) => (
+                <DzBox
+                  className={`dropdown-option ${selectedOptions.includes(value) ? 'selected' : ''}`}
+                  style={{ padding: '0.5rem 1rem', cursor: 'pointer' }}
+                  key={value}
+                  onClick={() => !isReadOnly && handleOptionSelect(value)}
+                >
+                  <Flex justify='space-between'>
+                    <DzBox>
+                      <Text>{label}</Text>
+                    </DzBox>
+                    {selectedOptions.includes(value) ? (
                       <DzBox>
-                        <Text>{label}</Text>
+                        <CheckOutlined style={{ color: '#2563EB' }} />
                       </DzBox>
-                      {selectedOptions.includes(value) ? (
-                        <DzBox>
-                          <CheckOutlined style={{ color: '#2563EB' }} />
-                        </DzBox>
-                      ) : null}
-                    </Flex>
-                  </DzBox>
-                ),
-              )
+                    ) : null}
+                  </Flex>
+                </DzBox>
+              ))
             : null}
         </DzBox>
         <DzBox
@@ -161,7 +148,8 @@ export const DropdownCustom = ({
             background: '#F4F4F4',
             cursor: 'pointer',
           }}
-          onClick={() => !isReadOnly && setIsCustomOptionFormOpened(true)}>
+          onClick={() => !isReadOnly && setIsCustomOptionFormOpened(true)}
+        >
           <Flex justify='space-between'>
             <DzBox>
               <Text style={{ fontSize: '0.875rem' }}>+ Add a custom range</Text>

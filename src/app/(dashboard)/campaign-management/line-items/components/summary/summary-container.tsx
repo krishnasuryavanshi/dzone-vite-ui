@@ -1,4 +1,3 @@
-
 import { FC, useCallback } from 'react';
 import { Title } from '@/uicomponents/title';
 import { Flex } from '@/uicomponents/layout';
@@ -18,19 +17,13 @@ interface ISummaryContainerProps {
   lineItemId: string;
 }
 
-export const SummaryContainer: FC<ISummaryContainerProps> = ({
-  show,
-  lineItemId,
-}) => {
+export const SummaryContainer: FC<ISummaryContainerProps> = ({ show, lineItemId }) => {
   const lineItem = useLineItemContextStore((s) => s.lineItem);
   const { pagination } = usePacingSummaryStore();
 
   const pacingType = lineItem?.pacingSchedule as string;
 
-  const { data: summaryResult } = usePacingSummaryQuery(
-    lineItemId,
-    show && !!lineItemId,
-  );
+  const { data: summaryResult } = usePacingSummaryQuery(lineItemId, show && !!lineItemId);
 
   const { data: gridResult } = usePacingSummaryDataQuery(
     lineItemId,
@@ -51,10 +44,7 @@ export const SummaryContainer: FC<ISummaryContainerProps> = ({
   return (
     <>
       <Flex vertical gap='1rem' className={styles.summaryContainer}>
-        <Flex
-          justify='space-between'
-          align='center'
-          className={styles.headingBar}>
+        <Flex justify='space-between' align='center' className={styles.headingBar}>
           <Title level={5} className={styles.heading}>
             {pacingType} Pacing Report
           </Title>
@@ -73,11 +63,7 @@ export const SummaryContainer: FC<ISummaryContainerProps> = ({
           />
         </Flex>
         <SummaryCards summary={summary} />
-        <SummaryGrid
-          gridData={gridData}
-          pacingType={pacingType}
-          showDelivered={showDelivered}
-        />
+        <SummaryGrid gridData={gridData} pacingType={pacingType} showDelivered={showDelivered} />
       </Flex>
     </>
   );

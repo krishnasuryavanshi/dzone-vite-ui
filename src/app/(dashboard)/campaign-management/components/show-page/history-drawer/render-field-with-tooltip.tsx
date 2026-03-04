@@ -30,7 +30,8 @@ export const RenderInputWithTooltip: FC<RenderInputWithTooltipProps> = ({
         overflowY: 'auto',
         wordBreak: 'break-word',
       }}
-      title={tooltipTitle}>
+      title={tooltipTitle}
+    >
       <Input
         disabled
         size='large'
@@ -42,7 +43,8 @@ export const RenderInputWithTooltip: FC<RenderInputWithTooltipProps> = ({
               align='center'
               style={{
                 height: '100%',
-              }}>
+              }}
+            >
               {suffix}
             </Flex>
           )

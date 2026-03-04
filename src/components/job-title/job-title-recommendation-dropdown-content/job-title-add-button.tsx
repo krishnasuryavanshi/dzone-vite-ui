@@ -6,10 +6,7 @@ interface JobTitleAddButtonProps {
   disabled: boolean;
 }
 
-export const JobTitleAddButton: FC<JobTitleAddButtonProps> = ({
-  onAdd,
-  disabled,
-}) => {
+export const JobTitleAddButton: FC<JobTitleAddButtonProps> = ({ onAdd, disabled }) => {
   return (
     <Button type='primary' size='small' onClick={onAdd} disabled={disabled}>
       Add

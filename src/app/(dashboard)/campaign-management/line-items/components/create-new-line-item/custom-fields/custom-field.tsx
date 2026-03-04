@@ -11,10 +11,7 @@ interface ICustomFieldProps {
 
 const MAX_CUSTOM_FIELDS = 10;
 
-export const CustomField: FC<ICustomFieldProps> = ({
-  form,
-  lineItemStatus,
-}) => {
+export const CustomField: FC<ICustomFieldProps> = ({ form, lineItemStatus }) => {
   const isDefinitionLocked = !canEditCustomFieldDefinition(lineItemStatus);
 
   const handleAddField = (add: (defaultValue?: any) => void) => {

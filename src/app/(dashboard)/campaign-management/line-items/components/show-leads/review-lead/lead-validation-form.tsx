@@ -6,10 +6,7 @@ import { FC, useEffect, useRef, useState } from 'react';
 import { IGNORE_VALIDATION_ERRORS_STATUSES } from '../../../lib/constants';
 import { LeadError } from './lead-review-container';
 import { LeadValidationFormItem } from './lead-validation-form-item';
-import {
-  validateByDataType,
-  CUSTOM_DATE_FORMATS,
-} from '../../../lib/utils/custom-fields';
+import { validateByDataType, CUSTOM_DATE_FORMATS } from '../../../lib/utils/custom-fields';
 
 interface ILeadValidationFormProps {
   initialValues: Record<string, any>;
@@ -36,9 +33,7 @@ export const LeadValidationForm: FC<ILeadValidationFormProps> = ({
     .map((field) => field.name);
 
   const [localErrors, setLocalErrors] = useState<Record<string, string[]>>({});
-  const [mandatoryFieldErrors, setMandatoryFieldErrors] = useState<DzRecord>(
-    {},
-  );
+  const [mandatoryFieldErrors, setMandatoryFieldErrors] = useState<DzRecord>({});
 
   const parseErrorMessages = (message: string) => {
     return message.split('|').map((msg) => msg.trim());
@@ -136,9 +131,7 @@ export const LeadValidationForm: FC<ILeadValidationFormProps> = ({
       // The backend will handle validation for these fields
       const fieldType = field.type?.toLowerCase();
       const isCustomDateField =
-        fieldType === 'date' &&
-        field.format &&
-        CUSTOM_DATE_FORMATS.includes(field.format as any);
+        fieldType === 'date' && field.format && CUSTOM_DATE_FORMATS.includes(field.format as any);
 
       if (!isCustomDateField) {
         // Don't format date values, keep them as-is
@@ -154,13 +147,7 @@ export const LeadValidationForm: FC<ILeadValidationFormProps> = ({
   };
 
   const renderFormItem = (field: DzRecord, index: number) => {
-    return (
-      <LeadValidationFormItem
-        key={index}
-        field={field}
-        validateField={validateField}
-      />
-    );
+    return <LeadValidationFormItem key={index} field={field} validateField={validateField} />;
   };
 
   const handleValuesChange = (
@@ -184,9 +171,7 @@ export const LeadValidationForm: FC<ILeadValidationFormProps> = ({
       ]);
     }
 
-    const error = leadErrorMessages.find(
-      (error) => error.field === changedField,
-    );
+    const error = leadErrorMessages.find((error) => error.field === changedField);
     if (changedValue === originalValue && error && error.message) {
       const errorMessages = parseErrorMessages(error.message);
       form.setFields([
@@ -209,7 +194,8 @@ export const LeadValidationForm: FC<ILeadValidationFormProps> = ({
       layout='vertical'
       initialValues={initialValues}
       form={form}
-      onValuesChange={handleValuesChange}>
+      onValuesChange={handleValuesChange}
+    >
       <MapFunction items={leadReviewFormConfig} renderItem={renderFormItem} />
     </Form>
   );

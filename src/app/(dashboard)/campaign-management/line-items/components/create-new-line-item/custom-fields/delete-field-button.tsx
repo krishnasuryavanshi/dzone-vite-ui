@@ -7,10 +7,7 @@ interface IDeleteFieldButtonProps {
   disabled?: boolean;
 }
 
-export const DeleteFieldButton: FC<IDeleteFieldButtonProps> = ({
-  onClick,
-  disabled,
-}) => {
+export const DeleteFieldButton: FC<IDeleteFieldButtonProps> = ({ onClick, disabled }) => {
   const button = (
     <DeleteOutlined
       style={{

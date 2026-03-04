@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { IntegrationsHeader } from './integrations-header';
 import { IntegrationsList } from './integrations-list';

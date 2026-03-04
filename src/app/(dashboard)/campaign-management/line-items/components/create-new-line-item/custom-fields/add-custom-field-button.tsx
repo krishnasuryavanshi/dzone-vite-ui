@@ -7,17 +7,15 @@ interface IAddCustomFieldButtonProps {
   disabled?: boolean;
 }
 
-export const AddCustomFieldButton: FC<IAddCustomFieldButtonProps> = ({
-  add,
-  disabled,
-}) => {
+export const AddCustomFieldButton: FC<IAddCustomFieldButtonProps> = ({ add, disabled }) => {
   return (
     <Button
       type='primary'
       style={{ marginBottom: '0.5rem', maxWidth: '15rem' }}
       onClick={add}
       disabled={disabled}
-      icon={<PlusOutlined />}>
+      icon={<PlusOutlined />}
+    >
       Add Custom Fields
     </Button>
   );

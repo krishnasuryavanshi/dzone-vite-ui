@@ -18,15 +18,13 @@ export default class Cryptr {
     // Derive key immediately and cache it
     const encoder = new TextEncoder();
     const secretBytes = encoder.encode(secret);
-    this._keyPromise = crypto.subtle
-      .digest('SHA-256', secretBytes)
-      .then((hash) => {
-        this._keyBytes = new Uint8Array(hash);
-        return crypto.subtle.importKey('raw', hash, { name: 'AES-GCM' }, false, [
-          'encrypt',
-          'decrypt',
-        ]);
-      });
+    this._keyPromise = crypto.subtle.digest('SHA-256', secretBytes).then((hash) => {
+      this._keyBytes = new Uint8Array(hash);
+      return crypto.subtle.importKey('raw', hash, { name: 'AES-GCM' }, false, [
+        'encrypt',
+        'decrypt',
+      ]);
+    });
   }
 
   /**

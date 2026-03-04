@@ -5,10 +5,7 @@ interface IDzLegendProps {
   placement?: 'bottom' | 'left';
 }
 
-export const DzLegend: FC<IDzLegendProps> = ({
-  payload,
-  placement = 'bottom',
-}) => {
+export const DzLegend: FC<IDzLegendProps> = ({ payload, placement = 'bottom' }) => {
   const indicatorStyle: CSSProperties = {
     marginRight: '0.5rem',
     display: 'inline-block',
@@ -20,12 +17,9 @@ export const DzLegend: FC<IDzLegendProps> = ({
   return (
     <ul className={`recharts-default-legend ${placement}`}>
       {payload.map((entry: any, index: number) => (
-        <li
-          className={`recharts-legend-item legend-item-${index}`}
-          key={`item-${index}`}>
-          <span
-            style={{ ...indicatorStyle, backgroundColor: entry.color }}></span>
-          <span className="recharts-legend-item-text">{entry.value}</span>
+        <li className={`recharts-legend-item legend-item-${index}`} key={`item-${index}`}>
+          <span style={{ ...indicatorStyle, backgroundColor: entry.color }}></span>
+          <span className='recharts-legend-item-text'>{entry.value}</span>
         </li>
       ))}
     </ul>

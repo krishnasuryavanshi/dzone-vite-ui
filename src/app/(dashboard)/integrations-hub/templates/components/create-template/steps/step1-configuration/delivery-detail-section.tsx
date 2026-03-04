@@ -1,4 +1,3 @@
-
 import { REQUIRED_FIELD } from '@/app/(dashboard)/campaign-management/lib/constants';
 import { Translate } from '@/components/i18n';
 import { DzBox } from '@/components/layout/v1';
@@ -12,10 +11,7 @@ import { Text } from '@/uicomponents/text';
 import { FC, useEffect, useState } from 'react';
 import { DeliveryTypeOptions } from '../../../../lib/constants';
 import { DeliveryType } from '../../../../lib/enums';
-import {
-  fetchDeliveryObjects,
-  fetchIntegrationLabels,
-} from '../../../../services';
+import { fetchDeliveryObjects, fetchIntegrationLabels } from '../../../../services';
 import { fetchZapierIntegrationLabels } from '../../../../services/fetch-zapier-integration-labels';
 import { useTemplateStore } from '../../../../stores';
 import { HubSpotDeliveryFields } from '../../hubspot-delivery-fields';
@@ -28,10 +24,7 @@ interface DeliveryDetailSectionProps {
   templateId?: string;
 }
 
-export const DeliveryDetailSection: FC<DeliveryDetailSectionProps> = ({
-  form,
-  templateId,
-}) => {
+export const DeliveryDetailSection: FC<DeliveryDetailSectionProps> = ({ form, templateId }) => {
   const {
     deliveryType,
     setDeliveryType,
@@ -55,13 +48,9 @@ export const DeliveryDetailSection: FC<DeliveryDetailSectionProps> = ({
     }[]
   >([]);
   const [isInitializing] = useState<boolean>(false);
-  const [zapierType, setZapierType] = useState<string | undefined>(
-    templateData?.type,
-  );
+  const [zapierType, setZapierType] = useState<string | undefined>(templateData?.type);
 
-  const isEditTemplateAllowed = usePermissionCheck(
-    DeliveryTemplateActionsEnum.Edit,
-  );
+  const isEditTemplateAllowed = usePermissionCheck(DeliveryTemplateActionsEnum.Edit);
 
   const fetchIntegrationOptions = async (value: string) => {
     try {
@@ -84,10 +73,7 @@ export const DeliveryDetailSection: FC<DeliveryDetailSectionProps> = ({
 
   const fetchZapierIntegrationOptions = async (type: string) => {
     try {
-      const response = await fetchZapierIntegrationLabels(
-        DeliveryType.ZAPIER,
-        type,
-      );
+      const response = await fetchZapierIntegrationLabels(DeliveryType.ZAPIER, type);
       if (response?.data) {
         updateIntegrationsList(DeliveryType.ZAPIER, response.data);
         const options = response.data.map(
@@ -115,10 +101,7 @@ export const DeliveryDetailSection: FC<DeliveryDetailSectionProps> = ({
     fetchZapierIntegrationOptions(type);
   };
 
-  const fetchDeliveryObjectOptions = async (
-    type: string,
-    integrationId: string,
-  ) => {
+  const fetchDeliveryObjectOptions = async (type: string, integrationId: string) => {
     try {
       const response = await fetchDeliveryObjects(type, integrationId);
       if (response?.data?.forms) {
@@ -196,7 +179,8 @@ export const DeliveryDetailSection: FC<DeliveryDetailSectionProps> = ({
       <Text
         style={{
           fontWeight: '600',
-        }}>
+        }}
+      >
         Delivery Detail
       </Text>
       <Row gutter={[16, 16]}>
@@ -209,7 +193,8 @@ export const DeliveryDetailSection: FC<DeliveryDetailSectionProps> = ({
                 <Translate i18nKey='pages.templates.label.deliveryType' />
               </Text>
             }
-            rules={[{ required: true, message: REQUIRED_FIELD }]}>
+            rules={[{ required: true, message: REQUIRED_FIELD }]}
+          >
             <Select
               placeholder='Select Delivery Type'
               style={{ width: '100%' }}
@@ -238,7 +223,8 @@ export const DeliveryDetailSection: FC<DeliveryDetailSectionProps> = ({
             deliveryType === DeliveryType.HUBSPOT ||
             deliveryType === DeliveryType.WEBFORM ||
             deliveryType === DeliveryType.FTP
-          }>
+          }
+        >
           <IntegrationNameField
             form={form}
             templateId={templateId}

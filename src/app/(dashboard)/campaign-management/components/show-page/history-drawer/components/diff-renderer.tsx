@@ -80,10 +80,7 @@ export const DiffRenderer: FC<DiffRendererProps> = ({
           item.label = 'Allow Overflow';
         }
         const headingRow = (
-          <Flex
-            justify='space-between'
-            align='center'
-            style={{ marginBottom: '0.8rem' }}>
+          <Flex justify='space-between' align='center' style={{ marginBottom: '0.8rem' }}>
             <Flex vertical>
               <Text strong style={{ fontSize: '1rem' }}>
                 {item.label || item.name}
@@ -102,7 +99,8 @@ export const DiffRenderer: FC<DiffRendererProps> = ({
                   fontSize: '0.875rem',
                   display: 'flex',
                   gap: '0.2rem',
-                }}>
+                }}
+              >
                 <CalendarIcon />
                 {dayjs
                   .utc(timestamp)
@@ -119,10 +117,7 @@ export const DiffRenderer: FC<DiffRendererProps> = ({
             <Flex key={index} vertical>
               {headingRow}
               <Flex gap={16} style={{ marginBottom: '2rem' }}>
-                <PacingPeriodDiffLink
-                  previousValue={item.from}
-                  newValue={item.to}
-                />
+                <PacingPeriodDiffLink previousValue={item.from} newValue={item.to} />
               </Flex>
             </Flex>
           );
@@ -221,10 +216,7 @@ export const DiffRenderer: FC<DiffRendererProps> = ({
           return (
             <Flex key={index} vertical>
               {headingRow}
-              <CustomQuestionBlock
-                oldQuestions={oldQuestions}
-                newQuestions={newQuestions}
-              />
+              <CustomQuestionBlock oldQuestions={oldQuestions} newQuestions={newQuestions} />
             </Flex>
           );
         }
@@ -281,21 +273,11 @@ export const DiffRenderer: FC<DiffRendererProps> = ({
                   {headingRow}
                   <Flex vertical gap={8} style={{ marginBottom: '2rem' }}>
                     {item.level.map((lvl: any, lvlIdx: number) => (
-                      <Flex
-                        justify='space-between'
-                        key={lvlIdx}
-                        wrap='wrap'
-                        gap={12}>
+                      <Flex justify='space-between' key={lvlIdx} wrap='wrap' gap={12}>
                         <Flex vertical style={{ width: '48%' }}>
-                          <Text
-                            type='secondary'
-                            style={{ fontSize: '0.875rem' }}>
-                            {isListRelatedField(lvl.type) &&
-                            isFileWithInclusion(lvl.from)
-                              ? getListTypeLabel(
-                                  lvl.from,
-                                  `${lvl.type} (Previous)`,
-                                )
+                          <Text type='secondary' style={{ fontSize: '0.875rem' }}>
+                            {isListRelatedField(lvl.type) && isFileWithInclusion(lvl.from)
+                              ? getListTypeLabel(lvl.from, `${lvl.type} (Previous)`)
                               : `${lvl.type} (Previous)`}
                           </Text>
                           {/* Special handling for job titles in nested levels */}
@@ -303,27 +285,17 @@ export const DiffRenderer: FC<DiffRendererProps> = ({
                             lvl.from ? (
                               <FileField fileIds={lvl.from} fileMap={fileMap} />
                             ) : (
-                              <ValueDisplay
-                                value={lvl.from}
-                                fieldName={lvl.type}
-                              />
+                              <ValueDisplay value={lvl.from} fieldName={lvl.type} />
                             )
-                          ) : isListRelatedField(lvl.type) &&
-                            isFileWithInclusion(lvl.from) ? (
+                          ) : isListRelatedField(lvl.type) && isFileWithInclusion(lvl.from) ? (
                             <FileField fileIds={lvl.from} fileMap={fileMap} />
                           ) : (
-                            <ValueDisplay
-                              value={lvl.from}
-                              fieldName={lvl.type}
-                            />
+                            <ValueDisplay value={lvl.from} fieldName={lvl.type} />
                           )}
                         </Flex>
                         <Flex vertical style={{ width: '48%' }}>
-                          <Text
-                            type='secondary'
-                            style={{ fontSize: '0.875rem' }}>
-                            {isListRelatedField(lvl.type) &&
-                            isFileWithInclusion(lvl.to)
+                          <Text type='secondary' style={{ fontSize: '0.875rem' }}>
+                            {isListRelatedField(lvl.type) && isFileWithInclusion(lvl.to)
                               ? getListTypeLabel(lvl.to, `${lvl.type} (New)`)
                               : `${lvl.type} (New)`}
                           </Text>
@@ -331,13 +303,9 @@ export const DiffRenderer: FC<DiffRendererProps> = ({
                             lvl.to ? (
                               <FileField fileIds={lvl.to} fileMap={fileMap} />
                             ) : (
-                              <ValueDisplay
-                                value={lvl.to}
-                                fieldName={lvl.type}
-                              />
+                              <ValueDisplay value={lvl.to} fieldName={lvl.type} />
                             )
-                          ) : isListRelatedField(lvl.type) &&
-                            isFileWithInclusion(lvl.to) ? (
+                          ) : isListRelatedField(lvl.type) && isFileWithInclusion(lvl.to) ? (
                             <FileField fileIds={lvl.to} fileMap={fileMap} />
                           ) : (
                             <ValueDisplay value={lvl.to} fieldName={lvl.type} />

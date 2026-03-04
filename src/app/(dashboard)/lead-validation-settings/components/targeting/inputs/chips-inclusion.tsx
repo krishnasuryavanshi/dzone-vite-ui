@@ -16,10 +16,7 @@ type ChipsInclusionProps = {
   sectionName: string;
 };
 
-export const ChipsInclusion = ({
-  attribute,
-  sectionName,
-}: ChipsInclusionProps) => {
+export const ChipsInclusion = ({ attribute, sectionName }: ChipsInclusionProps) => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<DzRecord[]>([]);
@@ -65,8 +62,7 @@ export const ChipsInclusion = ({
 
       const sectionSelection = selectedValues?.[sectionName];
 
-      const attributeSelectionValues =
-        sectionSelection?.[attribute.name]?.data || [];
+      const attributeSelectionValues = sectionSelection?.[attribute.name]?.data || [];
 
       setSelectedValues(sectionName, {
         ...sectionSelection,
@@ -116,9 +112,7 @@ export const ChipsInclusion = ({
   const handleRemoveOption = (value: string) => {
     const sectionSelection = selectedValues?.[sectionName];
     const attributeSelectionValues =
-      sectionSelection?.[attribute.name]?.data?.filter(
-        (val: string) => val !== value,
-      ) || [];
+      sectionSelection?.[attribute.name]?.data?.filter((val: string) => val !== value) || [];
 
     setSelectedValues(sectionName, {
       ...sectionSelection,
@@ -140,7 +134,8 @@ export const ChipsInclusion = ({
       className='chips-inclusion-container'
       style={{
         borderRadius: '5px',
-      }}>
+      }}
+    >
       <Flex vertical gap={'1rem'} style={{ width: '100%' }}>
         <Flex
           style={{
@@ -149,7 +144,8 @@ export const ChipsInclusion = ({
             padding: '1rem 1.25rem',
             width: '100%',
             alignItems: 'flex-start',
-          }}>
+          }}
+        >
           <Radio
             value='manual'
             checked={inputMethod === 'manual'}
@@ -166,13 +162,15 @@ export const ChipsInclusion = ({
               width: '100%',
               pointerEvents: inputMethod !== 'manual' ? 'none' : 'auto',
               opacity: inputMethod !== 'manual' ? 0.5 : 1,
-            }}>
+            }}
+          >
             <DzBox
               style={{
                 width: '100%',
                 alignSelf: 'flex-start',
                 pointerEvents: isReadOnly ? 'none' : 'auto',
-              }}>
+              }}
+            >
               <JobTitle
                 value={options}
                 containerClassName='chips-input-textbox'
@@ -195,7 +193,8 @@ export const ChipsInclusion = ({
             borderRadius: '0.4rem',
             padding: '1rem 1.25rem',
             width: '100%',
-          }}>
+          }}
+        >
           <Radio
             value='upload'
             checked={inputMethod === 'upload'}
@@ -212,7 +211,8 @@ export const ChipsInclusion = ({
               width: '100%',
               pointerEvents: inputMethod !== 'upload' ? 'none' : 'auto',
               opacity: inputMethod !== 'upload' ? 0.5 : 1,
-            }}>
+            }}
+          >
             <DzBox style={{ width: '100%' }}>
               <TargetingFile
                 acceptedFileTypes={inclusionFileMetadata?.types || []}

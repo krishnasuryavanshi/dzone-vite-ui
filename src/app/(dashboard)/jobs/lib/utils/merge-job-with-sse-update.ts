@@ -23,9 +23,7 @@ export function mergeJobWithSSEUpdate(job: IJob, update: IJobSSEUpdate): IJob {
 
   if (newStep) {
     const existingSteps = [...(job.steps || [])];
-    const existingIndex = existingSteps.findIndex(
-      (s) => s.stepId === newStep.stepId,
-    );
+    const existingIndex = existingSteps.findIndex((s) => s.stepId === newStep.stepId);
 
     if (existingIndex >= 0) {
       existingSteps[existingIndex] = {

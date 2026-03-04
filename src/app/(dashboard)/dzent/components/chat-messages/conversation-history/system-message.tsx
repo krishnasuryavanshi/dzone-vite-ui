@@ -14,11 +14,7 @@ interface SystemMessageProps {
   feedbackGiven?: 'up' | 'down' | null;
 }
 
-export const SystemMessage = ({
-  message,
-  feedback,
-  feedbackGiven,
-}: SystemMessageProps) => {
+export const SystemMessage = ({ message, feedback, feedbackGiven }: SystemMessageProps) => {
   const { conversationId, tenantCode, userId } = useDzentStore();
 
   return (

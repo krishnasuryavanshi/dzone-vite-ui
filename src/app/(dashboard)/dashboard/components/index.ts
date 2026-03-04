@@ -1,1 +1,1 @@
-export * from "./reporting-dashboard";
+export * from './reporting-dashboard';

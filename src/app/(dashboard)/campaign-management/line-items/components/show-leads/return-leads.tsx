@@ -13,11 +13,7 @@ interface IReturnLeadsProps {
   onSuccess: () => void;
 }
 
-export const ReturnLeads: FC<IReturnLeadsProps> = ({
-  lineItemId,
-  leadIds,
-  onSuccess,
-}) => {
+export const ReturnLeads: FC<IReturnLeadsProps> = ({ lineItemId, leadIds, onSuccess }) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [selectedReasons, setSelectedReasons] = useState<string[]>([]);
@@ -65,15 +61,13 @@ export const ReturnLeads: FC<IReturnLeadsProps> = ({
           height: '2rem',
           display: 'flex',
           alignItems: 'center',
-          border:
-            leadIds.length === 0
-              ? `1px solid #d4d4d4`
-              : `1px solid ${DZONE_CLR_BLACK}`,
+          border: leadIds.length === 0 ? `1px solid #d4d4d4` : `1px solid ${DZONE_CLR_BLACK}`,
           minWidth: '7rem',
         }}
         disabled={leadIds.length === 0 || isLoading}
         loading={isLoading}
-        onClick={openModal}>
+        onClick={openModal}
+      >
         {!isLoading && 'Return Leads'}
       </Button>
       <ReturnReasonsModal

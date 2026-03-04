@@ -1,4 +1,3 @@
-
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { ScreenLoader } from '@/components/shared/loader';
 import { useQueryState } from '@/lib/hooks';

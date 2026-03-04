@@ -10,11 +10,7 @@ export type ActionButtonsProps = {
   selected?: DzRecord;
 };
 
-export const ActionButtons = ({
-  options,
-  handleActionClick,
-  selected,
-}: ActionButtonsProps) => {
+export const ActionButtons = ({ options, handleActionClick, selected }: ActionButtonsProps) => {
   const handleDownloadFile = async (action: DzRecord) => {
     await fileDownload(action.value);
   };
@@ -47,7 +43,8 @@ export const ActionButtons = ({
       align='center'
       justify='center'
       gap={'0.5rem'}
-      wrap='wrap'>
+      wrap='wrap'
+    >
       <MapFunction items={options} renderItem={renderActionButton} />
     </Flex>
   );

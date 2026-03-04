@@ -1,15 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { queryKeys } from '@/lib/query';
-import {
-  fetchTotalLeadsCount,
-  fetchTotalFilteredLeadsCount,
-} from '../services';
+import { fetchTotalLeadsCount, fetchTotalFilteredLeadsCount } from '../services';
 import { useMemo } from 'react';
 
-export function useLeadsCountQuery(
-  lineItemId: string,
-  selectedLeadStatuses: string[],
-) {
+export function useLeadsCountQuery(lineItemId: string, selectedLeadStatuses: string[]) {
   const hasFilters = selectedLeadStatuses.length > 0;
 
   const filters = useMemo(() => {

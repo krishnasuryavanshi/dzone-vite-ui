@@ -11,10 +11,7 @@ interface IOrderCellProps {
   isLast: boolean;
   id: number;
   templateField: ITemplateFieldResponse;
-  handleOrderChange: (
-    order: number,
-    templateField: ITemplateFieldResponse,
-  ) => void;
+  handleOrderChange: (order: number, templateField: ITemplateFieldResponse) => void;
   disabledArrowIndexes: { up: number; down: number };
   isEditTemplateAllowed: boolean;
 }
@@ -41,16 +38,12 @@ export const OrderCell: FC<IOrderCellProps> = ({
         <OrderUpArrow
           isFirst={isFirst}
           handleOrderChange={() => updateOrder(id - 1)}
-          disabled={
-            disabledArrowIndexes.up === id - 1 || !isEditTemplateAllowed
-          }
+          disabled={disabledArrowIndexes.up === id - 1 || !isEditTemplateAllowed}
         />
         <OrderDownArrow
           isLast={isLast}
           handleOrderChange={() => updateOrder(id + 1)}
-          disabled={
-            disabledArrowIndexes.down === id - 1 || !isEditTemplateAllowed
-          }
+          disabled={disabledArrowIndexes.down === id - 1 || !isEditTemplateAllowed}
         />
       </Flex>
     </Flex>

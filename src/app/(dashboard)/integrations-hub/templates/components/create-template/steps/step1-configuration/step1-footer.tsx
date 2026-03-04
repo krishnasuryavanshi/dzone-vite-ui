@@ -1,4 +1,3 @@
-
 import { showNotification } from '@/services/notification';
 import { Button } from '@/uicomponents';
 import { FormInstance } from '@/uicomponents/form';
@@ -167,7 +166,8 @@ export const Step1Footer: FC<Step1FooterProps> = ({ form }) => {
           type='primary'
           style={gradientButtonStyle}
           onClick={handleStartAiMapping}
-          disabled={isAiMappingLoading}>
+          disabled={isAiMappingLoading}
+        >
           {isAiMappingLoading ? (
             <Space>
               <LoadingOutlined />

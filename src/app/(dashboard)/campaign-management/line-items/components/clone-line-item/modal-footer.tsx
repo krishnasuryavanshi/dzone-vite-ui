@@ -9,10 +9,7 @@ interface IModalFooterProps {
   loadingClone: boolean;
   loadingCloneEdit: boolean;
   handleCancel: (e: SyntheticEvent) => void;
-  handleSubmit: (
-    e: SyntheticEvent<Element, Event>,
-    isEditing: boolean,
-  ) => Promise<void>;
+  handleSubmit: (e: SyntheticEvent<Element, Event>, isEditing: boolean) => Promise<void>;
 }
 
 export const ModalFooter: FC<IModalFooterProps> = ({
@@ -27,7 +24,8 @@ export const ModalFooter: FC<IModalFooterProps> = ({
       justify='end'
       align='center'
       gap={'1rem'}
-      style={{ marginTop: '1rem' }}>
+      style={{ marginTop: '1rem' }}
+    >
       <CancelButton onCancel={handleCancel} />
       <CloneButton onSubmit={handleSubmit} loading={loadingClone} />
       <CloneEditButton onSubmit={handleSubmit} loading={loadingCloneEdit} />

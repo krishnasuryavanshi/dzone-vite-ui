@@ -1,4 +1,3 @@
-
 import { ClockCircleOutlined, MessageOutlined } from '@ant-design/icons';
 import { Tooltip } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
@@ -52,7 +51,8 @@ export const ConversationItem: FC<ConversationItemProps> = ({
         vertical
         gap='0.25rem'
         onClick={onClick}
-        className={`${styles.item} ${isActive ? styles.active : ''}`}>
+        className={`${styles.item} ${isActive ? styles.active : ''}`}
+      >
         {/* Row 1: Title with streaming indicator */}
         <Flex align='center' gap='0.375rem'>
           <Text className={styles.title}>{conversation.title}</Text>

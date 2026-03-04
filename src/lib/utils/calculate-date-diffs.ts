@@ -1,7 +1,4 @@
-export const calculateDateDiffs = (
-  startDate?: string,
-  endDate?: string,
-): number | undefined => {
+export const calculateDateDiffs = (startDate?: string, endDate?: string): number | undefined => {
   if (!startDate || !endDate) return undefined;
   const start = new Date(startDate);
   const end = new Date(endDate);

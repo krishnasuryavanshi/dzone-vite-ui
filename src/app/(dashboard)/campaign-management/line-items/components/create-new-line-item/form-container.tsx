@@ -39,9 +39,7 @@ export const FormContainer: FC<IFormContainerProps> = ({
 }) => {
   const { updateQueryParams } = useUpdateQueryState();
   const [currentStep, setCurrentStep] = useState(0);
-  const hasEditCustomFieldsPermission = usePermissionCheck(
-    LineItemActionsEnum.EditCustomFields,
-  );
+  const hasEditCustomFieldsPermission = usePermissionCheck(LineItemActionsEnum.EditCustomFields);
 
   const handleRedirectAfterCreate = (newLineItemId: string) => {
     onCreateSuccess?.(newLineItemId);
@@ -54,9 +52,7 @@ export const FormContainer: FC<IFormContainerProps> = ({
     ...(lineItemId
       ? [
           { step: 1, status: 'processed' as const },
-          ...(hasEditCustomFieldsPermission
-            ? [{ step: 2, status: 'processed' as const }]
-            : []),
+          ...(hasEditCustomFieldsPermission ? [{ step: 2, status: 'processed' as const }] : []),
         ]
       : []),
   ];

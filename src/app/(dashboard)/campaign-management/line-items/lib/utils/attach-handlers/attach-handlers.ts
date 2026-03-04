@@ -78,10 +78,7 @@ export const attachFieldHandlers = (
       );
       break;
     case LineItemSteps.CustomQuestions:
-      attachHasCustomQuestionsFieldHandler(
-        patchFormValues,
-        updateFormStepDetails,
-      );
+      attachHasCustomQuestionsFieldHandler(patchFormValues, updateFormStepDetails);
       fieldValidationHandler(
         patchFormValues,
         updateFormStepDetails,
@@ -91,16 +88,16 @@ export const attachFieldHandlers = (
       break;
     case LineItemSteps.Targeting:
       // strip out the job title upload fields, as its not depend on checkbox
-      TargetingUploadFields.filter(
-        (field) => field !== LineItemFields.JobTitleListUpload,
-      ).forEach((field) => {
-        attachUploadCheckFieldHandler(
-          patchFormValues,
-          updateFormStepDetails,
-          field,
-          showSaveAndCloseButtonIfFileChanged,
-        );
-      });
+      TargetingUploadFields.filter((field) => field !== LineItemFields.JobTitleListUpload).forEach(
+        (field) => {
+          attachUploadCheckFieldHandler(
+            patchFormValues,
+            updateFormStepDetails,
+            field,
+            showSaveAndCloseButtonIfFileChanged,
+          );
+        },
+      );
       fieldValidationHandler(
         patchFormValues,
         updateFormStepDetails,
@@ -114,11 +111,7 @@ export const attachFieldHandlers = (
         updateFormStepDetails,
         showSaveAndCloseButtonIfFileChanged,
       );
-      hasJobTitlesText(
-        patchFormValues,
-        updateFormStepDetails,
-        showSaveAndCloseButtonIfFileChanged,
-      );
+      hasJobTitlesText(patchFormValues, updateFormStepDetails, showSaveAndCloseButtonIfFileChanged);
       // file change handler handled in
 
       isCountCustomRange(patchFormValues, updateFormStepDetails);

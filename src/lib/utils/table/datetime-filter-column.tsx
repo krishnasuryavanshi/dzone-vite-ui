@@ -17,8 +17,6 @@ export function getDateTimeFilterColumn() {
         }}
       />
     ),
-    filterDropdown: (props: FilterDropdownProps) => (
-      <DateTimeRangeFilter {...props} />
-    ),
+    filterDropdown: (props: FilterDropdownProps) => <DateTimeRangeFilter {...props} />,
   };
 }

@@ -31,9 +31,7 @@ export interface IExecutiveFilterDataPayload {
   timeframe?: string;
 }
 
-export const transformFilterDataPayload = (
-  data: SelectedFilters,
-): Campaign[] => {
+export const transformFilterDataPayload = (data: SelectedFilters): Campaign[] => {
   const campaignsMap: { [key: string]: Campaign } = {};
 
   // Create a map for campaigns

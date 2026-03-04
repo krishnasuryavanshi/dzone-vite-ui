@@ -1,4 +1,3 @@
-
 import { useSearchParams } from '@/lib/hooks/use-router';
 import { DeliveryLogsHeader } from './delivery-logs-header';
 import { DeliveryLogsList } from './delivery-logs-list';
@@ -39,16 +38,8 @@ export const DeliveryLogsContainer = ({
 
   return (
     <TableWithPaginationLayout
-      header={
-        <DeliveryLogsHeader scheduleId={scheduleId} lineItemId={lineItemId} />
-      }
-      table={
-        <DeliveryLogsList
-          scheduleId={scheduleId}
-          logs={logs}
-          isLoading={isLoading}
-        />
-      }
+      header={<DeliveryLogsHeader scheduleId={scheduleId} lineItemId={lineItemId} />}
+      table={<DeliveryLogsList scheduleId={scheduleId} logs={logs} isLoading={isLoading} />}
       pagination={
         <Hideable show={total > 0}>
           <SimplePagination

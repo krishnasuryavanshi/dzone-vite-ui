@@ -17,8 +17,6 @@ export function getDateFilterColumn() {
         }}
       />
     ),
-    filterDropdown: (props: FilterDropdownProps) => (
-      <DatepickerDropdown {...props} />
-    ),
+    filterDropdown: (props: FilterDropdownProps) => <DatepickerDropdown {...props} />,
   };
 }

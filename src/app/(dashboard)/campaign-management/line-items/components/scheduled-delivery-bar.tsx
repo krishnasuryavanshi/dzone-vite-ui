@@ -18,9 +18,7 @@ interface IScheduledDeliveryBarProps {
   tenantCode?: string;
   onScheduleDelivery?: () => void;
   onScheduleCreated?: () => void;
-  onRegisterEditHandler?: (
-    handler: (schedule: DeliverySchedule) => void,
-  ) => void;
+  onRegisterEditHandler?: (handler: (schedule: DeliverySchedule) => void) => void;
 }
 
 export const ScheduledDeliveryBar: FC<IScheduledDeliveryBarProps> = ({
@@ -37,13 +35,9 @@ export const ScheduledDeliveryBar: FC<IScheduledDeliveryBarProps> = ({
 
   const [isExportDrawerOpen, setIsExportDrawerOpen] = useState(false);
   const [isScheduleDrawerOpen, setIsScheduleDrawerOpen] = useState(false);
-  const [editSchedule, setEditSchedule] = useState<DeliverySchedule | null>(
-    null,
-  );
+  const [editSchedule, setEditSchedule] = useState<DeliverySchedule | null>(null);
 
-  const canScheduleDelivery = usePermissionCheck(
-    LeadActionsEnum.ScheduleDelivery,
-  );
+  const canScheduleDelivery = usePermissionCheck(LeadActionsEnum.ScheduleDelivery);
 
   const handleExportClick = () => {
     setIsExportDrawerOpen(true);
@@ -93,10 +87,7 @@ export const ScheduledDeliveryBar: FC<IScheduledDeliveryBarProps> = ({
             <div />
           )}
           <Space>
-            <Button
-              onClick={handleExportClick}
-              disabled={isDisabled}
-              className='dz-btn-action-1'>
+            <Button onClick={handleExportClick} disabled={isDisabled} className='dz-btn-action-1'>
               Export
             </Button>
             {canScheduleDelivery && (

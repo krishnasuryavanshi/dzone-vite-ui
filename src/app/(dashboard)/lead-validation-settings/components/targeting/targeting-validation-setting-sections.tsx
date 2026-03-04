@@ -8,8 +8,7 @@ import { TargetingValidationSettingSection } from './targeting-validation-settin
 
 export const TargetingValidationSettingSections = () => {
   const [sections, setSections] = useState<DzRecord[]>([]);
-  const { getValidationSettingRuleSections, activeRule } =
-    useValidationSettingStore();
+  const { getValidationSettingRuleSections, activeRule } = useValidationSettingStore();
 
   useEffect(() => {
     if (activeRule) {
@@ -21,18 +20,14 @@ export const TargetingValidationSettingSections = () => {
   }, [activeRule]);
 
   const renderSection = (section: DzRecord) => {
-    return (
-      <TargetingValidationSettingSection
-        name={section.name}
-        key={section.name}
-      />
-    );
+    return <TargetingValidationSettingSection name={section.name} key={section.name} />;
   };
 
   return (
     <DzBox
       className='targeting-validation-settings'
-      style={{ maxHeight: 'calc(100vh - 20rem)', overflowY: 'auto' }}>
+      style={{ maxHeight: 'calc(100vh - 20rem)', overflowY: 'auto' }}
+    >
       <Flex vertical gap='1rem'>
         <MapFunction items={sections} renderItem={renderSection} />
       </Flex>

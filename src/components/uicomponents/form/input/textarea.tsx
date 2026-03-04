@@ -13,10 +13,7 @@ import { sanitizeTextareaInput } from '@/lib/utils/string';
 const { TextArea: AntdTextArea } = Input;
 
 const setNativeValue = (element: HTMLTextAreaElement, value: string) => {
-  const valueSetter = Object.getOwnPropertyDescriptor(
-    HTMLTextAreaElement.prototype,
-    'value',
-  )?.set;
+  const valueSetter = Object.getOwnPropertyDescriptor(HTMLTextAreaElement.prototype, 'value')?.set;
   valueSetter?.call(element, value);
   element.dispatchEvent(new Event('input', { bubbles: true }));
 };
@@ -49,15 +46,9 @@ export const TextArea: FC<TextAreaProps> = ({
     const start = textarea.selectionStart || 0;
     const end = textarea.selectionEnd || 0;
     const currentValue = textarea.value;
-    const newValue =
-      currentValue.substring(0, start) +
-      sanitized +
-      currentValue.substring(end);
+    const newValue = currentValue.substring(0, start) + sanitized + currentValue.substring(end);
     setNativeValue(textarea, newValue);
-    textarea.setSelectionRange(
-      start + sanitized.length,
-      start + sanitized.length,
-    );
+    textarea.setSelectionRange(start + sanitized.length, start + sanitized.length);
     onPaste?.(e);
   };
 
@@ -78,15 +69,9 @@ export const TextArea: FC<TextAreaProps> = ({
       const start = textarea.selectionStart || 0;
       const end = textarea.selectionEnd || 0;
       const currentValue = textarea.value;
-      const newValue =
-        currentValue.substring(0, start) +
-        sanitized +
-        currentValue.substring(end);
+      const newValue = currentValue.substring(0, start) + sanitized + currentValue.substring(end);
       setNativeValue(textarea, newValue);
-      textarea.setSelectionRange(
-        start + sanitized.length,
-        start + sanitized.length,
-      );
+      textarea.setSelectionRange(start + sanitized.length, start + sanitized.length);
     }
     onDrop?.(e);
   };
@@ -107,7 +92,8 @@ export const TextArea: FC<TextAreaProps> = ({
       onPaste={handlePaste}
       onBlur={handleBlur}
       onDrop={handleDrop}
-      onCompositionEnd={handleCompositionEnd}>
+      onCompositionEnd={handleCompositionEnd}
+    >
       {children}
     </AntdTextArea>
   );

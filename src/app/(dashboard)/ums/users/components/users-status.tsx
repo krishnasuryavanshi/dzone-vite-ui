@@ -33,7 +33,8 @@ export const UsersStatus: FC<IUsersStatusProps> = ({ status }) => {
         display: 'inline-block',
         filter: 'drop-shadow(0px 0px 4px rgba(35, 90, 237, 0.16))',
         ...StatuConfig[status],
-      }}>
+      }}
+    >
       {status}
     </DzBox>
   );

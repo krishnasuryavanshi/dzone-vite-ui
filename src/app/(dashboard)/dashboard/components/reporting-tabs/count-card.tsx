@@ -19,7 +19,8 @@ export const CountCard: FC<ICountCardProps> = ({ title, value }) => {
         padding: '0.75rem 1rem',
         height: '6rem',
         background: DZONE_CLR_GRAY_4,
-      }}>
+      }}
+    >
       <Flex gap='0.75rem' vertical>
         <Text
           style={{
@@ -27,10 +28,9 @@ export const CountCard: FC<ICountCardProps> = ({ title, value }) => {
             fontWeight: 500,
             color: '#000',
             lineHeight: 'normal',
-          }}>
-          {title || (
-            <Input active style={{ height: '1.5rem', width: '150%' }} />
-          )}
+          }}
+        >
+          {title || <Input active style={{ height: '1.5rem', width: '150%' }} />}
         </Text>
         <Title
           level={4}
@@ -40,7 +40,8 @@ export const CountCard: FC<ICountCardProps> = ({ title, value }) => {
             fontWeight: 500,
             color: '#000',
             lineHeight: 'normal',
-          }}>
+          }}
+        >
           {value || <Input active style={{ height: '1.5rem' }} />}
         </Title>
       </Flex>

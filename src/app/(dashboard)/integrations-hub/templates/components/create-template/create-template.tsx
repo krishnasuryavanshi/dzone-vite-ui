@@ -1,4 +1,3 @@
-
 import { DzBox } from '@/components/layout/v1';
 import { Flex } from '@/uicomponents/layout';
 import { FC, useEffect } from 'react';
@@ -38,18 +37,17 @@ export const CreateTemplate: FC<ICreateTemplateProps> = ({
         height: '100%',
         position: 'relative',
         overflow: 'hidden',
-      }}>
+      }}
+    >
       {/* Fixed Header Section */}
       <DzBox
         style={{
           borderBottom: '1px solid #f0f0f0',
           padding: '0.5rem 0',
-        }}>
+        }}
+      >
         <TemplateBreadcrumb existingTemplate={existingTemplate} />
-        <TemplateHeader
-          existingTemplate={existingTemplate}
-          templateId={templateId}
-        />
+        <TemplateHeader existingTemplate={existingTemplate} templateId={templateId} />
       </DzBox>
 
       {/* Scrollable Content Section */}
@@ -58,7 +56,8 @@ export const CreateTemplate: FC<ICreateTemplateProps> = ({
           flex: 1,
           overflow: 'auto',
           padding: '0',
-        }}>
+        }}
+      >
         <CreateTemplateContainer
           templateId={templateId}
           existingTemplate={existingTemplate}

@@ -21,8 +21,7 @@ interface IActionsProps {
 }
 export const Actions: FC<IActionsProps> = ({ roleDetails }) => {
   const [actions, setActions] = useState<IAction[]>([]);
-  const { selectedModule, selectedModuleId, getActionsForModule } =
-    useModulesStore();
+  const { selectedModule, selectedModuleId, getActionsForModule } = useModulesStore();
   const { isEditing } = useEditStore();
   const { setPermissions } = usePermissionsStore();
   const { selectedPermissions } = useSelectedPermissionsStore();
@@ -49,9 +48,7 @@ export const Actions: FC<IActionsProps> = ({ roleDetails }) => {
     }
   }, [selectedModule, isEditing]);
 
-  const fetchPermissionsForActiveActions = async (
-    actions: Record<string, any>[],
-  ) => {
+  const fetchPermissionsForActiveActions = async (actions: Record<string, any>[]) => {
     const permissionsPromises = actions.map(async ({ id, dependsOnAction, children }) => {
       const data = await queryClient.fetchQuery({
         queryKey: queryKeys.roles.permissionsByAction(id, selectedModuleId as string),
@@ -84,10 +81,7 @@ export const Actions: FC<IActionsProps> = ({ roleDetails }) => {
     await Promise.all(permissionsPromises);
   };
 
-  const debouncedFetchPermissionsForActiveActions = debounce(
-    fetchPermissionsForActiveActions,
-    500,
-  );
+  const debouncedFetchPermissionsForActiveActions = debounce(fetchPermissionsForActiveActions, 500);
 
   return (
     <Flex gap='0.75rem' vertical>
@@ -102,14 +96,11 @@ export const Actions: FC<IActionsProps> = ({ roleDetails }) => {
           borderRadius: '0.5rem',
           padding: '0.75rem',
           width: '75%',
-        }}>
+        }}
+      >
         {actions?.map((action, index) => {
           return (
-            <ActionItem
-              key={action.id}
-              action={action}
-              isLast={index === actions.length - 1}
-            />
+            <ActionItem key={action.id} action={action} isLast={index === actions.length - 1} />
           );
         })}
       </Flex>

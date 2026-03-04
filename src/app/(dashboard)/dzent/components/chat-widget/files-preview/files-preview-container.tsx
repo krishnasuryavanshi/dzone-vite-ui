@@ -34,7 +34,8 @@ export const FilesPreviewContainer = () => {
     <>
       <DzBox
         // onClick={() => handleFilePreviewToggle(!isFilePreviewOpen)}
-        style={{ cursor: 'pointer' }}>
+        style={{ cursor: 'pointer' }}
+      >
         <DzentChatFilePreviewTrigger />
       </DzBox>
       <Hideable show={isFilePreviewOpen}>
@@ -52,7 +53,8 @@ export const FilesPreviewContainer = () => {
                 height: 'calc(100% - 5rem)',
                 overflowY: 'auto',
                 marginTop: '1rem',
-              }}>
+              }}
+            >
               <FilesPreview type={selectedFileType} />
             </DzBox>
           </DzBox>

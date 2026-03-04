@@ -29,11 +29,7 @@ export const CreateFormSection: FC<ICreateFormSection> = ({
   });
 
   const renderSectionContents = (item: any) => {
-    return (
-      <FormControlItemContent
-        {...{ item, colLayout, lists, transKey, entityId }}
-      />
-    );
+    return <FormControlItemContent {...{ item, colLayout, lists, transKey, entityId }} />;
   };
 
   return (
@@ -43,10 +39,7 @@ export const CreateFormSection: FC<ICreateFormSection> = ({
           <CreateFormSectionHeading section={section} transKey={transKey} />
           <DzBox className='section-content'>
             <Row gutter={[16, 16]}>
-              <MapFunction
-                items={section.fields}
-                renderItem={renderSectionContents}
-              />
+              <MapFunction items={section.fields} renderItem={renderSectionContents} />
             </Row>
           </DzBox>
         </>

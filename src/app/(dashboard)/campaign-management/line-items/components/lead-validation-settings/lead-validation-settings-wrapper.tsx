@@ -49,13 +49,13 @@ export const LeadValidationSettingsWrapper = ({
       <Flex justify='end' align='center'>
         {/* Show Edit All button for editing mode */}
         {isEditing && (
-          <HasPermission
-            permissions={[LineItemActionsEnum.EditValidationSettings]}>
+          <HasPermission permissions={[LineItemActionsEnum.EditValidationSettings]}>
             <Button
               type='link'
               style={{ height: '1.5rem', padding: '0 0.5rem' }}
               loading={isLoading}
-              onClick={validateCampaignDetails}>
+              onClick={validateCampaignDetails}
+            >
               Edit All
             </Button>
           </HasPermission>
@@ -63,13 +63,13 @@ export const LeadValidationSettingsWrapper = ({
 
         {/* Show View All button for view mode */}
         {!isEditing && (
-          <HasPermission
-            permissions={[LineItemActionsEnum.ViewValidationSettings]}>
+          <HasPermission permissions={[LineItemActionsEnum.ViewValidationSettings]}>
             <Button
               type='link'
               style={{ height: '1.5rem', padding: '0 0.5rem' }}
               loading={isLoading}
-              onClick={validateCampaignDetails}>
+              onClick={validateCampaignDetails}
+            >
               View All
             </Button>
           </HasPermission>

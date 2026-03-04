@@ -1,4 +1,3 @@
-
 import { Spin } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
@@ -10,22 +9,13 @@ import { EmptyState } from './empty-state';
 
 export const MessageList = () => {
   const messages = useAiAgentStore((state) => state.messages);
-  const streamingConversationId = useAiAgentStore(
-    (state) => state.streamingConversationId,
-  );
-  const currentConversationId = useAiAgentStore(
-    (state) => state.currentConversationId,
-  );
+  const streamingConversationId = useAiAgentStore((state) => state.streamingConversationId);
+  const currentConversationId = useAiAgentStore((state) => state.currentConversationId);
   const isCurrentConversationStreaming =
-    streamingConversationId === currentConversationId &&
-    streamingConversationId !== null;
-  const isLoadingConversation = useAiAgentStore(
-    (state) => state.isLoadingConversation,
-  );
+    streamingConversationId === currentConversationId && streamingConversationId !== null;
+  const isLoadingConversation = useAiAgentStore((state) => state.isLoadingConversation);
   const hasMoreMessages = useAiAgentStore((state) => state.hasMoreMessages);
-  const isLoadingMoreMessages = useAiAgentStore(
-    (state) => state.isLoadingMoreMessages,
-  );
+  const isLoadingMoreMessages = useAiAgentStore((state) => state.isLoadingMoreMessages);
   const loadMoreMessages = useAiAgentStore((state) => state.loadMoreMessages);
 
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -82,7 +72,8 @@ export const MessageList = () => {
         align='center'
         justify='center'
         gap='0.5rem'
-        style={{ flex: 1, padding: '2rem' }}>
+        style={{ flex: 1, padding: '2rem' }}
+      >
         <Spin />
         <Text type='secondary'>Loading conversation...</Text>
       </Flex>
@@ -102,7 +93,8 @@ export const MessageList = () => {
         overflowY: 'auto',
         padding: '1.5rem',
         marginInline: '6rem',
-      }}>
+      }}
+    >
       <Flex vertical gap='1rem'>
         {isLoadingMoreMessages && (
           <Flex justify='center' style={{ padding: '0.5rem' }}>

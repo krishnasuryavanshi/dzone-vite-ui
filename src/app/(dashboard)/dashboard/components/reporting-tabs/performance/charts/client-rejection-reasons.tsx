@@ -7,22 +7,18 @@ import { ChartColumn } from '../../chart-column';
 
 interface IClientRejectionReasonsProps {}
 
-export const ClientRejectionReasons: FC<
-  IClientRejectionReasonsProps
-> = ({}) => {
+export const ClientRejectionReasons: FC<IClientRejectionReasonsProps> = ({}) => {
   const [chartData, isLoaded] = useFetchReportData<IBaseReportRow>(
     [],
-    PerformanceReportType.ClientRejectionReasons
+    PerformanceReportType.ClientRejectionReasons,
   );
   return (
     <ChartColumn
-      chartTitle="pages.dashboard.label.clientRejectionReasons"
+      chartTitle='pages.dashboard.label.clientRejectionReasons'
       extraTitle={'pages.dashboard.label.count'}
-      hasExtra>
-      <DzBarChart
-        data={chartData as IBaseReportRow[]}
-        loaded={isLoaded}
-      />
+      hasExtra
+    >
+      <DzBarChart data={chartData as IBaseReportRow[]} loaded={isLoaded} />
     </ChartColumn>
   );
 };

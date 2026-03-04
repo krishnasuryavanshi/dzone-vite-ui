@@ -1,14 +1,7 @@
-import axios, {
-  AxiosError,
-  AxiosInstance,
-  AxiosResponse,
-  InternalAxiosRequestConfig,
-} from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import * as Sentry from '@sentry/react';
 import { logHttpRequest } from './logger';
-const onRequest = (
-  config: InternalAxiosRequestConfig,
-): InternalAxiosRequestConfig => {
+const onRequest = (config: InternalAxiosRequestConfig): InternalAxiosRequestConfig => {
   logRequest(config);
   return config;
 };
@@ -36,9 +29,7 @@ const onResponseError = (error: AxiosError): Promise<AxiosError> => {
   return Promise.reject({ error, statusText, status, data });
 };
 
-export function setupInterceptorsTo(
-  axiosInstance: AxiosInstance,
-): AxiosInstance {
+export function setupInterceptorsTo(axiosInstance: AxiosInstance): AxiosInstance {
   axiosInstance.interceptors.request.use(onRequest, onRequestError);
   axiosInstance.interceptors.response.use(onResponse, onResponseError);
   return axiosInstance;
@@ -48,10 +39,7 @@ const instance = axios.create(); // Browser handles TLS natively
 
 export const axiosInstance = setupInterceptorsTo(instance);
 
-const logResponse = (
-  requestResult: AxiosError | AxiosResponse,
-  isError = false,
-) => {
+const logResponse = (requestResult: AxiosError | AxiosResponse, isError = false) => {
   try {
     const config = requestResult.config;
     const response = (

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Modal } from '@/uicomponents/modal';
 import { Text } from '@/uicomponents';
@@ -39,18 +38,15 @@ export const OverflowConfirmation: React.FC<OverflowConfirmationProps> = ({
           borderColor: '#323131',
           color: '#ffffff',
         },
-      }}>
+      }}
+    >
       <Space direction='vertical' size='middle'>
         <Text>
           <Text strong>Warning:</Text> Enabling overflow will:
         </Text>
         <Space direction='vertical' size='small'>
-          <Text>
-            • Switch this line item to &quot;No Pacing&quot; mode permanently
-          </Text>
-          <Text>
-            • Allow suppliers to publish leads without any pacing restrictions
-          </Text>
+          <Text>• Switch this line item to &quot;No Pacing&quot; mode permanently</Text>
+          <Text>• Allow suppliers to publish leads without any pacing restrictions</Text>
           <Text>• Disable editing of the &quot;Target Lead Goal&quot;</Text>
           <Text>• Be logged for audit purposes</Text>
         </Space>

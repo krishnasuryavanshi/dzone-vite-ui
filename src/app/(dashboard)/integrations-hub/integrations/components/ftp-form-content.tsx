@@ -1,4 +1,3 @@
-
 import { Input, InputPassword, InputNumber } from '@/uicomponents/form/input';
 import { FormItem } from '@/uicomponents/form';
 import { Space } from '@/uicomponents/layout';
@@ -22,13 +21,10 @@ export interface FtpFormContentRef {
 }
 
 export const FtpFormContent = ({ mode = 'create', form, open, ref }: FtpFormContentProps) => {
-  const {
-    fileList,
-    isUploading,
-    uploadProps,
-    handleRemoveFile,
-    resetFileState,
-  } = useFtpFileUpload(form, open || false);
+  const { fileList, isUploading, uploadProps, handleRemoveFile, resetFileState } = useFtpFileUpload(
+    form,
+    open || false,
+  );
 
   // Expose resetFiles method to parent via ref
   useImperativeHandle(
@@ -90,26 +86,18 @@ export const FtpFormContent = ({ mode = 'create', form, open, ref }: FtpFormCont
           left: '-9999px',
           opacity: 0,
           pointerEvents: 'none',
-        }}>
-        <Input
-          type='text'
-          name='fake_username'
-          autoComplete='username'
-          tabIndex={-1}
-        />
-        <Input
-          type='password'
-          name='fake_password'
-          autoComplete='current-password'
-          tabIndex={-1}
-        />
+        }}
+      >
+        <Input type='text' name='fake_username' autoComplete='username' tabIndex={-1} />
+        <Input type='password' name='fake_password' autoComplete='current-password' tabIndex={-1} />
       </Space>
 
       <FormItem
         name='name'
         label='Name'
         className='input-control form-control-item'
-        rules={ftpFormValidationRules.name}>
+        rules={ftpFormValidationRules.name}
+      >
         <Input
           placeholder='Enter Integration Name'
           className={`input-field ${styles.inputControl}`}
@@ -124,7 +112,8 @@ export const FtpFormContent = ({ mode = 'create', form, open, ref }: FtpFormCont
         name='host'
         label='Host'
         className='input-control form-control-item'
-        rules={ftpFormValidationRules.host}>
+        rules={ftpFormValidationRules.host}
+      >
         <Input
           placeholder='Enter your FTP or SFTP server address'
           className={`input-field ${styles.inputControl}`}
@@ -138,7 +127,8 @@ export const FtpFormContent = ({ mode = 'create', form, open, ref }: FtpFormCont
         label='Port'
         className='input-control form-control-item'
         initialValue={FTP_FORM_CONSTANTS.DEFAULT_PORT}
-        rules={ftpFormValidationRules.port}>
+        rules={ftpFormValidationRules.port}
+      >
         <InputNumber
           placeholder='Enter Port (e.g., 21 for FTP, 22 for SFTP)'
           className={`input-field ${styles.inputControl}`}
@@ -152,7 +142,8 @@ export const FtpFormContent = ({ mode = 'create', form, open, ref }: FtpFormCont
         name='userName'
         label='FTP User Name'
         className='input-control form-control-item'
-        rules={ftpFormValidationRules.userName}>
+        rules={ftpFormValidationRules.userName}
+      >
         <Input
           placeholder='Enter FTP User Name'
           className={`input-field ${styles.inputControl}`}
@@ -173,7 +164,8 @@ export const FtpFormContent = ({ mode = 'create', form, open, ref }: FtpFormCont
         name='password'
         label='FTP Password'
         className='input-control form-control-item'
-        rules={ftpFormValidationRules.password}>
+        rules={ftpFormValidationRules.password}
+      >
         <InputPassword
           placeholder='Enter FTP Password'
           className={`input-field ${styles.inputControl}`}
@@ -195,7 +187,8 @@ export const FtpFormContent = ({ mode = 'create', form, open, ref }: FtpFormCont
         label='Private Key File'
         className='input-control form-control-item'
         tooltip='Upload a private key file for key-based authentication (.pem, .ppk, .key)'
-        rules={[]}>
+        rules={[]}
+      >
         <FtpFileUploadSection
           fileList={fileList}
           isUploading={isUploading}
@@ -209,7 +202,8 @@ export const FtpFormContent = ({ mode = 'create', form, open, ref }: FtpFormCont
         label='Private Key File Password'
         className='input-control form-control-item'
         tooltip='Optional password for encrypted private key files'
-        rules={ftpFormValidationRules.privateKeyPassword}>
+        rules={ftpFormValidationRules.privateKeyPassword}
+      >
         <InputPassword
           placeholder='Enter Private File Password'
           className={`input-field ${styles.inputControl}`}
@@ -231,7 +225,8 @@ export const FtpFormContent = ({ mode = 'create', form, open, ref }: FtpFormCont
         label='Remote Directory Path'
         className='input-control form-control-item'
         tooltip='Optional: Specify the remote directory path where files will be uploaded (e.g., /uploads/files)'
-        rules={ftpFormValidationRules.remotePath}>
+        rules={ftpFormValidationRules.remotePath}
+      >
         <Input
           placeholder='e.g., /uploads/files (optional)'
           className={`input-field ${styles.inputControl}`}

@@ -52,7 +52,8 @@ export const ValidationRuleRadioGroup = ({
       disabled={isDisabled}
       value={selected}
       onChange={handleRadioChange}
-      style={{ display: 'flex', flexDirection: 'column' }}>
+      style={{ display: 'flex', flexDirection: 'column' }}
+    >
       <MapFunction items={section.attributes} renderItem={renderRadio} />
     </RadioGroup>
   );

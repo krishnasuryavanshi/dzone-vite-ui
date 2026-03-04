@@ -80,9 +80,7 @@ export const FileUploadAction = ({
   };
 
   const handleRemoveFile = (fileId: string) => {
-    setUploadedFiles((prev) =>
-      prev.filter((uploadedFile) => uploadedFile.id !== fileId),
-    );
+    setUploadedFiles((prev) => prev.filter((uploadedFile) => uploadedFile.id !== fileId));
   };
 
   const props: UploadProps = {
@@ -104,7 +102,8 @@ export const FileUploadAction = ({
             width: '20rem',
             background: CLR_WHITE,
             opacity: isLoading ? 0.5 : 1,
-          }}>
+          }}
+        >
           <DzBox className='ant-upload-drag-icon'>
             <UploadOutlined />
           </DzBox>
@@ -118,11 +117,7 @@ export const FileUploadAction = ({
       </Hideable>
       <Hideable show={!multiple}>
         <Upload {...props} disabled={isLoading}>
-          <ChatWidgetActionButton
-            label={'Upload'}
-            focused
-            loading={isLoading}
-          />
+          <ChatWidgetActionButton label={'Upload'} focused loading={isLoading} />
         </Upload>
       </Hideable>
       <Hideable show={uploadedFiles?.length > 0}>

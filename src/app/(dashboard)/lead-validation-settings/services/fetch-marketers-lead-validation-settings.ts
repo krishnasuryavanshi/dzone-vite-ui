@@ -6,12 +6,9 @@ import { authenticatedRequest } from '@/services';
 export async function fetchMarketersLeadValidationSettings(tenantCode: string) {
   try {
     return authenticatedRequest({
-      resource: transformPath(
-        ApiResources.MarketersLeadValidationSettings,
-        {
-          tenantCode,
-        },
-      ),
+      resource: transformPath(ApiResources.MarketersLeadValidationSettings, {
+        tenantCode,
+      }),
       apiHost: ApiHost.PlatformService,
     });
   } catch (error) {}

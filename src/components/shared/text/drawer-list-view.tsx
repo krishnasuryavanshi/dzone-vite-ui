@@ -11,11 +11,7 @@ interface IListViewProps {
   lines?: number;
 }
 
-export const DrawerListView: FC<IListViewProps> = ({
-  value,
-  label,
-  lines = 2,
-}) => {
+export const DrawerListView: FC<IListViewProps> = ({ value, label, lines = 2 }) => {
   const [showModal, setShowModal] = useState(false);
   const hasChildren = value.some((item: any) => item?.children?.length);
   const handleExpand = () => {
@@ -72,7 +68,8 @@ export const DrawerShowList = ({
       onClose={handleClose}
       placement='right'
       footer={null}
-      open={show}>
+      open={show}
+    >
       {/* Custom Close Button */}
       <Button
         icon={<CloseOutlined />}

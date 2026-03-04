@@ -37,7 +37,8 @@ export const ActionsForm = ({
                 danger
                 onClick={onCancel}
                 size='small'
-                style={{ fontSize: '0.875rem' }}>
+                style={{ fontSize: '0.875rem' }}
+              >
                 Cancel
               </Button>
             </Hideable>

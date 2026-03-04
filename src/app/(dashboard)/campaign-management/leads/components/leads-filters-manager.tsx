@@ -33,24 +33,15 @@ export const LeadsFiltersManager: FC<ILeadsFiltersManagerProps> = ({
   isSearchDisabled,
 }) => {
   const [isExporting, setIsExporting] = useState(false);
-  const [exportMetadata, setExportMetadata] = useState<ILeadsExportMetadata[]>(
-    [],
-  );
+  const [exportMetadata, setExportMetadata] = useState<ILeadsExportMetadata[]>([]);
 
   const filteredLeadArray = filtersArray(filteredInfo);
 
   const handleExportLeads = async (resource: string) => {
-    const { data, headers } = await exportFilteredLeads(
-      resource,
-      filteredLeadArray,
-    );
+    const { data, headers } = await exportFilteredLeads(resource, filteredLeadArray);
     if (data) {
       const fileName = headers.get('content-disposition').split('filename=')[1];
-      saveFileFromBlob(
-        data,
-        fileName.replaceAll('"', ''),
-        headers.get('content-type'),
-      );
+      saveFileFromBlob(data, fileName.replaceAll('"', ''), headers.get('content-type'));
     }
   };
 

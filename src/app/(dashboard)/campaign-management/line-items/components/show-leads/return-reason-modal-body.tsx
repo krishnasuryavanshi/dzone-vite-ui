@@ -34,11 +34,13 @@ export const ReturnReasonsModalBody: FC<IReturnReasonsModalBodyProps> = ({
         borderBottomLeftRadius: 10,
         borderBottomRightRadius: 10,
       }}
-      size={0}>
+      size={0}
+    >
       <CheckboxGroup
         style={{ width: '100%' }}
         value={selectedReasons}
-        onChange={handleSelectReason}>
+        onChange={handleSelectReason}
+      >
         <Space direction='vertical' style={{ width: '100%' }} size={8}>
           {reasons.map((reason: { name: string; value: string }) => (
             <Row
@@ -50,7 +52,8 @@ export const ReturnReasonsModalBody: FC<IReturnReasonsModalBodyProps> = ({
                 border: '1px solid #E5E7EB',
                 borderRadius: 8,
                 padding: '0.625rem 1rem',
-              }}>
+              }}
+            >
               <Col flex='none'>
                 <Checkbox value={reason.value} style={{ fontWeight: 600 }}>
                   {reason.name}
@@ -78,7 +81,8 @@ export const ReturnReasonsModalBody: FC<IReturnReasonsModalBodyProps> = ({
             }}
             disabled={selectedReasons.length === 0 || isLoading}
             loading={isLoading}
-            onClick={handleReturnLeads}>
+            onClick={handleReturnLeads}
+          >
             Return
           </Button>
         )}

@@ -16,7 +16,8 @@ export const CreateNewUser = () => {
           border: '1.5px solid transparent',
           color: CLR_BLACK,
           height: '2.25rem',
-        }}>
+        }}
+      >
         <Translate i18nKey='Invite new user' />
       </Button>
     </Link>

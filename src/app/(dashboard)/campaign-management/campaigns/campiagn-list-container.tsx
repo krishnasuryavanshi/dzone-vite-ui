@@ -1,4 +1,3 @@
-
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { ScreenLoader } from '@/components/shared/loader';
 import { useQueryState } from '@/lib/hooks';
@@ -16,9 +15,7 @@ interface ICampaignListContainerProps {
   isDzoneUser?: boolean;
 }
 
-export const CampaignListContainer: FC<ICampaignListContainerProps> = ({
-  isDzoneUser,
-}) => {
+export const CampaignListContainer: FC<ICampaignListContainerProps> = ({ isDzoneUser }) => {
   const { queryState, setQueryState } = useQueryState();
   const [filterInfo, setFilterInfo] = useState<Filters<ICampaign>>({});
   const [assignedTo, setAssignedTo] = useState('all');
@@ -91,37 +88,37 @@ export const CampaignListContainer: FC<ICampaignListContainerProps> = ({
 
   return (
     <TableWithPaginationLayout
-        header={
-          <CammpainFilters
-            clearFilters={clearFilters}
-            isSearchDisabled={true}
-            isRefreshDisabled={true}
-            isDownloadDisabled={true}
-            handleAssignedToFilterChange={handleAssignedToFilterChange}
-            assignedToFilterSelectedValue={assignedTo}
-            hasActiveFilters={hasActiveFilters(filterInfo)}
+      header={
+        <CammpainFilters
+          clearFilters={clearFilters}
+          isSearchDisabled={true}
+          isRefreshDisabled={true}
+          isDownloadDisabled={true}
+          handleAssignedToFilterChange={handleAssignedToFilterChange}
+          assignedToFilterSelectedValue={assignedTo}
+          hasActiveFilters={hasActiveFilters(filterInfo)}
+        />
+      }
+      table={
+        <CampaignList
+          campaigns={campaignList}
+          filterInfo={filterInfo}
+          handleFiltersChange={handleFiltersChange}
+          assignedTo={assignedTo}
+          isDzoneUser={isDzoneUser}
+          hasFilters
+        />
+      }
+      pagination={
+        <Hideable show={totalRecords > 0}>
+          <SimplePagination
+            current={pageNo}
+            pageSize={size}
+            total={totalRecords}
+            onChange={handlePageChange}
           />
-        }
-        table={
-          <CampaignList
-            campaigns={campaignList}
-            filterInfo={filterInfo}
-            handleFiltersChange={handleFiltersChange}
-            assignedTo={assignedTo}
-            isDzoneUser={isDzoneUser}
-            hasFilters
-          />
-        }
-        pagination={
-          <Hideable show={totalRecords > 0}>
-            <SimplePagination
-              current={pageNo}
-              pageSize={size}
-              total={totalRecords}
-              onChange={handlePageChange}
-            />
-          </Hideable>
-        }
-      />
+        </Hideable>
+      }
+    />
   );
 };

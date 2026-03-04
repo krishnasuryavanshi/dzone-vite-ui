@@ -6,14 +6,9 @@ interface IFieldRequiredCheckboxProps {
   name: (string | number)[];
 }
 
-export const FieldRequiredCheckbox: FC<IFieldRequiredCheckboxProps> = ({
-  name,
-}) => {
+export const FieldRequiredCheckbox: FC<IFieldRequiredCheckboxProps> = ({ name }) => {
   return (
-    <FormItem
-      name={name}
-      valuePropName='checked'
-      className='input-control form-control-item'>
+    <FormItem name={name} valuePropName='checked' className='input-control form-control-item'>
       <Checkbox>Required</Checkbox>
     </FormItem>
   );

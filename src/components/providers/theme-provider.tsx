@@ -13,7 +13,8 @@ export const ThemeProvider: FC<PropsWithChildren> = ({ children }) => {
       theme={{
         ...uiTheme,
         algorithm: mode === 'light' ? defaultAlgorithm : darkAlgorithm,
-      }}>
+      }}
+    >
       <AntdApp>{children}</AntdApp>
     </ConfigProvider>
   );

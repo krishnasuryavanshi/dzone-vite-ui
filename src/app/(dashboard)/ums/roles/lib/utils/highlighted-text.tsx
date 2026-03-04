@@ -18,13 +18,8 @@ const HighlightedText: React.FC<HighlightedTextProps> = ({
     <Flex>
       {parts.map((part, index) => (
         <React.Fragment key={index}>
-          {highlightWords.some(
-            (word: string) => word.toLowerCase() === part.toLowerCase(),
-          ) ? (
-            <Space style={{ color: highlightColor, fontWeight: 600 }}>
-              {' '}
-              {part}{' '}
-            </Space>
+          {highlightWords.some((word: string) => word.toLowerCase() === part.toLowerCase()) ? (
+            <Space style={{ color: highlightColor, fontWeight: 600 }}> {part} </Space>
           ) : (
             part
           )}

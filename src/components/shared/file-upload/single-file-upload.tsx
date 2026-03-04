@@ -34,15 +34,13 @@ export const SingleFileUpload: FC<IFileUploadProps> = ({
     <Flex gap='.5rem' align='center' style={inputContainerStyles}>
       <Upload
         {...{ ...uploadProps, showUploadList: false, disabled }}
-        className='file-upload form-control file-upload-control'>
+        className='file-upload form-control file-upload-control'
+      >
         {isButtonLoading ? (
           <LoaderButton style={{ width: '8.5rem' }} />
         ) : (
           <Button type='primary' size='large'>
-            <UploadButtonContent
-              uploading={uploading}
-              uploadLabel={uploadLabel}
-            />
+            <UploadButtonContent uploading={uploading} uploadLabel={uploadLabel} />
           </Button>
         )}
       </Upload>
@@ -54,19 +52,14 @@ export const SingleFileUpload: FC<IFileUploadProps> = ({
             maxWidth: '15rem',
             textDecoration: 'underline',
           }}
-          className='ellipsis-text'>
+          className='ellipsis-text'
+        >
           {value?.name}
         </Text>
       )}
-      {value &&
-        !isButtonLoading &&
-        uploadProps?.onRemove &&
-        value?.type !== 'io' && (
-          <DeleteOutlined
-            style={{ color: '#ED2326' }}
-            onClick={uploadProps?.onRemove}
-          />
-        )}
+      {value && !isButtonLoading && uploadProps?.onRemove && value?.type !== 'io' && (
+        <DeleteOutlined style={{ color: '#ED2326' }} onClick={uploadProps?.onRemove} />
+      )}
     </Flex>
   );
 };

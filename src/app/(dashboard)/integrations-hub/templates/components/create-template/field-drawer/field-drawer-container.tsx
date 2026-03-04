@@ -22,14 +22,11 @@ export const FieldDrawerContainer: FC<IFieldDrawerContainerProps> = ({
   closeFieldDrawer,
 }) => {
   const [modal, contextHolder] = Modal.useModal();
-  const { updatedTemplateData, getFieldByIndex, updateFieldByIndex } =
-    useTemplateStore();
-  const [uploadedMapperFile, setUploadedMapperFile] =
-    useState<Record<string, any>>();
+  const { updatedTemplateData, getFieldByIndex, updateFieldByIndex } = useTemplateStore();
+  const [uploadedMapperFile, setUploadedMapperFile] = useState<Record<string, any>>();
 
   const [form] = useForm();
-  const [currentField, setCurrentField] =
-    useState<ITemplateFieldResponse | null>(null);
+  const [currentField, setCurrentField] = useState<ITemplateFieldResponse | null>(null);
 
   const [currentIndex, setCurrentIndex] = useState<number>(index);
 
@@ -73,13 +70,9 @@ export const FieldDrawerContainer: FC<IFieldDrawerContainerProps> = ({
   const handleUpdateFormValues = async (syncFields: boolean = false) => {
     try {
       const formValues = await form.validateFields();
-      const { characters, dataMapperFile, destination, dataTypeName } =
-        formValues;
+      const { characters, dataMapperFile, destination, dataTypeName } = formValues;
 
-      const mapperFile =
-        typeof dataMapperFile === 'object'
-          ? dataMapperFile
-          : uploadedMapperFile;
+      const mapperFile = typeof dataMapperFile === 'object' ? dataMapperFile : uploadedMapperFile;
 
       const updatedField = {
         ...currentField,

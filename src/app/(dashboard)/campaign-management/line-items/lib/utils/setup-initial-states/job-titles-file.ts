@@ -11,12 +11,7 @@ export const setUpJobTitlesFile = (
 
   const hasJobTitlesFile = !!(jobTitlesFile?.id && jobTitlesFile?.fileName);
 
-  updateJobTitleTextFields(
-    hasJobTitles,
-    hasJobTitlesFile,
-    patchFormValues,
-    updateFormStepDetails,
-  );
+  updateJobTitleTextFields(hasJobTitles, hasJobTitlesFile, patchFormValues, updateFormStepDetails);
 };
 
 export const updateJobTitleTextFields = (
@@ -40,9 +35,5 @@ export const updateJobTitleTextFields = (
     });
   }
 
-  updateFormStepDetails(
-    LineItemSections.JobTitleDetails,
-    LineItemFields.JobTitles,
-    props,
-  );
+  updateFormStepDetails(LineItemSections.JobTitleDetails, LineItemFields.JobTitles, props);
 };

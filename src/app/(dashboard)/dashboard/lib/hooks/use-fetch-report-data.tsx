@@ -37,17 +37,9 @@ export function useFetchReportData<T>(
     [filters, type, hasFilters],
   );
 
-  const chartQuery = useReportChartQuery(
-    filteredData,
-    type,
-    category === 'chart' && hasFilters,
-  );
+  const chartQuery = useReportChartQuery(filteredData, type, category === 'chart' && hasFilters);
 
-  const countQuery = useReportCountQuery(
-    filteredData,
-    type,
-    category === 'count' && hasFilters,
-  );
+  const countQuery = useReportCountQuery(filteredData, type, category === 'count' && hasFilters);
 
   const query = category === 'chart' ? chartQuery : countQuery;
   const data = query.data ?? initialValue;

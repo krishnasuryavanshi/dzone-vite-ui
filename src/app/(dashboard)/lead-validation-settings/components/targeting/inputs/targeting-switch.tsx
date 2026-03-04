@@ -18,10 +18,7 @@ type TargetingSwitchProps = {
   attribute: DzRecord;
 };
 
-export const TargetingSwitch = ({
-  sectionName,
-  attribute,
-}: TargetingSwitchProps) => {
+export const TargetingSwitch = ({ sectionName, attribute }: TargetingSwitchProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { targetingSwitchFields, updateTargetingSwitchFields, isReadOnly } =
     useValidationSettingStore();
@@ -29,26 +26,15 @@ export const TargetingSwitch = ({
   const renderInputContents = () => {
     switch (attribute.type) {
       case 'switch_suppression_inclusion':
-        return (
-          <SuppressionInclusion
-            attribute={attribute}
-            sectionName={sectionName}
-          />
-        );
+        return <SuppressionInclusion attribute={attribute} sectionName={sectionName} />;
       case 'switch_chips_inclusion':
-        return (
-          <ChipsInclusion attribute={attribute} sectionName={sectionName} />
-        );
+        return <ChipsInclusion attribute={attribute} sectionName={sectionName} />;
       case 'switch_chips':
         return <Chips attribute={attribute} sectionName={sectionName} />;
       case 'switch_dropdown_custom':
-        return (
-          <DropdownCustom attribute={attribute} sectionName={sectionName} />
-        );
+        return <DropdownCustom attribute={attribute} sectionName={sectionName} />;
       case 'switch_dropdown_searchable':
-        return (
-          <DropdownSearch attribute={attribute} sectionName={sectionName} />
-        );
+        return <DropdownSearch attribute={attribute} sectionName={sectionName} />;
       default:
         return null;
     }
@@ -77,7 +63,8 @@ export const TargetingSwitch = ({
         align='center'
         style={{
           padding: '1.25rem 1.5rem',
-        }}>
+        }}
+      >
         <Flex gap={'0.75rem'} align='center'>
           <Switch
             onChange={handleSwitchChange}
@@ -89,17 +76,15 @@ export const TargetingSwitch = ({
         <DzBox
           onClick={handleOpening}
           style={{
-            cursor: targetingSwitchFields[attribute.name]
-              ? 'pointer'
-              : 'not-allowed',
+            cursor: targetingSwitchFields[attribute.name] ? 'pointer' : 'not-allowed',
             opacity: targetingSwitchFields[attribute.name] ? 1 : 0.5,
-          }}>
+          }}
+        >
           {isOpen ? <UpOutlined /> : <DownOutlined />}
         </DzBox>
       </Flex>
       <Hideable show={isOpen}>
-        <DzBox
-          style={{ padding: '0.5rem 0.75rem', borderTop: '1px solid #E5EBF1' }}>
+        <DzBox style={{ padding: '0.5rem 0.75rem', borderTop: '1px solid #E5EBF1' }}>
           {renderInputContents()}
         </DzBox>
       </Hideable>

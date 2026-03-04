@@ -71,9 +71,7 @@ export const AssignedToCell: FC<IAssignedToCellProps> = ({ value, record }) => {
 
   return (
     <Hideable show={isVisible}>
-      <DzBox
-        className='collaboratorNameRender'
-        onClick={(e) => e.stopPropagation()}>
+      <DzBox className='collaboratorNameRender' onClick={(e) => e.stopPropagation()}>
         <Hideable show={!isEditing}>
           <AssignedToViewCell
             value={assignedTo}

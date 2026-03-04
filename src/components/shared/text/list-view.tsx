@@ -65,7 +65,8 @@ export const ShowList = ({
       onCancel={handleClose}
       centered
       footer={null}
-      open={show}>
+      open={show}
+    >
       <List
         bordered
         style={{ maxHeight: '85vh', overflow: 'auto' }}

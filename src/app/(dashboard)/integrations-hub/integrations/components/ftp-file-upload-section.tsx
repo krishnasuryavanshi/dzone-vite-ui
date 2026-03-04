@@ -1,14 +1,9 @@
-
 import React from 'react';
 import { Upload, Button } from '@/uicomponents';
 import { Text } from '@/uicomponents/text';
 import { Space } from '@/uicomponents/layout/space';
 import { UploadFile, UploadProps } from '@/lib/types/uicomponents';
-import {
-  UploadOutlined,
-  FileOutlined,
-  DeleteOutlined,
-} from '@ant-design/icons';
+import { UploadOutlined, FileOutlined, DeleteOutlined } from '@ant-design/icons';
 
 interface FtpFileUploadSectionProps {
   fileList: UploadFile[];
@@ -34,9 +29,7 @@ export const FtpFileUploadSection: React.FC<FtpFileUploadSectionProps> = ({
       {fileList.length > 0 ? (
         <Space style={{ flex: 1 }}>
           <FileOutlined />
-          <Text
-            ellipsis={{ tooltip: fileList[0].name }}
-            style={{ maxWidth: '200px' }}>
+          <Text ellipsis={{ tooltip: fileList[0].name }} style={{ maxWidth: '200px' }}>
             {fileList[0].name}
           </Text>
           <Button

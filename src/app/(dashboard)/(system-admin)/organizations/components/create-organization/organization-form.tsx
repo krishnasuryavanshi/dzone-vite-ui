@@ -2,10 +2,7 @@ import React, { FC, useEffect, useMemo, useState } from 'react';
 import { IOrganization } from '../../lib/types';
 import { useRouter } from '@/lib/hooks/use-router';
 import { Form, FormItem, useForm, useWatch } from '@/uicomponents/form';
-import {
-  createOrganization,
-  updateOrganization,
-} from '../../services';
+import { createOrganization, updateOrganization } from '../../services';
 import { showNotification } from '@/services/index';
 import { OrganizationFormActions } from './organization-form-actions';
 import { DzBox } from '@/components/layout/v1';
@@ -24,10 +21,7 @@ interface IOrganizationFormProps {
 
 const MARKETER_TYPE_LABEL = 'Marketer';
 
-export const OrganizationForm: FC<IOrganizationFormProps> = ({
-  isEditing,
-  organization,
-}) => {
+export const OrganizationForm: FC<IOrganizationFormProps> = ({ isEditing, organization }) => {
   const router = useRouter();
   const [form] = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,9 +38,7 @@ export const OrganizationForm: FC<IOrganizationFormProps> = ({
 
   const orgTypeId = useWatch(['organizationTypeId'], form);
 
-  const orgTypeLabel = organizationTypes.find(
-    (type) => type.value === orgTypeId,
-  )?.label;
+  const orgTypeLabel = organizationTypes.find((type) => type.value === orgTypeId)?.label;
 
   const isMarketerType = orgTypeLabel === MARKETER_TYPE_LABEL;
 
@@ -70,10 +62,7 @@ export const OrganizationForm: FC<IOrganizationFormProps> = ({
       const formattedValues = values;
 
       if (isEditing && organization) {
-        const data = await updateOrganization(
-          formattedValues,
-          organization.id as string,
-        );
+        const data = await updateOrganization(formattedValues, organization.id as string);
         showNotification({ message: data.message });
       } else {
         const data = await createOrganization({ ...formattedValues });
@@ -92,22 +81,12 @@ export const OrganizationForm: FC<IOrganizationFormProps> = ({
 
   return (
     <DzBox dzOneBox style={{ height: '100%', padding: '2rem' }}>
-      <Form
-        form={form}
-        style={{ height: '100%' }}
-        layout='vertical'
-        onFinish={onFinish}>
-        <Flex
-          gap='1rem'
-          vertical
-          justify='space-between'
-          style={{ height: '100%' }}>
+      <Form form={form} style={{ height: '100%' }} layout='vertical' onFinish={onFinish}>
+        <Flex gap='1rem' vertical justify='space-between' style={{ height: '100%' }}>
           <Flex vertical gap='1rem'>
             {!isEditing && (
               <DzBox>
-                <Text strong>
-                  Enter the required information to create organization
-                </Text>
+                <Text strong>Enter the required information to create organization</Text>
               </DzBox>
             )}
             <Row>
@@ -118,10 +97,8 @@ export const OrganizationForm: FC<IOrganizationFormProps> = ({
                       className='input-control form-control-item'
                       name='name'
                       label='Organization Name'
-                      rules={[
-                        { max: 150 },
-                        { required: true, message: 'This field is required' },
-                      ]}>
+                      rules={[{ max: 150 }, { required: true, message: 'This field is required' }]}
+                    >
                       <Input
                         className='input-field'
                         placeholder='Enter Organization Name'
@@ -136,10 +113,8 @@ export const OrganizationForm: FC<IOrganizationFormProps> = ({
                       className='input-control form-control-item'
                       name='businessDomain'
                       label='Business Domain'
-                      rules={[
-                        { max: 150 },
-                        { required: true, message: 'This field is required' },
-                      ]}>
+                      rules={[{ max: 150 }, { required: true, message: 'This field is required' }]}
+                    >
                       <Input
                         className='input-field'
                         placeholder='Enter Business Domain, e.g. Google.com'
@@ -153,16 +128,16 @@ export const OrganizationForm: FC<IOrganizationFormProps> = ({
                       className='input-control form-control-item'
                       name='organizationTypeId'
                       label='Organization Type'
-                      rules={[
-                        { required: true, message: 'This field is required' },
-                      ]}>
+                      rules={[{ required: true, message: 'This field is required' }]}
+                    >
                       <RadioGroup>
                         {organizationTypes.map((orgType) => (
                           <Radio
                             key={orgType.value}
                             value={orgType.value}
                             disabled={isEditing}
-                            className='organization-type'>
+                            className='organization-type'
+                          >
                             {' '}
                             {orgType.label}{' '}
                           </Radio>
@@ -174,10 +149,7 @@ export const OrganizationForm: FC<IOrganizationFormProps> = ({
                 {isMarketerType ? (
                   <Row gutter={16}>
                     <Col span={24}>
-                      <FormItem
-                        name='managedByDigitalzone'
-                        valuePropName='checked'
-                        style={{}}>
+                      <FormItem name='managedByDigitalzone' valuePropName='checked' style={{}}>
                         <Checkbox>
                           <Translate i18nKey='pages.organizations.label.managedByDigitalZone' />
                         </Checkbox>
@@ -196,11 +168,9 @@ export const OrganizationForm: FC<IOrganizationFormProps> = ({
                           required: isMarketerType,
                           message: 'This field is required',
                         },
-                      ]}>
-                      <Input
-                        className='input-field'
-                        placeholder='Enter CRM ID'
-                      />
+                      ]}
+                    >
+                      <Input className='input-field' placeholder='Enter CRM ID' />
                     </FormItem>
                   </Col>
                 </Row>
@@ -215,11 +185,9 @@ export const OrganizationForm: FC<IOrganizationFormProps> = ({
                           required: isMarketerType,
                           message: 'This field is required',
                         },
-                      ]}>
-                      <Input
-                        className='input-field'
-                        placeholder='Enter Finance ID'
-                      />
+                      ]}
+                    >
+                      <Input className='input-field' placeholder='Enter Finance ID' />
                     </FormItem>
                   </Col>
                 </Row>

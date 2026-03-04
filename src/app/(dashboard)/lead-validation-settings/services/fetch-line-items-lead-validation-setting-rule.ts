@@ -10,14 +10,11 @@ export async function fetchLineItemsLeadValidationSettingRule(
 ) {
   try {
     return authenticatedRequest({
-      resource: transformPath(
-        ApiResources.LineItemsLeadValidationSettingByRuleName,
-        {
-          lineItemId,
-          settingId: leadValidationSettingId,
-          ruleName,
-        },
-      ),
+      resource: transformPath(ApiResources.LineItemsLeadValidationSettingByRuleName, {
+        lineItemId,
+        settingId: leadValidationSettingId,
+        ruleName,
+      }),
       apiHost: ApiHost.PlatformService,
     });
   } catch (error) {}

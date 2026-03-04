@@ -1,4 +1,3 @@
-
 import { Switch } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
@@ -7,15 +6,9 @@ import { Hideable } from '@/components/shared';
 import { COLORS } from '../lib/constants/colors';
 
 export const ConversationFilterSwitch = () => {
-  const conversationFilter = useAiAgentStore(
-    (state) => state.conversationFilter,
-  );
-  const setConversationFilter = useAiAgentStore(
-    (state) => state.setConversationFilter,
-  );
-  const fetchConversationHistory = useAiAgentStore(
-    (state) => state.fetchConversationHistory,
-  );
+  const conversationFilter = useAiAgentStore((state) => state.conversationFilter);
+  const setConversationFilter = useAiAgentStore((state) => state.setConversationFilter);
+  const fetchConversationHistory = useAiAgentStore((state) => state.fetchConversationHistory);
   const marketerList = useAiAgentStore((state) => state.marketerList);
 
   const hasMultipleMarketers = marketerList && marketerList.length > 1;
@@ -38,26 +31,25 @@ export const ConversationFilterSwitch = () => {
           background: 'var(--dzent-color-bg-light)',
           borderRadius: 'var(--dzone-radius-md)',
           border: '1px solid var(--dzent-color-border-light)',
-        }}>
+        }}
+      >
         <Text
           text12
           style={{
             color: COLORS.GRAY_MEDIUM,
             fontWeight: 600,
-          }}>
+          }}
+        >
           Current Tenant
         </Text>
-        <Switch
-          checked={conversationFilter === 'all'}
-          onChange={handleChange}
-          size='small'
-        />
+        <Switch checked={conversationFilter === 'all'} onChange={handleChange} size='small' />
         <Text
           text12
           style={{
             color: COLORS.GRAY_MEDIUM,
             fontWeight: 600,
-          }}>
+          }}
+        >
           All
         </Text>
       </Flex>

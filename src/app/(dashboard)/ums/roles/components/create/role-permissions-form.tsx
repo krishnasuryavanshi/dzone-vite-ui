@@ -47,7 +47,8 @@ export const RolePermissionsForm: FC<IRolePermissionFormProps> = ({
         flex: 1,
         overflowY: 'auto',
         minHeight: 0,
-      }}>
+      }}
+    >
       <Flex
         vertical
         gap='0.5rem'
@@ -56,7 +57,8 @@ export const RolePermissionsForm: FC<IRolePermissionFormProps> = ({
           flex: 1,
           minHeight: '75vh',
           overflowY: 'auto',
-        }}>
+        }}
+      >
         <Form form={form} layout='vertical'>
           <Flex vertical gap='1rem'>
             <HasPermission permissions={RoleActionsEnum.Edit}>
@@ -67,13 +69,15 @@ export const RolePermissionsForm: FC<IRolePermissionFormProps> = ({
                     position: 'absolute',
                     right: '1rem',
                     alignItems: 'center',
-                  }}>
+                  }}
+                >
                   <Text
                     style={{
                       color: CLR_GRAY_3,
                       fontWeight: 600,
                       fontSize: '0.875rem',
-                    }}>
+                    }}
+                  >
                     <Translate i18nKey='pages.rolesAndPermissions.label.editMode' />
                   </Text>
                   <Switch

@@ -8,10 +8,7 @@ interface IShowCustomQuestionsProps {
   value: ICustomQuestion[];
 }
 
-export const ShowCustomQuestions: FC<IShowCustomQuestionsProps> = ({
-  label,
-  value,
-}) => {
+export const ShowCustomQuestions: FC<IShowCustomQuestionsProps> = ({ label, value }) => {
   const [showModal, setShowModal] = useState(false);
   if (!value?.length) return null;
   return (

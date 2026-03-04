@@ -17,10 +17,7 @@ const duplicationEditConfig = {
   type: 'duplication',
 };
 
-export const DuplicationCheck = ({
-  ruleName,
-  isEditing,
-}: DuplicationCheckProps) => {
+export const DuplicationCheck = ({ ruleName, isEditing }: DuplicationCheckProps) => {
   const [header, setHeader] = useState<string>('');
   const [extra, setExtra] = useState<string[]>([]);
   const [fields, setFields] = useState<string[]>([]);
@@ -72,7 +69,8 @@ export const DuplicationCheck = ({
       extra={extra}
       ruleName={ruleName}
       editConfig={duplicationEditConfig}
-      showEditButton={isEditing}>
+      showEditButton={isEditing}
+    >
       <Hideable show={fields.length > 0 || !!lookbackPeriod}>
         <Flex gap='2rem'>
           <Hideable show={!!lookbackPeriod}>

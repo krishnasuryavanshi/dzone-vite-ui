@@ -12,9 +12,7 @@ export const formatDateFieldsForPayload = (
   const result = { ...payload };
 
   // Get all date fields from config
-  const dateFields = formConfig.filter(
-    (field) => field.type?.toLowerCase() === 'date',
-  );
+  const dateFields = formConfig.filter((field) => field.type?.toLowerCase() === 'date');
 
   // Format each date field if it exists in the payload
   dateFields.forEach((field) => {

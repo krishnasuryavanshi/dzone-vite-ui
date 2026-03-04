@@ -15,11 +15,7 @@ interface IDestinationNameCellProps {
   name: string;
   templateField: ITemplateFieldResponse;
   index: number;
-  handleChange: (
-    name: string,
-    templateField: ITemplateFieldResponse,
-    index: number,
-  ) => void;
+  handleChange: (name: string, templateField: ITemplateFieldResponse, index: number) => void;
   updateErros: (fieldName: string, hasError: boolean) => void;
   isEditTemplateAllowed: boolean;
 }
@@ -41,12 +37,8 @@ export const DestinationNameCell: FC<IDestinationNameCellProps> = ({
   } = useTemplateStore();
   const sourceType = updatedTemplateData?.type || '';
   const [destinationName, setDestinationName] = useState<string>(name);
-  const [restrictedDestinationNames, setRestrictedDestinationNames] = useState<
-    string[]
-  >([]);
-  const [reservedDestinationNames, setReservedDestinationNames] = useState<
-    string[]
-  >([]);
+  const [restrictedDestinationNames, setRestrictedDestinationNames] = useState<string[]>([]);
+  const [reservedDestinationNames, setReservedDestinationNames] = useState<string[]>([]);
   const [error, setError] = useState({ error: false, message: '' });
 
   const isDisabled = !templateField.visible;
@@ -58,8 +50,7 @@ export const DestinationNameCell: FC<IDestinationNameCellProps> = ({
   useEffect(() => {
     if (destinationFieldNames?.length) {
       const restrictedNames = destinationFieldNames?.filter(
-        (destinationFieldname) =>
-          name?.toLowerCase() !== destinationFieldname?.toLowerCase(),
+        (destinationFieldname) => name?.toLowerCase() !== destinationFieldname?.toLowerCase(),
       );
       setRestrictedDestinationNames([...restrictedNames]);
     }
@@ -91,10 +82,7 @@ export const DestinationNameCell: FC<IDestinationNameCellProps> = ({
     }
   };
 
-  const debouncedValidateDestinationName = debounce(
-    validateDestinationFieldName,
-    500,
-  );
+  const debouncedValidateDestinationName = debounce(validateDestinationFieldName, 500);
 
   const handleInputFocusAway = () => {
     if (!destinationName || destinationName === name || error.error) return;
@@ -112,18 +100,15 @@ export const DestinationNameCell: FC<IDestinationNameCellProps> = ({
     const isFlatFile = deliveryType === DeliveryType.FLAT_FILE;
     const isFTP = deliveryType === DeliveryType.FTP;
     // Check if Zapier type is Zaps (manual entry like FlatFile)
-    const isZapierZaps =
-      deliveryType === DeliveryType.ZAPIER && sourceType === ZapierType.ZAPS;
+    const isZapierZaps = deliveryType === DeliveryType.ZAPIER && sourceType === ZapierType.ZAPS;
 
     const showDropdown =
       !isFlatFile &&
       !isFTP &&
       !isZapierZaps && // Don't show dropdown for Zapier Zaps
-      [
-        DeliveryType.HUBSPOT,
-        DeliveryType.WEBFORM,
-        DeliveryType.ZAPIER,
-      ].includes(deliveryType as DeliveryType) &&
+      [DeliveryType.HUBSPOT, DeliveryType.WEBFORM, DeliveryType.ZAPIER].includes(
+        deliveryType as DeliveryType,
+      ) &&
       formFieldMappingOptions &&
       formFieldMappingOptions.length > 0;
 
@@ -137,7 +122,8 @@ export const DestinationNameCell: FC<IDestinationNameCellProps> = ({
           disabled={isDisabled || !isEditTemplateAllowed}
           value={destinationName || undefined}
           onChange={handleSelectChange}
-          allowClear>
+          allowClear
+        >
           {formFieldMappingOptions.map((option) => (
             <Select.Option key={option.value} value={option.value}>
               {option.label}
@@ -176,9 +162,7 @@ export const DestinationNameCell: FC<IDestinationNameCellProps> = ({
 
   return (
     <Flex gap={'2rem'} style={{ width: '100%' }} align='center'>
-      <DzBox style={{ flex: 1, padding: '0.5rem 0' }}>
-        {renderDestinationField()}
-      </DzBox>
+      <DzBox style={{ flex: 1, padding: '0.5rem 0' }}>{renderDestinationField()}</DzBox>
       <DzBox style={{ width: '2rem' }}>
         <PauseOutlined
           style={{

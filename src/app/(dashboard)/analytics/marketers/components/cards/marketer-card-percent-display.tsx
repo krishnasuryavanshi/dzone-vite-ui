@@ -6,10 +6,7 @@ interface MarketerPercentDisplayProps {
   isPositive?: boolean | null;
 }
 
-const MarketerPercentDisplay: FC<MarketerPercentDisplayProps> = ({
-  percent = '',
-  isPositive,
-}) => {
+const MarketerPercentDisplay: FC<MarketerPercentDisplayProps> = ({ percent = '', isPositive }) => {
   let textColor = '#000';
   if (isPositive !== undefined) {
     if (isPositive) {
@@ -26,7 +23,8 @@ const MarketerPercentDisplay: FC<MarketerPercentDisplayProps> = ({
         fontWeight: 700,
         color: textColor,
         lineHeight: 'normal',
-      }}>
+      }}
+    >
       {isPositive ? `+${percent}%` : `${percent}%`}
     </Text>
   ) : (

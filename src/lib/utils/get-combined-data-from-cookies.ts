@@ -5,7 +5,7 @@ import { showNotification } from '@/services/notification';
 export const getCombinedDataFromCookies = (
   values: any,
   currentStep: number,
-  storageKey: StorageKey.CampaignForm | StorageKey.LineItemForm
+  storageKey: StorageKey.CampaignForm | StorageKey.LineItemForm,
 ) => {
   const formDataFromCookie = getSavedSteps(storageKey);
 

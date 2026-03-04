@@ -1,5 +1,5 @@
-import { LineItemStatus } from "../../../line-items/lib/enums";
-import { Pacing, Product, Status } from "../../lib/constants";
+import { LineItemStatus } from '../../../line-items/lib/enums';
+import { Pacing, Product, Status } from '../../lib/constants';
 
 export const createLineItemConfig = {
   info: {

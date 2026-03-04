@@ -30,7 +30,5 @@ export interface IFileUploadMeta {
 
 export interface IFileUploadMetaData extends IFileUploadMeta, IFileNameMeta {}
 
-export type DialogStateHandler = (
-  state: Record<string, string | number | boolean>,
-) => void;
+export type DialogStateHandler = (state: Record<string, string | number | boolean>) => void;
 export type FileHandler = (file: any) => void;

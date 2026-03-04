@@ -1,4 +1,3 @@
-
 import { Flex } from '@/uicomponents/layout';
 import { ConversationSidebar } from './conversation-sidebar';
 import { ChatContainer } from './chat-container';
@@ -8,7 +7,8 @@ export const AiAgentContainer = () => {
     <Flex
       style={{
         height: 'calc(100vh - 4rem)',
-      }}>
+      }}
+    >
       <ConversationSidebar />
       <ChatContainer />
     </Flex>

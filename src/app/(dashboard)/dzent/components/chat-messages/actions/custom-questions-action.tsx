@@ -14,21 +14,14 @@ type CustomQuestionsActionProps = {
   name: string;
 };
 
-export const CustomQuestionsAction = ({
-  validation,
-  name,
-  form,
-}: CustomQuestionsActionProps) => {
+export const CustomQuestionsAction = ({ validation, name, form }: CustomQuestionsActionProps) => {
   return (
     <DzBox style={{ minWidth: '15rem' }}>
       <FormList name={name}>
         {(fields, { add, remove }, { errors }) => (
           <>
             {fields.map((field, index) => (
-              <Flex
-                style={{ marginBlock: '0.5rem', gap: '0.5rem' }}
-                align='start'
-                key={field.key}>
+              <Flex style={{ marginBlock: '0.5rem', gap: '0.5rem' }} align='start' key={field.key}>
                 <Flex vertical key={field.key} gap={'0.5rem'}>
                   <FormItem
                     {...field}
@@ -42,11 +35,9 @@ export const CustomQuestionsAction = ({
                         message: 'Please enter question',
                       },
                     ]}
-                    noStyle>
-                    <Input
-                      style={{ background: CLR_WHITE }}
-                      placeholder='Enter Question'
-                    />
+                    noStyle
+                  >
+                    <Input style={{ background: CLR_WHITE }} placeholder='Enter Question' />
                   </FormItem>
                   <Flex gap={'0.5rem'}>
                     <FormItem
@@ -61,11 +52,9 @@ export const CustomQuestionsAction = ({
                           message: 'Please enter accepted answer',
                         },
                       ]}
-                      noStyle>
-                      <Input
-                        style={{ background: CLR_WHITE }}
-                        placeholder='Enter Accepted'
-                      />
+                      noStyle
+                    >
+                      <Input style={{ background: CLR_WHITE }} placeholder='Enter Accepted' />
                     </FormItem>
                     <FormItem
                       {...field}
@@ -79,11 +68,9 @@ export const CustomQuestionsAction = ({
                           message: 'Please enter rejected answer',
                         },
                       ]}
-                      noStyle>
-                      <Input
-                        style={{ background: CLR_WHITE }}
-                        placeholder='Enter Rejected'
-                      />
+                      noStyle
+                    >
+                      <Input style={{ background: CLR_WHITE }} placeholder='Enter Rejected' />
                     </FormItem>
                   </Flex>
                 </Flex>
@@ -110,7 +97,8 @@ export const CustomQuestionsAction = ({
                   color: '#000',
                   opacity: fields?.length >= validation?.maxCount ? 0.5 : 1,
                 }}
-                icon={<PlusOutlined />}>
+                icon={<PlusOutlined />}
+              >
                 Add Question
               </Button>
 

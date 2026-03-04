@@ -29,7 +29,8 @@ export const SupplierCardMetrics: FC<SupplierCardMetricsProps> = ({
           fontWeight: 700,
           color: '#000',
           lineHeight: '100%',
-        }}>
+        }}
+      >
         {data?.name === 'Current'
           ? `${data?.value ? (isCurrency ? '$' : '') + data.value : '0'}`
           : record?.value}

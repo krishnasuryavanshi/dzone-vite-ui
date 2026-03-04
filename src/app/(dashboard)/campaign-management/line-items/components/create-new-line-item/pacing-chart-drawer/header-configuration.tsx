@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import {
   Checkbox,
@@ -13,11 +12,7 @@ import { Col, Flex, Row, Space } from '@/uicomponents/layout';
 import { Dayjs } from 'dayjs';
 import styles from '../pacing-chart-drawer.module.css';
 import { Card } from '@/uicomponents/layout/card';
-import {
-  CalendarOutlined,
-  DownOutlined,
-  InfoCircleOutlined,
-} from '@/uicomponents/icons';
+import { CalendarOutlined, DownOutlined, InfoCircleOutlined } from '@/uicomponents/icons';
 import { PacingType, LineItemStatus } from '../../../lib/enums';
 import { OverflowConfirmation } from '../overflow-confirmation';
 
@@ -60,11 +55,8 @@ export const HeaderConfiguration: React.FC<HeaderConfigurationProps> = ({
   overflowDisabledPermanently = false,
   onOverflowEnable,
 }) => {
-  const [showOverflowConfirmation, setShowOverflowConfirmation] =
-    useState(false);
-  const [localOverflowDisabled, setLocalOverflowDisabled] = useState(
-    overflowDisabledPermanently,
-  );
+  const [showOverflowConfirmation, setShowOverflowConfirmation] = useState(false);
+  const [localOverflowDisabled, setLocalOverflowDisabled] = useState(overflowDisabledPermanently);
 
   // Update local state when prop changes
   useEffect(() => {
@@ -78,10 +70,7 @@ export const HeaderConfiguration: React.FC<HeaderConfigurationProps> = ({
     (!pacingSchedule || pacingSchedule === '');
 
   const canEnableOverflow =
-    lineItemId &&
-    !localOverflowDisabled &&
-    hasBeenLive &&
-    !isCustomPacingWithNoSchedule;
+    lineItemId && !localOverflowDisabled && hasBeenLive && !isCustomPacingWithNoSchedule;
 
   const handleOverflowToggle = (checked: boolean) => {
     if (checked && canEnableOverflow) {
@@ -122,24 +111,24 @@ export const HeaderConfiguration: React.FC<HeaderConfigurationProps> = ({
             color: '#565454',
             fontSize: '1.25rem',
             fontWeight: '700',
-          }}>
+          }}
+        >
           Set your pacing
         </Title>
         <Space className={styles.gradientBorderWrapper}>
           <Card className={styles.customPacingCard}>
             <RadioGroup
               value={pacing === PacingType.CUSTOM_PACING ? 'custom' : undefined}
-              onChange={() =>
-                !isReadOnly && onPacingChange?.(PacingType.CUSTOM_PACING)
-              }
-              disabled={isReadOnly}>
+              onChange={() => !isReadOnly && onPacingChange?.(PacingType.CUSTOM_PACING)}
+              disabled={isReadOnly}
+            >
               <Space align='start'>
                 <Radio value='custom' />
                 <Flex vertical gap='small'>
                   <Text strong>Custom Pacing</Text>
                   <Text type='secondary'>
-                    Manual configuration with flexible cap adjustments. Optional
-                    deficit management with validation.
+                    Manual configuration with flexible cap adjustments. Optional deficit management
+                    with validation.
                   </Text>
                 </Flex>
               </Space>
@@ -159,28 +148,18 @@ export const HeaderConfiguration: React.FC<HeaderConfigurationProps> = ({
                     fontSize: '0.875rem',
                     opacity: localOverflowDisabled ? 0.6 : 1,
                     color: localOverflowDisabled ? '#8c8c8c' : undefined,
-                  }}>
-                  {dateRange[0].format('MMM DD, YYYY')} -{' '}
-                  {dateRange[1].format('MMM DD, YYYY')}
+                  }}
+                >
+                  {dateRange[0].format('MMM DD, YYYY')} - {dateRange[1].format('MMM DD, YYYY')}
                 </Text>
                 <CalendarOutlined
                   style={{
                     fontSize: '0.875rem',
-                    cursor:
-                      isReadOnly || localOverflowDisabled
-                        ? 'default'
-                        : 'pointer',
-                    color:
-                      isReadOnly || localOverflowDisabled
-                        ? '#d9d9d9'
-                        : '#4D59D8',
+                    cursor: isReadOnly || localOverflowDisabled ? 'default' : 'pointer',
+                    color: isReadOnly || localOverflowDisabled ? '#d9d9d9' : '#4D59D8',
                     opacity: localOverflowDisabled ? 0.6 : 1,
                   }}
-                  onClick={
-                    isReadOnly || localOverflowDisabled
-                      ? undefined
-                      : onDateClick
-                  }
+                  onClick={isReadOnly || localOverflowDisabled ? undefined : onDateClick}
                 />
               </Space>
             ) : (
@@ -188,21 +167,12 @@ export const HeaderConfiguration: React.FC<HeaderConfigurationProps> = ({
                 <Text
                   style={{
                     fontSize: '0.875rem',
-                    cursor:
-                      isReadOnly || localOverflowDisabled
-                        ? 'default'
-                        : 'pointer',
-                    color:
-                      isReadOnly || localOverflowDisabled
-                        ? '#d9d9d9'
-                        : undefined,
+                    cursor: isReadOnly || localOverflowDisabled ? 'default' : 'pointer',
+                    color: isReadOnly || localOverflowDisabled ? '#d9d9d9' : undefined,
                     opacity: localOverflowDisabled ? 0.6 : 1,
                   }}
-                  onClick={
-                    isReadOnly || localOverflowDisabled
-                      ? undefined
-                      : onDateClick
-                  }>
+                  onClick={isReadOnly || localOverflowDisabled ? undefined : onDateClick}
+                >
                   {isReadOnly
                     ? 'Dates (Read Only)'
                     : localOverflowDisabled
@@ -212,21 +182,11 @@ export const HeaderConfiguration: React.FC<HeaderConfigurationProps> = ({
                 <CalendarOutlined
                   style={{
                     fontSize: '0.875rem',
-                    cursor:
-                      isReadOnly || localOverflowDisabled
-                        ? 'default'
-                        : 'pointer',
-                    color:
-                      isReadOnly || localOverflowDisabled
-                        ? '#d9d9d9'
-                        : '#4D59D8',
+                    cursor: isReadOnly || localOverflowDisabled ? 'default' : 'pointer',
+                    color: isReadOnly || localOverflowDisabled ? '#d9d9d9' : '#4D59D8',
                     opacity: localOverflowDisabled ? 0.6 : 1,
                   }}
-                  onClick={
-                    isReadOnly || localOverflowDisabled
-                      ? undefined
-                      : onDateClick
-                  }
+                  onClick={isReadOnly || localOverflowDisabled ? undefined : onDateClick}
                 />
               </Space>
             )}
@@ -254,19 +214,11 @@ export const HeaderConfiguration: React.FC<HeaderConfigurationProps> = ({
                   originalPacingValue === PacingType.CUSTOM_PACING &&
                   pacing === PacingType.CUSTOM_PACING)
               }
-              options={
-                pacingScheduleOptions.length > 0
-                  ? pacingScheduleOptions
-                  : undefined
-              }
+              options={pacingScheduleOptions.length > 0 ? pacingScheduleOptions : undefined}
               placeholder=''
               allowClear
               size='small'
-              suffixIcon={
-                <DownOutlined
-                  style={{ fontWeight: 'bold', fontSize: '10px' }}
-                />
-              }
+              suffixIcon={<DownOutlined style={{ fontWeight: 'bold', fontSize: '10px' }} />}
             />
           </Space>
         </Col>
@@ -284,7 +236,8 @@ export const HeaderConfiguration: React.FC<HeaderConfigurationProps> = ({
                         ? 'Overflow disables all pacing caps for this line item. Once enabled, suppliers can publish leads without pacing restrictions, and the line item switches to "No Pacing" mode. Reporting frequency remains unchanged. Overflow can only be enabled while editing live line items. This action is logged for audit purposes.'
                         : 'Overflow can only be enabled while editing the line item'
               }
-              placement='top'>
+              placement='top'
+            >
               <Space
                 className={
                   localOverflowDisabled ||
@@ -302,12 +255,11 @@ export const HeaderConfiguration: React.FC<HeaderConfigurationProps> = ({
                   pacing === PacingType.NO_PACING
                     ? { opacity: 0.6, cursor: 'not-allowed' }
                     : {}
-                }>
+                }
+              >
                 <Checkbox
                   checked={
-                    pacing === PacingType.NO_PACING
-                      ? false
-                      : localOverflowDisabled || allowOverflow
+                    pacing === PacingType.NO_PACING ? false : localOverflowDisabled || allowOverflow
                   }
                   disabled={
                     !dateRange ||
@@ -318,7 +270,8 @@ export const HeaderConfiguration: React.FC<HeaderConfigurationProps> = ({
                     isCustomPacingWithNoSchedule ||
                     pacing === PacingType.NO_PACING
                   }
-                  onChange={(e) => handleOverflowToggle(e.target.checked)}>
+                  onChange={(e) => handleOverflowToggle(e.target.checked)}
+                >
                   Allow Lead Overflow
                 </Checkbox>
                 <InfoCircleOutlined
@@ -333,18 +286,18 @@ export const HeaderConfiguration: React.FC<HeaderConfigurationProps> = ({
                 localOverflowDisabled || pacing === PacingType.NO_PACING
                   ? { opacity: 0.6, cursor: 'not-allowed' }
                   : {}
-              }>
+              }
+            >
               <Checkbox
-                checked={
-                  pacing === PacingType.NO_PACING ? false : deficitManagement
-                }
+                checked={pacing === PacingType.NO_PACING ? false : deficitManagement}
                 disabled={
                   !dateRange ||
                   isReadOnly ||
                   localOverflowDisabled ||
                   pacing === PacingType.NO_PACING
                 }
-                onChange={(e) => setdeficitManagement(e.target.checked)}>
+                onChange={(e) => setdeficitManagement(e.target.checked)}
+              >
                 Enable Deficit Management
               </Checkbox>
             </Space>

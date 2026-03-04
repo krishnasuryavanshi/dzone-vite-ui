@@ -10,9 +10,7 @@ export interface DateRangeValue {
  * @param filterInfo - The filter information object
  * @returns Processed filters ready for API consumption
  */
-export const processFiltersWithDateRange = <T extends Record<string, any>>(
-  filterInfo: T,
-) => {
+export const processFiltersWithDateRange = <T extends Record<string, any>>(filterInfo: T) => {
   return Object.entries(filterInfo)
     .filter(([, value]) => {
       // Check if it's an array with date range object inside
@@ -29,12 +27,7 @@ export const processFiltersWithDateRange = <T extends Record<string, any>>(
       }
 
       // Handle direct date range object filters
-      if (
-        value &&
-        typeof value === 'object' &&
-        !Array.isArray(value) &&
-        'from' in value
-      ) {
+      if (value && typeof value === 'object' && !Array.isArray(value) && 'from' in value) {
         const dateRange = value as DateRangeValue;
         const hasFrom = dateRange.from !== null && dateRange.from !== undefined;
         const hasTo = dateRange.to !== null && dateRange.to !== undefined;

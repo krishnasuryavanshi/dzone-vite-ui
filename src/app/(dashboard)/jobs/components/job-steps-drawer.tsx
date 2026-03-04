@@ -1,4 +1,3 @@
-
 import { Drawer } from '@/uicomponents/drawers/drawer';
 import { Timeline } from 'antd';
 import { FC } from 'react';
@@ -97,11 +96,7 @@ const StepContent: FC<{ step: IJobStep }> = ({ step }) => (
   </Space>
 );
 
-export const JobStepsDrawer: FC<JobStepsDrawerProps> = ({
-  job,
-  open,
-  onClose,
-}) => {
+export const JobStepsDrawer: FC<JobStepsDrawerProps> = ({ job, open, onClose }) => {
   if (!job) return null;
 
   const timelineItems =
@@ -124,7 +119,8 @@ export const JobStepsDrawer: FC<JobStepsDrawerProps> = ({
       placement='right'
       width={500}
       open={open}
-      onClose={onClose}>
+      onClose={onClose}
+    >
       <Space direction='vertical' size='large' style={{ width: '100%' }}>
         <Space direction='vertical' size={8}>
           <Flex align='center' gap='0.5rem'>

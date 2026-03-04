@@ -38,9 +38,7 @@ describe('fetchReportCountsData', () => {
     const mockResponse = { count: 42 };
 
     // Mock the API endpoint
-    nock(server)
-      .post(`/${ApiResources.DashboardStatsNoOfCantacts}`)
-      .reply(200, mockResponse);
+    nock(server).post(`/${ApiResources.DashboardStatsNoOfCantacts}`).reply(200, mockResponse);
 
     const result = await fetchReportCountsData(mockFilters, mockType);
     expect(result).toEqual(mockResponse);
@@ -55,9 +53,7 @@ describe('fetchReportCountsData', () => {
     const mockResponse = { count: 100 };
 
     // Mock the API endpoint
-    nock(server)
-      .post(`/${ApiResources.DashboardExecutiveBookings}`)
-      .reply(200, mockResponse);
+    nock(server).post(`/${ApiResources.DashboardExecutiveBookings}`).reply(200, mockResponse);
 
     const result = await fetchReportCountsData(mockExecutiveFilters, mockType);
     expect(result).toEqual(mockResponse);

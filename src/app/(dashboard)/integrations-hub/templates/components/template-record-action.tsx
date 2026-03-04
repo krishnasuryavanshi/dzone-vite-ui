@@ -10,9 +10,7 @@ interface ITemplateRecordActionProps {
   template: ITemplateRow;
 }
 
-export const TemplateRecordAction: FC<ITemplateRecordActionProps> = ({
-  template,
-}) => {
+export const TemplateRecordAction: FC<ITemplateRecordActionProps> = ({ template }) => {
   const getDropdownMenus = (template: ITemplateRow) => {
     const baseLink = `/integrations-hub/templates/${template.id}/update?id=${template.templateId}`;
 
@@ -32,9 +30,7 @@ export const TemplateRecordAction: FC<ITemplateRecordActionProps> = ({
   };
 
   return (
-    <Dropdown
-      menu={{ items: getDropdownMenus(template) }}
-      placement='bottomLeft'>
+    <Dropdown menu={{ items: getDropdownMenus(template) }} placement='bottomLeft'>
       <Button
         onClick={(e) => e.stopPropagation()}
         icon={<ThreeDotsActionsIcon />}

@@ -15,7 +15,8 @@ export const DrawerCloseButton: FC<IDrawerCloseButtonProps> = ({}) => {
         borderRadius: '50%',
         backgroundColor: DZONE_CLR_BLACK,
         padding: '0.5rem',
-      }}>
+      }}
+    >
       <LeftOutlined
         style={{
           fontSize: '0.75rem',

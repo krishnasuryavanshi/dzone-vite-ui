@@ -2,18 +2,11 @@ import React, { FC, SyntheticEvent } from 'react';
 import { Button, Dropdown, Link } from '@/uicomponents';
 import { ICampaign } from './lib/types';
 import { generateCampaignLinks } from './lib/utils';
-import {
-  cloneCampaign,
-  validateCampaign,
-  validateCreateLineItemsAction,
-} from './services';
+import { cloneCampaign, validateCampaign, validateCreateLineItemsAction } from './services';
 import { showNotification } from '@/services';
 import { usePermissionCheck, useQueryState } from '@/lib/hooks';
 import { useRouter } from '@/lib/hooks/use-router';
-import {
-  CampaignActionsEnum,
-  LineItemActionsEnum,
-} from '@/lib/enums/permissions';
+import { CampaignActionsEnum, LineItemActionsEnum } from '@/lib/enums/permissions';
 import { Link as NextJsLink } from 'react-router';
 import { ThreeDotsActionsIcon } from '@/uicomponents/icons/svgs';
 import { useCampaignListStore } from './store/use-campaign-list-store';
@@ -30,21 +23,15 @@ type ItemConfig = {
   label: React.ReactNode;
 };
 
-export const CampaignRowActions: FC<ICampaignRowActionsProps> = ({
-  campaign,
-}) => {
+export const CampaignRowActions: FC<ICampaignRowActionsProps> = ({ campaign }) => {
   const { setQueryState } = useQueryState();
   const showLoader = useCampaignListStore((s) => s.showLoader);
   const permissions: Partial<Record<PermissionKeys, boolean>> = {
     [CampaignActionsEnum.View]: usePermissionCheck(CampaignActionsEnum.View),
     [CampaignActionsEnum.Edit]: usePermissionCheck(CampaignActionsEnum.Edit),
-    [LineItemActionsEnum.Create]: usePermissionCheck(
-      LineItemActionsEnum.Create,
-    ),
+    [LineItemActionsEnum.Create]: usePermissionCheck(LineItemActionsEnum.Create),
     [LineItemActionsEnum.View]: usePermissionCheck(LineItemActionsEnum.View),
-    [CampaignActionsEnum.Create]: usePermissionCheck(
-      CampaignActionsEnum.Create,
-    ),
+    [CampaignActionsEnum.Create]: usePermissionCheck(CampaignActionsEnum.Create),
   };
   const listOfLineItemLink = generateCampaignLinks(campaign, 'lineItems');
   const createLineItemLink = generateCampaignLinks(campaign, 'createLineItems');
@@ -93,10 +80,7 @@ export const CampaignRowActions: FC<ICampaignRowActionsProps> = ({
   const ACTION_MAPPING: Partial<
     Record<
       PermissionKeys,
-      (
-        campaign: ICampaign,
-        stopPropagation: (e: SyntheticEvent) => void,
-      ) => React.ReactNode
+      (campaign: ICampaign, stopPropagation: (e: SyntheticEvent) => void) => React.ReactNode
     >
   > = {
     [CampaignActionsEnum.View]: (campaign, stopPropagation) => (
@@ -109,7 +93,8 @@ export const CampaignRowActions: FC<ICampaignRowActionsProps> = ({
         onClick={(e) => {
           e.stopPropagation();
           validateCampaignDetails(campaign?.id as string);
-        }}>
+        }}
+      >
         Edit Campaign
       </Link>
     ),
@@ -118,7 +103,8 @@ export const CampaignRowActions: FC<ICampaignRowActionsProps> = ({
         onClick={(e) => {
           e.stopPropagation();
           validateCreateLineItemAction(campaign?.id as string);
-        }}>
+        }}
+      >
         Create Line Item
       </Link>
     ),
@@ -135,13 +121,11 @@ export const CampaignRowActions: FC<ICampaignRowActionsProps> = ({
   const getDropdownMenus = (campaign: ICampaign) => {
     const stopPropagation = (e: SyntheticEvent) => e.stopPropagation();
 
-    const itemsConfig: ItemConfig[] = Object.entries(ACTION_MAPPING).map(
-      ([key, render]) => ({
-        key,
-        permission: key as PermissionKeys,
-        label: render(campaign, stopPropagation),
-      }),
-    );
+    const itemsConfig: ItemConfig[] = Object.entries(ACTION_MAPPING).map(([key, render]) => ({
+      key,
+      permission: key as PermissionKeys,
+      label: render(campaign, stopPropagation),
+    }));
 
     const filteredMenu = itemsConfig
       .filter((item) => permissions[item.permission])
@@ -151,9 +135,7 @@ export const CampaignRowActions: FC<ICampaignRowActionsProps> = ({
   };
 
   return (
-    <Dropdown
-      menu={{ items: getDropdownMenus(campaign) }}
-      placement='bottomLeft'>
+    <Dropdown menu={{ items: getDropdownMenus(campaign) }} placement='bottomLeft'>
       <Button
         onClick={(e) => e.stopPropagation()}
         icon={<ThreeDotsActionsIcon />}

@@ -1,9 +1,6 @@
 import { useForm, useWatch } from '@/uicomponents/form';
 import { useEffect, useRef, useState } from 'react';
-import {
-  createCampaign,
-  putCreateCampaign,
-} from '../../services';
+import { createCampaign, putCreateCampaign } from '../../services';
 import { calculateDateDiffs, formatDate, sanitizeData } from '@/lib/utils';
 import {
   formatCampaignFormData,
@@ -32,9 +29,7 @@ export const useCampaignForm = ({
   const router = useRouter();
   const [form] = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [disabledFields, setDisabledFields] = useState<Record<string, boolean>>(
-    {},
-  );
+  const [disabledFields, setDisabledFields] = useState<Record<string, boolean>>({});
   const [hasChanges, setHasChanges] = useState(false);
 
   const allFields = useWatch([], form);
@@ -68,9 +63,7 @@ export const useCampaignForm = ({
       campaignDuration: true,
     });
     if (tenantCode && !isDzoneUser) {
-      const marketer = lists.marketers?.find(
-        (m: any) => m.tenantCode === tenantCode[0],
-      );
+      const marketer = lists.marketers?.find((m: any) => m.tenantCode === tenantCode[0]);
       if (marketer) {
         form.setFieldsValue({
           marketerCode: marketer.tenantCode,
@@ -93,30 +86,19 @@ export const useCampaignForm = ({
     try {
       const payload = {
         ...values,
-        targetStartDate: values?.targetStartDate
-          ? formatDate(values?.targetStartDate)
-          : undefined,
-        targetEndDate: values?.targetEndDate
-          ? formatDate(values?.targetEndDate)
-          : undefined,
+        targetStartDate: values?.targetStartDate ? formatDate(values?.targetStartDate) : undefined,
+        targetEndDate: values?.targetEndDate ? formatDate(values?.targetEndDate) : undefined,
         opportunityCloseDate: values?.opportunityCloseDate
           ? formatDate(values?.opportunityCloseDate)
           : undefined,
         ioFileId: values?.ioFileId?.id,
-        bookedRevenue:
-          values?.bookedRevenue === 0 ? undefined : values?.bookedRevenue,
+        bookedRevenue: values?.bookedRevenue === 0 ? undefined : values?.bookedRevenue,
       };
       if (campaignUUId) {
         const initialFormatted = formatCampaignFormData(campaignData);
-        const changedFields = getChangedFields(
-          initialFormatted,
-          sanitizeData(payload),
-        );
+        const changedFields = getChangedFields(initialFormatted, sanitizeData(payload));
         if (Object.keys(changedFields).length > 0) {
-          const data = await putCreateCampaign(
-            sanitizeData(changedFields),
-            campaignUUId,
-          );
+          const data = await putCreateCampaign(sanitizeData(changedFields), campaignUUId);
           if (data?.data) {
             showNotification({ message: data.message });
             router.push('/campaign-management/campaigns');
@@ -141,9 +123,7 @@ export const useCampaignForm = ({
   useEffect(() => {
     if (!marketerCode || !lists?.marketers?.length) return;
     if (previousMarketerCode.current !== marketerCode) {
-      const selectedMarketer = lists.marketers.find(
-        (m: any) => m.tenantCode === marketerCode,
-      );
+      const selectedMarketer = lists.marketers.find((m: any) => m.tenantCode === marketerCode);
       if (selectedMarketer) {
         form.setFieldsValue({
           marketer: selectedMarketer.label,
@@ -156,10 +136,7 @@ export const useCampaignForm = ({
   }, [marketerCode, lists?.marketers]);
 
   useEffect(() => {
-    const duration = calculateDateDiffs(
-      allFields?.targetStartDate,
-      allFields?.targetEndDate,
-    );
+    const duration = calculateDateDiffs(allFields?.targetStartDate, allFields?.targetEndDate);
     form.setFieldsValue({
       campaignDuration: duration,
     });
@@ -173,9 +150,7 @@ export const useCampaignForm = ({
         form.setFields([
           {
             name: CampaignField.TargetEndDate,
-            errors: [
-              'Target End Date must be greater than or equal to Target Start Date',
-            ],
+            errors: ['Target End Date must be greater than or equal to Target Start Date'],
           },
         ]);
       } else {
@@ -204,10 +179,7 @@ export const useCampaignForm = ({
   }, [lists, campaignData]);
 
   useEffect(() => {
-    const hasChanged = getChangedFields(
-      formatCampaignFormData(campaignData),
-      allFields,
-    );
+    const hasChanged = getChangedFields(formatCampaignFormData(campaignData), allFields);
     setHasChanges(Object.keys(hasChanged).length > 0);
   }, [allFields, campaignData]);
 
@@ -246,9 +218,7 @@ export const useCampaignForm = ({
         rules.push({
           validator: (_: any, value: any) => {
             if (value && dayjs(value).isBefore(dayjs().startOf('day'))) {
-              return Promise.reject(
-                new Error(`${field.label} cannot be in the past`),
-              );
+              return Promise.reject(new Error(`${field.label} cannot be in the past`));
             }
             return Promise.resolve();
           },
@@ -258,15 +228,11 @@ export const useCampaignForm = ({
         if (field.field === CampaignField.TargetEndDate) {
           rules.push({
             validator: (_: any, value: any) => {
-              const targetStartDate = form.getFieldValue(
-                CampaignField.TargetStartDate,
-              );
+              const targetStartDate = form.getFieldValue(CampaignField.TargetStartDate);
               if (value && targetStartDate) {
                 if (dayjs(value).isBefore(dayjs(targetStartDate), 'day')) {
                   return Promise.reject(
-                    new Error(
-                      'Target End Date must be greater than or equal to Target Start Date',
-                    ),
+                    new Error('Target End Date must be greater than or equal to Target Start Date'),
                   );
                 }
               }
@@ -279,9 +245,7 @@ export const useCampaignForm = ({
         if (field.field === CampaignField.TargetStartDate) {
           rules.push({
             validator: (_: any, value: any) => {
-              const targetEndDate = form.getFieldValue(
-                CampaignField.TargetEndDate,
-              );
+              const targetEndDate = form.getFieldValue(CampaignField.TargetEndDate);
               if (value && targetEndDate) {
                 if (dayjs(targetEndDate).isBefore(dayjs(value), 'day')) {
                   // Clear the target end date error and set it on the target end date field
@@ -307,10 +271,7 @@ export const useCampaignForm = ({
     return rules;
   };
 
-  const processedFields = processFieldPermissions(
-    CampaignDetailsSchema || [],
-    disabledFields,
-  );
+  const processedFields = processFieldPermissions(CampaignDetailsSchema || [], disabledFields);
 
   const groupedFields = processedFields.reduce(
     (acc, field) => {

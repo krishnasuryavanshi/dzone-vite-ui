@@ -4,8 +4,10 @@ import { Spin } from '@/uicomponents';
 
 export const ScreenLoader: React.FC = () => {
   return (
-    <div className="loader-overlay">
-      <div className="loader"><Spin /></div>
+    <div className='loader-overlay'>
+      <div className='loader'>
+        <Spin />
+      </div>
     </div>
   );
 };

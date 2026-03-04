@@ -14,7 +14,8 @@ export const SendButton = ({ disabled, handleSend }: SendButtonProps) => {
       style={{
         cursor: disabled ? 'not-allowed' : 'pointer',
       }}
-      onClick={() => !disabled && handleSend()}>
+      onClick={() => !disabled && handleSend()}
+    >
       <SendOutlined
         style={{
           width: '1.4rem',

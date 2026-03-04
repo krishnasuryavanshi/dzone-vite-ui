@@ -19,12 +19,8 @@ export const formatCustomFieldsPayload = (values: DzRecord) => {
     const inclusionArray = field.inclusion || [];
     const exclusionArray = field.exclusion || [];
 
-    const inclusionString = Array.isArray(inclusionArray)
-      ? inclusionArray.join(',')
-      : null;
-    const exclusionString = Array.isArray(exclusionArray)
-      ? exclusionArray.join(',')
-      : null;
+    const inclusionString = Array.isArray(inclusionArray) ? inclusionArray.join(',') : null;
+    const exclusionString = Array.isArray(exclusionArray) ? exclusionArray.join(',') : null;
 
     return {
       position: index + 1,

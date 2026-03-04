@@ -1,4 +1,3 @@
-
 import { DzScrollContainer } from '@/components/layout/v1';
 import { RestrictedAccessKeys } from '@/lib/enums';
 import { useRestrictedAccess } from '@/lib/hooks';
@@ -35,9 +34,7 @@ export const ShowLineItemContainer: FC<IShowLineItemContainerProps> = ({
     return () => reset();
   }, []);
 
-  const isTargetCplRestricted = useRestrictedAccess(
-    RestrictedAccessKeys.CplFieldInLineItemDetails,
-  );
+  const isTargetCplRestricted = useRestrictedAccess(RestrictedAccessKeys.CplFieldInLineItemDetails);
 
   const restrictedFields: (string | false)[] = useMemo(
     () => [isTargetCplRestricted && LineItemFields.TargetCostPerLead],
@@ -69,7 +66,8 @@ export const ShowLineItemContainer: FC<IShowLineItemContainerProps> = ({
       <ShowLineItemWrapper
         lineItemId={lineItemId}
         campaignId={campaignId}
-        lineItemDetails={lineItemDetails}>
+        lineItemDetails={lineItemDetails}
+      >
         <DzScrollContainer vertical scoll='outside'>
           <DzScrollContainer.Sticky>
             <Flex vertical style={{ padding: '0.5rem', paddingBottom: '0rem' }}>

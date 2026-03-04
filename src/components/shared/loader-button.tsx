@@ -9,11 +9,7 @@ export const LoaderButton = ({ style }: { style?: React.CSSProperties }) => {
       htmlType='submit'
       style={{ width: '4.5rem', ...style }} // Merge default and provided styles
     >
-      <Spin
-        indicator={
-          <LoadingOutlined style={{ fontSize: 24, color: '#fff' }} spin />
-        }
-      />
+      <Spin indicator={<LoadingOutlined style={{ fontSize: 24, color: '#fff' }} spin />} />
     </Button>
   );
 };

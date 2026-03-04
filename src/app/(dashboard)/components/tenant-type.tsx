@@ -9,10 +9,7 @@ interface TenantTypeProps {
   isRole?: boolean;
 }
 
-export const TenantType = ({
-  isDisabled = false,
-  isRole = false,
-}: TenantTypeProps) => {
+export const TenantType = ({ isDisabled = false, isRole = false }: TenantTypeProps) => {
   const { tenantTypes } = useTenantTypeStore();
 
   return (
@@ -22,7 +19,8 @@ export const TenantType = ({
           className='input-control form-control-item'
           name={isRole ? 'tenantType' : 'type'}
           label='Tenant Type'
-          rules={[{ required: true, message: 'This field is required' }]}>
+          rules={[{ required: true, message: 'This field is required' }]}
+        >
           <RadioGroup>
             {tenantTypes?.map((type) => (
               <Radio key={type.id} value={type.name} disabled={isDisabled}>

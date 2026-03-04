@@ -14,11 +14,7 @@ interface IQuestionRowProps {
   restProps?: Record<string, any>;
 }
 
-export const QuestionRow: FC<IQuestionRowProps> = ({
-  field,
-  restField,
-  restProps,
-}) => {
+export const QuestionRow: FC<IQuestionRowProps> = ({ field, restField, restProps }) => {
   const [colLayout] = useState({
     xs: 24,
     sm: 24,

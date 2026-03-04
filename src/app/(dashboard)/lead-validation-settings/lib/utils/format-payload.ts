@@ -9,9 +9,7 @@ export const formatPayload = (
   const result: Record<string, any> = { ...values };
   const validations: Record<string, any> = {};
 
-  const enabledRulesKeys = Object.keys(enabledRules).filter(
-    (key) => enabledRules[key],
-  );
+  const enabledRulesKeys = Object.keys(enabledRules).filter((key) => enabledRules[key]);
   for (const rule of enabledRulesKeys) {
     const config = leadValidationSettingConfig[rule];
     if (!config) continue;
@@ -55,10 +53,7 @@ export const formatPayload = (
         continue;
       }
       // General case: map selectedSection to array of {name, value}
-      if (
-        typeof selectedSection === 'object' &&
-        !Array.isArray(selectedSection)
-      ) {
+      if (typeof selectedSection === 'object' && !Array.isArray(selectedSection)) {
         const arr: any[] = [];
         for (const key in selectedSection) {
           arr.push({ name: key, value: selectedSection[key] });

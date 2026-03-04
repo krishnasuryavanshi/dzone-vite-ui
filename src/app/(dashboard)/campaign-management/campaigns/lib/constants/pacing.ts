@@ -1,26 +1,26 @@
 export const Pacing = [
   {
-    label: "Daily",
-    value: "DAILY",
+    label: 'Daily',
+    value: 'DAILY',
   },
   {
-    label: "Weekly",
-    value: "WEEKLY",
+    label: 'Weekly',
+    value: 'WEEKLY',
   },
   {
-    label: "Bi-Weekly",
-    value: "BI_WEEKLY",
+    label: 'Bi-Weekly',
+    value: 'BI_WEEKLY',
   },
   {
-    label: "Monthly",
-    value: "MONTHLY",
+    label: 'Monthly',
+    value: 'MONTHLY',
   },
   {
-    label: "Frontload",
-    value: "FRONTLOAD",
+    label: 'Frontload',
+    value: 'FRONTLOAD',
   },
   {
-    label: "ASAP",
-    value: "ASAP",
+    label: 'ASAP',
+    value: 'ASAP',
   },
 ];

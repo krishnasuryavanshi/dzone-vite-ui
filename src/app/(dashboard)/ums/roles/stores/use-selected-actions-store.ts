@@ -9,40 +9,34 @@ interface ISelectedActionsState {
   resetSelectedActions: () => void;
 }
 
-export const useSelectedActionsStore = create<ISelectedActionsState>(
-  (set, get) => ({
-    selectedActions: {},
+export const useSelectedActionsStore = create<ISelectedActionsState>((set, get) => ({
+  selectedActions: {},
 
-    setSelectedAction: (moduleId, actionId) =>
-      set((state) => ({
-        selectedActions: {
-          ...state.selectedActions,
-          [moduleId]: [...(state.selectedActions[moduleId] || []), actionId],
-        },
-      })),
+  setSelectedAction: (moduleId, actionId) =>
+    set((state) => ({
+      selectedActions: {
+        ...state.selectedActions,
+        [moduleId]: [...(state.selectedActions[moduleId] || []), actionId],
+      },
+    })),
 
-    setBulkSelectedActions: (actions) =>
-      set(() => ({
-        selectedActions: actions,
-      })),
+  setBulkSelectedActions: (actions) =>
+    set(() => ({
+      selectedActions: actions,
+    })),
 
-    removeSelectedAction: (moduleId, actionId) =>
-      set((state) => ({
-        selectedActions: {
-          ...state.selectedActions,
-          [moduleId]: [
-            ...(state.selectedActions[moduleId] || []).filter(
-              (id) => id !== actionId,
-            ),
-          ],
-        },
-      })),
+  removeSelectedAction: (moduleId, actionId) =>
+    set((state) => ({
+      selectedActions: {
+        ...state.selectedActions,
+        [moduleId]: [...(state.selectedActions[moduleId] || []).filter((id) => id !== actionId)],
+      },
+    })),
 
-    getAllSelectedActions: () => Object.values(get().selectedActions).flat(),
+  getAllSelectedActions: () => Object.values(get().selectedActions).flat(),
 
-    resetSelectedActions: () =>
-      set(() => ({
-        selectedActions: {},
-      })),
-  }),
-);
+  resetSelectedActions: () =>
+    set(() => ({
+      selectedActions: {},
+    })),
+}));

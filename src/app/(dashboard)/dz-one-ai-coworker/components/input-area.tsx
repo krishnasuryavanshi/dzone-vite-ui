@@ -1,4 +1,3 @@
-
 import { WarningOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
@@ -37,7 +36,8 @@ export const InputArea = ({ onFileUploadRef }: InputAreaProps) => {
         padding: '1rem 1.5rem',
         marginInline: '6rem',
         backgroundColor: '#fff',
-      }}>
+      }}
+    >
       <Hideable show={isTenantUnavailable}>
         <Flex
           align='center'
@@ -49,7 +49,8 @@ export const InputArea = ({ onFileUploadRef }: InputAreaProps) => {
             border: '1px solid #ffccc7',
             borderRadius: '1.5rem',
             backgroundColor: '#fff2f0',
-          }}>
+          }}
+        >
           <WarningOutlined style={{ color: COLORS.ERROR, fontSize: '1rem' }} />
           <Text style={{ color: COLORS.ERROR }}>
             Tenant not available. You cannot send messages.
@@ -66,16 +67,11 @@ export const InputArea = ({ onFileUploadRef }: InputAreaProps) => {
             border: '1px solid #d9d9d9',
             borderRadius: '1.5rem',
             backgroundColor: '#fff',
-          }}>
-          <AttachmentPreview
-            attachments={attachments}
-            onRemove={handleRemoveAttachment}
-          />
+          }}
+        >
+          <AttachmentPreview attachments={attachments} onRemove={handleRemoveAttachment} />
 
-          <Flex
-            align='flex-end'
-            gap='0.75rem'
-            style={{ padding: '0.625rem 1rem' }}>
+          <Flex align='flex-end' gap='0.75rem' style={{ padding: '0.625rem 1rem' }}>
             <InputUploadButton
               isStreaming={isStreaming}
               inputDisabled={inputDisabled}
@@ -83,11 +79,7 @@ export const InputArea = ({ onFileUploadRef }: InputAreaProps) => {
               onFilesUpload={handleFilesUpload}
             />
 
-            <InputTextArea
-              value={value}
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-            />
+            <InputTextArea value={value} onChange={handleChange} onKeyDown={handleKeyDown} />
 
             <InputSendButton
               isStreaming={isStreaming}

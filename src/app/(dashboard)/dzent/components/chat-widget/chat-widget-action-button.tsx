@@ -41,7 +41,8 @@ export const ChatWidgetActionButton = ({
             color={CLR_BLACK}
           />
         ) : null
-      }>
+      }
+    >
       <Button
         size='small'
         className={
@@ -51,7 +52,8 @@ export const ChatWidgetActionButton = ({
           (className ? ` ${className}` : '')
         }
         onClick={onClick}
-        disabled={loading}>
+        disabled={loading}
+      >
         {loading ? <LoadingOutlined /> : ''}
         {label}
       </Button>

@@ -58,7 +58,8 @@ export const FileUploadModal: FC<IFileUploadModalProps> = ({
       closable={false}
       destroyOnClose
       maskClosable={false}
-      title={<ModalHeader title={title} />}>
+      title={<ModalHeader title={title} />}
+    >
       <Flex vertical gap={'1rem'} style={{ padding: '1.25rem 1.5rem' }}>
         {fileTypeSelection === FileTypeSelection.Templates && (
           <DownloadTemplateRow
@@ -72,10 +73,7 @@ export const FileUploadModal: FC<IFileUploadModalProps> = ({
           <TypeCheckRow onTypeChange={handleTypeSelection} />
         )}
 
-        <UploadButtonRow
-          uploadProps={uploadProps}
-          fileName={selectedFile?.name}
-        />
+        <UploadButtonRow uploadProps={uploadProps} fileName={selectedFile?.name} />
 
         <ActionsRow
           enableSave={enableSave}

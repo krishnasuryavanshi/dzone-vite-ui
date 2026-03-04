@@ -27,12 +27,9 @@ export const DateFormatSelect: FC<IDateFormatSelectProps> = ({
       name={name}
       label='Date Format'
       rules={[{ required: true, message: 'Date format is required' }]}
-      className='input-control form-control-item'>
-      <Select
-        placeholder='Select Format'
-        options={DATE_FORMAT_OPTIONS}
-        disabled={disabled}
-      />
+      className='input-control form-control-item'
+    >
+      <Select placeholder='Select Format' options={DATE_FORMAT_OPTIONS} disabled={disabled} />
     </FormItem>
   );
 };

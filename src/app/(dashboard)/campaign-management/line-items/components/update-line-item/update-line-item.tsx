@@ -6,17 +6,9 @@ interface IUpdateLineItemProps {
   userDetails?: any;
   tenantCode?: string | string[];
 }
-const UpdateLineItem: FC<IUpdateLineItemProps> = ({
-  lineItemId,
-  userDetails,
-  tenantCode,
-}) => {
+const UpdateLineItem: FC<IUpdateLineItemProps> = ({ lineItemId, userDetails, tenantCode }) => {
   return (
-    <CreateNewLineItem
-      lineItemId={lineItemId}
-      userDetails={userDetails}
-      tenantCode={tenantCode}
-    />
+    <CreateNewLineItem lineItemId={lineItemId} userDetails={userDetails} tenantCode={tenantCode} />
   );
 };
 

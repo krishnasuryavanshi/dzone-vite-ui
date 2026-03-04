@@ -1,4 +1,3 @@
-
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
 import { FC, useState, useEffect, useRef, useCallback } from 'react';
@@ -14,12 +13,7 @@ interface ThinkingBlockProps {
   isActive: boolean;
 }
 
-export const ThinkingBlock: FC<ThinkingBlockProps> = ({
-  content,
-  steps,
-  duration,
-  isActive,
-}) => {
+export const ThinkingBlock: FC<ThinkingBlockProps> = ({ content, steps, duration, isActive }) => {
   const [elapsed, setElapsed] = useState(0);
   const [finalDuration, setFinalDuration] = useState<number | null>(null);
   const [isExpanded, setIsExpanded] = useState(true);
@@ -71,7 +65,8 @@ export const ThinkingBlock: FC<ThinkingBlockProps> = ({
         border: `1px solid ${COLORS.BORDER}`,
         borderRadius: '0.5rem',
         marginBottom: '0.5rem',
-      }}>
+      }}
+    >
       <ThinkingHeader
         isActive={isActive}
         headerText={headerText}
@@ -84,7 +79,8 @@ export const ThinkingBlock: FC<ThinkingBlockProps> = ({
           gap='0.25rem'
           style={{
             padding: '0 0.75rem 0.75rem 0.75rem',
-          }}>
+          }}
+        >
           {isActive
             ? // During thinking: show only the latest step
               steps &&
@@ -93,7 +89,8 @@ export const ThinkingBlock: FC<ThinkingBlockProps> = ({
                   style={{
                     fontSize: '0.8125rem',
                     color: COLORS.GRAY_MEDIUM,
-                  }}>
+                  }}
+                >
                   {steps[steps.length - 1]}
                 </Text>
               )
@@ -104,7 +101,8 @@ export const ThinkingBlock: FC<ThinkingBlockProps> = ({
                   style={{
                     fontSize: '0.8125rem',
                     color: COLORS.GRAY_MEDIUM,
-                  }}>
+                  }}
+                >
                   {step}
                 </Text>
               ))}
@@ -115,7 +113,8 @@ export const ThinkingBlock: FC<ThinkingBlockProps> = ({
                 fontSize: '0.8125rem',
                 whiteSpace: 'pre-wrap',
                 color: COLORS.GRAY_MEDIUM,
-              }}>
+              }}
+            >
               {content}
             </Text>
           </Hideable>

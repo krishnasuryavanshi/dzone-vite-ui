@@ -1,1 +1,1 @@
-export * from "./dz-bar-chart";
+export * from './dz-bar-chart';

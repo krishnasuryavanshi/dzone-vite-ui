@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useMemo,
-  useRef,
-} from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { debounce } from 'lodash';
 import { Drawer, Alert, Text } from '@/components/uicomponents';
 import { Title } from '@/components/uicomponents';
@@ -83,9 +77,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
   onOverflowEnable,
 }) => {
   // ============= STATE MANAGEMENT =============
-  const [pacingSchedule, setPacingSchedule] = useState<string>(
-    propPacingSchedule || '',
-  );
+  const [pacingSchedule, setPacingSchedule] = useState<string>(propPacingSchedule || '');
   const [targetLeadGoal, setTargetLeadGoal] = useState(propTargetLeadGoal || 0);
   const [loading, setLoading] = useState(false);
   const [hideZeroLeadCount, setHideZeroLeadCount] = useState(false);
@@ -96,9 +88,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
   const [dateRange, setDateRange] = useState<[Dayjs, Dayjs] | null>(null);
   const [showDatePicker, setShowDatePicker] = useState(false);
   // Track local overflow disabled state for immediate UI updates
-  const [localOverflowDisabled, setLocalOverflowDisabled] = useState(
-    overflowDisabledPermanently,
-  );
+  const [localOverflowDisabled, setLocalOverflowDisabled] = useState(overflowDisabledPermanently);
 
   // Sync with prop changes
   useEffect(() => {
@@ -145,15 +135,9 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
 
   // Watch form fields if in create mode to detect changes
   const watchedTargetLeadGoal = useWatch('targetLeadGoal', form);
-  const watchedTargetDeliveryStartDate = useWatch(
-    'targetDeliveryStartDate',
-    form,
-  );
+  const watchedTargetDeliveryStartDate = useWatch('targetDeliveryStartDate', form);
   const watchedLineItemTargetEndDate = useWatch('lineItemTargetEndDate', form);
-  const watchedLineItemTargetStartDate = useWatch(
-    'lineItemTargetStartDate',
-    form,
-  );
+  const watchedLineItemTargetStartDate = useWatch('lineItemTargetStartDate', form);
 
   // ============= COMPUTED VALUES =============
   const currentTotal = useMemo(() => {
@@ -262,13 +246,11 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
 
         // Check if pacing schedule has changed (always fetch if it has)
         const hasPacingScheduleChanged =
-          previousFieldValuesRef.current.pacingSchedule !==
-          currentFieldValues.pacingSchedule;
+          previousFieldValuesRef.current.pacingSchedule !== currentFieldValues.pacingSchedule;
 
         // Compare with previous values for other fields
         const hasOtherFieldsChanged =
-          previousFieldValuesRef.current.targetLeadGoal !==
-            currentFieldValues.targetLeadGoal ||
+          previousFieldValuesRef.current.targetLeadGoal !== currentFieldValues.targetLeadGoal ||
           previousFieldValuesRef.current.targetDeliveryStartDate !==
             currentFieldValues.targetDeliveryStartDate ||
           previousFieldValuesRef.current.lineItemTargetEndDate !==
@@ -290,11 +272,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
           // Continue to fetch data
         }
         // If no fields changed and we have existing custom pacing data, use it
-        else if (
-          !hasOtherFieldsChanged &&
-          customPacingData &&
-          customPacingData.length > 0
-        ) {
+        else if (!hasOtherFieldsChanged && customPacingData && customPacingData.length > 0) {
           setEditedData(JSON.parse(JSON.stringify(customPacingData)));
           return;
         }
@@ -304,12 +282,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
       // 1. It exists and has data
       // 2. We're not forcing a fetch
       // 3. In preview mode with existing data OR in edit mode
-      if (
-        customPacingData &&
-        customPacingData.length > 0 &&
-        !forceFetch &&
-        lineItemId
-      ) {
+      if (customPacingData && customPacingData.length > 0 && !forceFetch && lineItemId) {
         setEditedData(JSON.parse(JSON.stringify(customPacingData)));
         return;
       }
@@ -321,13 +294,12 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
         if (propLineItemTargetStartDate) {
           if (typeof propLineItemTargetStartDate === 'string') {
             // If it's a string, parse it to dayjs and format
-            formattedLineItemTargetStartDate = dayjs(
-              propLineItemTargetStartDate,
-            ).format('YYYY-MM-DD');
+            formattedLineItemTargetStartDate = dayjs(propLineItemTargetStartDate).format(
+              'YYYY-MM-DD',
+            );
           } else if (dayjs.isDayjs(propLineItemTargetStartDate)) {
             // If it's already a dayjs object, format it
-            formattedLineItemTargetStartDate =
-              propLineItemTargetStartDate.format('YYYY-MM-DD');
+            formattedLineItemTargetStartDate = propLineItemTargetStartDate.format('YYYY-MM-DD');
           }
         }
         const params: FetchPacingScheduleParams = {
@@ -339,8 +311,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
           pacingSchedule: currentPacingSchedule,
           pacing,
           allowOverflow: overrides.allowOverflow ?? allowOverflow ?? false,
-          deficitManagement:
-            overrides.deficitManagement ?? deficitManagement ?? true,
+          deficitManagement: overrides.deficitManagement ?? deficitManagement ?? true,
         };
         const data = await fetchPacingSchedule(params);
         if (data) {
@@ -402,11 +373,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
   );
   // ============= EVENT HANDLERS =============
   const handleLeadsCountChange = useCallback(
-    (
-      value: number | null | string,
-      recordId: string,
-      isParent: boolean = false,
-    ) => {
+    (value: number | null | string, recordId: string, isParent: boolean = false) => {
       // Handle null/undefined/empty string as 0, ensure it's a number
       let numValue = 0;
       if (value !== null && value !== undefined && value !== '') {
@@ -440,26 +407,19 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
                 // Redistribute proportionally, excluding past dates
                 const today = dayjs().startOf('day');
                 const editableSchedules = period.schedules.filter((s: any) => {
-                  const scheduleDate = dayjs(s.date, 'YYYY-MM-DD').startOf(
-                    'day',
-                  );
+                  const scheduleDate = dayjs(s.date, 'YYYY-MM-DD').startOf('day');
                   return !scheduleDate.isBefore(today);
                 });
 
                 if (editableSchedules.length > 0) {
-                  const perSchedule = Math.floor(
-                    numValue / editableSchedules.length,
-                  );
+                  const perSchedule = Math.floor(numValue / editableSchedules.length);
                   const remainder = numValue % editableSchedules.length;
                   let distributedCount = 0;
                   let remainderAssigned = 0;
 
                   for (let j = 0; j < period.schedules.length; j++) {
                     const schedule = period.schedules[j];
-                    const scheduleDate = dayjs(
-                      schedule.date,
-                      'YYYY-MM-DD',
-                    ).startOf('day');
+                    const scheduleDate = dayjs(schedule.date, 'YYYY-MM-DD').startOf('day');
 
                     if (scheduleDate.isBefore(today)) {
                       // Keep past dates unchanged
@@ -470,8 +430,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
                         (s: any) => s.id === schedule.id,
                       );
                       if (editableIndex !== -1) {
-                        schedule.LeadsCount =
-                          perSchedule + (remainderAssigned < remainder ? 1 : 0);
+                        schedule.LeadsCount = perSchedule + (remainderAssigned < remainder ? 1 : 0);
                         if (remainderAssigned < remainder) remainderAssigned++;
                         distributedCount += schedule.LeadsCount;
                       }
@@ -500,18 +459,14 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
       for (let i = 0; i < newData.length; i++) {
         const period = newData[i];
         if (period.schedules) {
-          const scheduleIndex = period.schedules.findIndex(
-            (s: any) => s.id === recordId,
-          );
+          const scheduleIndex = period.schedules.findIndex((s: any) => s.id === recordId);
           if (scheduleIndex !== -1) {
             // Found it as a schedule item - update only this specific schedule
             const schedule = period.schedules[scheduleIndex];
 
             // Check if this date is in the past
             const today = dayjs().startOf('day');
-            const scheduleDate = dayjs(schedule.date, 'YYYY-MM-DD').startOf(
-              'day',
-            );
+            const scheduleDate = dayjs(schedule.date, 'YYYY-MM-DD').startOf('day');
 
             if (scheduleDate.isBefore(today)) {
               // Don't allow editing past dates
@@ -547,29 +502,21 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
                 // Redistribute proportionally, excluding past dates
                 const today = dayjs().startOf('day');
                 const editableSchedules = period.schedules.filter((s: any) => {
-                  const scheduleDate = dayjs(s.date, 'YYYY-MM-DD').startOf(
-                    'day',
-                  );
+                  const scheduleDate = dayjs(s.date, 'YYYY-MM-DD').startOf('day');
                   return !scheduleDate.isBefore(today);
                 });
 
                 if (editableSchedules.length > 0) {
-                  const perSchedule = Math.floor(
-                    numValue / editableSchedules.length,
-                  );
+                  const perSchedule = Math.floor(numValue / editableSchedules.length);
                   const remainder = numValue % editableSchedules.length;
                   let remainderAssigned = 0;
 
                   for (let j = 0; j < period.schedules.length; j++) {
                     const schedule = period.schedules[j];
-                    const scheduleDate = dayjs(
-                      schedule.date,
-                      'YYYY-MM-DD',
-                    ).startOf('day');
+                    const scheduleDate = dayjs(schedule.date, 'YYYY-MM-DD').startOf('day');
 
                     if (!scheduleDate.isBefore(today)) {
-                      schedule.LeadsCount =
-                        perSchedule + (remainderAssigned < remainder ? 1 : 0);
+                      schedule.LeadsCount = perSchedule + (remainderAssigned < remainder ? 1 : 0);
                       if (remainderAssigned < remainder) remainderAssigned++;
                     }
                   }
@@ -606,9 +553,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
   const handlePeriodAutoAdjust = useCallback(
     (periodId: string, targetTotal: number) => {
       const newData = JSON.parse(JSON.stringify(editedData));
-      const periodIndex = newData.findIndex(
-        (p: PacingPeriod) => p.id === periodId,
-      );
+      const periodIndex = newData.findIndex((p: PacingPeriod) => p.id === periodId);
 
       if (periodIndex !== -1) {
         // Simply update the parent period's target to match the child total
@@ -631,8 +576,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
       // Get current form values
       const currentPacing = form.getFieldValue('pacing') ?? pacing;
       const currentAllowOverflow = form.getFieldValue('allowOverflow') ?? false;
-      const currentDeficitManagement =
-        form.getFieldValue('deficitManagement') ?? true;
+      const currentDeficitManagement = form.getFieldValue('deficitManagement') ?? true;
       // Create current pacing data for comparison
       const currentPacingData = {
         pacing: currentPacing, // Use current form value
@@ -659,17 +603,12 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
 
       // Check if there are any changes compared to original data
       if (originalPacingData) {
-        const changedData = getChangedData(
-          currentPacingData,
-          originalPacingData,
-        );
+        const changedData = getChangedData(currentPacingData, originalPacingData);
 
         // If dates were changed via the modal, always include them
         if (datesChanged) {
-          changedData.targetDeliveryStartDate =
-            dateRange?.[0]?.format('YYYY-MM-DD');
-          changedData.lineItemTargetEndDate =
-            dateRange?.[1]?.format('YYYY-MM-DD');
+          changedData.targetDeliveryStartDate = dateRange?.[0]?.format('YYYY-MM-DD');
+          changedData.lineItemTargetEndDate = dateRange?.[1]?.format('YYYY-MM-DD');
         }
 
         // If no changes detected, don't make API call
@@ -689,13 +628,9 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
             const payloadWithCurrentState = {
               ...changedData,
               allowOverflow: form?.getFieldValue('allowOverflow') ?? false,
-              deficitManagement:
-                form?.getFieldValue('deficitManagement') ?? true,
+              deficitManagement: form?.getFieldValue('deficitManagement') ?? true,
             };
-            response = await updateLineItem(
-              payloadWithCurrentState,
-              lineItemId,
-            );
+            response = await updateLineItem(payloadWithCurrentState, lineItemId);
           }
 
           if (response?.data) {
@@ -704,8 +639,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
                 pacing, // Include pacing field
                 pacingSchedule,
                 allowOverflow: form?.getFieldValue('allowOverflow') ?? false,
-                deficitManagement:
-                  form?.getFieldValue('deficitManagement') ?? true,
+                deficitManagement: form?.getFieldValue('deficitManagement') ?? true,
                 targetLeadGoal: targetGoal,
                 targetDeliveryStartDate: dateRange?.[0]?.format('YYYY-MM-DD'),
                 lineItemTargetEndDate: dateRange?.[1]?.format('YYYY-MM-DD'),
@@ -776,11 +710,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
     const hasParentError = currentTotal !== targetLeadGoal;
 
     // Prevent save if there's a parent error (overall total mismatch)
-    if (
-      pacingSchedule !== Pacing.UNCAPPED &&
-      targetLeadGoal &&
-      hasParentError
-    ) {
+    if (pacingSchedule !== Pacing.UNCAPPED && targetLeadGoal && hasParentError) {
       // Prevent save when overall total doesn't match
       return;
     }
@@ -883,19 +813,13 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
         // Reset drawer's internal state to match what's already in the form
         // This ensures next time drawer opens, it shows the correct data
         setPacingSchedule(
-          form?.getFieldValue('pacingSchedule') ||
-            originalPacingData.pacingSchedule ||
-            '',
+          form?.getFieldValue('pacingSchedule') || originalPacingData.pacingSchedule || '',
         );
         setEditedData(
-          form?.getFieldValue('customPacingData') ||
-            originalPacingData.customPacingData ||
-            [],
+          form?.getFieldValue('customPacingData') || originalPacingData.customPacingData || [],
         );
         setLocalOverflowDisabled(
-          form?.getFieldValue('allowOverflow') ||
-            originalPacingData.allowOverflow ||
-            false,
+          form?.getFieldValue('allowOverflow') || originalPacingData.allowOverflow || false,
         );
 
         // Don't change any form values - keep everything as is
@@ -930,10 +854,8 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
         }
 
         // Save overflow and deficit management settings
-        formUpdates.allowOverflow =
-          form.getFieldValue('allowOverflow') ?? false;
-        formUpdates.deficitManagement =
-          form.getFieldValue('deficitManagement') ?? true;
+        formUpdates.allowOverflow = form.getFieldValue('allowOverflow') ?? false;
+        formUpdates.deficitManagement = form.getFieldValue('deficitManagement') ?? true;
 
         // Apply all updates to form
         if (Object.keys(formUpdates).length > 0) {
@@ -1048,12 +970,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
 
   // In create mode, auto-fetch when key fields change (even if drawer is closed)
   useEffect(() => {
-    if (
-      !lineItemId &&
-      pacingSchedule &&
-      customPacingData &&
-      customPacingData.length > 0
-    ) {
+    if (!lineItemId && pacingSchedule && customPacingData && customPacingData.length > 0) {
       // Get current field values from props/watched values
       const currentFieldValues = {
         targetLeadGoal: propTargetLeadGoal,
@@ -1084,8 +1001,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
       if (previousFieldValuesRef.current.pacingSchedule === pacingSchedule) {
         // Same pacing schedule, check if other fields changed
         const hasFieldsChanged =
-          previousFieldValuesRef.current.targetLeadGoal !==
-            currentFieldValues.targetLeadGoal ||
+          previousFieldValuesRef.current.targetLeadGoal !== currentFieldValues.targetLeadGoal ||
           previousFieldValuesRef.current.targetDeliveryStartDate !==
             currentFieldValues.targetDeliveryStartDate ||
           previousFieldValuesRef.current.lineItemTargetEndDate !==
@@ -1115,18 +1031,12 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
             }
 
             // Check if delivery start date is after end date
-            if (
-              deliveryStartDate &&
-              deliveryStartDate.isAfter(endDate, 'day')
-            ) {
+            if (deliveryStartDate && deliveryStartDate.isAfter(endDate, 'day')) {
               hasDateErrors = true;
             }
 
             // Check if delivery start date is before start date
-            if (
-              deliveryStartDate &&
-              deliveryStartDate.isBefore(startDate, 'day')
-            ) {
+            if (deliveryStartDate && deliveryStartDate.isBefore(startDate, 'day')) {
               hasDateErrors = true;
             }
           }
@@ -1141,12 +1051,8 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
               currentFieldValues.targetDeliveryStartDate &&
               currentFieldValues.lineItemTargetEndDate
             ) {
-              const newStartDate = dayjs(
-                currentFieldValues.targetDeliveryStartDate,
-              );
-              const newEndDate = dayjs(
-                currentFieldValues.lineItemTargetEndDate,
-              );
+              const newStartDate = dayjs(currentFieldValues.targetDeliveryStartDate);
+              const newEndDate = dayjs(currentFieldValues.lineItemTargetEndDate);
               setDateRange([newStartDate, newEndDate]);
             }
 
@@ -1159,10 +1065,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
 
             // Force fetch with new values
             if (propTargetDeliveryStartDate && propTargetEndDate) {
-              const dateRange = [
-                dayjs(propTargetDeliveryStartDate),
-                dayjs(propTargetEndDate),
-              ];
+              const dateRange = [dayjs(propTargetDeliveryStartDate), dayjs(propTargetEndDate)];
 
               // Check if only Target Lead Goal changed (use debouncing)
               const onlyTLGChanged =
@@ -1201,8 +1104,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
             previousFieldValuesRef.current = {
               ...currentFieldValues,
               pacingSchedule,
-              customPacingData:
-                previousFieldValuesRef.current.customPacingData || [],
+              customPacingData: previousFieldValuesRef.current.customPacingData || [],
             };
           }
         }
@@ -1289,8 +1191,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
           // In edit/create mode, handle data differently
           if (!lineItemId) {
             // In create mode, check if data was auto-updated due to field changes
-            const formCustomPacingData =
-              form?.getFieldValue('customPacingData');
+            const formCustomPacingData = form?.getFieldValue('customPacingData');
             const wasAutoUpdated = form?.getFieldValue('pacingDataAutoUpdated');
             const currentTLG = targetLeadGoal || propTargetLeadGoal;
 
@@ -1304,19 +1205,12 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
               // TLG/dates changed, show OLD pacing data to display mismatch
               // Show old data in drawer for user to see mismatch
               setEditedData(
-                JSON.parse(
-                  JSON.stringify(
-                    previousFieldValuesRef.current.customPacingData,
-                  ),
-                ),
+                JSON.parse(JSON.stringify(previousFieldValuesRef.current.customPacingData)),
               );
 
               // Clear the auto-updated flag
               form?.setFieldValue('pacingDataAutoUpdated', false);
-            } else if (
-              formCustomPacingData &&
-              formCustomPacingData.length > 0
-            ) {
+            } else if (formCustomPacingData && formCustomPacingData.length > 0) {
               // Use form data (either user-adjusted or auto-fetched)
               setEditedData(JSON.parse(JSON.stringify(formCustomPacingData)));
             } else if (customPacingData && customPacingData.length > 0) {
@@ -1324,12 +1218,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
               setEditedData(JSON.parse(JSON.stringify(customPacingData)));
             } else {
               // No data available, might need to fetch
-              if (
-                pacingSchedule &&
-                targetLeadGoal > 0 &&
-                dateRange &&
-                !isFetchingRef.current
-              ) {
+              if (pacingSchedule && targetLeadGoal > 0 && dateRange && !isFetchingRef.current) {
                 // Check if not already fetching to avoid duplicate calls
                 fetchPacingData(false);
               } else if (!isFetchingRef.current) {
@@ -1338,8 +1227,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
             }
           } else {
             // Edit mode - use existing logic
-            const formCustomPacingData =
-              form?.getFieldValue('customPacingData');
+            const formCustomPacingData = form?.getFieldValue('customPacingData');
             const dataToUse =
               formCustomPacingData && formCustomPacingData.length > 0
                 ? formCustomPacingData
@@ -1468,15 +1356,15 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
             />
           ) : null
         }
-        className={styles.pacingDrawer}>
+        className={styles.pacingDrawer}
+      >
         <Flex vertical>
           {localOverflowDisabled && pacing !== PacingType.NO_PACING && (
             <Alert
               description={
                 <Text style={{ color: 'var(--dzone-color-error)' }}>
-                  This line item has overflow enabled. All pacing caps are
-                  disabled, and suppliers can publish leads without
-                  restrictions. The line item is permanently in &apos;No
+                  This line item has overflow enabled. All pacing caps are disabled, and suppliers
+                  can publish leads without restrictions. The line item is permanently in &apos;No
                   Pacing&apos; mode.
                 </Text>
               }
@@ -1495,16 +1383,12 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
             pacingSchedule={pacingSchedule}
             setPacingSchedule={setPacingSchedule}
             pacingScheduleOptions={pacingScheduleOptions}
-            allowOverflow={
-              form?.getFieldValue('allowOverflow') ?? allowOverflow ?? false
-            }
+            allowOverflow={form?.getFieldValue('allowOverflow') ?? allowOverflow ?? false}
             setallowOverflow={(value: boolean) => {
               form?.setFieldValue('allowOverflow', value);
             }}
             deficitManagement={
-              form?.getFieldValue('deficitManagement') ??
-              deficitManagement ??
-              true
+              form?.getFieldValue('deficitManagement') ?? deficitManagement ?? true
             }
             setdeficitManagement={(value: boolean) => {
               form?.setFieldValue('deficitManagement', value);
@@ -1521,9 +1405,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
               form?.setFieldValue('customPacingData', []);
             }}
             hasBeenLive={originalData?.hasBeenLive}
-            originalPacingValue={
-              originalData?.pacing?.value || originalData?.pacing?.name
-            }
+            originalPacingValue={originalData?.pacing?.value || originalData?.pacing?.name}
             isPreviewMode={isPreviewMode} // Pass through the actual preview mode state
             lineItemId={lineItemId}
             overflowDisabledPermanently={localOverflowDisabled}
@@ -1540,9 +1422,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
             handleLeadsCountChange={handleLeadsCountChange}
             onAutoAdjust={handleAutoAdjust}
             onPeriodAutoAdjust={handlePeriodAutoAdjust}
-            isReadOnly={
-              (isPreviewMode && !!lineItemId) || localOverflowDisabled
-            }
+            isReadOnly={(isPreviewMode && !!lineItemId) || localOverflowDisabled}
             overflowDisabledPermanently={localOverflowDisabled}
           />
         </Flex>
@@ -1564,10 +1444,7 @@ export const PacingChartDrawer: React.FC<PacingChartDrawerProps> = ({
           }
           dateFieldRestrictions={
             originalData
-              ? getDateFieldRestrictions(
-                  originalData?.status,
-                  originalData?.lineItemTargetEndDate,
-                )
+              ? getDateFieldRestrictions(originalData?.status, originalData?.lineItemTargetEndDate)
               : undefined
           }
           isEditMode={!!lineItemId} // Pass whether we're in edit mode (have a lineItemId)

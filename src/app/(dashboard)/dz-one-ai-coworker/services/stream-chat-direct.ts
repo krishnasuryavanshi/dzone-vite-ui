@@ -42,9 +42,7 @@ export const streamChatDirect = async (
 ): Promise<string> => {
   // Validate sessionId upfront
   if (!sessionId) {
-    onError(
-      new Error('Session not initialized. Please refresh and try again.'),
-    );
+    onError(new Error('Session not initialized. Please refresh and try again.'));
     return '';
   }
 

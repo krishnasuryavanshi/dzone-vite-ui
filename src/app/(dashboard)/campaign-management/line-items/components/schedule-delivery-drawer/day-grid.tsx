@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Flex, Space } from '@/uicomponents/layout';
 import { DzBox } from '@/components/layout/v1';
@@ -18,19 +17,12 @@ export const DayGrid: React.FC<DayGridProps> = ({ value, onDayClick }) => {
         border: '1px solid var(--dzone-color-border)',
         boxShadow: 'var(--dzone-shadow-sm)',
         borderRadius: 'var(--dzone-radius-md)',
-      }}>
+      }}
+    >
       <Space size='small' direction='vertical'>
-        <Flex
-          wrap='wrap'
-          gap='small'
-          style={{ maxWidth: 'var(--dzone-width-dropdown-lg)' }}>
+        <Flex wrap='wrap' gap='small' style={{ maxWidth: 'var(--dzone-width-dropdown-lg)' }}>
           {Array.from({ length: 31 }, (_, i) => i + 1).map((day) => (
-            <DayCell
-              key={day}
-              day={day}
-              isSelected={value === day}
-              onClick={onDayClick}
-            />
+            <DayCell key={day} day={day} isSelected={value === day} onClick={onDayClick} />
           ))}
         </Flex>
       </Space>

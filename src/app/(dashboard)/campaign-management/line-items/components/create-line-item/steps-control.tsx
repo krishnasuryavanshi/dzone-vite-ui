@@ -10,14 +10,8 @@ interface IStepsProps {
   savedSteps: { step: number; status: 'processed' }[];
 }
 
-export const StepsControl: FC<IStepsProps> = ({
-  currentStep,
-  handleStepperChange,
-  savedSteps,
-}) => {
-  const hasEditCustomFieldsPermission = usePermissionCheck(
-    LineItemActionsEnum.EditCustomFields,
-  );
+export const StepsControl: FC<IStepsProps> = ({ currentStep, handleStepperChange, savedSteps }) => {
+  const hasEditCustomFieldsPermission = usePermissionCheck(LineItemActionsEnum.EditCustomFields);
 
   const displaySteps = hasEditCustomFieldsPermission
     ? steps

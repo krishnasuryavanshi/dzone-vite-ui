@@ -1,4 +1,3 @@
-
 import { Spin } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
@@ -37,7 +36,8 @@ export const ConversationList = ({
         flex: 1,
         overflowY: 'auto',
         padding: '0.5rem',
-      }}>
+      }}
+    >
       <Hideable show={isLoading}>
         <Flex justify='center' style={{ padding: '2rem' }}>
           <Spin size='small' />
@@ -53,7 +53,8 @@ export const ConversationList = ({
           style={{
             padding: '2rem 1rem',
             color: COLORS.GRAY_MEDIUM,
-          }}>
+          }}
+        >
           <Text style={{ color: COLORS.GRAY_MEDIUM, textAlign: 'center' }}>
             No conversation history yet
           </Text>

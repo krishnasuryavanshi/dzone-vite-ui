@@ -13,9 +13,6 @@ interface DropdownInputProps {
   options?: DropdownOption[];
 }
 
-export const DropdownInput: FC<DropdownInputProps> = ({
-  options = [],
-  ...rest
-}) => {
+export const DropdownInput: FC<DropdownInputProps> = ({ options = [], ...rest }) => {
   return <Select options={options} {...rest} style={{ width: '100%' }} />;
 };

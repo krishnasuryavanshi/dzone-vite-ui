@@ -15,10 +15,7 @@ const rangeFields = [
   LineItemFields.IsCompanySizeRevenueCustom,
 ];
 
-export const FieldColumn: FC<IFieldColumnProps> = ({
-  data,
-  handleDownload,
-}) => {
+export const FieldColumn: FC<IFieldColumnProps> = ({ data, handleDownload }) => {
   const ViewControl = useViewControl(data, handleDownload);
   const [colSpan] = useState({
     xs: 24,
@@ -37,9 +34,7 @@ export const FieldColumn: FC<IFieldColumnProps> = ({
 
   return (
     <Col {...colSpan}>
-      <FieldPreview label={data?.label}>
-        {ViewControl || 'Loading'}
-      </FieldPreview>
+      <FieldPreview label={data?.label}>{ViewControl || 'Loading'}</FieldPreview>
     </Col>
   );
 };

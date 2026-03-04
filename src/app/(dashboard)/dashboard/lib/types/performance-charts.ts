@@ -19,9 +19,7 @@ export interface IReportRowWithPercentage extends IBaseReportRow {
   percent: string;
 }
 
-export interface IReportRow
-  extends IReportRowWithColor,
-    IReportRowWithPercentage {}
+export interface IReportRow extends IReportRowWithColor, IReportRowWithPercentage {}
 
 export interface IPerformanceChart {
   internalRejectRate: IReportRow[];

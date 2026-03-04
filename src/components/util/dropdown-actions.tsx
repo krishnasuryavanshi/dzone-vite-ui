@@ -36,14 +36,7 @@ export const DropdownActions: FC<IDropdownActionsProps> = ({
     handleApply,
     handleReset,
     isLoading,
-  } = useDropdownState(
-    selected,
-    options,
-    onApply,
-    onReset,
-    closeOpenedDropdown,
-    instantFilter,
-  );
+  } = useDropdownState(selected, options, onApply, onReset, closeOpenedDropdown, instantFilter);
 
   return (
     <Flex
@@ -55,7 +48,8 @@ export const DropdownActions: FC<IDropdownActionsProps> = ({
         position: 'relative',
       }}
       vertical
-      gap={'1rem'}>
+      gap={'1rem'}
+    >
       {/* Loading overlay that covers entire dropdown */}
       {instantFilter && isLoading && (
         <Flex
@@ -71,31 +65,19 @@ export const DropdownActions: FC<IDropdownActionsProps> = ({
             cursor: 'not-allowed',
           }}
           align='center'
-          justify='center'>
+          justify='center'
+        >
           <Space direction='vertical' align='center'>
-            <Spin
-              indicator={
-                <LoadingOutlined
-                  style={{ fontSize: 28, color: '#235aed' }}
-                  spin
-                />
-              }
-            />
+            <Spin indicator={<LoadingOutlined style={{ fontSize: 28, color: '#235aed' }} spin />} />
           </Space>
         </Flex>
       )}
 
       <DzBox>
-        <Input
-          placeholder='Search'
-          suffix={<SearchOutlined />}
-          onChange={handleSearch}
-        />
+        <Input placeholder='Search' suffix={<SearchOutlined />} onChange={handleSearch} />
       </DzBox>
       <DzBox>
-        <Checkbox
-          onChange={onChangeAll}
-          checked={selectedOptions?.length === options?.length}>
+        <Checkbox onChange={onChangeAll} checked={selectedOptions?.length === options?.length}>
           Select All
         </Checkbox>
       </DzBox>

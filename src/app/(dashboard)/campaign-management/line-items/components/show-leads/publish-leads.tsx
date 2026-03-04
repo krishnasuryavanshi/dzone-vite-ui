@@ -49,7 +49,8 @@ export const PublishLeads: FC<IPublishLeadsProps> = ({
         }}
         onClick={handlePublishLeads}
         disabled={isLoading}
-        loading={isLoading}>
+        loading={isLoading}
+      >
         {isLoading ? 'Publishing' : 'Publish'}
       </Button>
     </DzBox>

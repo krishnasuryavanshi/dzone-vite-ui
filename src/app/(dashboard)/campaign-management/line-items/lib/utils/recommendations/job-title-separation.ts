@@ -9,9 +9,7 @@ export const separateJobTitles = (
   const [existing, newJobTitles] = [[] as string[], [] as any[]];
 
   mappedRecommendedJobTitles.forEach(([jt, tag]) => {
-    const isExisting = jobTitles.some(
-      (t) => t.text.toLowerCase() === jt.toLowerCase(),
-    );
+    const isExisting = jobTitles.some((t) => t.text.toLowerCase() === jt.toLowerCase());
     if (isExisting) {
       existing.push(jt);
     } else {

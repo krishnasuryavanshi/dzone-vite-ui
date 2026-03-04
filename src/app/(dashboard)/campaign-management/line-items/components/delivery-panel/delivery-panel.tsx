@@ -25,10 +25,7 @@ import { ToastWithActionButton } from '@/app/(dashboard)/components/toast-manage
 import { useLeadsCountQuery } from '../../hooks';
 import { DeliveryTransformAndExportButton } from './delivery-transform-and-export-button';
 import { Refresh } from '../show-leads/refresh';
-import {
-  TransformHistoryTable,
-  TransformHistoryTableRef,
-} from './transform-history-table';
+import { TransformHistoryTable, TransformHistoryTableRef } from './transform-history-table';
 
 interface IDeliveryPanel {
   show: boolean;
@@ -36,17 +33,10 @@ interface IDeliveryPanel {
   tenantCode?: string;
 }
 
-export const DeliveryPanel: FC<IDeliveryPanel> = ({
-  show,
-  lineItemId,
-  tenantCode,
-}) => {
+export const DeliveryPanel: FC<IDeliveryPanel> = ({ show, lineItemId, tenantCode }) => {
   const exportLogsTableRef = useRef<TransformHistoryTableRef>(null);
-  const [selectedLeadStatuses, setSelectedLeadStatuses] = useState<string[]>(
-    [],
-  );
-  const [selectedTemplate, setSelectedTemplate] =
-    useState<ITemplateInfo | null>(null);
+  const [selectedLeadStatuses, setSelectedLeadStatuses] = useState<string[]>([]);
+  const [selectedTemplate, setSelectedTemplate] = useState<ITemplateInfo | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [tablePagination, setTablePagination] = useState({
@@ -63,10 +53,7 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
     statusCode: 0,
   });
 
-  const { data: totalFilteredLeads = 0 } = useLeadsCountQuery(
-    lineItemId,
-    selectedLeadStatuses,
-  );
+  const { data: totalFilteredLeads = 0 } = useLeadsCountQuery(lineItemId, selectedLeadStatuses);
 
   const closeModal = () => {
     setIsOpen(false);
@@ -79,9 +66,7 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
   const updateSelectedTemplate = (template: ITemplateInfo) => {
     setSelectedTemplate(template);
     showNotification({
-      message: (
-        <Translate i18nKey={templateSelectedSuccessMessage(template?.name)} />
-      ),
+      message: <Translate i18nKey={templateSelectedSuccessMessage(template?.name)} />,
       type: 'success',
       duration: 1,
     });
@@ -102,9 +87,7 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
   if (!show) {
     return null;
   }
-  const handleDialogState = (
-    stateItem: Record<string, string | number | boolean>,
-  ) => {
+  const handleDialogState = (stateItem: Record<string, string | number | boolean>) => {
     setDialogState((state) => ({ ...state, ...stateItem }));
   };
 
@@ -136,8 +119,7 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
         templateId: selectedTemplate?.id,
         filters,
       };
-      const { data, headers, error } =
-        await transformAndExportLeads(requestPayload);
+      const { data, headers, error } = await transformAndExportLeads(requestPayload);
       if (data) {
         // Check if it's a 202 response (async processing)
         if (
@@ -160,15 +142,9 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
           closeModal();
         } else {
           // Handle direct file download response
-          const fileName = headers
-            .get('content-disposition')
-            ?.split('filename=')[1];
+          const fileName = headers.get('content-disposition')?.split('filename=')[1];
           if (fileName) {
-            saveFileFromBlob(
-              data,
-              fileName.replaceAll('"', ''),
-              headers.get('content-type'),
-            );
+            saveFileFromBlob(data, fileName.replaceAll('"', ''), headers.get('content-type'));
           }
 
           // Refresh the export logs table to show the latest export
@@ -239,7 +215,8 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
             width: '100%',
             minHeight: '8rem',
             height: 'calc(100vh - 24rem)',
-          }}>
+          }}
+        >
           <DeliveryFilterManager
             updateSelectedLeadStatuses={updateSelectedLeadStatuses}
             updateSelectedTemplate={updateSelectedTemplate}
@@ -258,7 +235,8 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
                   <Translate i18nKey='pages.delivery.disabledTooltipMessage' />
                 )
               }
-              arrow={{ pointAtCenter: true }}>
+              arrow={{ pointAtCenter: true }}
+            >
               <Flex>
                 <DeliveryTransformAndExportButton
                   openModal={openModal}
@@ -268,17 +246,12 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
             </Tooltip>
           </Flex>
           <Flex vertical gap='1rem' style={{ width: '100%' }}>
-            <Flex
-              justify='space-between'
-              align='center'
-              style={{ width: '100%' }}>
+            <Flex justify='space-between' align='center' style={{ width: '100%' }}>
               <Flex gap='0.5rem' align='center'>
                 <Text strong style={{ fontSize: '1rem' }}>
                   Logs
                 </Text>
-                <Refresh
-                  onRefresh={() => exportLogsTableRef.current?.refreshData()}
-                />
+                <Refresh onRefresh={() => exportLogsTableRef.current?.refreshData()} />
               </Flex>
               <Pagination
                 showSizeChanger
@@ -316,7 +289,8 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
             handleProceed={handleProceed}
             filterLeadsCount={totalFilteredLeads}
           />
-        }>
+        }
+      >
         <ExportAndTransformModal filterLeadsCount={totalFilteredLeads} />
       </Modal>
       <ToastManager dialogState={dialogState} onClose={handleCloseDialog}>
@@ -328,10 +302,7 @@ export const DeliveryPanel: FC<IDeliveryPanel> = ({
             buttonText='Try Again'
           />
         ) : dialogState.toastType === 'Success' ? (
-          <ToastWithActionButton
-            show={dialogState.toastType === 'Success'}
-            variant='Success'
-          />
+          <ToastWithActionButton show={dialogState.toastType === 'Success'} variant='Success' />
         ) : null}
       </ToastManager>
     </>

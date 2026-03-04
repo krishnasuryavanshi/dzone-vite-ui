@@ -10,12 +10,7 @@ interface IDataTypeSelectProps {
   disabled?: boolean;
 }
 
-export const DataTypeSelect: FC<IDataTypeSelectProps> = ({
-  name,
-  fieldIndex,
-  form,
-  disabled,
-}) => {
+export const DataTypeSelect: FC<IDataTypeSelectProps> = ({ name, fieldIndex, form, disabled }) => {
   const handleTypeChange = () => {
     // Clear inclusion/exclusion when type changes
     form.setFieldValue(['customFields', fieldIndex, 'inclusion'], undefined);
@@ -28,7 +23,8 @@ export const DataTypeSelect: FC<IDataTypeSelectProps> = ({
       name={name}
       label='Data Type'
       rules={[{ required: true, message: 'Data type is required' }]}
-      className='input-control form-control-item'>
+      className='input-control form-control-item'
+    >
       <Select
         placeholder='Select Data Type'
         options={DATA_TYPE_OPTIONS}

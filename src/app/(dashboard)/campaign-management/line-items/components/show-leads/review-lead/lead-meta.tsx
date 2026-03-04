@@ -31,9 +31,7 @@ export const LeadMeta: FC<ILeadMetaProps> = ({
     <Flex vertical gap={'0.5rem'}>
       {children}
       <LeadMetaRow label='Tracking ID' className='tracking-id'>
-        <Text style={{ fontSize: '0.875rem', width: '15rem' }}>
-          {trackingId}
-        </Text>
+        <Text style={{ fontSize: '0.875rem', width: '15rem' }}>{trackingId}</Text>
       </LeadMetaRow>
       <LeadMetaRow label='Validation Status' className='validation-status'>
         <ValidationStatus validationStatus={validationStatus} />
@@ -46,17 +44,15 @@ export const LeadMeta: FC<ILeadMetaProps> = ({
                 style={{
                   color: 'var(--dzone-color-error)',
                   fontSize: '0.875rem',
-                }}>
-                This record is identified as a duplicate and can not be edited
-                or Published
+                }}
+              >
+                This record is identified as a duplicate and can not be edited or Published
               </Text>
             }
             type='warning'
             icon={
               <Flex style={{ alignSelf: 'baseline', marginTop: '0.5rem' }}>
-                <WarningOutlined
-                  style={{ color: 'var(--dzone-color-warning)' }}
-                />
+                <WarningOutlined style={{ color: 'var(--dzone-color-warning)' }} />
               </Flex>
             }
             showIcon
@@ -73,14 +69,16 @@ export const LeadMeta: FC<ILeadMetaProps> = ({
           show={
             !!revalidationAllowed &&
             validationStatus !== LeadValidationStatus.PendingEmailValidation
-          }>
+          }
+        >
           <LeadMetaRow label='Actions' className='actions'>
             <Hideable show={leadStatus?.toLowerCase() !== 'duplicate'}>
               <Button
                 type='primary'
                 onClick={handleSaveAndRevalidate}
                 disabled={disableRevalidate}
-                style={{ width: 'fit-content' }}>
+                style={{ width: 'fit-content' }}
+              >
                 Save & Revalidate
               </Button>
             </Hideable>

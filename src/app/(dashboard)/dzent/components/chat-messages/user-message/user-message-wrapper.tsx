@@ -18,7 +18,8 @@ export const UserMessageWrapper = ({ children }: UserMessageWrapperProps) => {
             background: DZONE_PURPLE,
             padding: '0.5rem 1rem ',
             color: CLR_WHITE,
-          }}>
+          }}
+        >
           {children}
         </DzBox>
       </Flex>

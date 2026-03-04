@@ -6,10 +6,7 @@ interface ILineItemsActionsProps {}
 
 export const LineItemsActions: FC<ILineItemsActionsProps> = ({}) => {
   return (
-    <Flex
-      gap="1rem"
-      align="center"
-    >
+    <Flex gap='1rem' align='center'>
       <ButtonAddLineItem />
     </Flex>
   );

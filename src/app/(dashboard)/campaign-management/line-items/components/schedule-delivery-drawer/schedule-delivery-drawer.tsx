@@ -22,10 +22,7 @@ import {
 } from '../../services';
 import { DELIVERY_FREQUENCY_OPTIONS, WEEK_DAYS } from '../../lib/constants';
 import { DayPicker } from './day-picker';
-import {
-  useDeliveryTemplateTypesQuery,
-  useDeliveryTemplateListQuery,
-} from '../../hooks';
+import { useDeliveryTemplateTypesQuery, useDeliveryTemplateListQuery } from '../../hooks';
 
 interface IScheduleDeliveryDrawerProps {
   isOpen: boolean;
@@ -55,30 +52,24 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
 }) => {
   const [form] = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [deliveryType, setDeliveryType] = useState<DeliveryType>(
-    DeliveryType.FLAT_FILE,
-  );
-  const [frequency, setFrequency] = useState<
-    'Daily' | 'Weekly' | 'Monthly' | 'RealTime'
-  >('Daily');
+  const [deliveryType, setDeliveryType] = useState<DeliveryType>(DeliveryType.FLAT_FILE);
+  const [frequency, setFrequency] = useState<'Daily' | 'Weekly' | 'Monthly' | 'RealTime'>('Daily');
 
   // Queries
   const { data: templateTypesResponse } = useDeliveryTemplateTypesQuery(isOpen);
   const deliveryTemplateTypes: DeliveryTemplateType[] =
     (templateTypesResponse as any)?.data?.data ?? [];
 
-  const { data: templateListResponse, isFetching: loadingTemplates } =
-    useDeliveryTemplateListQuery(deliveryType, isOpen && !!deliveryType);
-  const deliveryTemplates: DeliveryTemplate[] =
-    templateListResponse?.data ?? [];
+  const { data: templateListResponse, isFetching: loadingTemplates } = useDeliveryTemplateListQuery(
+    deliveryType,
+    isOpen && !!deliveryType,
+  );
+  const deliveryTemplates: DeliveryTemplate[] = templateListResponse?.data ?? [];
 
   // Dynamic options based on API data
   const deliveryTypeOptions = Array.isArray(deliveryTemplateTypes)
     ? deliveryTemplateTypes.map((type) => ({
-        label:
-          type.deliveryType === DeliveryType.FLAT_FILE
-            ? 'Flat File'
-            : type.deliveryType,
+        label: type.deliveryType === DeliveryType.FLAT_FILE ? 'Flat File' : type.deliveryType,
         value: type.deliveryType,
       }))
     : [];
@@ -104,10 +95,7 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
     if (!deliveryTemplates.length || !isOpen) return;
     if (editSchedule && editSchedule.deliveryType === deliveryType) {
       const templateId = editSchedule.deliveryTemplateId;
-      if (
-        templateId &&
-        deliveryTemplates.some((template) => template.id === templateId)
-      ) {
+      if (templateId && deliveryTemplates.some((template) => template.id === templateId)) {
         form.setFieldsValue({ deliveryTemplateId: templateId });
       } else {
         form.setFieldsValue({ deliveryTemplateId: deliveryTemplates[0].id });
@@ -170,9 +158,7 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
     // Templates will be loaded automatically via query key change
   };
 
-  const handleFrequencyChange = (
-    value: 'Daily' | 'Weekly' | 'Monthly' | 'RealTime',
-  ) => {
+  const handleFrequencyChange = (value: 'Daily' | 'Weekly' | 'Monthly' | 'RealTime') => {
     setFrequency(value);
     form.setFieldsValue({
       deliveryDay: undefined,
@@ -188,18 +174,13 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
       const payload: any = {
         deliveryType: values.deliveryType,
         deliveryFormat:
-          values.deliveryType === DeliveryType.FLAT_FILE
-            ? values.deliveryFormat
-            : null,
+          values.deliveryType === DeliveryType.FLAT_FILE ? values.deliveryFormat : null,
         deliveryTemplateId: values.deliveryTemplateId,
         frequency: values.frequency,
         deliveryDay: values.frequency === 'Weekly' ? values.deliveryDay : null,
-        deliveryDate:
-          values.frequency === 'Monthly' ? values.deliveryDate : null,
+        deliveryDate: values.frequency === 'Monthly' ? values.deliveryDate : null,
         deliveryTime:
-          values.frequency !== 'RealTime' && values.time
-            ? values.time.format('h:mm A')
-            : null,
+          values.frequency !== 'RealTime' && values.time ? values.time.format('h:mm A') : null,
         timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
       };
 
@@ -207,10 +188,7 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
 
       if (editSchedule) {
         // Update existing schedule
-        const updateResponse = await updateDeliverySchedule(
-          editSchedule.id,
-          payload,
-        );
+        const updateResponse = await updateDeliverySchedule(editSchedule.id, payload);
         success = !!updateResponse;
       } else {
         // Create new schedule
@@ -246,15 +224,10 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
             <FormItem
               label='Delivery Day'
               name='deliveryDay'
-              rules={[
-                { required: true, message: 'Please select delivery day' },
-              ]}
-              className='input-control form-control-item'>
-              <Select
-                placeholder='Select day'
-                options={WEEK_DAYS}
-                style={{ width: '100%' }}
-              />
+              rules={[{ required: true, message: 'Please select delivery day' }]}
+              className='input-control form-control-item'
+            >
+              <Select placeholder='Select day' options={WEEK_DAYS} style={{ width: '100%' }} />
             </FormItem>
           </Col>
         )}
@@ -263,10 +236,9 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
             <FormItem
               label='Delivery Date'
               name='deliveryDate'
-              rules={[
-                { required: true, message: 'Please select delivery date' },
-              ]}
-              className='input-control form-control-item'>
+              rules={[{ required: true, message: 'Please select delivery date' }]}
+              className='input-control form-control-item'
+            >
               <DayPicker
                 placeholder='Select date'
                 style={{ width: '100%' }}
@@ -280,7 +252,8 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
             label='Time'
             name='time'
             rules={[{ required: true, message: 'Please select time' }]}
-            className='input-control form-control-item'>
+            className='input-control form-control-item'
+          >
             <TimePicker
               use12Hours
               showNow={false}
@@ -305,7 +278,8 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
       placement='right'
       closeIcon={<DrawerCloseButton />}
       destroyOnClose
-      width='30rem'>
+      width='30rem'
+    >
       <DzBox>
         <Form form={form} onFinish={handleSubmit} layout='vertical'>
           <Row gutter={16}>
@@ -313,10 +287,9 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
               <FormItem
                 label='Delivery Type'
                 name='deliveryType'
-                rules={[
-                  { required: true, message: 'Please select delivery type' },
-                ]}
-                className='input-control form-control-item'>
+                rules={[{ required: true, message: 'Please select delivery type' }]}
+                className='input-control form-control-item'
+              >
                 <Select
                   placeholder='Select Delivery Type'
                   options={deliveryTypeOptions}
@@ -326,27 +299,27 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
               </FormItem>
             </Col>
 
-            {deliveryType === DeliveryType.FLAT_FILE &&
-              selectedTemplateType?.deliveryFormat && (
-                <Col span={24}>
-                  <FormItem
-                    label='Delivery Format'
-                    name='deliveryFormat'
-                    rules={[
-                      {
-                        required: true,
-                        message: 'Please select delivery format',
-                      },
-                    ]}
-                    className='input-control form-control-item'>
-                    <Select
-                      placeholder='Select Format'
-                      options={deliveryFormatOptions}
-                      style={{ width: '100%' }}
-                    />
-                  </FormItem>
-                </Col>
-              )}
+            {deliveryType === DeliveryType.FLAT_FILE && selectedTemplateType?.deliveryFormat && (
+              <Col span={24}>
+                <FormItem
+                  label='Delivery Format'
+                  name='deliveryFormat'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please select delivery format',
+                    },
+                  ]}
+                  className='input-control form-control-item'
+                >
+                  <Select
+                    placeholder='Select Format'
+                    options={deliveryFormatOptions}
+                    style={{ width: '100%' }}
+                  />
+                </FormItem>
+              </Col>
+            )}
             <Col span={24}>
               <FormItem
                 label={
@@ -355,14 +328,14 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
                       width: '100%',
                       position: 'relative',
                       columnGap: '0',
-                    }}>
+                    }}
+                  >
                     <Text>Delivery Template</Text>
                     {(deliveryType === DeliveryType.WEBFORM ||
                       deliveryType === DeliveryType.ZAPIER) && (
                       <PreviewLink
                         integrationId={(() => {
-                          const selectedId =
-                            form.getFieldValue('deliveryTemplateId');
+                          const selectedId = form.getFieldValue('deliveryTemplateId');
                           const selectedTemplate = deliveryTemplates.find(
                             (t) => t.id === selectedId,
                           );
@@ -385,13 +358,10 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
                     message: 'Please select delivery template',
                   },
                 ]}
-                className='input-control form-control-item'>
+                className='input-control form-control-item'
+              >
                 <Select
-                  placeholder={
-                    loadingTemplates
-                      ? 'Loading templates...'
-                      : 'Select Template'
-                  }
+                  placeholder={loadingTemplates ? 'Loading templates...' : 'Select Template'}
                   options={deliveryTemplateOptions}
                   loading={loadingTemplates}
                   disabled={loadingTemplates}
@@ -405,7 +375,8 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
                 label='Frequency'
                 name='frequency'
                 rules={[{ required: true, message: 'Please select frequency' }]}
-                className='input-control form-control-item'>
+                className='input-control form-control-item'
+              >
                 <Select
                   placeholder='Select Frequency'
                   options={DELIVERY_FREQUENCY_OPTIONS}

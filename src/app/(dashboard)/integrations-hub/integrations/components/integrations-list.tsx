@@ -1,4 +1,3 @@
-
 import { HasPermission } from '@/components/auth/has-permission';
 import { DzBox } from '@/components/layout/v1/dz-box';
 import {
@@ -86,11 +85,9 @@ export const IntegrationsList: React.FC = () => {
 
   const [disconnecting, setDisconnecting] = useState<string | null>(null);
   const [createModalOpen, setCreateModalOpen] = useState(false);
-  const [selectedIntegrationType, setSelectedIntegrationType] =
-    useState<string>('');
+  const [selectedIntegrationType, setSelectedIntegrationType] = useState<string>('');
   const [modalMode, setModalMode] = useState<'create' | 'retry'>('create');
-  const [selectedIntegration, setSelectedIntegration] =
-    useState<Integration | null>(null);
+  const [selectedIntegration, setSelectedIntegration] = useState<Integration | null>(null);
 
   // Show error notification when error occurs
   useEffect(() => {
@@ -106,10 +103,7 @@ export const IntegrationsList: React.FC = () => {
     queryClient.invalidateQueries({ queryKey: queryKeys.integrations.all });
   };
 
-  const handleUpdateStatus = async (
-    integrationId: string,
-    newStatus: 'Active' | 'Inactive',
-  ) => {
+  const handleUpdateStatus = async (integrationId: string, newStatus: 'Active' | 'Inactive') => {
     try {
       setDisconnecting(integrationId);
       await authenticatedRequest({
@@ -168,24 +162,17 @@ export const IntegrationsList: React.FC = () => {
 
   if (loading) {
     return (
-      <DzBox
-        className={styles.integrationsList}
-        style={{ textAlign: 'center', padding: '40px' }}>
+      <DzBox className={styles.integrationsList} style={{ textAlign: 'center', padding: '40px' }}>
         <Spin size='large' />
-        <Text style={{ display: 'block', marginTop: '16px' }}>
-          Loading integrations...
-        </Text>
+        <Text style={{ display: 'block', marginTop: '16px' }}>Loading integrations...</Text>
       </DzBox>
     );
   }
 
   if (error) {
     return (
-      <DzBox
-        className={styles.integrationsList}
-        style={{ textAlign: 'center', padding: '40px' }}>
-        <Text
-          style={{ display: 'block', marginBottom: '16px', color: '#ff4d4f' }}>
+      <DzBox className={styles.integrationsList} style={{ textAlign: 'center', padding: '40px' }}>
+        <Text style={{ display: 'block', marginBottom: '16px', color: '#ff4d4f' }}>
           Failed to load integrations. Please try again later.
         </Text>
         <Button type='primary' onClick={invalidateIntegrations}>
@@ -221,26 +208,22 @@ export const IntegrationsList: React.FC = () => {
 
           <DzBox className={styles.connectedIntegrationsTable}>
             {connectedIntegrations.map((integration) => (
-              <DzBox
-                key={integration.id}
-                className={styles.connectedIntegrationItem}>
+              <DzBox key={integration.id} className={styles.connectedIntegrationItem}>
                 {/* First Row: Logo, Name, Status, and Add New button */}
                 <DzBox className={styles.integrationHeaderRow}>
                   <DzBox className={styles.integrationInfo}>
                     <Space align='center' size={12}>
                       {getIntegrationLogo(integration.type, integration.name)}
                       <DzBox className={styles.integrationNameStatus}>
-                        <Text className={styles.integrationConnectedName}>
-                          {integration.type}
-                        </Text>
+                        <Text className={styles.integrationConnectedName}>{integration.type}</Text>
                         <Space align='center' size={8}>
                           <Text
                             className={
-                              integration.status === 'Inactive' ||
-                              integration.status === 'Failed'
+                              integration.status === 'Inactive' || integration.status === 'Failed'
                                 ? styles.statusError
                                 : styles.statusTag
-                            }>
+                            }
+                          >
                             {integration.status === 'Active'
                               ? 'Connected'
                               : integration.status === 'Inactive'
@@ -250,15 +233,13 @@ export const IntegrationsList: React.FC = () => {
                                   : integration.status}
                           </Text>
                           {integration.status === 'Failed' && (
-                            <HasPermission
-                              permissions={IntegrationsActionsEnum.Edit}>
+                            <HasPermission permissions={IntegrationsActionsEnum.Edit}>
                               <Button
                                 type='link'
                                 size='small'
                                 className={styles.retryLink}
-                                onClick={() =>
-                                  handleRetryIntegration(integration)
-                                }>
+                                onClick={() => handleRetryIntegration(integration)}
+                              >
                                 Retry
                               </Button>
                             </HasPermission>
@@ -272,10 +253,7 @@ export const IntegrationsList: React.FC = () => {
                 {/* Second Row: Additional details with light background */}
                 <DzBox className={styles.integrationDetailsRow}>
                   {integration.type === DeliveryType.WEBFORM ? (
-                    <WebFormIntegrationDetails
-                      name={integration.name}
-                      url={integration.url}
-                    />
+                    <WebFormIntegrationDetails name={integration.name} url={integration.url} />
                   ) : integration.type === DeliveryType.ZAPIER ? (
                     <ZapierIntegrationDetails
                       name={integration.name}
@@ -283,10 +261,7 @@ export const IntegrationsList: React.FC = () => {
                       label={integration.label}
                     />
                   ) : integration.type === DeliveryType.FTP ? (
-                    <FtpIntegrationDetails
-                      name={integration.name}
-                      type={integration.type}
-                    />
+                    <FtpIntegrationDetails name={integration.name} type={integration.type} />
                   ) : (
                     <HubSpotIntegrationDetails
                       name={integration.name}
@@ -302,9 +277,8 @@ export const IntegrationsList: React.FC = () => {
                           type='link'
                           className={styles.connectLink}
                           loading={disconnecting === integration.id}
-                          onClick={() =>
-                            handleUpdateStatus(integration.id, 'Active')
-                          }>
+                          onClick={() => handleUpdateStatus(integration.id, 'Active')}
+                        >
                           Connect
                         </Button>
                       ) : integration.status === 'Active' ? (
@@ -313,16 +287,14 @@ export const IntegrationsList: React.FC = () => {
                           className={styles.disconnectLink}
                           danger
                           loading={disconnecting === integration.id}
-                          onClick={() =>
-                            handleUpdateStatus(integration.id, 'Inactive')
-                          }>
+                          onClick={() => handleUpdateStatus(integration.id, 'Inactive')}
+                        >
                           Disconnect
                         </Button>
                       ) : null}
                     </HasPermission>
                     <HasPermission permissions={IntegrationsActionsEnum.View}>
-                      <Link
-                        to={`/integrations-hub/integrations/${integration.id}`}>
+                      <Link to={`/integrations-hub/integrations/${integration.id}`}>
                         <Button type='link' className={styles.viewDetailsLink}>
                           View Details
                         </Button>
@@ -338,9 +310,7 @@ export const IntegrationsList: React.FC = () => {
       {/* Available Integrations Section */}
       {availableIntegrations.length > 0 && (
         <>
-          <Text className={styles.availableSectionTitle}>
-            Available Integrations
-          </Text>
+          <Text className={styles.availableSectionTitle}>Available Integrations</Text>
           <Row gutter={[16, 16]} className={styles.availableIntegrations}>
             {availableIntegrations.map((integration) => (
               <Col key={integration.id} span={12}>
@@ -349,16 +319,15 @@ export const IntegrationsList: React.FC = () => {
                     <Flex align='center' justify='center'>
                       {getIntegrationLogo(integration.type, integration.name)}
                     </Flex>
-                    <Text className={styles.integrationName}>
-                      {integration.name}
-                    </Text>
+                    <Text className={styles.integrationName}>{integration.name}</Text>
                   </Space>
                   <HasPermission permissions={IntegrationsActionsEnum.Create}>
                     <Button
                       type='primary'
                       size='small'
                       className={styles.connectButton}
-                      onClick={() => handleCreateIntegration(integration.name)}>
+                      onClick={() => handleCreateIntegration(integration.name)}
+                    >
                       Add
                     </Button>
                   </HasPermission>

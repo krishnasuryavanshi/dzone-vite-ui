@@ -23,7 +23,8 @@ const PercentDisplay: FC<PercentDisplayProps> = ({ percent, isPositive }) => {
         fontWeight: 700,
         color: textColor,
         lineHeight: 'normal',
-      }}>
+      }}
+    >
       {isPositive ? `+${percent}%` : `${percent}%`}
     </Text>
   ) : (

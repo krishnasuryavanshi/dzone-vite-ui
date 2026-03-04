@@ -19,17 +19,14 @@ export const ToastManager: FC<IToastManagerProps> = ({
   return (
     <DzBox className={`dz-toast-manager ${toastType}`}>
       <DzBox className='dz-toast-manager-content'>
-        <ToastProgress
-          show={toastType === 'Progress'}
-          progress={progress}
-          title=''
-        />
+        <ToastProgress show={toastType === 'Progress'} progress={progress} title='' />
         <ToastNotification
           show={toastType === 'Success' || toastType === 'Error'}
           header={header}
           message={message}
           type={toastType}
-          onClose={onClose}>
+          onClose={onClose}
+        >
           {children}
         </ToastNotification>
       </DzBox>

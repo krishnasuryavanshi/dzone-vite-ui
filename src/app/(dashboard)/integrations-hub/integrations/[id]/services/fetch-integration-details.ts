@@ -8,15 +8,10 @@ interface IntegrationDetailsResponse {
   data: DzRecord[];
 }
 
-export const fetchIntegrationDetails = async (
-  id: string,
-): Promise<IntegrationDetailsResponse> => {
+export const fetchIntegrationDetails = async (id: string): Promise<IntegrationDetailsResponse> => {
   try {
     const response = await authenticatedRequest({
-      resource: ApiResources.DeliveryTemplatesByIntegration.replace(
-        '{integrationId}',
-        id,
-      ),
+      resource: ApiResources.DeliveryTemplatesByIntegration.replace('{integrationId}', id),
       apiHost: ApiHost.CampaignDeliveryService,
       method: HttpMethod.GET,
     });

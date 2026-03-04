@@ -6,9 +6,7 @@ interface MarketerCardSubTitleProps {
   subTitle: string | ReactNode;
 }
 
-export const MarketerCardSubTitle: FC<MarketerCardSubTitleProps> = ({
-  subTitle,
-}) => {
+export const MarketerCardSubTitle: FC<MarketerCardSubTitleProps> = ({ subTitle }) => {
   return (
     <Text
       style={{
@@ -17,7 +15,8 @@ export const MarketerCardSubTitle: FC<MarketerCardSubTitleProps> = ({
         color: '#eb43b9ff',
         lineHeight: 'normal',
         margin: '0.6rem',
-      }}>
+      }}
+    >
       {subTitle || <Input active style={{ height: '1.5rem', width: '100%' }} />}
     </Text>
   );

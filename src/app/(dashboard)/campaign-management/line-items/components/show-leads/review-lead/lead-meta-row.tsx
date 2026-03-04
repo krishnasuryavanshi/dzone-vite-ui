@@ -7,11 +7,7 @@ interface ILeadMetaRowProps extends PropsWithChildren {
   label?: string;
 }
 
-export const LeadMetaRow: FC<ILeadMetaRowProps> = ({
-  children,
-  className,
-  label,
-}) => {
+export const LeadMetaRow: FC<ILeadMetaRowProps> = ({ children, className, label }) => {
   return (
     <Flex className={className} vertical gap={'0.25rem'}>
       <Text strong>{label}</Text>

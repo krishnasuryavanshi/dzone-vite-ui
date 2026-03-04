@@ -9,9 +9,7 @@ type FieldAdditionalContentProps = {
   config: Record<string, any>[];
 };
 
-export const FieldAdditionalContent = ({
-  config,
-}: FieldAdditionalContentProps) => {
+export const FieldAdditionalContent = ({ config }: FieldAdditionalContentProps) => {
   const renderItem = (item: DzRecord, index: number) => {
     switch (item.type) {
       case 'ordered_list':

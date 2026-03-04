@@ -23,13 +23,7 @@ export interface TriggerAiMappingResult {
 export const triggerAiMapping = async (
   params: TriggerAiMappingParams,
 ): Promise<TriggerAiMappingResult> => {
-  const {
-    lineItemId,
-    deliveryType,
-    integrationId,
-    deliveryObjectId,
-    zapierType,
-  } = params;
+  const { lineItemId, deliveryType, integrationId, deliveryObjectId, zapierType } = params;
 
   // First, fetch source fields from the line item
   const sourceFieldsResponse = await fetchCreateTemplateData(lineItemId);
@@ -50,18 +44,16 @@ export const triggerAiMapping = async (
     (deliveryType === DeliveryType.ZAPIER && zapierType === ZapierType.ZAPS);
 
   if (isManualEntry) {
-    const masterMappings: IMasterFieldMapping[] = visibleSourceFields.map(
-      (field: DzRecord) => ({
-        id: field.id,
-        masterName: field.name,
-        masterValue: field.fieldValue,
-        mappingName: field.name,
-        mappingValue: field.name,
-        order: field.order,
-        visible: field.visible,
-        isStandardField: field.isStandardField,
-      }),
-    );
+    const masterMappings: IMasterFieldMapping[] = visibleSourceFields.map((field: DzRecord) => ({
+      id: field.id,
+      masterName: field.name,
+      masterValue: field.fieldValue,
+      mappingName: field.name,
+      mappingValue: field.name,
+      order: field.order,
+      visible: field.visible,
+      isStandardField: field.isStandardField,
+    }));
 
     return {
       masterFieldMappings: masterMappings,
@@ -83,28 +75,13 @@ export const triggerAiMapping = async (
     }
 
     [fieldMappingData, dropdownFieldsData] = await Promise.all([
-      fetchHubspotFormFields(
-        deliveryType,
-        integrationId,
-        deliveryObjectId,
-        lineItemId,
-      ),
-      fetchDestinationDropdownFields(
-        deliveryType,
-        integrationId,
-        deliveryObjectId,
-        lineItemId,
-      ),
+      fetchHubspotFormFields(deliveryType, integrationId, deliveryObjectId, lineItemId),
+      fetchDestinationDropdownFields(deliveryType, integrationId, deliveryObjectId, lineItemId),
     ]);
   } else if (deliveryType === 'WebForm' || deliveryType === 'Zapier') {
     [fieldMappingData, dropdownFieldsData] = await Promise.all([
       fetchWebformFormFields(deliveryType, integrationId, lineItemId),
-      fetchDestinationDropdownFields(
-        deliveryType,
-        integrationId,
-        undefined,
-        lineItemId,
-      ),
+      fetchDestinationDropdownFields(deliveryType, integrationId, undefined, lineItemId),
     ]);
   }
 

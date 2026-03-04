@@ -29,8 +29,7 @@ export const OrganizationList: FC<IOrganizationListProps> = ({
   handleSorterChange,
 }) => {
   const router = useRouter();
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
 
   const handleRowClick = (record: IOrganization) => {
     router.push(`/organizations/${record.id}`);

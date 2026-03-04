@@ -44,10 +44,7 @@ const getFieldValue = (data: any, field: string, isCheckbox?: boolean) => {
   return value;
 };
 
-export const useShowFieldsData = (
-  data: ILineItem,
-  formConfig: FieldConfig[],
-) => {
+export const useShowFieldsData = (data: ILineItem, formConfig: FieldConfig[]) => {
   const { accesses, attributes } = usePermissionsStore();
   const [fieldsList, setFieldsList] = useState<FieldsList[]>([]);
 
@@ -71,8 +68,7 @@ export const useShowFieldsData = (
       const value = getFieldValue(
         data,
         dataProperty,
-        field.fieldType === FieldType.Checkbox ||
-          field.fieldType === FieldType.RadioButton,
+        field.fieldType === FieldType.Checkbox || field.fieldType === FieldType.RadioButton,
       );
 
       const fieldObject: FieldObject = {

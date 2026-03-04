@@ -38,9 +38,7 @@ export const LeadStatusDropdown: FC<ILeadStatusDropdownProps> = ({
   }, [data]);
 
   const DropdownComponent =
-    isFileType === LeadStatusFileType.Leads
-      ? DzCheckboxDropdown
-      : DzSelectDropdown;
+    isFileType === LeadStatusFileType.Leads ? DzCheckboxDropdown : DzSelectDropdown;
 
   const hasSelected = selected && selected.length > 0;
 

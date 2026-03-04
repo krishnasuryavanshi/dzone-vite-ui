@@ -79,12 +79,11 @@ export const ShowLineItemDetails: FC<IShowLineItemDetailsProps> = ({
                 !isCollapsed
               ) // Only show when expanded
             )
-          }>
+          }
+        >
           <LeadValidationSettingsContainer
             lineItemId={itemDetails?.id as string}
-            leadValidationSettingId={
-              (itemDetails as ILineItem)?.validationSettingsId
-            }
+            leadValidationSettingId={(itemDetails as ILineItem)?.validationSettingsId}
           />
         </Hideable>
       </DzBox>

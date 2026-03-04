@@ -54,9 +54,7 @@ export const ShowTargetingOptionsAttribute = ({
   const [currentValues, setCurrentValues] = useState<string[]>(values);
 
   const getEditConfig = (attributeName: string) => {
-    const isRevenueOrEmployee = ['revenueSize', 'employeeSize'].includes(
-      attributeName,
-    );
+    const isRevenueOrEmployee = ['revenueSize', 'employeeSize'].includes(attributeName);
     const isCountry = attributeName === 'country';
 
     const editorOptions = options.map((option) => ({
@@ -248,7 +246,8 @@ export const ShowTargetingOptionsAttribute = ({
           lineHeight: 'normal',
           color: '#707070',
           height: '1.5rem',
-        }}>
+        }}
+      >
         {option ? option.label : value}
       </Tag>
     );
@@ -265,14 +264,14 @@ export const ShowTargetingOptionsAttribute = ({
             borderRadius: '10px',
             padding: '0.5rem',
             margin: '0.5rem 0.75rem',
-          }}>
+          }}
+        >
           <DzBox style={{ flex: 1 }}>
             <Flex vertical gap='0.5rem'>
               <Text strong style={{ fontSize: '0.875rem' }}>
                 {label}{' '}
                 <span style={{ fontWeight: 400 }}>
-                  ({currentValues.length}{' '}
-                  {currentValues.length === 1 ? 'Record' : 'Records'})
+                  ({currentValues.length} {currentValues.length === 1 ? 'Record' : 'Records'})
                 </span>
               </Text>
               {currentValues.length > 0 ? (
@@ -295,7 +294,8 @@ export const ShowTargetingOptionsAttribute = ({
             justify='space-between'
             align='center'
             gap='0.6rem'
-            style={{ alignSelf: 'flex-start' }}>
+            style={{ alignSelf: 'flex-start' }}
+          >
             {copiedCount !== null && (
               <Text style={{ fontSize: '0.75rem', color: '#34C759' }}>
                 {copiedCount} records copied!
@@ -310,13 +310,13 @@ export const ShowTargetingOptionsAttribute = ({
                   border: '1px solid #ddd',
                   cursor: 'pointer',
                 }}
-                onClick={handleCopy}>
+                onClick={handleCopy}
+              >
                 <CopyPasteIcon />
               </DzBox>
             </CustomTooltip>
             {isEditing && (
-              <HasPermission
-                permissions={[LineItemActionsEnum.EditValidationSettings]}>
+              <HasPermission permissions={[LineItemActionsEnum.EditValidationSettings]}>
                 <CustomTooltip title='Edit'>
                   <DzBox
                     style={{
@@ -326,14 +326,14 @@ export const ShowTargetingOptionsAttribute = ({
                       border: '1px solid #ddd',
                       cursor: 'pointer',
                     }}
-                    onClick={handleEdit}>
+                    onClick={handleEdit}
+                  >
                     <EditICon />
                   </DzBox>
                 </CustomTooltip>
               </HasPermission>
             )}
-            <HasPermission
-              permissions={[LineItemActionsEnum.ViewValidationSettings]}>
+            <HasPermission permissions={[LineItemActionsEnum.ViewValidationSettings]}>
               <CustomTooltip title='View'>
                 <DzBox
                   style={{
@@ -343,7 +343,8 @@ export const ShowTargetingOptionsAttribute = ({
                     border: '1px solid #ddd',
                     cursor: 'pointer',
                   }}
-                  onClick={() => setIsDrawerOpen(true)}>
+                  onClick={() => setIsDrawerOpen(true)}
+                >
                   <EyeOutlined />
                 </DzBox>
               </CustomTooltip>

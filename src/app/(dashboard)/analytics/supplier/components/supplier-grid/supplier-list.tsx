@@ -30,19 +30,12 @@ const getColumnSearchProps = (
   searchedColumn: string,
   setSearchedColumn: React.Dispatch<React.SetStateAction<string>>,
 ): ColumnType<DataType> => ({
-  filterDropdown: ({
-    setSelectedKeys,
-    selectedKeys,
-    confirm,
-    clearFilters,
-  }) => (
+  filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
     <div style={{ padding: 8 }}>
       <Input
         placeholder={`Search ${dataIndex}`}
         value={selectedKeys[0]}
-        onChange={(e) =>
-          setSelectedKeys(e.target.value ? [e.target.value] : [])
-        }
+        onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
         onPressEnter={() => {
           confirm();
           setSearchText(selectedKeys[0] ? String(selectedKeys[0]) : '');
@@ -61,7 +54,8 @@ const getColumnSearchProps = (
           }}
           icon={<SearchOutlined />}
           size='small'
-          style={{ width: 90 }}>
+          style={{ width: 90 }}
+        >
           Search
         </Button>
         <Button
@@ -72,7 +66,8 @@ const getColumnSearchProps = (
             confirm();
           }}
           size='small'
-          style={{ width: 90 }}>
+          style={{ width: 90 }}
+        >
           Reset
         </Button>
       </Space>
@@ -101,28 +96,25 @@ export const SupplierLists: FC<ISupplierGridsProps> = ({
   onFiltersChange,
   hasFilters,
 }) => {
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
   const [searchText, setSearchText] = useState<string>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
-  const mappedColumns: ColumnType<DataType>[] = supplierColumnConfig.map(
-    (col) => {
-      const searchProps = getColumnSearchProps(
-        col.dataIndex as string,
-        searchText,
-        setSearchText,
-        searchedColumn,
-        setSearchedColumn,
-      );
+  const mappedColumns: ColumnType<DataType>[] = supplierColumnConfig.map((col) => {
+    const searchProps = getColumnSearchProps(
+      col.dataIndex as string,
+      searchText,
+      setSearchText,
+      searchedColumn,
+      setSearchedColumn,
+    );
 
-      // Preserve the original render function if it exists
-      return {
-        ...col,
-        ...searchProps,
-        render: col.render || searchProps.render,
-      };
-    },
-  );
+    // Preserve the original render function if it exists
+    return {
+      ...col,
+      ...searchProps,
+      render: col.render || searchProps.render,
+    };
+  });
 
   const handleChange = (data: any) => {
     if (onFiltersChange) {

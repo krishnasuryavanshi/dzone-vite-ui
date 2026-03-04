@@ -11,12 +11,8 @@ export interface ISubmitButtonProps {
 export const SubmitButton: FC<ISubmitButtonProps> = ({ onSubmit, show }) => {
   if (show === false) return null;
   return (
-    <Button
-      onClick={onSubmit}
-      type="primary"
-      htmlType="submit"
-      className="action submit">
-      <Translate i18nKey="form.actions.submit" />
+    <Button onClick={onSubmit} type='primary' htmlType='submit' className='action submit'>
+      <Translate i18nKey='form.actions.submit' />
     </Button>
   );
 };

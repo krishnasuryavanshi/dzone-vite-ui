@@ -1,4 +1,3 @@
-
 import { FC } from 'react';
 import { Flex } from '@/uicomponents/layout';
 import { IPacingSummary } from '../../lib/types';
@@ -19,10 +18,7 @@ export const SummaryCards: FC<ISummaryCardsProps> = ({ summary }) => {
 
   return (
     <Flex gap='1rem'>
-      <SummaryCard
-        title='Total Lead Expected'
-        value={summary.expected.toLocaleString()}
-      />
+      <SummaryCard title='Total Lead Expected' value={summary.expected.toLocaleString()} />
       <SummaryCard
         title='Published Lead'
         value={summary.published.toLocaleString()}
@@ -35,9 +31,7 @@ export const SummaryCards: FC<ISummaryCardsProps> = ({ summary }) => {
       />
       <SummaryCard
         title='Delivered Lead'
-        value={
-          summary.delivered !== null ? summary.delivered.toLocaleString() : 'NA'
-        }
+        value={summary.delivered !== null ? summary.delivered.toLocaleString() : 'NA'}
       />
     </Flex>
   );

@@ -3,10 +3,7 @@ import { ApiHost } from '@/lib/constants';
 import { transformPath } from '@/lib/utils/string/transform-path';
 import { authenticatedRequest } from '@/services';
 
-export const fetchLeadUploadProcessingStatus = async (
-  lineItemId: string,
-  requestId?: string,
-) => {
+export const fetchLeadUploadProcessingStatus = async (lineItemId: string, requestId?: string) => {
   try {
     const resource = transformPath(ApiResources.LeadUploadValidationCount, {
       lineItemId,

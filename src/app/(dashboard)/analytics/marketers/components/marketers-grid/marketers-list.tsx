@@ -22,19 +22,12 @@ const getColumnSearchProps = (
   searchedColumn: string,
   setSearchedColumn: React.Dispatch<React.SetStateAction<string>>,
 ): ColumnType<DataType> => ({
-  filterDropdown: ({
-    setSelectedKeys,
-    selectedKeys,
-    confirm,
-    clearFilters,
-  }) => (
+  filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
     <div style={{ padding: 8 }}>
       <Input
         placeholder={`Search ${dataIndex}`}
         value={selectedKeys[0]}
-        onChange={(e) =>
-          setSelectedKeys(e.target.value ? [e.target.value] : [])
-        }
+        onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
         onPressEnter={() => {
           confirm();
           setSearchText(selectedKeys[0] ? String(selectedKeys[0]) : '');
@@ -53,7 +46,8 @@ const getColumnSearchProps = (
           }}
           icon={<SearchOutlined />}
           size='small'
-          style={{ width: 90 }}>
+          style={{ width: 90 }}
+        >
           Search
         </Button>
         <Button
@@ -64,7 +58,8 @@ const getColumnSearchProps = (
             confirm();
           }}
           size='small'
-          style={{ width: 90 }}>
+          style={{ width: 90 }}
+        >
           Reset
         </Button>
       </Space>
@@ -81,11 +76,7 @@ const getColumnSearchProps = (
     let searchValue = '';
     if (Array.isArray(cellValue)) {
       searchValue = cellValue.join(', ');
-    } else if (
-      typeof cellValue === 'object' &&
-      cellValue.props &&
-      cellValue.props.children
-    ) {
+    } else if (typeof cellValue === 'object' && cellValue.props && cellValue.props.children) {
       // Handle React element objects
       searchValue = String(cellValue.props.children);
     } else if (typeof cellValue === 'object' && cellValue.text) {
@@ -103,27 +94,24 @@ export const MarketersLists: FC<IMarketersGridsProps> = ({
   onFiltersChange,
   hasFilters,
 }) => {
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
   const [searchText, setSearchText] = useState<string>('');
   const [searchedColumn, setSearchedColumn] = useState<string>('');
-  const mappedColumns: ColumnType<DataType>[] = marketerColumnConfig.map(
-    (col) => {
-      const searchProps = getColumnSearchProps(
-        col.dataIndex as string,
-        searchText,
-        setSearchText,
-        searchedColumn,
-        setSearchedColumn,
-      );
+  const mappedColumns: ColumnType<DataType>[] = marketerColumnConfig.map((col) => {
+    const searchProps = getColumnSearchProps(
+      col.dataIndex as string,
+      searchText,
+      setSearchText,
+      searchedColumn,
+      setSearchedColumn,
+    );
 
-      return {
-        ...col,
-        ...searchProps,
-        render: col.render || searchProps.render, // Preserve original render if it exists
-      };
-    },
-  );
+    return {
+      ...col,
+      ...searchProps,
+      render: col.render || searchProps.render, // Preserve original render if it exists
+    };
+  });
 
   const handleChange = (data: SearchEventArg) => {
     if (onFiltersChange) {

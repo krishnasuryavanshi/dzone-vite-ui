@@ -10,16 +10,15 @@ import { Text } from '@/uicomponents/text';
 import { Translate } from '@/components/i18n';
 import { CLR_WHITE } from '@/lib/constants';
 
-export default function PageLayout({
-  children,
-}: Readonly<PropsWithChildren>) {
+export default function PageLayout({ children }: Readonly<PropsWithChildren>) {
   return (
     <Flex
       vertical
       justify='space-between'
       align='center'
       gap='3rem'
-      className='auth-layout-container'>
+      className='auth-layout-container'
+    >
       <AuthPageLayout>
         <Text style={{ color: CLR_WHITE, fontSize: '1.6875rem' }}>
           <Translate i18nKey='pages.demandGenHelper' />

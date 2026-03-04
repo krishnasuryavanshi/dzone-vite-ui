@@ -38,17 +38,13 @@ export const ExecutiveCard: FC<IExecutiveCardProps> = ({
         height: '8rem',
         minWidth: '12.5rem',
         background: DZONE_CLR_GRAY_4,
-      }}>
+      }}
+    >
       <ExecutiveCardTitle title={title || waitingToGoLiveData?.name} />
-      <Flex
-        gap='0.5rem'
-        justify='space-between'
-        style={{ paddingTop: '0.5rem' }}>
+      <Flex gap='0.5rem' justify='space-between' style={{ paddingTop: '0.5rem' }}>
         <Flex vertical>
           <ExecutiveCardMetrics data={current} record={waitingToGoLiveData} />
-          {previous && (
-            <ExecutiveCardMetrics data={previous} isPrevious={true} />
-          )}
+          {previous && <ExecutiveCardMetrics data={previous} isPrevious={true} />}
         </Flex>
         <Flex gap='0.25rem' vertical>
           {hasCurrentData && <ExecutiveIconRenderer isPositive={isPositive} />}

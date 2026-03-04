@@ -25,16 +25,9 @@ export const UserFormActions: FC<IUserFormActionsProps> = ({
     <Flex gap={'1rem'} justify='end'>
       <Button onClick={handleCancel}>Cancel</Button>
 
-      {((isEditing && isEditAllowed && !isReadOnly) ||
-        (!isEditing && isCreateAllowed)) && (
+      {((isEditing && isEditAllowed && !isReadOnly) || (!isEditing && isCreateAllowed)) && (
         <Button type='primary' htmlType='submit' disabled={isSubmitting}>
-          {isSubmitting ? (
-            <LoadingOutlined />
-          ) : isEditing ? (
-            'Save'
-          ) : (
-            'Save and Invite user'
-          )}
+          {isSubmitting ? <LoadingOutlined /> : isEditing ? 'Save' : 'Save and Invite user'}
         </Button>
       )}
     </Flex>

@@ -14,9 +14,7 @@ export const setUpJobTitlesText = (
     hasJobTitles && !form.getFieldValue(LineItemFields.JobTitles)?.length;
 
   const fieldMap =
-    LineItemFileUploadMap[
-      LineItemFields.JobTitleListUpload as keyof typeof LineItemFileUploadMap
-    ];
+    LineItemFileUploadMap[LineItemFields.JobTitleListUpload as keyof typeof LineItemFileUploadMap];
 
   updateUploadField(
     shouldFileUploadButtonEnabled,

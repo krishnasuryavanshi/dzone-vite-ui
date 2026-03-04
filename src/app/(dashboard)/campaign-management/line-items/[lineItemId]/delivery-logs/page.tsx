@@ -10,10 +10,7 @@ export default function DeliveryLogsPage() {
   return (
     <>
       <title>Delivery Logs | DZ One</title>
-      <DeliveryLogsContainer
-        lineItemId={lineItemId!}
-        sessionTenantCode={sessionTenantCode}
-      />
+      <DeliveryLogsContainer lineItemId={lineItemId!} sessionTenantCode={sessionTenantCode} />
     </>
   );
 }

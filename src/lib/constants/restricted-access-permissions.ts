@@ -60,12 +60,8 @@ export const RestrictedAccessPermissions: AccessKeysValues = {
   [RestrictedAccessKeys.CplFieldInLineItemCreate]: [...RestrictedRoles],
   [RestrictedAccessKeys.CplFieldInLineItemEdit]: [...RestrictedRoles],
 
-  [RestrictedAccessKeys.BookedRevenueFieldInCampaignDetails]: [
-    ...RestrictedRoles,
-  ],
-  [RestrictedAccessKeys.BookedRevenueFieldInCampaignCreate]: [
-    ...RestrictedRoles,
-  ],
+  [RestrictedAccessKeys.BookedRevenueFieldInCampaignDetails]: [...RestrictedRoles],
+  [RestrictedAccessKeys.BookedRevenueFieldInCampaignCreate]: [...RestrictedRoles],
   [RestrictedAccessKeys.BookedRevenueFieldInCampaignEdit]: [...RestrictedRoles],
 
   [RestrictedAccessKeys.IONumberColumnInCampaignList]: [...RestrictedRoles],
@@ -73,11 +69,7 @@ export const RestrictedAccessPermissions: AccessKeysValues = {
   [RestrictedAccessKeys.IONumberFieldInCampaignCreate]: [...RestrictedRoles],
   [RestrictedAccessKeys.IONumberFieldInCampaignEdit]: [...RestrictedRoles],
 
-  [RestrictedAccessKeys.UploadIOFileFieldInCampaignDetails]: [
-    ...RestrictedRoles,
-  ],
-  [RestrictedAccessKeys.UploadIOFileFieldInCampaignCreate]: [
-    ...RestrictedRoles,
-  ],
+  [RestrictedAccessKeys.UploadIOFileFieldInCampaignDetails]: [...RestrictedRoles],
+  [RestrictedAccessKeys.UploadIOFileFieldInCampaignCreate]: [...RestrictedRoles],
   [RestrictedAccessKeys.UploadIOFileFieldInCampaignEdit]: [...RestrictedRoles],
 };

@@ -6,9 +6,7 @@ export type SystemMessageInstructionsProps = {
   message: DzRecord[];
 };
 
-export const SystemMessageInstructions = ({
-  message,
-}: SystemMessageInstructionsProps) => {
+export const SystemMessageInstructions = ({ message }: SystemMessageInstructionsProps) => {
   const renderMessages = (msg: DzRecord) => {
     return <HtmlContent htmlStr={msg?.message} />;
   };

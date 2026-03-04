@@ -6,18 +6,12 @@ export const setUpRevenueRange = (
   patchFormValues: Function,
   updateFormStepDetails: Function,
 ) => {
-  const isCustomRange = form.getFieldValue(
-    LineItemFields.IsCompanySizeRevenueCustom,
-  );
+  const isCustomRange = form.getFieldValue(LineItemFields.IsCompanySizeRevenueCustom);
   patchFormValues({
     [LineItemFields.IsCompanySizeRevenueCustom]:
       isCustomRange === undefined ? false : isCustomRange,
   });
-  updateRevenueCustomRangeField(
-    isCustomRange,
-    patchFormValues,
-    updateFormStepDetails,
-  );
+  updateRevenueCustomRangeField(isCustomRange, patchFormValues, updateFormStepDetails);
 };
 
 export const updateRevenueCustomRangeField = (

@@ -19,12 +19,8 @@ interface IExecutiveReportCardProps {
   type: string;
 }
 
-export const ExecutiveReportCard: FC<IExecutiveReportCardProps> = ({
-  type,
-}) => {
-  const [reportData] = useFetchReportData<
-    ExecutiveReportData | CurrentPreviousData
-  >(
+export const ExecutiveReportCard: FC<IExecutiveReportCardProps> = ({ type }) => {
+  const [reportData] = useFetchReportData<ExecutiveReportData | CurrentPreviousData>(
     {
       name: '',
       title: '',
@@ -33,7 +29,8 @@ export const ExecutiveReportCard: FC<IExecutiveReportCardProps> = ({
       percent: '',
       isPositive: false,
     },
-    type, 'count'
+    type,
+    'count',
   );
 
   return (

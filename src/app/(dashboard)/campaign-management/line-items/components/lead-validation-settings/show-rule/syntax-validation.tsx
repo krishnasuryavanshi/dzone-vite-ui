@@ -11,10 +11,7 @@ type SyntaxValidationProps = {
   isEditing?: boolean;
 };
 
-export const SyntaxValidation = ({
-  ruleName,
-  isEditing = false,
-}: SyntaxValidationProps) => {
+export const SyntaxValidation = ({ ruleName, isEditing = false }: SyntaxValidationProps) => {
   const [header, setHeader] = useState<string>('');
   const [fields, setFields] = useState<string[]>([]);
 
@@ -32,10 +29,7 @@ export const SyntaxValidation = ({
     }
   }, [ruleName, leadValidationSettingConfig]);
   return (
-    <RuleContainer
-      header={header}
-      ruleName={ruleName}
-      showEditButton={isEditing}>
+    <RuleContainer header={header} ruleName={ruleName} showEditButton={isEditing}>
       <Hideable show={fields.length > 0}>
         <DzBox>
           <Text style={{ fontSize: '0.875rem' }} strong>

@@ -2,10 +2,7 @@ import { ApiResources } from '@/lib/enums';
 import { ApiHost } from '@/lib/constants';
 import { authenticatedRequest } from '@/services/backend-request';
 
-export const fetchLeadReviewFormConfig = async (
-  type: string,
-  lineItemId?: string,
-) => {
+export const fetchLeadReviewFormConfig = async (type: string, lineItemId?: string) => {
   try {
     // Build params object conditionally
     const params: any = { type };

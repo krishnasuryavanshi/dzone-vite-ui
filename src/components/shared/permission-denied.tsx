@@ -1,4 +1,3 @@
-
 import React, { FC } from 'react';
 import { Result, Button } from '@/uicomponents';
 import { useTranslation } from 'react-i18next';
@@ -12,12 +11,12 @@ export const PermissionDenied: FC<PermissionDeniedProps> = ({ onRetry }) => {
 
   return (
     <Result
-      status="403"
+      status='403'
       title={t('Permission Denied')}
       subTitle={t('You do not have permission to access this resource.')}
       extra={
         onRetry && (
-          <Button type="primary" onClick={onRetry}>
+          <Button type='primary' onClick={onRetry}>
             {t('Retry')}
           </Button>
         )

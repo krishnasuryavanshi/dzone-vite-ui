@@ -133,22 +133,18 @@ export const DynamicFileUpload: React.FC<Props> = ({
 
       const newFiles = allFiles.filter((file: File) => {
         return !fileList.find(
-          (existing) =>
-            existing.originFileObj?.name === file.name &&
-            existing.status === 'done',
+          (existing) => existing.originFileObj?.name === file.name && existing.status === 'done',
         );
       });
 
       if (newFiles.length === 0) return;
-      const newUploadingFiles: ExtendedUploadFile[] = newFiles.map(
-        (file: File) => ({
-          uid: `${file.name}-${file.lastModified}-${Math.random()}`,
-          name: file.name,
-          status: 'uploading',
-          percent: 0,
-          originFileObj: file,
-        }),
-      );
+      const newUploadingFiles: ExtendedUploadFile[] = newFiles.map((file: File) => ({
+        uid: `${file.name}-${file.lastModified}-${Math.random()}`,
+        name: file.name,
+        status: 'uploading',
+        percent: 0,
+        originFileObj: file,
+      }));
 
       setFileList((prev) => [...prev, ...newUploadingFiles]);
 
@@ -167,10 +163,7 @@ export const DynamicFileUpload: React.FC<Props> = ({
       } catch (error) {
         setFileList((prev) =>
           prev.filter(
-            (f) =>
-              !newUploadingFiles.find(
-                (nf) => nf.uid === f.uid || nf.name === f.name,
-              ),
+            (f) => !newUploadingFiles.find((nf) => nf.uid === f.uid || nf.name === f.name),
           ),
         );
       }
@@ -197,10 +190,7 @@ export const DynamicFileUpload: React.FC<Props> = ({
     onRemove: handleRemove,
   });
 
-  const handleUploadMultipleFiles = async (
-    files: File[],
-    uploadingFiles: ExtendedUploadFile[],
-  ) => {
+  const handleUploadMultipleFiles = async (files: File[], uploadingFiles: ExtendedUploadFile[]) => {
     const formData = new FormData();
     files.forEach((file) => formData.append('files', file));
     formData.append('fileTypeName', fileTypeName);
@@ -210,11 +200,7 @@ export const DynamicFileUpload: React.FC<Props> = ({
     const interval = setInterval(() => {
       percent += 10;
       setFileList((prev) =>
-        prev.map((f) =>
-          f.status === 'uploading'
-            ? { ...f, percent: Math.min(percent, 90) }
-            : f,
-        ),
+        prev.map((f) => (f.status === 'uploading' ? { ...f, percent: Math.min(percent, 90) } : f)),
       );
       if (percent >= 90) clearInterval(interval);
     }, 200);
@@ -257,18 +243,13 @@ export const DynamicFileUpload: React.FC<Props> = ({
       clearInterval(interval);
       setFileList((prev) =>
         prev.map((f) =>
-          uploadingFiles.find((u) => u.uid === f.uid)
-            ? { ...f, status: 'error', percent: 0 }
-            : f,
+          uploadingFiles.find((u) => u.uid === f.uid) ? { ...f, status: 'error', percent: 0 } : f,
         ),
       );
     }
   };
 
-  const handleUploadSingleFile = async (
-    file: File,
-    uploadingFile: ExtendedUploadFile,
-  ) => {
+  const handleUploadSingleFile = async (file: File, uploadingFile: ExtendedUploadFile) => {
     try {
       setIsButtonLoading(true);
       const formData = new FormData();

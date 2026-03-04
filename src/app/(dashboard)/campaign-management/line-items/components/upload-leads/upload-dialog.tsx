@@ -19,16 +19,14 @@ export const UploadDialog: FC<IUploadDialogProps> = ({
   if (!isDialogOpen) return null;
   return (
     <DzBox className={`dz-upload-dialog ${dialogType}`}>
-      <DzBox className="dz-upload-dialog-content">
-        <UploadProgress
-          show={dialogType === 'Progress'}
-          progress={progress}
-        />
+      <DzBox className='dz-upload-dialog-content'>
+        <UploadProgress show={dialogType === 'Progress'} progress={progress} />
         <UploadNotification
           show={dialogType === 'Success' || dialogType === 'Error'}
           message={message}
           type={dialogType}
-          onClose={onClose}>
+          onClose={onClose}
+        >
           {children}
         </UploadNotification>
       </DzBox>

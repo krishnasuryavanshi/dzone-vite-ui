@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { CalendarOutlined } from '@ant-design/icons';
 import { Dropdown } from '@/uicomponents';
@@ -31,11 +30,10 @@ export const DayPicker: React.FC<DayPickerProps> = ({
     <Dropdown
       open={open}
       onOpenChange={setOpen}
-      dropdownRender={() => (
-        <DayGrid value={value} onDayClick={handleDayClick} />
-      )}
+      dropdownRender={() => <DayGrid value={value} onDayClick={handleDayClick} />}
       trigger={['click']}
-      placement='bottomLeft'>
+      placement='bottomLeft'
+    >
       <Input
         className={className}
         style={style}

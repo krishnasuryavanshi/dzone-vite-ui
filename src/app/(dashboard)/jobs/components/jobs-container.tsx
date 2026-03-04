@@ -1,13 +1,8 @@
-
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { JobMonitoringService } from '@/lib/constants';
 import { useQueryState } from '@/lib/hooks';
 import { Filters, Sorter } from '@/lib/utils/table';
-import {
-  connectSSE,
-  disconnectAllSSE,
-  disconnectSSE,
-} from '@/services/sse-service';
+import { connectSSE, disconnectAllSSE, disconnectSSE } from '@/services/sse-service';
 import { SimplePagination } from '@/uicomponents';
 import { useSession } from '@/lib/hooks/use-session';
 import { FC, useEffect, useMemo, useRef, useState } from 'react';
@@ -65,22 +60,14 @@ export const JobsContainer: FC<JobsContainerProps> = ({
       if (key === 'lineItemId' && lineItemId) return;
 
       if (key === 'startedAt' || key === 'completedAt') {
-        if (
-          Array.isArray(value) &&
-          value.length > 0 &&
-          typeof value[0] === 'object'
-        ) {
+        if (Array.isArray(value) && value.length > 0 && typeof value[0] === 'object') {
           const dateRange = value[0] as { from?: string; to?: string };
           if (dateRange.from) params[`${key}From`] = String(dateRange.from);
           if (dateRange.to) params[`${key}To`] = String(dateRange.to);
         }
         return;
       } else if (Array.isArray(value) && value.length > 0) {
-        if (
-          typeof value[0] === 'object' &&
-          'from' in value[0] &&
-          'to' in value[0]
-        ) {
+        if (typeof value[0] === 'object' && 'from' in value[0] && 'to' in value[0]) {
           return;
         }
         if (value.length === 1 && typeof value[0] === 'string') {
@@ -232,9 +219,7 @@ export const JobsContainer: FC<JobsContainerProps> = ({
               return {
                 ...old,
                 data: old.data.map((j: IJob) =>
-                  j.jobId === update.jobId
-                    ? mergeJobWithSSEUpdate(j, update)
-                    : j,
+                  j.jobId === update.jobId ? mergeJobWithSSEUpdate(j, update) : j,
                 ),
               };
             });
@@ -290,11 +275,7 @@ export const JobsContainer: FC<JobsContainerProps> = ({
           </Hideable>
         }
       />
-      <JobStepsDrawer
-        job={selectedJob}
-        open={drawerOpen}
-        onClose={handleDrawerClose}
-      />
+      <JobStepsDrawer job={selectedJob} open={drawerOpen} onClose={handleDrawerClose} />
     </>
   );
 };

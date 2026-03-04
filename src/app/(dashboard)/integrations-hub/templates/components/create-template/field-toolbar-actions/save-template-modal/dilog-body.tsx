@@ -10,10 +10,7 @@ interface IDilogBodyProps {
   handleUpdate: (isUpdate: boolean) => void;
 }
 
-export const DilogBody: FC<IDilogBodyProps> = ({
-  handleClose,
-  handleUpdate,
-}) => {
+export const DilogBody: FC<IDilogBodyProps> = ({ handleClose, handleUpdate }) => {
   const [activity, setActivity] = useState<'save' | 'update'>('save');
 
   const handleProceed = () => {
@@ -33,9 +30,7 @@ export const DilogBody: FC<IDilogBodyProps> = ({
         <DilogOption isActive={activity === 'save'}>
           <Flex vertical gap={'0.5rem'} onClick={() => setActivity('save')}>
             <Flex align='center'>
-              <Title
-                level={5}
-                style={{ margin: 0, fontWeight: 500, paddingRight: '0.25rem' }}>
+              <Title level={5} style={{ margin: 0, fontWeight: 500, paddingRight: '0.25rem' }}>
                 <Translate i18nKey='Save as New Template' />
               </Title>
 
@@ -44,7 +39,8 @@ export const DilogBody: FC<IDilogBodyProps> = ({
                   fontSize: '0.875rem',
                   fontWeight: 400,
                   color: '#707070',
-                }}>
+                }}
+              >
                 (<Translate i18nKey='Recommended' />)
               </Text>
             </Flex>

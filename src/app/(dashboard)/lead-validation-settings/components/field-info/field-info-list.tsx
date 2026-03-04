@@ -25,13 +25,9 @@ export const FieldInfoList = ({ config }: FieldInfoConfig) => {
 };
 
 const OrderedList = ({ children }: { children: ReactNode }) => {
-  return (
-    <ol style={{ paddingLeft: '1rem', marginTop: '0.5rem' }}>{children}</ol>
-  );
+  return <ol style={{ paddingLeft: '1rem', marginTop: '0.5rem' }}>{children}</ol>;
 };
 
 const UnOrderedList = ({ children }: { children: ReactNode }) => {
-  return (
-    <ul style={{ paddingLeft: '1rem', marginTop: '0.5rem' }}>{children}</ul>
-  );
+  return <ul style={{ paddingLeft: '1rem', marginTop: '0.5rem' }}>{children}</ul>;
 };

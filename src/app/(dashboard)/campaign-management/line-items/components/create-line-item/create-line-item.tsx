@@ -22,9 +22,7 @@ export const CreateLineItem: FC<ICreateLineItemProps> = ({
   const { queryState, updateQueryParams } = useUpdateQueryState();
   const setSourceObject = useUnsavedDataStore((s) => s.setSourceObject);
 
-  const { data: campaignResponse } = useCampaignDetailQuery(
-    queryState?.campaignId ?? '',
-  );
+  const { data: campaignResponse } = useCampaignDetailQuery(queryState?.campaignId ?? '');
   const campaignData = (campaignResponse?.data as ICampaign) ?? ({} as ICampaign);
 
   useEffect(() => {

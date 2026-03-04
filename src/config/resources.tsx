@@ -124,10 +124,7 @@ export const resources: IResourceItem[] = [
     meta: {
       label: 'pages.integrationHub.title',
       icon: <DeliveryIcon />,
-      permissions: [
-        DeliveryTemplateActionsEnum.View,
-        IntegrationsActionsEnum.View,
-      ],
+      permissions: [DeliveryTemplateActionsEnum.View, IntegrationsActionsEnum.View],
     },
   },
   {
@@ -241,10 +238,7 @@ export const customResources: ICustomResource[] = [
   },
   {
     name: Resource.Templates,
-    urls: [
-      '/integrations-hub/templates/:templateId/update',
-      '/integrations-hub/templates/create',
-    ],
+    urls: ['/integrations-hub/templates/:templateId/update', '/integrations-hub/templates/create'],
   },
   {
     name: Resource.LeadValidationSettings,

@@ -1,9 +1,15 @@
 .auth-feature-container {
-  width: var(--dz-auth-feature-block-width, var(--dz-larg-device-auth-feature-container-block-width));
+  width: var(
+    --dz-auth-feature-block-width,
+    var(--dz-larg-device-auth-feature-container-block-width)
+  );
 }
 
 @media (max-width: 650px) {
   .auth-feature-container {
-    width: var(--dz-auth-feature-block-width, var(--dz-small-device-auth-feature-container-block-width));
+    width: var(
+      --dz-auth-feature-block-width,
+      var(--dz-small-device-auth-feature-container-block-width)
+    );
   }
 }

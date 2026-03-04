@@ -27,8 +27,7 @@ export const CreateSteps: FC<ICreateSteps> = ({
 }) => {
   const stepsItems = Object.entries(steps).map(([stepKey, stepValue]) => {
     const step = Number(stepKey) as CampaignStep | NewLineItemSteps;
-    const savedStep =
-      savedSteps && savedSteps.find((item) => item.step === step);
+    const savedStep = savedSteps && savedSteps.find((item) => item.step === step);
     let status: 'wait' | 'process' | 'finish' | 'error' | undefined;
     if (savedStep && savedStep.status === 'processed' && step !== currentStep) {
       status = 'finish';

@@ -25,10 +25,7 @@ export const ShowItemFields: FC<IShowItemFieldsProps> = ({
   formConfig,
   summaryViewFields,
 }) => {
-  const { fieldsList } = useShowFieldsData(
-    itemDetails as ILineItem,
-    formConfig,
-  );
+  const { fieldsList } = useShowFieldsData(itemDetails as ILineItem, formConfig);
   const [fieldsToDisplay, setFieldsToDisplay] = useState<any[]>([]);
 
   const isFieldValueNonEmpty = (value: any): boolean => {
@@ -57,17 +54,11 @@ export const ShowItemFields: FC<IShowItemFieldsProps> = ({
     } else {
       const nonEmptySections = Array.isArray(fieldsList)
         ? fieldsList
-            .filter((group) =>
-              group.fields.some((field: any) =>
-                isFieldValueNonEmpty(field.value),
-              ),
-            )
+            .filter((group) => group.fields.some((field: any) => isFieldValueNonEmpty(field.value)))
             .map((group) => ({
               ...group,
               sectionLabel: group.section || 'Untitled Section',
-              fields: group.fields.filter((field: any) =>
-                isFieldValueNonEmpty(field.value),
-              ),
+              fields: group.fields.filter((field: any) => isFieldValueNonEmpty(field.value)),
             }))
         : [];
       setFieldsToDisplay(nonEmptySections);
@@ -80,17 +71,17 @@ export const ShowItemFields: FC<IShowItemFieldsProps> = ({
     <>
       {fieldsToDisplay.map((fieldGroup: any, groupIndex: number) => (
         <Fragment key={groupIndex}>
-          {fieldGroup.sectionLabel &&
-            fieldGroup.sectionLabel !== 'Basic Details' && (
-              <Text strong>{fieldGroup.sectionLabel}</Text>
-            )}
+          {fieldGroup.sectionLabel && fieldGroup.sectionLabel !== 'Basic Details' && (
+            <Text strong>{fieldGroup.sectionLabel}</Text>
+          )}
           <DzBox
             style={{
               margin: '0.25rem 0 1rem 0',
               background: DZONE_CLR_GRAY_4,
               overflow: 'hidden',
               borderRadius: '0.5rem',
-            }}>
+            }}
+          >
             {Array.isArray(fieldGroup.fields) &&
               fieldGroup.fields
                 .reduce((rows: any[][], field: any, index: number) => {
@@ -99,31 +90,24 @@ export const ShowItemFields: FC<IShowItemFieldsProps> = ({
                   rows[chunkIndex].push(field);
                   return rows;
                 }, [])
-                .map(
-                  (
-                    rowFields: any[],
-                    rowIndex: number,
-                    allRows: string | any[],
-                  ) => (
-                    <Space
-                      key={rowIndex}
-                      direction='vertical'
-                      style={{
-                        width: '100%',
-                        borderBottom:
-                          rowIndex !== allRows.length - 1
-                            ? '1px solid #e5e7eb'
-                            : undefined,
-                        padding: '1rem',
-                      }}>
-                      <Row gutter={[16, 16]}>
-                        {rowFields.map((field) => {
-                          return <FieldColumn key={field.field} data={field} />;
-                        })}
-                      </Row>
-                    </Space>
-                  ),
-                )}
+                .map((rowFields: any[], rowIndex: number, allRows: string | any[]) => (
+                  <Space
+                    key={rowIndex}
+                    direction='vertical'
+                    style={{
+                      width: '100%',
+                      borderBottom:
+                        rowIndex !== allRows.length - 1 ? '1px solid #e5e7eb' : undefined,
+                      padding: '1rem',
+                    }}
+                  >
+                    <Row gutter={[16, 16]}>
+                      {rowFields.map((field) => {
+                        return <FieldColumn key={field.field} data={field} />;
+                      })}
+                    </Row>
+                  </Space>
+                ))}
           </DzBox>
         </Fragment>
       ))}

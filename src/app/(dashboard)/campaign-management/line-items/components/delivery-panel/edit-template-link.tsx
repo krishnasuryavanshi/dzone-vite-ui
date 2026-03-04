@@ -29,11 +29,13 @@ export const EditTemplateLink: React.FC<IEditTemplateLinkProps> = ({
         display: 'inline-block',
       }}
       target={isTemplateSelected ? '_blank' : undefined}
-      rel={isTemplateSelected ? 'noopener noreferrer' : undefined}>
+      rel={isTemplateSelected ? 'noopener noreferrer' : undefined}
+    >
       <Text
         style={{
           color: isTemplateSelected ? `${DZONE_CLR_BLACK}` : `${CLR_GRAY}`,
-        }}>
+        }}
+      >
         <Translate i18nKey='Edit Template' />
       </Text>
     </Link>

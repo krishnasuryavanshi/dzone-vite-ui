@@ -24,7 +24,8 @@ export const SelectDrawer: React.FC<ISelectDrawerProps> = ({
       open={visible}
       width={400}
       maskClosable={false}
-      onClose={onClose}>
+      onClose={onClose}
+    >
       <List
         bordered
         style={{ maxHeight: '85vh', overflow: 'auto' }}

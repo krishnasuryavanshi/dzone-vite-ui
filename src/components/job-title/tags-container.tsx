@@ -29,7 +29,8 @@ export const TagsContainer: FC<ITagsContainerProps> = ({
         paddingInline: '0.625rem',
         height: '3rem',
         cursor: 'pointer',
-      }}>
+      }}
+    >
       <TagItem
         text={value?.[0]?.text}
         type={value?.[0]?.type}

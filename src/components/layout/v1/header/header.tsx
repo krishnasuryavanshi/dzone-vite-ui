@@ -7,8 +7,7 @@ import { GlobalSearch } from '../../global-search';
 interface IHeaderProps {}
 
 export const Header: FC<IHeaderProps> = () => {
-  const [isGlobalSearchDisabled, setIsGlobalSearchDisabled] =
-    useState<boolean>(false);
+  const [isGlobalSearchDisabled, setIsGlobalSearchDisabled] = useState<boolean>(false);
 
   useEffect(() => {
     setIsGlobalSearchDisabled(true);

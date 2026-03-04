@@ -32,9 +32,7 @@ export interface PacingPeriod {
   schedules: ScheduleItem[];
 }
 
-export const fetchPacingSchedule = async (
-  params: FetchPacingScheduleParams,
-) => {
+export const fetchPacingSchedule = async (params: FetchPacingScheduleParams) => {
   try {
     const data = await authenticatedRequest({
       resource: ApiResources.fetchPacingSchedules,

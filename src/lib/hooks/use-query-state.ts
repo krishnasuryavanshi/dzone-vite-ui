@@ -6,7 +6,7 @@ export function useQueryState() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const [query, setQuery] = useState<Record<string, string>>(
-    Object.fromEntries(searchParams.entries())
+    Object.fromEntries(searchParams.entries()),
   );
 
   useEffect(() => {
@@ -14,25 +14,20 @@ export function useQueryState() {
   }, [searchParams]);
 
   const createQueryString = useCallback(
-    (
-      queries: { name: string; value: string | number }[],
-      replace: boolean = false
-    ) => {
-      const params = new URLSearchParams(
-        replace ? '' : searchParams.toString()
-      );
+    (queries: { name: string; value: string | number }[], replace: boolean = false) => {
+      const params = new URLSearchParams(replace ? '' : searchParams.toString());
       queries.forEach((query) => {
         params.set(query.name, query.value as string);
       });
 
       return params.toString();
     },
-    [searchParams]
+    [searchParams],
   );
 
   const addNewQueryParams = (
     queries: { name: string; value: string | number }[],
-    replace: boolean = false
+    replace: boolean = false,
   ) => {
     router.push(pathname + '?' + createQueryString(queries, replace));
   };

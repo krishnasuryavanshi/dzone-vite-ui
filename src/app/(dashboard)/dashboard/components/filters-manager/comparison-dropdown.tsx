@@ -30,18 +30,16 @@ export const ComparisonDropdown: FC<IComparisonDropdownProps> = ({
 
   return (
     <DzDropdown
-      className="dz-dropdown filter-dropdown filter-dropdown-Campaigns"
+      className='dz-dropdown filter-dropdown filter-dropdown-Campaigns'
       items={allTimeFrame}
-      label="Comparison"
+      label='Comparison'
       multiple={false}
       selectedItems={selectedTimeFrame}
       onSelect={handleComaparisonSelection}
       searchable={false}
     >
-       {selectedTimeFrame?.map((timeFrame) => (
-        <React.Fragment key={timeFrame}>
-          {timeFrameLabels[timeFrame]}
-        </React.Fragment>
+      {selectedTimeFrame?.map((timeFrame) => (
+        <React.Fragment key={timeFrame}>{timeFrameLabels[timeFrame]}</React.Fragment>
       ))}
     </DzDropdown>
   );

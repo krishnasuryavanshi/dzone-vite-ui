@@ -8,11 +8,7 @@ import { WaitingBubble } from './waiting-bubble';
 export const ChatMessagesContainer = () => {
   return (
     <DzBox>
-      <Flex
-        vertical
-        className='chat-messages-container'
-        gap='0.5rem'
-        style={{ minHeight: 0 }}>
+      <Flex vertical className='chat-messages-container' gap='0.5rem' style={{ minHeight: 0 }}>
         <ConversationHistoryContainer />
         <SystemMessageContainer />
         <UserMessageContainer />

@@ -43,8 +43,7 @@ export const useShowSectionData = (
 
               if (
                 !value &&
-                field.field !==
-                  LineItemFields.IsCompanySizeEmployeeCountCustom &&
+                field.field !== LineItemFields.IsCompanySizeEmployeeCountCustom &&
                 field.field !== LineItemFields.IsCompanySizeRevenueCustom
               ) {
                 return null;
@@ -52,9 +51,7 @@ export const useShowSectionData = (
 
               const fieldObject: any = {
                 field: field.field,
-                label: `${field.viewTranslationKey || translation}.${
-                  field.field
-                }.label`,
+                label: `${field.viewTranslationKey || translation}.${field.field}.label`,
                 viewOrder: field.viewOrder,
                 viewType: field.fieldType,
                 value,
@@ -68,9 +65,7 @@ export const useShowSectionData = (
         });
         showData.push({
           title: `${translation}.${stepKeysList[key]}`,
-          fields: fields
-            .flat()
-            .sort((a: any, b: any) => a.viewOrder - b.viewOrder),
+          fields: fields.flat().sort((a: any, b: any) => a.viewOrder - b.viewOrder),
         });
       });
       setSectionList(showData.filter((item) => item.fields.length > 0));

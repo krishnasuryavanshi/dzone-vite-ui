@@ -1,11 +1,7 @@
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents';
 import React, { FC, PropsWithChildren } from 'react';
-import {
-  CheckCircleOutlined,
-  CloseOutlined,
-  WarningOutlined,
-} from '@/uicomponents/icons';
+import { CheckCircleOutlined, CloseOutlined, WarningOutlined } from '@/uicomponents/icons';
 
 import './upload-notification.scss';
 
@@ -25,32 +21,23 @@ export const UploadNotification: FC<IUploadNotificationProps> = ({
 }) => {
   if (!show) return null;
   return (
-    <Flex
-      vertical
-      gap="1.75rem"
-      className={`dz-one-upload-notification ${type}`}>
-      <Flex
-        align="flex-start"
-        gap="0.75rem">
+    <Flex vertical gap='1.75rem' className={`dz-one-upload-notification ${type}`}>
+      <Flex align='flex-start' gap='0.75rem'>
         {type === 'Success' ? (
-          <CheckCircleOutlined className="icon success" />
+          <CheckCircleOutlined className='icon success' />
         ) : (
-          <WarningOutlined className="icon error" />
+          <WarningOutlined className='icon error' />
         )}
-        <Text
-          className="text"
-          strong>
+        <Text className='text' strong>
           {message}
         </Text>
         <CloseOutlined
-          color="#000"
+          color='#000'
           style={{ cursor: 'pointer', marginLeft: 'auto' }}
           onClick={onClose}
         />
       </Flex>
-      <Flex
-        justify="center"
-        flex={1}>
+      <Flex justify='center' flex={1}>
         {children}
       </Flex>
     </Flex>

@@ -14,10 +14,7 @@ import { LeadInfo } from './lead-info';
 import { LeadMeta } from './lead-meta';
 import { Navigation } from './navigation';
 import { IGNORE_VALIDATION_ERRORS_STATUSES } from '../../../lib/constants';
-import {
-  transformJobTitles,
-  formatDateFieldsForPayload,
-} from '../../../lib/utils';
+import { transformJobTitles, formatDateFieldsForPayload } from '../../../lib/utils';
 import { DzRecord } from '@/lib/types';
 import {
   useLeadDetailQuery,
@@ -48,14 +45,11 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
   validationStatuses,
   tenantCode,
 }) => {
-  const [currentLeadTrackingId, setCurrentLeadTrackingId] =
-    useState<string>('');
+  const [currentLeadTrackingId, setCurrentLeadTrackingId] = useState<string>('');
   const [currentLeadId, setCurrentLeadId] = useState<number>(0);
   const [currentLeadNumber, setCurrentLeadNumber] = useState(0);
   const [leadValidationStatus, setLeadValidationStatus] = useState<string>('');
-  const [initialFormValue, setInitialFormValue] = useState<Record<string, any>>(
-    {},
-  );
+  const [initialFormValue, setInitialFormValue] = useState<Record<string, any>>({});
   const [formValue, setFormValue] = useState<Record<string, any>>({});
   const [leadErrorMessages, setLeadErrorMessages] = useState<LeadError[]>([]);
   const [disableRevalidate, setDisableRevalidate] = useState(false);
@@ -73,11 +67,7 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
   }, [leadStatuses, validationStatuses]);
 
   // TanStack Query: review leads list
-  const { data: reviewData } = useReviewLeadsListQuery(
-    lineItemId,
-    reviewFilters,
-    !!lineItemId,
-  );
+  const { data: reviewData } = useReviewLeadsListQuery(lineItemId, reviewFilters, !!lineItemId);
 
   const leadTrackingIds = useMemo(
     () => (reviewData?.data ?? []).map((item: { trackingId: string }) => item.trackingId),
@@ -98,12 +88,9 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
     ].includes(leadValidationStatus as LeadValidationStatus);
 
   // TanStack Query: lead details with polling
-  const { data: leadDetails } = useLeadDetailQuery(
-    currentLeadId,
-    tenantCode,
-    !!currentLeadId,
-    { refetchInterval: shouldPoll ? 15000 : false },
-  );
+  const { data: leadDetails } = useLeadDetailQuery(currentLeadId, tenantCode, !!currentLeadId, {
+    refetchInterval: shouldPoll ? 15000 : false,
+  });
 
   // TanStack Query: form config
   const { data: formConfigResult } = useLeadReviewFormConfigQuery(
@@ -117,10 +104,7 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
   useEffect(() => {
     if (leadDetails) {
       setLeadValidationStatus(leadDetails.leadValidationStatus);
-      processValidationHistory(
-        leadDetails.leadValidationStatus,
-        leadDetails.validationHistory,
-      );
+      processValidationHistory(leadDetails.leadValidationStatus, leadDetails.validationHistory);
     }
   }, [leadDetails]);
 
@@ -171,15 +155,9 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
         return;
       }
 
-      const reviewLeadDifference = getDeltaOfObjects(
-        initialFormValue,
-        formValue,
-      );
+      const reviewLeadDifference = getDeltaOfObjects(initialFormValue, formValue);
 
-      const leadDifferenceWithJobGroup = transformJobTitles(
-        reviewLeadDifference,
-        formValue,
-      );
+      const leadDifferenceWithJobGroup = transformJobTitles(reviewLeadDifference, formValue);
 
       const formattedPayload = formatDateFieldsForPayload(
         leadDifferenceWithJobGroup,
@@ -205,18 +183,16 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
     }
     const errors: LeadError[] = [];
     if (Array.isArray(validationHistory)) {
-      validationHistory.forEach(
-        (error: { field: string; messages: string[] }) => {
-          if (error.messages && Array.isArray(error.messages)) {
-            error.messages.forEach((message: string) => {
-              errors.push({
-                field: error.field,
-                message: message,
-              });
+      validationHistory.forEach((error: { field: string; messages: string[] }) => {
+        if (error.messages && Array.isArray(error.messages)) {
+          error.messages.forEach((message: string) => {
+            errors.push({
+              field: error.field,
+              message: message,
             });
-          }
-        },
-      );
+          });
+        }
+      });
     }
     if (errors.length > 0) {
       setLeadErrorMessages(errors);
@@ -225,11 +201,7 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
 
   const handleSave = async (reviewLeadDifference: Record<string, any>) => {
     try {
-      const { data } = await updateLeadDetails(
-        currentLeadId,
-        reviewLeadDifference,
-        tenantCode,
-      );
+      const { data } = await updateLeadDetails(currentLeadId, reviewLeadDifference, tenantCode);
       if (data) {
         setLeadValidationStatus(data.leadValidationStatus);
         showNotification({
@@ -256,11 +228,7 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
 
   if (!show) return null;
 
-  if (
-    !currentLeadNumber ||
-    !currentLeadTrackingId ||
-    !leadTrackingIds?.length
-  ) {
+  if (!currentLeadNumber || !currentLeadTrackingId || !leadTrackingIds?.length) {
     return <LoadingOutlined />;
   }
 
@@ -272,7 +240,8 @@ export const LeadReviewContainer: FC<ILeadReviewContainerProps> = ({
         revalidationAllowed={leadDetails?.revalidationAllowed}
         disableRevalidate={disableRevalidate}
         leadStatus={leadDetails?.leadStatus}
-        handleSaveAndRevalidate={handleSaveAndRevalidate}>
+        handleSaveAndRevalidate={handleSaveAndRevalidate}
+      >
         <Navigation
           totalLeads={leadTrackingIds.length}
           currentLeadNumber={currentLeadNumber}

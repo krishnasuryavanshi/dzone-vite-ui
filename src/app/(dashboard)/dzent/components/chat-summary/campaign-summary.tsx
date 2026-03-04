@@ -18,7 +18,5 @@ export const CampaignSummary = ({ campaign }: CampaignSummaryProps) => {
       />
     );
   };
-  return (
-    <MapFunction items={Object.keys(campaign)} renderItem={renderSection} />
-  );
+  return <MapFunction items={Object.keys(campaign)} renderItem={renderSection} />;
 };

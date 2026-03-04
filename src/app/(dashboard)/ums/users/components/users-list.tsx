@@ -31,8 +31,7 @@ export const UsersList: FC<IUsersListProps> = ({
   emptyText,
 }) => {
   const router = useRouter();
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
 
   const handleRowClick = (record: IUser) => {
     if (record.status !== 'Invited') {

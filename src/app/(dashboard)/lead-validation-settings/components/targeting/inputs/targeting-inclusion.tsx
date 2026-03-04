@@ -13,10 +13,7 @@ type InclusionProps = {
   sectionName: string;
 };
 
-export const TargetingInclusion = ({
-  attribute,
-  sectionName,
-}: InclusionProps) => {
+export const TargetingInclusion = ({ attribute, sectionName }: InclusionProps) => {
   const [isDisabled, setIsDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<DzRecord[]>([]);
@@ -26,8 +23,7 @@ export const TargetingInclusion = ({
   );
   const inclusionFileMetadata = metadataResponse?.data ?? null;
 
-  const { selectedValues, setSelectedValues, settingMetadata } =
-    useValidationSettingStore();
+  const { selectedValues, setSelectedValues, settingMetadata } = useValidationSettingStore();
 
   useEffect(() => {
     if (selectedValues?.[sectionName]?.[attribute.name]?.data) {
@@ -69,8 +65,7 @@ export const TargetingInclusion = ({
 
       const sectionSelection = selectedValues?.[sectionName];
 
-      const attributeSelectionValues =
-        sectionSelection?.[attribute.name]?.data || [];
+      const attributeSelectionValues = sectionSelection?.[attribute.name]?.data || [];
 
       setSelectedValues(sectionName, {
         ...sectionSelection,
@@ -90,7 +85,8 @@ export const TargetingInclusion = ({
     <DzBox
       style={{
         padding: '1rem 1.25rem',
-      }}>
+      }}
+    >
       <Flex vertical gap={'0.75rem'}>
         <DzBox>
           <Text strong>{attribute.label}</Text>

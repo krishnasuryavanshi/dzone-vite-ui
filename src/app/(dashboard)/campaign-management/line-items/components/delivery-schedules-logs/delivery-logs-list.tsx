@@ -1,4 +1,3 @@
-
 import { BasicTable } from '@/components/table';
 import { FormatDate } from '@/components/util';
 import { TableProps } from '@/lib/types/uicomponents';
@@ -18,9 +17,7 @@ export const DeliveryLogsList = ({ scheduleId, logs, isLoading }: DeliveryLogsLi
   if (!scheduleId) {
     return (
       <Flex justify='center' align='center' className={styles.noDataContainer}>
-        <Text type='danger'>
-          No schedule ID provided. Please select a delivery schedule.
-        </Text>
+        <Text type='danger'>No schedule ID provided. Please select a delivery schedule.</Text>
       </Flex>
     );
   }
@@ -36,12 +33,7 @@ export const DeliveryLogsList = ({ scheduleId, logs, isLoading }: DeliveryLogsLi
   const trackingIdRenderer = (value: string) => <Text strong>{value}</Text>;
 
   const statusRenderer = (status: string) => {
-    const color =
-      status === 'SYNCED'
-        ? 'success'
-        : status === 'FAILED'
-          ? 'error'
-          : 'warning';
+    const color = status === 'SYNCED' ? 'success' : status === 'FAILED' ? 'error' : 'warning';
     return <Tag color={color}>{status}</Tag>;
   };
 
@@ -49,13 +41,9 @@ export const DeliveryLogsList = ({ scheduleId, logs, isLoading }: DeliveryLogsLi
     if (!message) return <Text>-</Text>;
 
     const isError =
-      message.toLowerCase().includes('error') ||
-      message.toLowerCase().includes('failed');
+      message.toLowerCase().includes('error') || message.toLowerCase().includes('failed');
     return (
-      <Text
-        type={isError ? 'danger' : undefined}
-        title={message}
-        ellipsis={{ tooltip: true }}>
+      <Text type={isError ? 'danger' : undefined} title={message} ellipsis={{ tooltip: true }}>
         {message}
       </Text>
     );
@@ -73,19 +61,9 @@ export const DeliveryLogsList = ({ scheduleId, logs, isLoading }: DeliveryLogsLi
 
   const column = createColumn(false);
   const columns: TableProps<DeliveryLog>['columns'] = [
-    column(
-      'Tracking ID',
-      'trackingId',
-      { width: 200, ellipsis: true },
-      trackingIdRenderer,
-    ),
+    column('Tracking ID', 'trackingId', { width: 200, ellipsis: true }, trackingIdRenderer),
     column('Status', 'status', { width: 120 }, statusRenderer),
-    column(
-      'Message',
-      'message',
-      { width: 300, ellipsis: true },
-      messageRenderer,
-    ),
+    column('Message', 'message', { width: 300, ellipsis: true }, messageRenderer),
     column('Retry Count', 'retryCount', { width: 120 }, retryCountRenderer),
     column('Created At', 'createdAt', { width: 180 }, dateRenderer),
     column('Updated At', 'updatedAt', { width: 180 }, dateRenderer),

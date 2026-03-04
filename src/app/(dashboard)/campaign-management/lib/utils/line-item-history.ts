@@ -1,8 +1,6 @@
 import { VALIDATION_LABEL_MAP } from '../constants';
 
-export const buildFieldLabelMap = (
-  formConfig: any[],
-): Record<string, string> => {
+export const buildFieldLabelMap = (formConfig: any[]): Record<string, string> => {
   const map: Record<string, string> = {};
 
   formConfig.forEach((field) => {
@@ -37,9 +35,7 @@ function getValidationLabel(name: string): string {
         field = 'Loopback Period';
       } else {
         // Format other fields normally with spaces between capital letters
-        field = field
-          .replace(/([A-Z])/g, ' $1')
-          .replace(/^./, (s) => s.toUpperCase());
+        field = field.replace(/([A-Z])/g, ' $1').replace(/^./, (s) => s.toUpperCase());
       }
 
       return `Validation Settings > ${category} > ${field}`;

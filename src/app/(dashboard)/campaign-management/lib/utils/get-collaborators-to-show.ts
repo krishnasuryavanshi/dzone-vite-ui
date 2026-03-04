@@ -21,24 +21,18 @@ export const getCollaboratorsToShow = (data: ICampaign | ILineItem) => {
       customerSuccessManager &&
       `${customerSuccessManager?.firstName} ${customerSuccessManager?.lastName}`,
     customerSuccessRep:
-      customerSuccessRep &&
-      `${customerSuccessRep?.firstName} ${customerSuccessRep?.lastName}`,
+      customerSuccessRep && `${customerSuccessRep?.firstName} ${customerSuccessRep?.lastName}`,
     operationsManager:
-      operationsManager &&
-      `${operationsManager?.firstName} ${operationsManager?.lastName}`,
+      operationsManager && `${operationsManager?.firstName} ${operationsManager?.lastName}`,
     operationsTeamLeader:
       operationsTeamLeader &&
       `${operationsTeamLeader?.firstName} ${operationsTeamLeader?.lastName}`,
     qaManager: qaManager && `${qaManager?.firstName} ${qaManager?.lastName}`,
-    qaTeamLeader:
-      qaTeamLeader && `${qaTeamLeader?.firstName} ${qaTeamLeader?.lastName}`,
+    qaTeamLeader: qaTeamLeader && `${qaTeamLeader?.firstName} ${qaTeamLeader?.lastName}`,
     deliveryManager:
-      deliveryManager &&
-      `${deliveryManager?.firstName} ${deliveryManager?.lastName}`,
-    misTeamLeader:
-      misTeamLeader && `${misTeamLeader?.firstName} ${misTeamLeader?.lastName}`,
-    ccdTeamLeader:
-      ccdTeamLeader && `${ccdTeamLeader?.firstName} ${ccdTeamLeader?.lastName}`,
+      deliveryManager && `${deliveryManager?.firstName} ${deliveryManager?.lastName}`,
+    misTeamLeader: misTeamLeader && `${misTeamLeader?.firstName} ${misTeamLeader?.lastName}`,
+    ccdTeamLeader: ccdTeamLeader && `${ccdTeamLeader?.firstName} ${ccdTeamLeader?.lastName}`,
     assignedTo: getAssignedTo(assignedTo),
   };
 };

@@ -19,13 +19,10 @@ export const Feature: FC<PropsWithChildren> = ({ children }) => {
         textAlign: 'center',
         position: 'relative',
       }}
-      className='auth-feature-container'>
+      className='auth-feature-container'
+    >
       <Heading />
-      <Flex
-        justify='center'
-        vertical
-        align='center'
-        style={{ flexGrow: 1, width: '100%' }}>
+      <Flex justify='center' vertical align='center' style={{ flexGrow: 1, width: '100%' }}>
         {children}
       </Flex>
     </Flex>

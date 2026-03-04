@@ -10,11 +10,7 @@ export const isRevenueCustomRange = (
       [LineItemFields.IsCompanySizeRevenueCustom]: e.target.value,
     });
 
-    updateRevenueCustomRangeField(
-      e.target.value,
-      patchFormValues,
-      updateFormStepDetails,
-    );
+    updateRevenueCustomRangeField(e.target.value, patchFormValues, updateFormStepDetails);
   };
 
   updateFormStepDetails(

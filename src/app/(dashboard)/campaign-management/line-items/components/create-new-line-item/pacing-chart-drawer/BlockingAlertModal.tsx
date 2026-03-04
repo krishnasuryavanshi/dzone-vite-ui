@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Button, Modal, Space, Text } from '@/components/uicomponents';
@@ -41,24 +40,21 @@ export const BlockingAlertModal: React.FC<BlockingAlertModalProps> = ({
       <Button key='proceed' type='primary' onClick={onProceed}>
         Proceed with {currentTotal} leads
       </Button>,
-    ]}>
+    ]}
+  >
     <Space direction='vertical' size='middle' style={{ width: '100%' }}>
       <Text>
-        The total lead count in the pacing chart ({currentTotal}) does not match
-        your Target Lead Goal ({targetLeadGoal}).
+        The total lead count in the pacing chart ({currentTotal}) does not match your Target Lead
+        Goal ({targetLeadGoal}).
       </Text>
-      <Text type='warning'>
-        There is a difference of {allocationDifference} leads.
-      </Text>
+      <Text type='warning'>There is a difference of {allocationDifference} leads.</Text>
       <Text>You can either:</Text>
       <ul style={{ marginLeft: '1.25rem' }}>
         <li>
           <Text>Auto-adjust the pacing to match your Target Lead Goal</Text>
         </li>
         <li>
-          <Text>
-            Proceed with the current total and update the Target Lead Goal
-          </Text>
+          <Text>Proceed with the current total and update the Target Lead Goal</Text>
         </li>
         <li>
           <Text>Cancel and manually adjust the pacing</Text>

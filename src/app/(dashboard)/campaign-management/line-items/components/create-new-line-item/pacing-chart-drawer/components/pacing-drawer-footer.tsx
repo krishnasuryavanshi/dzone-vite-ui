@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Button, Text } from '@/components/uicomponents';
 import { Flex } from '@/components/uicomponents/layout/flex';
@@ -72,10 +71,9 @@ export const PacingDrawerFooter: React.FC<PacingDrawerFooterProps> = ({
               onClick={handleSave}
               disabled={!dateRange || !!disableSaveButton}
               title={
-                disableSaveButton
-                  ? 'Please resolve the lead count mismatch before saving'
-                  : ''
-              }>
+                disableSaveButton ? 'Please resolve the lead count mismatch before saving' : ''
+              }
+            >
               Save
             </Button>
           </Space>

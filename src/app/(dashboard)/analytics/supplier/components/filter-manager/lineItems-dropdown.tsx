@@ -17,12 +17,8 @@ export const LineItemsDropdown: FC<ILineItemsDropdownProps> = ({
   handleSelectionChange,
 }) => {
   const [selectedValue, setSelectedValue] = React.useState(null);
-  const filterValues = useFilterDashboardStore(
-    (state: FilterState) => state.filterValues,
-  );
-  const setFilterValues = useFilterDashboardStore(
-    (state: FilterState) => state.setFilterValues,
-  );
+  const filterValues = useFilterDashboardStore((state: FilterState) => state.filterValues);
+  const setFilterValues = useFilterDashboardStore((state: FilterState) => state.setFilterValues);
   const handleComaparisonSelection = (data: any) => {
     if (data) {
       handleSelectionChange &&

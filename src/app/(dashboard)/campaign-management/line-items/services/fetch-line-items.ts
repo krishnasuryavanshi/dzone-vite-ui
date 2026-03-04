@@ -16,9 +16,7 @@ export const fetchLineItems = async (
     const filters = processFiltersWithDateRange(filterInfo);
     const hasFilters = filters.length > 0;
     const method = hasFilters ? HttpMethod.POST : HttpMethod.GET;
-    const resource = hasFilters
-      ? ApiResources.FilteredLineitems
-      : ApiResources.LineItems;
+    const resource = hasFilters ? ApiResources.FilteredLineitems : ApiResources.LineItems;
     const requestBody = hasFilters ? { filters } : {};
     const requestConfig = {
       resource,

@@ -24,14 +24,8 @@ export const HistoryDrawer: FC<IHistoryDrawerProps> = ({
   formConfig,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
-  const {
-    historyData,
-    loading,
-    hasMore,
-    handleScroll,
-    fileMap,
-    validationSettingMap,
-  } = useHistoryData(isOpen, lineItemId, marketerCode, formConfig);
+  const { historyData, loading, hasMore, handleScroll, fileMap, validationSettingMap } =
+    useHistoryData(isOpen, lineItemId, marketerCode, formConfig);
 
   return (
     <Drawer
@@ -44,11 +38,13 @@ export const HistoryDrawer: FC<IHistoryDrawerProps> = ({
       closeIcon={<DrawerCloseButton />}
       destroyOnClose
       width='46rem'
-      style={{ overflow: 'hidden' }}>
+      style={{ overflow: 'hidden' }}
+    >
       <div
         ref={containerRef}
         style={{ height: '80vh', overflowY: 'auto', paddingRight: 16 }}
-        onScroll={handleScroll}>
+        onScroll={handleScroll}
+      >
         {loading && historyData.length === 0 ? (
           <Spin
             style={{
@@ -57,12 +53,7 @@ export const HistoryDrawer: FC<IHistoryDrawerProps> = ({
               alignItems: 'center',
               height: '100%',
             }}
-            indicator={
-              <LoadingOutlined
-                style={{ fontSize: 24, color: CLR_BLUE_LIGHT }}
-                spin
-              />
-            }
+            indicator={<LoadingOutlined style={{ fontSize: 24, color: CLR_BLUE_LIGHT }} spin />}
           />
         ) : historyData.length === 0 ? (
           <Flex justify='center' align='center' style={{ height: '100%' }}>
@@ -81,12 +72,7 @@ export const HistoryDrawer: FC<IHistoryDrawerProps> = ({
         {loading && historyData.length > 0 && (
           <Flex justify='center' style={{ marginTop: 16 }}>
             <Spin
-              indicator={
-                <LoadingOutlined
-                  style={{ fontSize: 24, color: CLR_BLUE_LIGHT }}
-                  spin
-                />
-              }
+              indicator={<LoadingOutlined style={{ fontSize: 24, color: CLR_BLUE_LIGHT }} spin />}
             />
           </Flex>
         )}

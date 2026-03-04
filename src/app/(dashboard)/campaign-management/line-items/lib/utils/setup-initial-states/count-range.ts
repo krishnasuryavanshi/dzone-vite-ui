@@ -6,19 +6,13 @@ export const setUpCountRange = (
   patchFormValues: Function,
   updateFormStepDetails: Function,
 ) => {
-  const isCustomRange = form.getFieldValue(
-    LineItemFields.IsCompanySizeEmployeeCountCustom,
-  );
+  const isCustomRange = form.getFieldValue(LineItemFields.IsCompanySizeEmployeeCountCustom);
 
   patchFormValues({
     [LineItemFields.IsCompanySizeEmployeeCountCustom]: isCustomRange ?? false,
   });
 
-  updateCountCustomRangeField(
-    isCustomRange,
-    patchFormValues,
-    updateFormStepDetails,
-  );
+  updateCountCustomRangeField(isCustomRange, patchFormValues, updateFormStepDetails);
 };
 
 export const updateCountCustomRangeField = (

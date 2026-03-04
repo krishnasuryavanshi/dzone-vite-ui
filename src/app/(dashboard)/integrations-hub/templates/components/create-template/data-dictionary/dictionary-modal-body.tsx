@@ -8,9 +8,7 @@ interface IDictionaryModalBodyProps {
   dataDictionaryList: ITemplateFieldDataType[];
 }
 
-export const DictionaryModalBody: FC<IDictionaryModalBodyProps> = ({
-  dataDictionaryList,
-}) => {
+export const DictionaryModalBody: FC<IDictionaryModalBodyProps> = ({ dataDictionaryList }) => {
   const column = createColumn();
   const columns: TableProps<ITemplateFieldDataType>['columns'] = [
     column('pages.templates.label.dataType', 'value', { width: 50 }),

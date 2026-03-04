@@ -21,7 +21,8 @@ export const Refresh: FC<IRefreshProps> = ({ onRefresh }) => {
         width: '2.25rem',
         border: `1px solid ${DZONE_CLR_BLACK}`,
       }}
-      className={styles.refreshButton}>
+      className={styles.refreshButton}
+    >
       <RefreshIcon />
     </Button>
   );

@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Table } from '@/uicomponents/table';
 import { Flex } from '@/uicomponents/layout';
@@ -130,12 +129,10 @@ export const ReadonlyPacingTable: React.FC<ReadonlyPacingTableProps> = ({
   const expandedRowRender = (record: PacingPeriod) => {
     if (!record.schedules || record.schedules.length === 0) return null;
 
-    const childTableData = record.schedules.map(
-      (schedule: any, index: number) => ({
-        ...schedule,
-        period: index + 1,
-      }),
-    );
+    const childTableData = record.schedules.map((schedule: any, index: number) => ({
+      ...schedule,
+      period: index + 1,
+    }));
 
     return (
       <Flex vertical>
@@ -180,8 +177,7 @@ export const ReadonlyPacingTable: React.FC<ReadonlyPacingTableProps> = ({
         expandIconColumnIndex: 4,
         expandedRowRender,
         expandedRowClassName: () => styles.expandedRow,
-        rowExpandable: (record) =>
-          !!(record.schedules && record.schedules.length > 0),
+        rowExpandable: (record) => !!(record.schedules && record.schedules.length > 0),
         expandIcon: ({ expanded, onExpand, record }) =>
           expanded ? (
             <CaretUpOutlined

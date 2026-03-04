@@ -1,4 +1,3 @@
-
 import React, { FC } from 'react';
 import { ITemplateRow } from '../lib/types';
 import { FormatDate } from '@/components/util';
@@ -20,17 +19,10 @@ const updatedOnRenderer = (updatedOn: string) => {
 
 const StaticContentHeight = 216;
 
-export const TemplateList: FC<ITemplateListProps> = ({
-  templates,
-  handleRowClick,
-  rowHref,
-}) => {
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+export const TemplateList: FC<ITemplateListProps> = ({ templates, handleRowClick, rowHref }) => {
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
 
-  const actionsRenderer = (_val: any, record: any) => (
-    <TemplateRecordAction template={record} />
-  );
+  const actionsRenderer = (_val: any, record: any) => <TemplateRecordAction template={record} />;
 
   const column = createColumn(false);
   const columns: TableProps<ITemplateRow>['columns'] = [
@@ -93,9 +85,7 @@ export const TemplateList: FC<ITemplateListProps> = ({
       columns={columns}
       data={templates}
       hasPagination={false}
-      onClick={(record: ITemplateRow) =>
-        handleRowClick && handleRowClick(record)
-      }
+      onClick={(record: ITemplateRow) => handleRowClick && handleRowClick(record)}
       rowHref={rowHref}
       scrollableHeight={scrollableTableHeight}
     />

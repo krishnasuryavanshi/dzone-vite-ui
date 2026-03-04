@@ -14,17 +14,15 @@ export const LeadName: FC<ILeadNameProps> = ({ name, email, linkedinLink }) => {
   return (
     <DzBox style={{ flex: 1 }}>
       <LeadMetaRow className='lead-name' label={name}>
-        <Text
-          style={{ fontSize: '0.875rem', width: '15rem' }}
-          underline
-          ellipsis>
+        <Text style={{ fontSize: '0.875rem', width: '15rem' }} underline ellipsis>
           {email}
         </Text>
         <Link
           style={{ fontSize: '0.875rem', width: '15rem' }}
           href={linkedinLink}
           target='_blank'
-          ellipsis>
+          ellipsis
+        >
           {linkedinLink}
         </Link>
       </LeadMetaRow>

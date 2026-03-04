@@ -38,35 +38,20 @@ export const DateTimeRangeFilter: FC<IDateTimeRangeFilterProps> = ({
       typeof selectedKeys[0] === 'object'
     ) {
       const filterValue = selectedKeys[0] as DateTimeRangeValue;
-      if (
-        filterValue &&
-        (filterValue.from !== undefined || filterValue.to !== undefined)
-      ) {
+      if (filterValue && (filterValue.from !== undefined || filterValue.to !== undefined)) {
         setRange({
-          from: filterValue.from
-            ? dayjs.utc(filterValue.from).tz(browserTimezone)
-            : null,
-          to: filterValue.to
-            ? dayjs.utc(filterValue.to).tz(browserTimezone)
-            : null,
+          from: filterValue.from ? dayjs.utc(filterValue.from).tz(browserTimezone) : null,
+          to: filterValue.to ? dayjs.utc(filterValue.to).tz(browserTimezone) : null,
         });
       } else {
         setRange(null);
       }
-    } else if (
-      selectedKeys &&
-      typeof selectedKeys === 'object' &&
-      !Array.isArray(selectedKeys)
-    ) {
+    } else if (selectedKeys && typeof selectedKeys === 'object' && !Array.isArray(selectedKeys)) {
       const filterValue = selectedKeys as unknown as DateTimeRangeValue;
       if (filterValue.from !== undefined || filterValue.to !== undefined) {
         setRange({
-          from: filterValue.from
-            ? dayjs.utc(filterValue.from).tz(browserTimezone)
-            : null,
-          to: filterValue.to
-            ? dayjs.utc(filterValue.to).tz(browserTimezone)
-            : null,
+          from: filterValue.from ? dayjs.utc(filterValue.from).tz(browserTimezone) : null,
+          to: filterValue.to ? dayjs.utc(filterValue.to).tz(browserTimezone) : null,
         });
       } else {
         setRange(null);
@@ -105,10 +90,7 @@ export const DateTimeRangeFilter: FC<IDateTimeRangeFilterProps> = ({
     return date.utc().format('YYYY-MM-DDTHH:mm:ss');
   };
 
-  const onCalendarChange = (
-    dates: null | (Dayjs | null)[],
-    _dateStrings: string[],
-  ) => {
+  const onCalendarChange = (dates: null | (Dayjs | null)[], _dateStrings: string[]) => {
     if (dates && (dates[0] || dates[1])) {
       const newRange = {
         from: dates[0] || null,
@@ -146,9 +128,7 @@ export const DateTimeRangeFilter: FC<IDateTimeRangeFilterProps> = ({
     }
   };
 
-  const rangeValue: [Dayjs | null, Dayjs | null] | null = range
-    ? [range.from, range.to]
-    : null;
+  const rangeValue: [Dayjs | null, Dayjs | null] | null = range ? [range.from, range.to] : null;
 
   return (
     <Flex
@@ -156,7 +136,8 @@ export const DateTimeRangeFilter: FC<IDateTimeRangeFilterProps> = ({
       className='dz-calendar-dark'
       onKeyDown={(e) => e.stopPropagation()}
       vertical
-      gap={'1rem'}>
+      gap={'1rem'}
+    >
       <DzBox>
         <RangePicker
           showTime={{ format: 'hh:mm A', use12Hours: true }}

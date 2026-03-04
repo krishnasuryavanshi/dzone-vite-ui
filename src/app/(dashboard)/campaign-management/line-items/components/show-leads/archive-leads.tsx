@@ -63,7 +63,8 @@ export const ArchiveLeads: FC<IArchiveLeadsProps> = ({
         }}
         className='dz-btn-action-1'
         disabled={leadIds.length === 0}
-        onClick={handleArchiveClick}>
+        onClick={handleArchiveClick}
+      >
         {'Archive'}
       </Button>
       {showModal && (
@@ -72,7 +73,8 @@ export const ArchiveLeads: FC<IArchiveLeadsProps> = ({
           onCancel={handleCancel}
           footer={null}
           closable={false}
-          className='confirm-cancel-modal'>
+          className='confirm-cancel-modal'
+        >
           <ConfirmationModal
             className='confirmation-modal'
             title='Are you sure you want to archive this lead?'

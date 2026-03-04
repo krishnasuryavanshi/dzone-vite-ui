@@ -12,10 +12,7 @@ export type OnChange<T> = NonNullable<TableProps<T>['onChange']>;
 export type Filters<T> = Parameters<OnChange<T>>[1];
 export type Sorter<T> = Parameters<OnChange<T>>[2];
 
-export function createColumn<T>(
-  hasFilters?: boolean,
-  filtereInfo?: Filters<T>,
-) {
+export function createColumn<T>(hasFilters?: boolean, filtereInfo?: Filters<T>) {
   return (
     name: string,
     dataIndex: string,

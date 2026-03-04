@@ -7,11 +7,7 @@ interface ICheckboxProps extends PropsWithChildren, CheckboxProps {
   className?: string;
 }
 
-export const Checkbox: FC<ICheckboxProps> = ({
-  children,
-  onChange,
-  ...rest
-}) => {
+export const Checkbox: FC<ICheckboxProps> = ({ children, onChange, ...rest }) => {
   return (
     <AntdCheckbox onChange={onChange} {...rest}>
       {children}

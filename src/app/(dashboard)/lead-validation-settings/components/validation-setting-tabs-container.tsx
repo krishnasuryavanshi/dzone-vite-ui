@@ -23,9 +23,7 @@ export const ValidationSettingTabsContainer = ({
   lineItemId,
   leadValidationSettingId,
 }: ValidationSettingTabsContainerProps) => {
-  const [activeTab, setActiveTab] = React.useState<'targeting' | 'validations'>(
-    'targeting',
-  );
+  const [activeTab, setActiveTab] = React.useState<'targeting' | 'validations'>('targeting');
 
   const {
     setIsEditing,
@@ -88,7 +86,8 @@ export const ValidationSettingTabsContainer = ({
           paddingTop: '1rem',
           paddingBottom: 0,
           borderBottom: '1px solid #e8e8e8',
-        }}>
+        }}
+      >
         <Tabs
           activeKey={activeTab}
           items={items}
@@ -99,13 +98,12 @@ export const ValidationSettingTabsContainer = ({
       <DzBox
         style={{
           padding: '1rem 0 1rem 0',
-        }}>
-        <Hideable
-          show={activeTab === 'targeting' && !!leadValidationSettingConfig}>
+        }}
+      >
+        <Hideable show={activeTab === 'targeting' && !!leadValidationSettingConfig}>
           <TargetingValidationSettingContainer />
         </Hideable>
-        <Hideable
-          show={activeTab === 'validations' && !!leadValidationSettingConfig}>
+        <Hideable show={activeTab === 'validations' && !!leadValidationSettingConfig}>
           <ValidationsSettingsContainer />
         </Hideable>
       </DzBox>
@@ -115,7 +113,8 @@ export const ValidationSettingTabsContainer = ({
           bottom: '1rem',
           padding: '1rem',
           right: '2rem',
-        }}>
+        }}
+      >
         <Flex justify='flex-end'>
           <ValidationSettingsActions />
         </Flex>

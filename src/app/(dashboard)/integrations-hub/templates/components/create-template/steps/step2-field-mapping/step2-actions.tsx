@@ -1,4 +1,3 @@
-
 import { Translate } from '@/components/i18n';
 import { showNotification } from '@/services/notification';
 import { Button } from '@/uicomponents';
@@ -25,9 +24,7 @@ export const Step2Actions: FC = () => {
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showModal, setShowModal] = useState(false);
-  const [isUpdateActivity, setIsUpdateActivity] = useState<boolean | null>(
-    null,
-  );
+  const [isUpdateActivity, setIsUpdateActivity] = useState<boolean | null>(null);
 
   useEffect(() => {
     if (isUpdateActivity === false) {
@@ -86,10 +83,7 @@ export const Step2Actions: FC = () => {
       }
       setIsLoading(true);
       const data = isUpdating
-        ? await updateTemplateDetails(
-            updatedTemplate.id as string,
-            updatedTemplate,
-          )
+        ? await updateTemplateDetails(updatedTemplate.id as string, updatedTemplate)
         : await createTemplate(updatedTemplate);
       if (data) {
         setInitialTemplateData(data.data, true);
@@ -124,7 +118,8 @@ export const Step2Actions: FC = () => {
           size='small'
           style={{ width: '8rem', textAlign: 'center' }}
           disabled={visibleFieldsCount === 0 || isSaveDisabled || isLoading}
-          onClick={handleSaveTemplate}>
+          onClick={handleSaveTemplate}
+        >
           {isLoading ? (
             <LoadingOutlined />
           ) : existingTemplate ? (

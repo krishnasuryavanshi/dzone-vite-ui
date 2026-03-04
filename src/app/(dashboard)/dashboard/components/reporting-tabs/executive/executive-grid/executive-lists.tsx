@@ -26,8 +26,7 @@ export const ExecutiveLists: FC<IExecutiveListsProps> = ({
   hasFilters,
 }) => {
   const router = useRouter();
-  const { scrollableTableHeight } =
-    useScrollableTableHeight(StaticContentHeight);
+  const { scrollableTableHeight } = useScrollableTableHeight(StaticContentHeight);
 
   const getCampaignHref = (record: IExcecutiveGrids) =>
     `/campaign-management/campaigns/${record.campaignUUID}`;
@@ -38,9 +37,7 @@ export const ExecutiveLists: FC<IExecutiveListsProps> = ({
   const statusRenderer = (status: IStatus) => {
     return <CampaignStatus status={status} />;
   };
-  const actionsRenderer = (_val: any, record: any) => (
-    <ExecutiveGridActions executive={record} />
-  );
+  const actionsRenderer = (_val: any, record: any) => <ExecutiveGridActions executive={record} />;
 
   const options = useCampaignFilterOptions(hasFilters);
   const column = createColumn(true, filterInfo);
@@ -68,12 +65,7 @@ export const ExecutiveLists: FC<IExecutiveListsProps> = ({
     column('pages.executive.bookedRevenue', 'bookedRevenue'),
     column('pages.executive.invoiced', 'invoiced'),
     column('pages.executive.valueAddLeads', 'valueAddLeads'),
-    column(
-      'pages.executive.actions',
-      'actions',
-      { fixed: 'right', width: 100 },
-      actionsRenderer,
-    ),
+    column('pages.executive.actions', 'actions', { fixed: 'right', width: 100 }, actionsRenderer),
   ];
 
   const handleChange = (data: any) => {

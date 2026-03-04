@@ -28,9 +28,7 @@
 }
 
 .pageSizeSelect:global(
-    .ant-select-outlined:not(.ant-select-disabled):not(
-        .ant-select-customize-input
-      )
+    .ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input)
   )
   :global(.ant-select-selector) {
   height: var(--dzone-pagination-button-size);
@@ -45,9 +43,7 @@
 }
 
 .pageSizeSelect:global(
-    .ant-select-outlined:not(.ant-select-disabled):not(
-        .ant-select-customize-input
-      ):hover
+    .ant-select-outlined:not(.ant-select-disabled):not(.ant-select-customize-input):hover
   )
   :global(.ant-select-selector) {
   border: none;
@@ -90,21 +86,16 @@
   background-color: rgba(35, 90, 237, 0.1);
 }
 
-.pageSizeDropdown
-  :global(.ant-select-item-option-selected .ant-select-item-option-content) {
+.pageSizeDropdown :global(.ant-select-item-option-selected .ant-select-item-option-content) {
   color: var(--dzone-pagination-text-color);
   font-weight: var(--dzone-font-weight-medium);
 }
 
-.pageSizeDropdown
-  :global(
-    .ant-select-item-option-active:not(.ant-select-item-option-disabled)
-  ) {
+.pageSizeDropdown :global(.ant-select-item-option-active:not(.ant-select-item-option-disabled)) {
   background-color: rgba(35, 90, 237, 0.05);
 }
 
-.pageSizeDropdown
-  :global(.ant-select-item-option-active .ant-select-item-option-content) {
+.pageSizeDropdown :global(.ant-select-item-option-active .ant-select-item-option-content) {
   color: var(--dzone-pagination-text-color);
 }
 
