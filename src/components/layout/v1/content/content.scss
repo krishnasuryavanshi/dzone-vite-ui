@@ -1,5 +1,6 @@
 .dz-content-panel-wrapper {
   height: 100%;
+  position: relative;
 
   .dz-content-panel-scollable-container {
     max-height: calc(100vh - 5rem);
