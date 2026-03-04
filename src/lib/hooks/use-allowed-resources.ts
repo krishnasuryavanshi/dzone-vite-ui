@@ -1,20 +1,35 @@
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useSession } from '@/lib/hooks/use-session';
 import { usePermissionsStore } from '@/stores/permissions-store';
-import { fetchPermissions } from '@/services/fetch-permissions';
 import { roleBasedResources, checkPermission } from '../utils';
 import { resources } from '@/config/resources';
 import { IResourceItem } from '../types/resource.types';
-import { AdminRoleEnum, Resource } from '../enums';
+import { usePermissionsQuery } from './use-permissions-query';
 
 export function useAllowedResources() {
   const { data } = useSession();
   const [resourcesList, setResourcesList] = useState<IResourceItem[]>([]);
   const [hideUsers, setHideUsers] = useState<boolean>(false);
-  const permissionsFetched = useRef(false);
 
   const { accesses, setAccesses, setAttributes, setModules } =
     usePermissionsStore();
+
+  const roleIds = useMemo(
+    () => (data?.roles ?? []).map((role: { id: string }) => role.id),
+    [data?.roles],
+  );
+
+  // TanStack Query: fetch permissions
+  const { data: permissionsData } = usePermissionsQuery(roleIds);
+
+  // Set attributes from permissions query result
+  useEffect(() => {
+    if (permissionsData?.data) {
+      const fieldData = [...permissionsData.data];
+      const setFieldPermissions = usePermissionsStore.getState().setAttributes;
+      setFieldPermissions(fieldData);
+    }
+  }, [permissionsData]);
 
   useEffect(() => {
     if (data?.roles) {
@@ -55,21 +70,6 @@ export function useAllowedResources() {
       setResourcesList([]);
     }
   }, [accesses, hideUsers]);
-
-  const fetchAllPermissionsForAttributes = async (roleIds: string[]) => {
-    const permissionsData = await fetchPermissions({ roleIds: roleIds });
-    const fieldData = permissionsData?.data ? [...permissionsData.data] : [];
-    const setFieldPermissions = usePermissionsStore.getState().setAttributes;
-    setFieldPermissions(fieldData);
-  };
-
-  useEffect(() => {
-    if (data?.roles && !permissionsFetched.current) {
-      const roleIds = data.roles.map((role: { id: string }) => role.id);
-      fetchAllPermissionsForAttributes(roleIds);
-      permissionsFetched.current = true;
-    }
-  }, [data?.roles]);
 
   return {
     resources: resourcesList,

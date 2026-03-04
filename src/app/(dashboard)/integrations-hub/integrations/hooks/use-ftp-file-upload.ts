@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from 'react';
 import { UploadFile, UploadProps } from '@/lib/types/uicomponents';
-import { fetchFileUploadMetadata } from '@/services/file-upload';
 import { showNotification } from '@/services/notification';
 import { useSession } from '@/lib/hooks/use-session';
 import { uploadSingleFile } from '@/app/(dashboard)/campaign-management/line-items/services/upload-single-file';
+import { useFileUploadMetadataQuery } from '@/app/(dashboard)/campaign-management/line-items/hooks/use-file-upload-metadata-query';
 
 const FILE_TYPE_NAME = 'private-key-file';
 const ACCEPTED_FILE_EXTENSIONS = '.pem,.ppk,.key';
@@ -22,19 +22,10 @@ export const useFtpFileUpload = (
 ): UseFileUploadLogicReturn => {
   const { data: session } = useSession();
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-  const [uploadMetadata, setUploadMetadata] = useState<any>(null);
   const [isUploading, setIsUploading] = useState(false);
 
-  const fetchMetadata = useCallback(async () => {
-    try {
-      const response = await fetchFileUploadMetadata(FILE_TYPE_NAME);
-      if (response?.data) {
-        setUploadMetadata(response.data);
-      }
-    } catch (error) {
-      // Silent fail - metadata is optional
-    }
-  }, []);
+  const { data: metadataResponse } = useFileUploadMetadataQuery(FILE_TYPE_NAME);
+  const uploadMetadata = metadataResponse?.data ?? null;
 
   const resetFileState = useCallback(() => {
     setFileList([]);
@@ -96,10 +87,6 @@ export const useFtpFileUpload = (
       form.setFieldsValue({ privateKeyFileId: undefined });
     }
   }, [form]);
-
-  useEffect(() => {
-    fetchMetadata();
-  }, [fetchMetadata]);
 
   useEffect(() => {
     // Always reset file state when modal state changes

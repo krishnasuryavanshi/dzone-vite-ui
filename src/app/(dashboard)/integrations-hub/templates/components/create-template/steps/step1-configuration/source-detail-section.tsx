@@ -6,9 +6,9 @@ import { Select } from '@/uicomponents/form/input';
 import { Flex } from '@/uicomponents/layout';
 import { Col, Row } from '@/uicomponents/layout/grid';
 import { Text } from '@/uicomponents/text';
-import { FC, useEffect, useState } from 'react';
-import { fetchLineItems } from '../../../../services';
+import { FC, useMemo } from 'react';
 import { useTemplateStore } from '../../../../stores';
+import { useTemplateLineItemsQuery } from '../../../../hooks/use-template-line-items-query';
 import { DzRecord } from '@/lib/types';
 
 interface SourceDetailSectionProps {
@@ -19,33 +19,18 @@ export const SourceDetailSection: FC<SourceDetailSectionProps> = ({
   templateId,
 }) => {
   const { updateTemplateData } = useTemplateStore();
-  const [lineItemOptions, setLineItemOptions] = useState<
-    {
-      label: string;
-      value: string;
-      lineItemId?: string;
-    }[]
-  >([]);
 
-  useEffect(() => {
-    fetchLineItemOptions();
-  }, []);
+  const { data: lineItemsData } = useTemplateLineItemsQuery();
 
-  const fetchLineItemOptions = async () => {
-    try {
-      const { data: items } = await fetchLineItems();
-      const options = Array.isArray(items)
-        ? items.map((item) => ({
-            label: item.name,
-            value: item.id,
-            lineItemId: item.lineItemId,
-          }))
-        : [];
-      setLineItemOptions(options);
-    } catch (error) {
-      setLineItemOptions([]);
-    }
-  };
+  const lineItemOptions = useMemo(() => {
+    const items = lineItemsData?.data;
+    if (!Array.isArray(items)) return [];
+    return items.map((item: any) => ({
+      label: item.name,
+      value: item.id,
+      lineItemId: item.lineItemId,
+    }));
+  }, [lineItemsData]);
 
   const renderLineItemOption = (option: DzRecord) => (
     <Flex vertical gap={0}>

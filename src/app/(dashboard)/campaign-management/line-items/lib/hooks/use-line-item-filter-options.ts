@@ -1,9 +1,8 @@
 import { IUser } from '@/app/(dashboard)/ums/users/lib/types';
-import { fetchAssignedUsersInModule } from '@/app/(dashboard)/ums/users/services';
 import { RestrictedAccessKeys } from '@/lib/enums';
 import { useRestrictedAccess } from '@/lib/hooks';
-import { useEffect, useState } from 'react';
-import { fetchLineItemStatuses } from '../../services';
+import { useEffect, useMemo, useState } from 'react';
+import { useLineItemFilterOptionsQuery } from '../../hooks/use-line-item-filter-options-query';
 import { LineItemFields } from '../enums';
 
 export function useLineItemFilterOptions(
@@ -17,11 +16,33 @@ export function useLineItemFilterOptions(
   });
 
   const [userId, setUserId] = useState<string | null>(null);
-  const [dynamicFilters, setDynamicFilters] = useState<any>({});
+
+  const { data: filterOptionsData } = useLineItemFilterOptionsQuery(
+    hasFilters === true,
+  );
 
   const isCplColumnHidden = useRestrictedAccess(
     RestrictedAccessKeys.CplColumnInLineItemList,
   );
+
+  const dynamicFilters = useMemo(() => {
+    if (!filterOptionsData) return {};
+    const { statuses, assignedUsers } = filterOptionsData;
+    return {
+      [LineItemFields.Status]: {
+        isDynamicOptions: true,
+        filters: statuses,
+      },
+      [LineItemFields.AssignedTo]: {
+        isDynamicOptions: true,
+        filters:
+          assignedUsers?.data?.map((user: IUser) => ({
+            text: `${user.firstName} ${user.lastName}`,
+            value: user.id,
+          })) ?? [],
+      },
+    };
+  }, [filterOptionsData]);
 
   useEffect(() => {
     if (!assignedTo || assignedTo === 'all') {
@@ -41,10 +62,7 @@ export function useLineItemFilterOptions(
   }, [isCplColumnHidden]);
 
   useEffect(() => {
-    if (hasFilters) {
-      fetchDynamicFilters();
-    } else if (hasFilters === false) {
-      // hasFilters could be undefined
+    if (hasFilters === false) {
       setOptions((prev) => ({ ...prev, isReady: true, dynamicFilters: {} }));
     }
   }, [hasFilters]);
@@ -56,6 +74,7 @@ export function useLineItemFilterOptions(
       ]?.filters?.find((user: any) => user.value === userId);
       setOptions((prev) => ({
         ...prev,
+        isReady: !!filterOptionsData || hasFilters === false,
         dynamicFilters: {
           ...dynamicFilters,
           [LineItemFields.AssignedTo]: {
@@ -66,30 +85,13 @@ export function useLineItemFilterOptions(
         },
       }));
     } else {
-      setOptions((prev) => ({ ...prev, dynamicFilters }));
+      setOptions((prev) => ({
+        ...prev,
+        isReady: !!filterOptionsData || hasFilters === false,
+        dynamicFilters,
+      }));
     }
-  }, [userId, dynamicFilters]);
-
-  const fetchDynamicFilters = async () => {
-    const statuses = await fetchLineItemStatuses();
-    const { data: assignedToUsers } =
-      await fetchAssignedUsersInModule('Line Item');
-    const dynamicFilters = {
-      [LineItemFields.Status]: {
-        isDynamicOptions: true,
-        filters: statuses,
-      },
-      [LineItemFields.AssignedTo]: {
-        isDynamicOptions: true,
-        filters: assignedToUsers.map((user: IUser) => ({
-          text: `${user.firstName} ${user.lastName}`,
-          value: user.id,
-        })),
-      },
-    };
-    setDynamicFilters(dynamicFilters);
-    setOptions((prev) => ({ ...prev, dynamicFilters, isReady: true }));
-  };
+  }, [userId, dynamicFilters, filterOptionsData, hasFilters]);
 
   return options;
 }

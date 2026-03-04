@@ -1,5 +1,7 @@
 
-import { useState, useEffect } from 'react';
+import { useMemo } from 'react';
+import { useQueries } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 import { fetchFilterOptions } from '../../services';
 import { FILTER_URL_MAP } from './use-leads-column-details';
 
@@ -22,44 +24,43 @@ type MultipleFieldsReturn = {
 export function useFilterOptions(
   fieldNames: string | string[],
 ): SingleFieldReturn | MultipleFieldsReturn {
-  const [optionsMap, setOptionsMap] = useState<Record<string, string[]>>({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState<Record<string, Error>>({});
-
   // Convert single field to array for consistent handling
   const fields = Array.isArray(fieldNames) ? fieldNames : [fieldNames];
   const isSingleField = !Array.isArray(fieldNames);
 
-  useEffect(() => {
-    const loadOptions = async () => {
-      if (fields.length === 0) return;
+  const validFields = useMemo(
+    () => fields.filter((fieldName) => !!FILTER_URL_MAP[fieldName]),
+    [JSON.stringify(fields)],
+  );
 
-      setIsLoading(true);
-      const newOptionsMap: Record<string, string[]> = {};
-      const newErrors: Record<string, Error> = {};
+  const queries = useQueries({
+    queries: validFields.map((fieldName) => ({
+      queryKey: [...queryKeys.leads.filterOptions(), fieldName],
+      queryFn: () => fetchFilterOptions(FILTER_URL_MAP[fieldName]),
+      staleTime: 30 * 60 * 1000,
+      enabled: fields.length > 0,
+    })),
+  });
 
-      await Promise.all(
-        fields.map(async (fieldName) => {
-          const url = FILTER_URL_MAP[fieldName];
-          if (!url) return;
+  const optionsMap = useMemo(() => {
+    const map: Record<string, string[]> = {};
+    validFields.forEach((fieldName, index) => {
+      map[fieldName] = queries[index]?.data ?? [];
+    });
+    return map;
+  }, [validFields, queries]);
 
-          try {
-            const options = await fetchFilterOptions(url);
-            newOptionsMap[fieldName] = options;
-          } catch (err) {
-            newErrors[fieldName] = err as Error;
-            newOptionsMap[fieldName] = [];
-          }
-        }),
-      );
+  const errors = useMemo(() => {
+    const errs: Record<string, Error> = {};
+    validFields.forEach((fieldName, index) => {
+      if (queries[index]?.error) {
+        errs[fieldName] = queries[index].error as Error;
+      }
+    });
+    return errs;
+  }, [validFields, queries]);
 
-      setOptionsMap(newOptionsMap);
-      setErrors(newErrors);
-      setIsLoading(false);
-    };
-
-    loadOptions();
-  }, [JSON.stringify(fields)]);
+  const isLoading = queries.some((q) => q.isLoading);
 
   // Return single field format for backward compatibility
   if (isSingleField && fields[0]) {

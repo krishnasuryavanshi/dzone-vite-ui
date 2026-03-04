@@ -1,63 +1,48 @@
 import { Hideable } from '@/components/shared';
 import { useQueryState } from '@/lib/hooks';
-import { FC, useEffect, useState } from 'react';
+import { FC, useMemo } from 'react';
 import {
   PasswordLinkExpiredContainer,
   SetPassword,
   SetPasswordEntry,
 } from './components';
+import { useQuery } from '@tanstack/react-query';
 import { validateSetPasswordToken } from './services';
 
 interface ISetPasswordContainerProps {}
 
-type CurrentPageType = 'Loading' | 'Valid Token' | 'Invalid Token';
-
 export const SetPasswordContainer: FC<ISetPasswordContainerProps> = ({}) => {
   const { queryState } = useQueryState();
-  const [currentPage, setCurrentPage] = useState<CurrentPageType>('Loading');
-  const [token, setToken] = useState<string | null>(null);
-  const [attemptCount, setAttemptCount] = useState(0);
 
-  useEffect(() => {
-    if (queryState) {
-      let { token } = queryState;
-      if (token) {
-        setToken(token);
-      } else {
-        setToken(null);
-      }
-    }
-  }, [queryState]);
+  const token = useMemo(() => queryState?.token ?? null, [queryState]);
 
-  useEffect(() => {
-    if (token) {
-      setCurrentPage('Loading');
-      validateToken(token);
-    } else {
-      setCurrentPage('Invalid Token');
-    }
-  }, [token]);
+  const { data, isLoading } = useQuery({
+    queryKey: ['setPassword', 'validateToken', token],
+    queryFn: () => validateSetPasswordToken(token!),
+    enabled: !!token,
+  });
 
-  const validateToken = async (token: string) => {
-    const data = await validateSetPasswordToken(token);
-    if (data?.data?.success) {
-      setCurrentPage('Valid Token');
-    } else {
-      setCurrentPage('Invalid Token');
-    }
-    setAttemptCount(data?.data?.inviteAttempts);
-  };
+  const isValid = data?.data?.success === true;
+  const attemptCount = data?.data?.inviteAttempts ?? 0;
 
-  if (currentPage === 'Loading') {
+  if (!token) {
+    return (
+      <SetPasswordEntry>
+        <PasswordLinkExpiredContainer attemptCount={0} />
+      </SetPasswordEntry>
+    );
+  }
+
+  if (isLoading) {
     return null;
   }
 
   return (
     <SetPasswordEntry>
-      <Hideable show={currentPage === 'Valid Token'}>
-        <SetPassword token={token as string} />
+      <Hideable show={isValid}>
+        <SetPassword token={token} />
       </Hideable>
-      <Hideable show={currentPage === 'Invalid Token'}>
+      <Hideable show={!isValid}>
         <PasswordLinkExpiredContainer attemptCount={attemptCount} />
       </Hideable>
     </SetPasswordEntry>

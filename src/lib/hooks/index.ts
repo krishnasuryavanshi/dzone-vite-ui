@@ -15,3 +15,4 @@ export * from './use-restricted-access';
 export * from './use-polling';
 export * from './use-dropdown-state';
 export * from './use-permission-check';
+export * from './use-permissions-query';

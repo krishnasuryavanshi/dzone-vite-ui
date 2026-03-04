@@ -2,7 +2,6 @@ import { useForm, useWatch } from '@/uicomponents/form';
 import { useEffect, useRef, useState } from 'react';
 import {
   createCampaign,
-  prefilledLists,
   putCreateCampaign,
 } from '../../services';
 import { calculateDateDiffs, formatDate, sanitizeData } from '@/lib/utils';
@@ -15,11 +14,12 @@ import CampaignDetailsSchema from '../schemas/campaign-form.json';
 import { showNotification } from '@/services/notification';
 import debounce from 'lodash/debounce';
 import { useRouter } from '@/lib/hooks/use-router';
-import { fetchFileDetails } from '../../../line-items/services';
 import { UploadFile } from '@/lib/types/uicomponents';
 import { uploadIOFile } from '@/services/file-upload';
 import dayjs from 'dayjs';
 import { CampaignField } from '../enums';
+import { usePrefilledListsQuery } from '../../hooks/use-prefilled-lists-query';
+import { useFileDetailsQuery } from '../../../line-items/hooks/use-file-details-query';
 
 export const useCampaignForm = ({
   campaignData,
@@ -32,7 +32,6 @@ export const useCampaignForm = ({
   const router = useRouter();
   const [form] = useForm();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [lists, setLists] = useState<Record<string, any[]>>({});
   const [disabledFields, setDisabledFields] = useState<Record<string, boolean>>(
     {},
   );
@@ -40,6 +39,54 @@ export const useCampaignForm = ({
 
   const allFields = useWatch([], form);
   const marketerCode = allFields?.marketerCode;
+
+  // TanStack Query: prefilled lists
+  const { data: lists = {} as Record<string, any[]> } = usePrefilledListsQuery(userId);
+
+  // TanStack Query: file details for IO file
+  const ioFileId = typeof campaignData?.ioFileId === 'string' ? campaignData.ioFileId : undefined;
+  const { data: fileDetail } = useFileDetailsQuery(ioFileId, !!campaignData);
+
+  // Set form value when file details load
+  useEffect(() => {
+    if (fileDetail?.id) {
+      const enrichedDeliveryTemplate: UploadFile = {
+        id: fileDetail.id,
+        uid: fileDetail.id,
+        name: fileDetail.filename,
+        status: 'done',
+        ...fileDetail,
+      };
+      form.setFieldValue('ioFileId', enrichedDeliveryTemplate);
+    }
+  }, [fileDetail, form]);
+
+  // Set initial disabled fields and marketer when lists load
+  useEffect(() => {
+    if (!lists || !Object.keys(lists).length) return;
+    setDisabledFields({
+      campaignDuration: true,
+    });
+    if (tenantCode && !isDzoneUser) {
+      const marketer = lists.marketers?.find(
+        (m: any) => m.tenantCode === tenantCode[0],
+      );
+      if (marketer) {
+        form.setFieldsValue({
+          marketerCode: marketer.tenantCode,
+          marketer: marketer.label,
+          tenantCode: marketer.tenantCode,
+        });
+        previousMarketerCode.current = marketer.tenantCode;
+      }
+      setDisabledFields({
+        marketerCode: true,
+        marketer: true,
+        tenantCode: true,
+        ioFileId: false,
+      });
+    }
+  }, [lists, tenantCode, isDzoneUser]);
 
   const handleSubmit = debounce(async (values: any) => {
     setIsSubmitting(true);
@@ -91,43 +138,11 @@ export const useCampaignForm = ({
     }
   }, 500);
 
-  const fetchLists = async () => {
-    const fetchedLists = await prefilledLists(userId);
-    setDisabledFields({
-      campaignDuration: true,
-    });
-    if (tenantCode && !isDzoneUser) {
-      const marketer = fetchedLists.marketers?.find(
-        (m) => m.tenantCode === tenantCode[0],
-      );
-      if (marketer) {
-        form.setFieldsValue({
-          marketerCode: marketer.tenantCode,
-          marketer: marketer.label,
-          tenantCode: marketer.tenantCode,
-        });
-        previousMarketerCode.current = marketer.tenantCode;
-      }
-      setDisabledFields({
-        marketerCode: true,
-        marketer: true,
-        tenantCode: true,
-        ioFileId: false,
-      });
-    }
-
-    setLists(fetchedLists);
-  };
-
-  useEffect(() => {
-    fetchLists();
-  }, []);
-
   useEffect(() => {
     if (!marketerCode || !lists?.marketers?.length) return;
     if (previousMarketerCode.current !== marketerCode) {
       const selectedMarketer = lists.marketers.find(
-        (m) => m.tenantCode === marketerCode,
+        (m: any) => m.tenantCode === marketerCode,
       );
       if (selectedMarketer) {
         form.setFieldsValue({
@@ -291,31 +306,6 @@ export const useCampaignForm = ({
 
     return rules;
   };
-
-  const fetchInitialFileLists = async () => {
-    if (!campaignData) return;
-
-    const ioFileId = campaignData.ioFileId;
-
-    if (typeof ioFileId === 'string') {
-      const detail = await fetchFileDetails(ioFileId);
-      if (detail?.id) {
-        const enrichedDeliveryTemplate: UploadFile = {
-          id: detail.id,
-          uid: detail.id,
-          name: detail.filename,
-          status: 'done',
-          ...detail,
-        };
-
-        form.setFieldValue('ioFileId', enrichedDeliveryTemplate);
-      }
-    }
-  };
-
-  useEffect(() => {
-    fetchInitialFileLists();
-  }, [campaignData, form]);
 
   const processedFields = processFieldPermissions(
     CampaignDetailsSchema || [],

@@ -1,9 +1,8 @@
 import { IUser } from '@/app/(dashboard)/ums/users/lib/types';
-import { fetchAssignedUsersInModule } from '@/app/(dashboard)/ums/users/services';
 import { RestrictedAccessKeys } from '@/lib/enums';
 import { useRestrictedAccess } from '@/lib/hooks';
-import { useEffect, useState, useRef } from 'react';
-import { fetchCampaignStatuses } from '../../services';
+import { useEffect, useMemo, useState } from 'react';
+import { useCampaignFilterOptionsQuery } from '../../hooks/use-campaign-filter-options-query';
 import { CampaignField } from '../enums';
 
 export function useCampaignFilterOptions(
@@ -17,12 +16,33 @@ export function useCampaignFilterOptions(
   });
 
   const [userId, setUserId] = useState<string | null>(null);
-  const [dynamicFilters, setDynamicFilters] = useState<any>({});
-  const hasFetchedRef = useRef(false);
+
+  const { data: filterOptionsData } = useCampaignFilterOptionsQuery(
+    hasFilters === true,
+  );
 
   const isIONumberColumnHidden = useRestrictedAccess(
     RestrictedAccessKeys.IONumberColumnInCampaignList,
   );
+
+  const dynamicFilters = useMemo(() => {
+    if (!filterOptionsData) return {};
+    const { statuses, assignedUsers } = filterOptionsData;
+    return {
+      [CampaignField.Status]: {
+        isDynamicOptions: true,
+        filters: statuses,
+      },
+      [CampaignField.AssignedTo]: {
+        isDynamicOptions: true,
+        filters:
+          assignedUsers?.data?.map((user: IUser) => ({
+            text: `${user.firstName} ${user.lastName}`,
+            value: user.id,
+          })) ?? [],
+      },
+    };
+  }, [filterOptionsData]);
 
   useEffect(() => {
     if (!assignedTo || assignedTo === 'all') {
@@ -42,9 +62,8 @@ export function useCampaignFilterOptions(
   }, [isIONumberColumnHidden]);
 
   useEffect(() => {
-    if (hasFilters && !hasFetchedRef.current) {
-      fetchDynamicFilters();
-      hasFetchedRef.current = true;
+    if (hasFilters === false) {
+      setOptions((prev) => ({ ...prev, isReady: true, dynamicFilters: {} }));
     }
   }, [hasFilters]);
 
@@ -55,6 +74,7 @@ export function useCampaignFilterOptions(
       ]?.filters?.find((user: any) => user.value === userId);
       setOptions((prev) => ({
         ...prev,
+        isReady: !!filterOptionsData || hasFilters === false,
         dynamicFilters: {
           ...dynamicFilters,
           [CampaignField.AssignedTo]: {
@@ -65,38 +85,13 @@ export function useCampaignFilterOptions(
         },
       }));
     } else {
-      setOptions((prev) => ({ ...prev, dynamicFilters }));
+      setOptions((prev) => ({
+        ...prev,
+        isReady: !!filterOptionsData || hasFilters === false,
+        dynamicFilters,
+      }));
     }
-  }, [userId, dynamicFilters]);
-
-  const fetchDynamicFilters = async () => {
-    try {
-      const [statuses, assignedUsersResponse] = await Promise.all([
-        fetchCampaignStatuses(),
-        fetchAssignedUsersInModule('Campaign'),
-      ]);
-
-      const { data: assignedToUsers } = assignedUsersResponse;
-
-      const dynamicFilters = {
-        [CampaignField.Status]: {
-          isDynamicOptions: true,
-          filters: statuses,
-        },
-        [CampaignField.AssignedTo]: {
-          isDynamicOptions: true,
-          filters: assignedToUsers.map((user: IUser) => ({
-            text: `${user.firstName} ${user.lastName}`,
-            value: user.id,
-          })),
-        },
-      };
-      setDynamicFilters(dynamicFilters);
-      setOptions((prev) => ({ ...prev, dynamicFilters, isReady: true }));
-    } catch (error) {
-      setOptions((prev) => ({ ...prev, isReady: true }));
-    }
-  };
+  }, [userId, dynamicFilters, filterOptionsData, hasFilters]);
 
   return options;
 }

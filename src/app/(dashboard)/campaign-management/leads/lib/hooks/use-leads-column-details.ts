@@ -1,6 +1,6 @@
 
-import { useState, useEffect } from 'react';
-import { fetchLeadReviewFormConfig } from '../../../line-items/services';
+import { useMemo } from 'react';
+import { useLeadReviewFormConfigQuery } from '../../../line-items/hooks/use-lead-review-form-config-query';
 import { ColumnDetailsResponse } from '../types';
 import { transformApiResponseToColumns } from '../utils/transform-api-response';
 
@@ -15,43 +15,24 @@ export type {
 export { FILTER_URL_MAP } from '../utils/transform-api-response';
 
 export const useLeadsColumnDetails = (lineItemId?: string) => {
-  const [columnDetails, setColumnDetails] =
-    useState<ColumnDetailsResponse | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<Error | null>(null);
+  const {
+    data: response,
+    isLoading,
+    error,
+  } = useLeadReviewFormConfigQuery('grid', lineItemId);
 
-  useEffect(() => {
-    const fetchColumns = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetchLeadReviewFormConfig('grid', lineItemId);
-        // Handle different response structures
-        let dataToTransform = null;
-        if (response?.data?.data) {
-          dataToTransform = response.data.data;
-        } else if (response?.data && Array.isArray(response.data)) {
-          dataToTransform = response.data;
-        } else if (Array.isArray(response)) {
-          dataToTransform = response;
-        }
+  const columnDetails = useMemo<ColumnDetailsResponse | null>(() => {
+    if (!response) return null;
+    let dataToTransform = null;
+    if (response?.data?.data) {
+      dataToTransform = response.data.data;
+    } else if (response?.data && Array.isArray(response.data)) {
+      dataToTransform = response.data;
+    } else if (Array.isArray(response)) {
+      dataToTransform = response;
+    }
+    return dataToTransform ? transformApiResponseToColumns(dataToTransform) : null;
+  }, [response]);
 
-        if (dataToTransform) {
-          const transformedData =
-            transformApiResponseToColumns(dataToTransform);
-          setColumnDetails(transformedData);
-        } else {
-          setColumnDetails(null);
-        }
-      } catch (err) {
-        setError(err as Error);
-        setColumnDetails(null);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchColumns();
-  }, [lineItemId]);
-
-  return { columnDetails, isLoading, error };
+  return { columnDetails, isLoading, error: error as Error | null };
 };

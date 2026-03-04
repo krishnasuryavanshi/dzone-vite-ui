@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 import { Spin } from '@/uicomponents/spin';
 import { MultipleFilesUpload } from './multiple-files-upload';
 import {
@@ -38,11 +40,18 @@ export const DynamicFileUpload: React.FC<Props> = ({
   tenantCode,
   value,
 }) => {
-  const [metadata, setMetadata] = useState<any>();
-  const [loading, setLoading] = useState<boolean>(true);
   const [fileList, setFileList] = useState<ExtendedUploadFile[]>([]);
   const [isButtonLoading, setIsButtonLoading] = useState<boolean>(false);
   let debounceTimeout: NodeJS.Timeout;
+
+  // TanStack Query: file upload metadata
+  const { data: metadataResponse, isLoading: loading } = useQuery({
+    queryKey: [...queryKeys.fileUpload.all, 'fileMetadata', fileTypeName],
+    queryFn: () => fetchFileMetadata(fileTypeName),
+    staleTime: 30 * 60 * 1000,
+    enabled: !!fileTypeName,
+  });
+  const metadata = metadataResponse?.data || undefined;
 
   const hydrate = () => {
     if (!value) return;
@@ -85,21 +94,6 @@ export const DynamicFileUpload: React.FC<Props> = ({
   useEffect(() => {
     hydrate();
   }, [value]);
-
-  useEffect(() => {
-    const loadMetadata = async () => {
-      setLoading(true);
-      try {
-        const meta = await fetchFileMetadata(fileTypeName);
-        setMetadata(meta?.data || {});
-      } catch (error) {
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadMetadata();
-  }, [fileTypeName]);
 
   const isValidFile = (info: any, fileMeta: any) => {
     if (!info.file) return false;

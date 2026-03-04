@@ -17,7 +17,7 @@ import { Col, Row } from '@/uicomponents/layout/grid';
 import { Text } from '@/uicomponents/text';
 import { Tooltip } from '@/uicomponents/tooltip';
 import { debounce, pick } from 'lodash';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { useTemplateStore } from '../../stores/use-template-store';
 import { DeliveryTypeOptions } from '../../lib/constants';
 import { DeliveryType } from '../../lib/enums';
@@ -27,9 +27,9 @@ import {
   fetchDestinationDropdownFields,
   fetchHubspotFormFields,
   fetchIntegrationLabels,
-  fetchLineItems,
   fetchWebformFormFields,
 } from '../../services';
+import { useTemplateLineItemsQuery } from '../../hooks/use-template-line-items-query';
 import { fetchZapierIntegrationLabels } from '../../services/fetch-zapier-integration-labels';
 import { HubSpotDeliveryFields } from './hubspot-delivery-fields';
 import { IntegrationNameField } from './integration-name-field';
@@ -81,9 +81,6 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
   >([]);
   const [isInitializing, setIsInitializing] = useState<boolean>(false);
   const [loadingDropdownFields, setLoadingDropdownFields] = useState(false);
-  const [lineItemOptions, setLineItemOptions] = useState<
-    { label: string; value: string; customFields?: any[] }[]
-  >([]);
 
   const isEditTemplateAllowed = usePermissionCheck(
     DeliveryTemplateActionsEnum.Edit,
@@ -93,26 +90,18 @@ export const TemplateInfoForm: FC<ITemplateInfoFormProps> = ({
     ? tenantCode.join(',')
     : tenantCode;
 
-  // Fetch Line Items for dropdown on component mount
-  useEffect(() => {
-    fetchLineItemOptions();
-  }, [userId, isDzoneUser]);
+  // TanStack Query: Line Items for dropdown
+  const { data: lineItemsData } = useTemplateLineItemsQuery();
 
-  const fetchLineItemOptions = async () => {
-    try {
-      const items = await fetchLineItems();
-      const options = Array.isArray(items)
-        ? items.map((item) => ({
-            label: item.name,
-            value: item.id,
-            customFields: item.customFields || [],
-          }))
-        : [];
-      setLineItemOptions(options);
-    } catch (error) {
-      setLineItemOptions([]);
-    }
-  };
+  const lineItemOptions = useMemo(() => {
+    const items = lineItemsData?.data ?? lineItemsData;
+    if (!Array.isArray(items)) return [];
+    return items.map((item: any) => ({
+      label: item.name,
+      value: item.id,
+      customFields: item.customFields || [],
+    }));
+  }, [lineItemsData]);
 
   // Initial load: set form values and mapping from saved template fields
   useEffect(() => {

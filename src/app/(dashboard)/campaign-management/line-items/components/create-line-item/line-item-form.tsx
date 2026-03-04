@@ -12,6 +12,7 @@ import {
   FC,
   useCallback,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -46,8 +47,8 @@ import {
   handleSave,
 } from '../../lib/utils/line-item-action-handlers';
 import { setupInitialStates } from '../../lib/utils/setup-initial-states';
-import { fetchPrefilledListsByStep } from '../../services';
 import { fetchAllCampaigns } from '../../../campaigns/services';
+import { usePrefilledListsByStepQuery } from '../../hooks/use-prefilled-lists-by-step-query';
 import { ICampaign } from '../../../campaigns/lib/types';
 
 interface ILineItemForm {
@@ -87,7 +88,7 @@ export const LineItemForm: FC<ILineItemForm> = ({
   } = useFormStep();
   const [showSaveAndCloseButton, setShowSaveAndCloseButton] =
     useState<boolean>(false);
-  const [lists, setLists] = useState<Record<string, any[]>>({});
+  const [listsOverrides, setListsOverrides] = useState<Record<string, any[]>>({});
   const [collaborativeCampaignData, setCollaborativeCampaignData] = useState<
     Record<string, any | any[]>
   >({});
@@ -105,6 +106,15 @@ export const LineItemForm: FC<ILineItemForm> = ({
     RestrictedAccessKeys.CplFieldInLineItemEdit,
   );
 
+  // TanStack Query: prefilled lists for current step
+  const { data: queryLists } = usePrefilledListsByStepQuery(step, userId);
+
+  // Merge query data with local overrides (e.g. campaigns fetched on marketer change)
+  const lists = useMemo<Record<string, any[]>>(
+    () => ({ ...(queryLists || {}), ...listsOverrides }) as Record<string, any[]>,
+    [queryLists, listsOverrides],
+  );
+
   const setupExistingLineItemDetails = () => {
     const { id, finishedStepId } = getFormDataFromCookie(
       StorageKey.LineItemForm,
@@ -116,13 +126,6 @@ export const LineItemForm: FC<ILineItemForm> = ({
 
   const patchFormValues = (values: any) => {
     form.setFieldsValue(values);
-  };
-
-  const fetchLists = async () => {
-    try {
-      const fetchedLists = await fetchPrefilledListsByStep(step, userId);
-      setLists(fetchedLists as any);
-    } catch (error) {}
   };
 
   useEffect(() => {
@@ -157,8 +160,8 @@ export const LineItemForm: FC<ILineItemForm> = ({
         campaignId: campaign.campaignId,
       }));
 
-      setLists((prevLists) => ({
-        ...prevLists,
+      setListsOverrides((prev) => ({
+        ...prev,
         [OptionsKeys.Campaigns]: mapped,
       }));
 
@@ -276,7 +279,6 @@ export const LineItemForm: FC<ILineItemForm> = ({
       });
       setrequiredFormFields(extractRequiredFields(LineItemFormConfig, step));
       if (formStep?.step) {
-        fetchLists();
         setupInitialValues(patchFormValues, step, StorageKey.LineItemForm);
         setupExistingLineItemDetails();
         setFormStepDetailsInfo(formStep);
