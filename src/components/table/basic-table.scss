@@ -45,12 +45,8 @@
   background-color: #f9fafb;
 
   .ant-table-container {
-    .rc-virtual-list.ant-table-tbody.ant-table-tbody-virtual {
-      .rc-virtual-list-scrollbar {
-        .rc-virtual-list-scrollbar-thumb {
-          background: var(--dzone-color-gray-light);
-        }
-      }
+    .ant-table-tbody.ant-table-tbody-virtual {
+      --rc-virtual-list-scrollbar-bg: var(--dzone-color-gray-light);
       .ant-table-cell {
         &.ant-table-cell-ellipsis {
           padding-top: var(--dz-table-cell-ellipsis-padding-top, 0.5rem);
