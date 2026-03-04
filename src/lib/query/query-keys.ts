@@ -193,4 +193,12 @@ export const queryKeys = {
     all: ['validationTemplates'] as const,
     byOrg: (orgCode: string) => [...queryKeys.validationTemplates.all, 'byOrg', orgCode] as const,
   },
+  reports: {
+    all: ['reports'] as const,
+    config: (reportId: string) => [...queryKeys.reports.all, 'config', reportId] as const,
+    filterOptions: (filterId: string, depValues: Record<string, unknown>) =>
+      [...queryKeys.reports.all, 'filterOptions', filterId, depValues] as const,
+    widgetData: (widgetId: string, filters: Record<string, unknown>) =>
+      [...queryKeys.reports.all, 'widgetData', widgetId, filters] as const,
+  },
 };

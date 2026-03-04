@@ -1,0 +1,42 @@
+.stat-card-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  padding: 4px 0;
+}
+
+.stat-card-change {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+  margin-top: 4px;
+
+  &.positive-good {
+    color: #52c41a;
+  }
+
+  &.negative-good {
+    color: #52c41a;
+  }
+
+  &.positive-bad {
+    color: #f5222d;
+  }
+
+  &.negative-bad {
+    color: #f5222d;
+  }
+
+  &.neutral {
+    color: #8c8c8c;
+  }
+}
+
+.stat-card-loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}

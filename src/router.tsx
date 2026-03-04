@@ -124,6 +124,9 @@ const DzOneAICoworkerPage = lazy(() => import('./app/(dashboard)/dz-one-ai-cowor
 // ── Jobs ──
 const JobsPage = lazy(() => import('./app/(dashboard)/jobs/page'));
 
+// ── Reports ──
+const ReportsPage = lazy(() => import('./app/reports/page'));
+
 // ── Madtech Reports ──
 // TODO: Add when page.tsx exists under madtech-reports
 
@@ -258,6 +261,9 @@ export const router = createBrowserRouter([
 
       // Jobs
       { path: '/jobs', element: <JobsPage /> },
+
+      // Reports
+      { path: '/reports/:reportId', element: <ReportsPage /> },
     ],
   },
 
