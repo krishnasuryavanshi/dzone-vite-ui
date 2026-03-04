@@ -4,6 +4,14 @@ import { AppLayout } from './layout/app-layout';
 import { AuthLayout } from './layout/auth-layout';
 import { ErrorFallback } from './components/shared/error-fallback';
 import { NotFound } from './components/shared/not-found';
+import { getFirstAllowedRoute } from './lib/utils/get-first-allowed-route';
+import { usePermissionsStore } from './stores/permissions-store';
+
+function DefaultRedirect() {
+  const accesses = usePermissionsStore((s) => s.accesses);
+  const target = getFirstAllowedRoute(accesses);
+  return <Navigate to={target} replace />;
+}
 
 // ── Auth pages ──
 const LoginPage = lazy(
@@ -222,7 +230,7 @@ export const router = createBrowserRouter([
     errorElement: <ErrorFallback />,
     children: [
       // Root redirects to organizations
-      { index: true, element: <Navigate to="/organizations" replace /> },
+      { index: true, element: <DefaultRedirect /> },
 
       // Dashboard
       { path: '/dashboard', element: <DashboardPage /> },

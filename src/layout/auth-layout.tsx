@@ -13,8 +13,10 @@ export const AuthLayout = () => {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
 
   if (isAuthenticated) {
-    logger.info('AuthLayout: already authenticated — redirecting to dashboard');
-    return <Navigate to="/" replace />;
+    const toParam = new URLSearchParams(window.location.search).get('to');
+    const redirectTo = toParam ? decodeURIComponent(toParam) : '/';
+    logger.info('AuthLayout: already authenticated — redirecting', { redirectTo });
+    return <Navigate to={redirectTo} replace />;
   }
 
   return (

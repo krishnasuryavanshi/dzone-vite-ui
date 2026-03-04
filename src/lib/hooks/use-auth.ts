@@ -9,6 +9,7 @@ import { usePermissionsStore } from '../../stores/permissions-store';
 import { encryptAsync } from '../utils/encryption';
 import { Store } from '../../services';
 import { StorageKey } from '../enums';
+import { getFirstAllowedRoute } from '../utils/get-first-allowed-route';
 
 export function useIsAuthenticated() {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -43,12 +44,16 @@ export function useLogin() {
   return {
     mutate: async (params: { email: string; password: string }) => {
       try {
+        // Capture before login() changes auth state (which triggers AuthLayout re-render)
+        const toParam = new URLSearchParams(window.location.search).get('to');
         const result = await login(params.email, params.password);
         if (Store.get(StorageKey.RememberMe) === true) {
           const encryptedPassword = await encryptAsync(params.password);
           Store.set(StorageKey.UserIdentity, { email: params.email, password: encryptedPassword });
         }
-        router.navigate('/organizations', { replace: true });
+        const accesses = usePermissionsStore.getState().accesses;
+        const redirectTo = toParam ? decodeURIComponent(toParam) : getFirstAllowedRoute(accesses);
+        router.navigate(redirectTo, { replace: true });
         return result;
       } catch (error: any) {
         showNotification({
