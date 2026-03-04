@@ -19,7 +19,7 @@ export const NavigationMenu: FC<INavigationMenuProps> = ({ isCollapsed }) => {
   const [openKeys, setOpenKeys] = useState<string[]>([]);
 
   useEffect(() => {
-    const resourceName = getResourceName(pathname, customResources);
+    const resourceName = getResourceName(pathname, customResources, allResources);
     const selectedResource = allResources.find((r) => r.name === resourceName);
     setOpenKeys(
       selectedResource?.meta?.parent && !isCollapsed

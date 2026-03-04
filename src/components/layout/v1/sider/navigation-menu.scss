@@ -48,6 +48,7 @@
       &.ant-menu-submenu-active {
         .ant-menu-submenu-title {
           background-color: var(--dzone-color-brand-gray-dark);
+          color: #fff;
           &::before {
             content: '';
             background-color: #fff;
