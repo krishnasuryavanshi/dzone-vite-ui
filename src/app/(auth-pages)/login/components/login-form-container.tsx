@@ -48,6 +48,8 @@ export const LoginFormContainer = () => {
 
   const reset = () => {
     handleFormModeChange(false);
+    Store.remove(StoreKey_Useridentity);
+    Store.remove(StoreKey_RememberMe);
     const defaultUser = {email: null, password: null};
     setDefaultUser(defaultUser)
     loginForm.setFieldsValue(defaultUser);

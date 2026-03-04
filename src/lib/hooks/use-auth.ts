@@ -6,6 +6,9 @@ import { login, logout } from '../../auth/auth-service';
 import { router } from '../../router';
 import { showNotification } from '../../services/notification';
 import { usePermissionsStore } from '../../stores/permissions-store';
+import { encryptAsync } from '../utils/encryption';
+import { Store } from '../../services';
+import { StorageKey } from '../enums';
 
 export function useIsAuthenticated() {
   const isAuthenticated = useAuthStore((s) => s.isAuthenticated);
@@ -41,6 +44,10 @@ export function useLogin() {
     mutate: async (params: { email: string; password: string }) => {
       try {
         const result = await login(params.email, params.password);
+        if (Store.get(StorageKey.RememberMe) === true) {
+          const encryptedPassword = await encryptAsync(params.password);
+          Store.set(StorageKey.UserIdentity, { email: params.email, password: encryptedPassword });
+        }
         router.navigate('/organizations', { replace: true });
         return result;
       } catch (error: any) {
