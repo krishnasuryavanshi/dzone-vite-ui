@@ -1,12 +1,12 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useMemo, useState } from 'react';
 import { ILeadStatus } from '../../leads/lib/types';
-import { fetchLeadStatusList } from '../../leads/services/fetch-lead-status-list';
 import { DzRadioDropdown } from '@/components/shared/custom/dz-radio-dropdown';
 import { leadsStatusUpdate } from '../services';
 import { showNotification } from '@/services/notification';
 import { useLeadsStore } from '../store';
 import { useQueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@/lib/query';
+import { useLeadStatusesQuery } from '../hooks';
 
 interface IBulkStatusUpdateDropdownProps {
   disabled?: boolean;
@@ -30,25 +30,20 @@ export const BulkStatusUpdateDropdown: FC<IBulkStatusUpdateDropdownProps> = ({
 }) => {
   const setSelectedIds = useLeadsStore((state) => state.setSelectedIds);
   const queryClient = useQueryClient();
-  const [options, setOptions] = useState<Option[]>([]);
   const [selected, setSelected] = useState<string | undefined>();
   const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    const fetchStatusData = async () => {
-      const data = await fetchLeadStatusList();
-      if (data) {
-        const leadStatusOptionsList = data?.data
-          .filter((item: ILeadStatus) => item.name !== 'Published') // Exclude Published
-          .map((item: ILeadStatus) => ({
-            value: item.name,
-            label: item.value,
-          }));
-        setOptions(leadStatusOptionsList);
-      }
-    };
-    fetchStatusData();
-  }, []);
+  const { data: statusData } = useLeadStatusesQuery();
+
+  const options = useMemo<Option[]>(() => {
+    if (!statusData?.data) return [];
+    return statusData.data
+      .filter((item: ILeadStatus) => item.name !== 'Published')
+      .map((item: ILeadStatus) => ({
+        value: item.name,
+        label: item.value,
+      }));
+  }, [statusData]);
 
   const handleStatusChange = async (value: string) => {
     setSelected(value);

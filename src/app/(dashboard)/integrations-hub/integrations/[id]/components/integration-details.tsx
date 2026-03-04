@@ -8,8 +8,8 @@ import { Breadcrumb, Button, Spin, Text } from '@/uicomponents';
 import { ArrowLeftOutlined } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
 import { useRouter } from '@/lib/hooks/use-router';
-import React, { useEffect, useState } from 'react';
-import { fetchIntegrationDetails } from '../services';
+import React from 'react';
+import { useIntegrationDetailQuery } from '../../hooks';
 import styles from './integration-details.module.css';
 import { Alert } from 'antd';
 import { DzRecord } from '@/lib/types';
@@ -24,45 +24,23 @@ interface Template {
   lastUsed: string;
 }
 
-interface IntegrationDetailsResponse {
-  id: string;
-  name: string;
-  type: string;
-  data: Template[];
-}
-
 const StaticContentHeight = 210;
 
 export const IntegrationDetails: React.FC<IntegrationDetailsProps> = ({
   integrationId,
 }) => {
-  const [integrationData, setIntegrationData] = useState<DzRecord | null>();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { scrollableTableHeight } =
     useScrollableTableHeight(StaticContentHeight);
 
-  useEffect(() => {
-    loadIntegrationDetails();
-  }, [integrationId]);
+  const {
+    data: response,
+    isLoading: loading,
+    error,
+    refetch,
+  } = useIntegrationDetailQuery(integrationId);
 
-  const loadIntegrationDetails = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const response = await fetchIntegrationDetails(integrationId);
-      if (response?.data) {
-        setIntegrationData(response.data);
-      } else {
-        setIntegrationData([]);
-      }
-    } catch (err) {
-      setError('Failed to load integration details. Please try again later.');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const integrationData = (response?.data as DzRecord | null) ?? null;
 
   const handleBack = () => {
     router.push('/integrations-hub/integrations');
@@ -127,11 +105,11 @@ export const IntegrationDetails: React.FC<IntegrationDetailsProps> = ({
         <DzBox className='content-section'>
           <Alert
             message='Error'
-            description={error}
+            description='Failed to load integration details. Please try again later.'
             type='error'
             showIcon
             action={
-              <Button size='small' onClick={loadIntegrationDetails}>
+              <Button size='small' onClick={() => refetch()}>
                 Retry
               </Button>
             }
@@ -185,15 +163,11 @@ export const IntegrationDetails: React.FC<IntegrationDetailsProps> = ({
         </Flex>
 
         <DzBox>
-          {/* <DzBox dzOneBox style={{ paddingBlock: '1rem' }}>
-            <Text strong>{integrationData.type}</Text>
-          </DzBox> */}
           <BasicTable
             scrollableHeight={scrollableTableHeight}
             columns={columns}
             data={integrationData.data || []}
             hasPagination={false}
-            // className='templates-table'
             className='row-hover-highlight'
           />
         </DzBox>

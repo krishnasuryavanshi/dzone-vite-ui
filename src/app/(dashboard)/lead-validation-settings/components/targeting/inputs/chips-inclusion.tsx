@@ -1,7 +1,6 @@
 import { JobTitle } from '@/components/job-title';
 import { DzBox } from '@/components/layout/v1';
 import { DzRecord } from '@/lib/types';
-import { fetchFileUploadMetadata } from '@/services/file-upload';
 import { Text } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
 import { Radio } from 'antd';
@@ -10,6 +9,7 @@ import { useEffect, useState } from 'react';
 import { fileSortAndUpload } from '../../../lib/utils';
 import { useValidationSettingStore } from '../../../store';
 import { TargetingFile } from './targeting-file';
+import { useFileUploadMetadataQuery } from '@/app/(dashboard)/campaign-management/line-items/hooks';
 
 type ChipsInclusionProps = {
   attribute: Record<string, any>;
@@ -24,18 +24,15 @@ export const ChipsInclusion = ({
   const [isLoading, setIsLoading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<DzRecord[]>([]);
   const [options, setOptions] = useState<DzRecord[]>([]);
-  const [inclusionFileMetadata, setInclusionFileMetadata] = useState<Record<
-    string,
-    any
-  > | null>(null);
   const [inputMethod, setInputMethod] = useState('manual');
 
   const { selectedValues, setSelectedValues, settingMetadata, isReadOnly } =
     useValidationSettingStore();
 
-  useEffect(() => {
-    fetchFileUploadMeta(attribute.fileMetadataType?.inclusion);
-  }, [attribute]);
+  const { data: metadataResponse } = useFileUploadMetadataQuery(
+    attribute.fileMetadataType?.inclusion ?? '',
+  );
+  const inclusionFileMetadata = metadataResponse?.data ?? null;
 
   useEffect(() => {
     const type = selectedValues?.[sectionName]?.[attribute.name]?.type;
@@ -54,13 +51,6 @@ export const ChipsInclusion = ({
       setUploadedFiles([]);
     }
   }, [selectedValues]);
-
-  const fetchFileUploadMeta = async (fileTypeName: string) => {
-    try {
-      const { data } = await fetchFileUploadMetadata(fileTypeName);
-      setInclusionFileMetadata(data || null);
-    } catch (error) {}
-  };
 
   const handleFileChange = async (fileObject: DzRecord) => {
     setIsLoading(true);

@@ -1,14 +1,14 @@
 import { DzBox } from '@/components/layout/v1';
 import { DzRecord } from '@/lib/types';
 import { RadioChangeEvent } from '@/lib/types/uicomponents';
-import { fetchFileUploadMetadata } from '@/services/file-upload';
 import { Radio, RadioGroup } from '@/uicomponents/form/input';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useValidationSettingStore } from '../../../store';
 import { TargetingFile } from './targeting-file';
 import { fileSortAndUpload } from '../../../lib/utils';
+import { useFileUploadMetadataQuery } from '@/app/(dashboard)/campaign-management/line-items/hooks';
 
 type SuppressionInclusionProps = {
   attribute: Record<string, any>;
@@ -24,17 +24,22 @@ export const SuppressionInclusion = ({
   const [isLoading, setIsLoading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<DzRecord[]>([]);
 
-  const [fileMetadata, setFileMetadata] = useState<Record<string, any> | null>(
-    null,
-  );
-
   const { selectedValues, setSelectedValues, settingMetadata, isReadOnly } =
     useValidationSettingStore();
 
-  useEffect(() => {
-    fetchFileUploadMeta(attribute.fileMetadataType?.inclusion);
-    fetchFileUploadMeta(attribute.fileMetadataType?.exclusion);
-  }, [attribute]);
+  const { data: inclusionMetaResponse } = useFileUploadMetadataQuery(
+    attribute.fileMetadataType?.inclusion ?? '',
+  );
+  const { data: exclusionMetaResponse } = useFileUploadMetadataQuery(
+    attribute.fileMetadataType?.exclusion ?? '',
+  );
+
+  const fileMetadata = useMemo(() => {
+    const result: Record<string, any> = {};
+    if (inclusionMetaResponse?.data) result.INCLUSION = inclusionMetaResponse.data;
+    if (exclusionMetaResponse?.data) result.EXCLUSION = exclusionMetaResponse.data;
+    return Object.keys(result).length > 0 ? result : null;
+  }, [inclusionMetaResponse, exclusionMetaResponse]);
 
   useEffect(() => {
     if (
@@ -54,21 +59,6 @@ export const SuppressionInclusion = ({
       setUploadedFiles([]);
     }
   }, [selectedValues]);
-
-  const fetchFileUploadMeta = async (fileTypeName: string) => {
-    try {
-      const { data } = await fetchFileUploadMetadata(fileTypeName);
-
-      const key = fileTypeName.includes('inclusion')
-        ? 'INCLUSION'
-        : 'EXCLUSION';
-
-      setFileMetadata((prev) => ({
-        ...prev,
-        [key]: data || null,
-      }));
-    } catch (error) {}
-  };
 
   const handleTypeChange = (e: RadioChangeEvent) => {
     const sectionSelection = selectedValues?.[sectionName];

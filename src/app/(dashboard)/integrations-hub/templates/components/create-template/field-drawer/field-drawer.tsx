@@ -1,4 +1,3 @@
-import { IFileUploadMetaData } from '@/app/(dashboard)/campaign-management/line-items/lib/types';
 import { DrawerCloseButton } from '@/app/(dashboard)/components';
 import { Translate } from '@/components/i18n';
 import { DzBox } from '@/components/layout/v1';
@@ -6,19 +5,18 @@ import { Title } from '@/uicomponents';
 import { Drawer } from '@/uicomponents/drawers';
 import { FormInstance } from '@/uicomponents/form';
 import { Flex, Space } from '@/uicomponents/layout';
-import { FC, useEffect, useState } from 'react';
+import { FC } from 'react';
 import {
-  ITemplateFieldDataType,
   ITemplateFieldResponse,
 } from '../../../lib/types';
-import {
-  fetchDataMapperFileUploadMetadata,
-  fetchDataTypes,
-} from '../../../services';
 import { useTemplateStore } from '../../../stores';
 import { FieldForm } from './field-form';
 import { Footer } from './footer';
 import { Navigation } from './navigation';
+import {
+  useDataTypesQuery,
+  useDataMapperFileUploadMetadataQuery,
+} from '../../../hooks';
 
 interface IFieldDrawerProps {
   form: FormInstance<any>;
@@ -46,30 +44,13 @@ export const FieldDrawer: FC<IFieldDrawerProps> = ({
 }) => {
   const { visibleFieldsCount } = useTemplateStore();
 
-  const [dataTypePicklist, setDataTypePicklist] = useState<
-    ITemplateFieldDataType[]
-  >([]);
-  const [mapperFileUploadMetadata, setMapperFileUploadMetadata] =
-    useState<IFileUploadMetaData>();
+  const { data: dataTypesResponse } = useDataTypesQuery(isFieldDrawerOpen);
+  const dataTypePicklist = dataTypesResponse?.data ?? [];
 
-  const fetchDataTypePicklist = async () => {
-    const data = await fetchDataTypes();
-    setDataTypePicklist(data?.data || []);
-  };
-
-  const fetchMapperFileUploadMetadata = async () => {
-    const response = await fetchDataMapperFileUploadMetadata();
-    if (response?.data?.file?.types?.length) {
-      setMapperFileUploadMetadata(response.data);
-    }
-  };
-
-  useEffect(() => {
-    if (isFieldDrawerOpen) {
-      fetchDataTypePicklist();
-      fetchMapperFileUploadMetadata();
-    }
-  }, [isFieldDrawerOpen]);
+  const { data: metadataResponse } =
+    useDataMapperFileUploadMetadataQuery(isFieldDrawerOpen);
+  const mapperFileUploadMetadata =
+    metadataResponse?.data?.file?.types?.length ? metadataResponse.data : undefined;
 
   const handleDrawerClose = () => {
     closeFieldDrawer();

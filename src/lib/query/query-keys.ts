@@ -26,6 +26,8 @@ export const queryKeys = {
     detail: (id: string) => [...queryKeys.lineItems.details(), id] as const,
     additionalDetails: (id?: string) => [...queryKeys.lineItems.details(), 'additionalDetails', id] as const,
     statuses: () => [...queryKeys.lineItems.all, 'statuses'] as const,
+    history: (id: string) =>
+      [...queryKeys.lineItems.all, 'history', id] as const,
   },
   leads: {
     all: ['leads'] as const,
@@ -53,6 +55,10 @@ export const queryKeys = {
       [...queryKeys.deliverySchedules.all, 'list', lineItemId] as const,
     logs: (scheduleId: string, params?: Record<string, any>) =>
       [...queryKeys.deliverySchedules.all, 'logs', scheduleId, params] as const,
+    templateTypes: () =>
+      [...queryKeys.deliverySchedules.all, 'templateTypes'] as const,
+    templateList: (type: string) =>
+      [...queryKeys.deliverySchedules.all, 'templateList', type] as const,
   },
   pacing: {
     all: ['pacing'] as const,
@@ -70,12 +76,16 @@ export const queryKeys = {
       [...queryKeys.users.lists(), params] as const,
     details: () => [...queryKeys.users.all, 'detail'] as const,
     detail: (id: string) => [...queryKeys.users.details(), id] as const,
+    withModuleAccess: (moduleName: string, tenantCode: string) =>
+      [...queryKeys.users.all, 'withModuleAccess', moduleName, tenantCode] as const,
   },
   roles: {
     all: ['roles'] as const,
     lists: () => [...queryKeys.roles.all, 'list'] as const,
     list: (params: { page: number; size: number }) =>
       [...queryKeys.roles.lists(), params] as const,
+    byType: (type: string) =>
+      [...queryKeys.roles.all, 'byType', type] as const,
     permissions: (roleId: string) =>
       [...queryKeys.roles.all, 'permissions', roleId] as const,
     permissionsByAction: (actionId: string, moduleId: string) =>
@@ -102,6 +112,7 @@ export const queryKeys = {
     filters: () => [...queryKeys.dashboard.all, 'filters'] as const,
     executiveGrid: (params: Record<string, any>) =>
       [...queryKeys.dashboard.all, 'executiveGrid', params] as const,
+    filterData: () => [...queryKeys.dashboard.all, 'filterData'] as const,
   },
   jobs: {
     all: ['jobs'] as const,
@@ -128,6 +139,8 @@ export const queryKeys = {
     config: (id: string) =>
       [...queryKeys.integrations.all, 'config', id] as const,
     types: () => [...queryKeys.integrations.all, 'types'] as const,
+    detail: (id: string) =>
+      [...queryKeys.integrations.all, 'detail', id] as const,
   },
   templates: {
     all: ['templates'] as const,
@@ -141,6 +154,9 @@ export const queryKeys = {
       [...queryKeys.templates.all, 'destinationFields', params] as const,
     byMarketer: (marketerCode: string, lineItemId?: string) =>
       [...queryKeys.templates.all, 'byMarketer', marketerCode, lineItemId] as const,
+    dataTypes: () => [...queryKeys.templates.all, 'dataTypes'] as const,
+    dataMapperMetadata: () =>
+      [...queryKeys.templates.all, 'dataMapperMetadata'] as const,
   },
   deliveryFile: {
     all: ['deliveryFile'] as const,
@@ -166,6 +182,8 @@ export const queryKeys = {
     conversations: () => [...queryKeys.dzent.all, 'conversations'] as const,
     organizations: (type: string) =>
       [...queryKeys.dzent.all, 'organizations', type] as const,
+    conversationFiles: (conversationId: string) =>
+      [...queryKeys.dzent.all, 'conversationFiles', conversationId] as const,
   },
   fileUpload: {
     all: ['fileUpload'] as const,

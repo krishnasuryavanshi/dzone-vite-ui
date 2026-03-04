@@ -10,7 +10,7 @@ import { UploadIcon } from '@/uicomponents/icons/svgs';
 import { useValidationSettingStore } from '@/app/(dashboard)/lead-validation-settings/store';
 import { showNotification } from '@/services';
 import { fileSortAndUpload } from '@/app/(dashboard)/lead-validation-settings/lib/utils';
-import { fetchFileUploadMetadata } from '@/services/file-upload';
+import { useFileUploadMetadataQuery } from '../../hooks';
 import { Upload, UploadProps, Checkbox } from 'antd';
 import { DzRecord } from '@/lib/types';
 const { Dragger } = Upload;
@@ -62,11 +62,12 @@ export const FileManager: React.FC<FileManagerProps> = ({
 }) => {
   const { settingMetadata } = useValidationSettingStore();
   const [isUploading, setIsUploading] = useState(false);
-  const [uploadMetadata, setUploadMetadata] = useState<Record<
-    string,
-    any
-  > | null>(null);
   const [internalFiles, setInternalFiles] = useState<FileItemType[]>([]);
+
+  const { data: metadataResponse } = useFileUploadMetadataQuery(
+    fileMetadataTypeName ?? '',
+  );
+  const uploadMetadata = metadataResponse?.data ?? null;
 
   useEffect(() => {
     if (isOpen) {
@@ -80,21 +81,6 @@ export const FileManager: React.FC<FileManagerProps> = ({
       setInternalFiles(mappedFiles);
     }
   }, [files, isOpen]);
-
-  useEffect(() => {
-    const fetchMeta = async (typeName: string) => {
-      try {
-        const { data } = await fetchFileUploadMetadata(typeName);
-        setUploadMetadata(data || null);
-      } catch (error) {
-        setUploadMetadata(null);
-      }
-    };
-
-    if (fileMetadataTypeName) {
-      fetchMeta(fileMetadataTypeName);
-    }
-  }, [fileMetadataTypeName]);
 
   // Check if all files are selected (enabled/active)
   const allSelected =

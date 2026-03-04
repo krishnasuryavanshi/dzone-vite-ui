@@ -1,5 +1,5 @@
 import { IOrganization } from '@/app/(dashboard)/(system-admin)/organizations/lib/types';
-import { fetchOrganizationsByType } from '@/app/(dashboard)/(system-admin)/organizations/services';
+import { useOrganizationsByTypeQuery } from '@/app/(dashboard)/(system-admin)/organizations/hooks';
 import { DzBox } from '@/components/layout/v1';
 import { CLR_GRAY_6 } from '@/lib/constants';
 import { showNotification } from '@/services/notification';
@@ -13,7 +13,7 @@ import { useRouter } from '@/lib/hooks/use-router';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { useTenantTypeStore } from '@/stores/tenant-store';
 import { TenantType } from '../../../../components';
-import { fetchRolesByType } from '../../../roles/services/fetch-roles-by-type';
+import { useRolesByTypeQuery } from '../../hooks';
 import { TenantTypeEnum } from '../../lib/enums';
 import { IUser, IUserRole } from '../../lib/types';
 import { createUser, updateUser } from '../../services';
@@ -27,7 +27,6 @@ interface IUserFormProps {
 
 export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
   const router = useRouter();
-  const [roles, setRoles] = useState<{ label: string; value: string }[]>([]);
   const [form] = useForm();
   const [openEmailSentModal, setOpenEmailSentModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -37,12 +36,34 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
   const [isMarketer, setIsMarketer] = useState<boolean>(false);
   const [isSupplier, setIsSupplier] = useState<boolean>(false);
   const [isDzoneUser, setIsDzoneUser] = useState<boolean>(false);
-  const [organizationsList, setOrganizationsList] = useState<
-    { label: string; value: string; managedByDigitalzone?: boolean }[]
-  >([]);
   const [assignAllManagedOrgs, setAssignAllManagedOrgs] =
     useState<boolean>(false);
-  const [rawOrganizations, setRawOrganizations] = useState<IOrganization[]>([]);
+
+  const resolvedType = tenantType || user?.type || '';
+
+  // TanStack Query hooks for roles and organizations
+  const { data: rolesData } = useRolesByTypeQuery(resolvedType);
+  const { data: orgsData } = useOrganizationsByTypeQuery(resolvedType);
+
+  const roles = useMemo(() => {
+    if (!rolesData?.data?.length) return [];
+    return rolesData.data.map((role: IUserRole) => ({
+      label: role.name,
+      value: role.id,
+    }));
+  }, [rolesData]);
+
+  const rawOrganizations = useMemo<IOrganization[]>(() => {
+    return orgsData?.data ?? [];
+  }, [orgsData]);
+
+  const organizationsList = useMemo(() => {
+    return rawOrganizations.map((organization: IOrganization) => ({
+      label: organization.name,
+      value: organization.id,
+      managedByDigitalzone: organization.managedByDigitalzone,
+    }));
+  }, [rawOrganizations]);
 
   useEffect(() => {
     fetchTenantTypes();
@@ -79,15 +100,11 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
   }, [user, isEditing]);
 
   useEffect(() => {
-    if (tenantType || user?.type) {
-      fetchRoles(tenantType || user?.type!);
-      fetchOrgs(tenantType || user?.type!);
-      if ((tenantType || user?.type) === TenantTypeEnum.SUPPLIER) {
-        setIsDzoneUser(false);
-        form.setFieldValue('isDzoneUser', false);
-      }
+    if (resolvedType === TenantTypeEnum.SUPPLIER) {
+      setIsDzoneUser(false);
+      form.setFieldValue('isDzoneUser', false);
     }
-  }, [tenantType, user?.type]);
+  }, [resolvedType]);
 
   const onValuesChange = (changedValues: any) => {
     if (changedValues.type) {
@@ -112,37 +129,6 @@ export const UserForm: FC<IUserFormProps> = ({ isEditing, user }) => {
     }
     if (changedValues.assignAllManagedOrgs !== undefined) {
       handleAssignAllManagedOrgsChange(changedValues.assignAllManagedOrgs);
-    }
-  };
-
-  const fetchRoles = async (tenantType: string) => {
-    const { data } = await fetchRolesByType(tenantType);
-    if (data?.length) {
-      setRoles(
-        data.map((role: IUserRole) => ({
-          label: role.name,
-          value: role.id,
-        })),
-      );
-    } else {
-      setRoles([]);
-    }
-  };
-
-  const fetchOrgs = async (tenantType: string) => {
-    const { data } = await fetchOrganizationsByType(tenantType);
-    if (data?.length) {
-      setRawOrganizations(data);
-      setOrganizationsList(
-        data?.map((organization: IOrganization) => ({
-          label: organization.name,
-          value: organization.id,
-          managedByDigitalzone: organization.managedByDigitalzone,
-        })),
-      );
-    } else {
-      setRawOrganizations([]);
-      setOrganizationsList([]);
     }
   };
 

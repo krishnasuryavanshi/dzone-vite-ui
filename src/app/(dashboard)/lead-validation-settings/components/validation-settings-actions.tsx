@@ -1,10 +1,10 @@
 import { Button } from '@/uicomponents/button';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useValidationSettingStore } from '../store';
 import { Form, FormItem, Modal, Title, useForm } from '@/uicomponents';
 import { Flex } from '@/uicomponents/layout';
 import { Input, Select } from '@/uicomponents/form/input';
-import { fetchOrganizationsByType } from '../../(system-admin)/organizations/services';
+import { useOrganizationsByTypeQuery } from '../../(system-admin)/organizations/hooks';
 import { useSession } from '@/lib/hooks/use-session';
 import { useRouter } from '@/lib/hooks/use-router';
 import { formatPayload, getNavigationUrl } from '../lib/utils';
@@ -21,9 +21,6 @@ import { useQueryState } from '@/lib/hooks/use-query-state';
 export const ValidationSettingsActions = () => {
   const router = useRouter();
   const { data: userData } = useSession();
-  const [marketerList, setMarketerList] = useState<
-    { label: string; value: string }[]
-  >([]);
   const [isModalOpened, setIsModalOpened] = useState(false);
   const [loading, setLoading] = useState(false);
   const {
@@ -40,9 +37,16 @@ export const ValidationSettingsActions = () => {
 
   const [form] = useForm();
 
-  useEffect(() => {
-    fetchMarketerList();
-  }, []);
+  const userId = (userData?.user as any)?.userId;
+  const { data: orgsData } = useOrganizationsByTypeQuery('Marketer', userId);
+
+  const marketerList = useMemo(() => {
+    if (!orgsData?.data) return [];
+    return orgsData.data.map(({ id, name: label, code }: any) => ({
+      label,
+      value: code,
+    }));
+  }, [orgsData]);
 
   useEffect(() => {
     form.setFieldsValue({
@@ -50,20 +54,6 @@ export const ValidationSettingsActions = () => {
       tenantCode: settingMetadata?.tenantCode,
     });
   }, [isEditing, settingMetadata]);
-
-  const fetchMarketerList = async () => {
-    try {
-      const { data } = await fetchOrganizationsByType(
-        'Marketer',
-        (userData?.user as any).userId,
-      );
-      const marketers = data?.map(({ id, name: label, code }: any) => ({
-        label,
-        value: code,
-      }));
-      setMarketerList(marketers || []);
-    } catch (error) {}
-  };
 
   const handleUpdate = async () => {
     try {

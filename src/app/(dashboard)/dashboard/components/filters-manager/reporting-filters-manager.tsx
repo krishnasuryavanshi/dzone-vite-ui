@@ -1,11 +1,10 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import {
   IFilterCampaign,
   IFilterClient,
   IFilterLineItem,
   ISelectedIds,
 } from '../../lib/types';
-import { fetchFilterData } from '../../services';
 import { Actions } from './actions';
 import { Translate } from '@/components/i18n';
 import { Col, Row } from '@/uicomponents/layout/grid';
@@ -19,6 +18,7 @@ import { FilterActions } from './filter-actions';
 import './reporting-filters-manager.scss';
 import { TabBasedFilterManager } from './tab-based-filter-manager';
 import { executiveUnitType, ReportType, timeFrameType } from '../../lib/enums';
+import { useDashboardFilterDataQuery } from '../../hooks';
 
 interface IReportingFiltersManagerProps {
   onSubmit: (
@@ -31,13 +31,16 @@ export const ReportingFiltersManager: FC<IReportingFiltersManagerProps> = ({
   onSubmit,
   activeTab,
 }) => {
-  const [allLineItems, setAllLineItems] = useState<IFilterLineItem[]>([]);
-  const [allCampaigns, setAllCampaigns] = useState<IFilterCampaign[]>([]);
-
   const [reset, setReset] = useState<number>(0);
   const [submit, setSubmit] = useState<number>(0);
 
-  const [isDownloadDisabled, setIsDownloadDisabled] = useState<boolean>(false);
+  const [isDownloadDisabled, setIsDownloadDisabled] = useState<boolean>(true);
+
+  const { data: filterData } = useDashboardFilterDataQuery(
+    activeTab !== ReportType.Executive,
+  );
+  const allLineItems = filterData?.lineItems ?? [];
+  const allCampaigns = filterData?.campaigns ?? [];
 
   const [containerSize] = useState({
     xxl: 12,
@@ -107,20 +110,6 @@ export const ReportingFiltersManager: FC<IReportingFiltersManagerProps> = ({
       label: <Translate i18nKey='This Year' />,
     },
   ]);
-
-  useEffect(() => {
-    if (activeTab !== ReportType.Executive) {
-      fetchReportingFilterData();
-    }
-    setIsDownloadDisabled(true);
-  }, []);
-
-  const fetchReportingFilterData = async () => {
-    const { lineItems, campaigns } = await fetchFilterData();
-
-    setAllLineItems(lineItems);
-    setAllCampaigns(campaigns);
-  };
 
   const handleSelection = (data: ISelectedIds) => {
     if (

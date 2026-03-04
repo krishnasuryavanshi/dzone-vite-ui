@@ -1,12 +1,14 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { useUpdateQueryState } from '../../../lib/hooks';
 import { ICampaign } from '../../../campaigns/lib/types';
-import { fetchCampaignDetails } from '../../../campaigns/services';
 import { DzScrollContainer } from '@/components/layout/v1';
 import { LineItemBreadCrumbContainer } from '../create-line-item/line-item-breadcrumb-container';
 import { FormContainer } from './form-container';
 import { ICreateLineItemBreadcrumbsProps } from '../create-line-item/line-item-breadcrumbs';
-import { fetchLineItem } from '../../services';
+import { useCampaignDetailQuery } from '../../../campaigns/hooks';
+import { useLineItemDetailQuery } from '../../hooks';
+import { useQueryClient } from '@tanstack/react-query';
+import { queryKeys } from '@/lib/query';
 
 interface ICreateNewLineItemProps extends ICreateLineItemBreadcrumbsProps {
   userDetails?: any;
@@ -23,79 +25,44 @@ export const CreateNewLineItem: FC<ICreateNewLineItemProps> = ({
   lineItemDetails,
 }) => {
   const { queryState } = useUpdateQueryState();
-  const [loading, setLoading] = useState<boolean>(true);
-  const [campaignData, setCampaignData] = useState<ICampaign>({} as ICampaign);
+  const queryClient = useQueryClient();
   const [localLineItemId, setLocalLineItemId] = useState<string | undefined>(
     lineItemId,
   );
-  const [fetchedLineItemDetails, setFetchedLineItemDetails] = useState<any>(
-    lineItemDetails || {},
-  );
 
-  const fetchCampaignId = async () => {
-    const data = await fetchCampaignDetails(queryState?.campaignId);
-    setCampaignData(data?.data as ICampaign);
-  };
+  const { data: campaignResponse } = useCampaignDetailQuery(
+    queryState?.campaignId ?? '',
+  );
+  const campaignData = (campaignResponse?.data as ICampaign) ?? ({} as ICampaign);
+
+  const {
+    data: lineItemResponse,
+    isFetching: lineItemFetching,
+  } = useLineItemDetailQuery(localLineItemId ?? '');
+
+  // Use provided lineItemDetails as initial, then switch to query data once available
+  const fetchedLineItemDetails = localLineItemId
+    ? lineItemResponse?.data ?? lineItemDetails ?? {}
+    : lineItemDetails ?? {};
+
+  const loading = localLineItemId ? lineItemFetching && !lineItemResponse : false;
 
   const handleLineItemCreated = async (newLineItemId: string) => {
     setLocalLineItemId(newLineItemId);
-    // After creating line item, fetch its details to populate the form
-    setLoading(true);
-    const details = await fetchLineItem(newLineItemId);
-    if (details?.data) {
-      setFetchedLineItemDetails(details.data);
-    }
-    setLoading(false);
+    // Query will automatically fetch due to enabled changing
   };
 
-  // Handle updates from drawer save - fetch fresh data after update
+  // Handle updates from drawer save - invalidate query to fetch fresh data
   const handleLineItemUpdated = async (updatedData: any) => {
     if (updatedData && localLineItemId) {
-      // After drawer save, fetch fresh complete data
-      // This ensures we get all fields including computed fields and related data
-      setLoading(true);
-
       // Use setTimeout to allow the backend to fully process the update
-      setTimeout(async () => {
-        try {
-          const freshDetails = await fetchLineItem(localLineItemId);
-          if (freshDetails?.data) {
-            setFetchedLineItemDetails(freshDetails.data);
-          }
-        } catch (error) {
-          // Fallback to using the partial updated data
-          setFetchedLineItemDetails(updatedData);
-        } finally {
-          setLoading(false);
-        }
-      }, 500); // 500ms delay to ensure backend has processed the update
+      setTimeout(() => {
+        queryClient.invalidateQueries({
+          queryKey: queryKeys.lineItems.detail(localLineItemId),
+        });
+      }, 500);
     }
   };
-
-  useEffect(() => {
-    // If we have a lineItemId but no lineItemDetails (e.g., on page refresh), fetch the data
-    if (localLineItemId && !lineItemDetails) {
-      const fetchDetails = async () => {
-        setLoading(true);
-        const details = await fetchLineItem(localLineItemId);
-        if (details?.data) {
-          setFetchedLineItemDetails(details.data);
-        }
-        setLoading(false);
-      };
-      fetchDetails();
-    } else if (lineItemDetails) {
-      // Use provided details directly
-      setFetchedLineItemDetails(lineItemDetails);
-      setLoading(false);
-    }
-  }, [localLineItemId, lineItemDetails]);
-
-  useEffect(() => {
-    if (queryState?.campaignId) {
-      fetchCampaignId();
-    }
-  }, [queryState?.campaignId]);
 
   return (
     <DzScrollContainer vertical scoll='outside'>

@@ -16,14 +16,16 @@ import { showNotification } from '@/services';
 import {
   createDeliverySchedule,
   updateDeliverySchedule,
-  fetchDeliveryTemplateTypes,
-  fetchDeliveryTemplateList,
   DeliveryTemplateType,
   DeliveryTemplate,
   DeliverySchedule,
 } from '../../services';
 import { DELIVERY_FREQUENCY_OPTIONS, WEEK_DAYS } from '../../lib/constants';
 import { DayPicker } from './day-picker';
+import {
+  useDeliveryTemplateTypesQuery,
+  useDeliveryTemplateListQuery,
+} from '../../hooks';
 
 interface IScheduleDeliveryDrawerProps {
   isOpen: boolean;
@@ -59,14 +61,16 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
   const [frequency, setFrequency] = useState<
     'Daily' | 'Weekly' | 'Monthly' | 'RealTime'
   >('Daily');
-  const [deliveryTemplateTypes, setDeliveryTemplateTypes] = useState<
-    DeliveryTemplateType[]
-  >([]);
-  const [deliveryTemplates, setDeliveryTemplates] = useState<
-    DeliveryTemplate[]
-  >([]);
-  const [loadingTemplates, setLoadingTemplates] = useState(false);
-  const [initialLoadDone, setInitialLoadDone] = useState(false);
+
+  // Queries
+  const { data: templateTypesResponse } = useDeliveryTemplateTypesQuery(isOpen);
+  const deliveryTemplateTypes: DeliveryTemplateType[] =
+    (templateTypesResponse as any)?.data?.data ?? [];
+
+  const { data: templateListResponse, isFetching: loadingTemplates } =
+    useDeliveryTemplateListQuery(deliveryType, isOpen && !!deliveryType);
+  const deliveryTemplates: DeliveryTemplate[] =
+    templateListResponse?.data ?? [];
 
   // Dynamic options based on API data
   const deliveryTypeOptions = Array.isArray(deliveryTemplateTypes)
@@ -94,6 +98,24 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
     value: template.id,
     integrationId: template.integrationId || '', // always provide integrationId if present
   }));
+
+  // Auto-select template when templates load
+  useEffect(() => {
+    if (!deliveryTemplates.length || !isOpen) return;
+    if (editSchedule && editSchedule.deliveryType === deliveryType) {
+      const templateId = editSchedule.deliveryTemplateId;
+      if (
+        templateId &&
+        deliveryTemplates.some((template) => template.id === templateId)
+      ) {
+        form.setFieldsValue({ deliveryTemplateId: templateId });
+      } else {
+        form.setFieldsValue({ deliveryTemplateId: deliveryTemplates[0].id });
+      }
+    } else {
+      form.setFieldsValue({ deliveryTemplateId: deliveryTemplates[0].id });
+    }
+  }, [deliveryTemplates, isOpen]);
 
   useEffect(() => {
     if (isOpen) {
@@ -127,11 +149,6 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
           deliveryDate: editSchedule.deliveryDate,
           time: timeValue,
         });
-
-        setInitialLoadDone(false);
-        loadDeliveryTemplateTypes();
-        loadDeliveryTemplates(initialType);
-        setInitialLoadDone(true);
       } else {
         // Create mode - set defaults
         form.setFieldsValue({
@@ -140,71 +157,9 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
         });
         setDeliveryType(DeliveryType.FLAT_FILE);
         setFrequency('Daily');
-        setInitialLoadDone(false);
-        loadDeliveryTemplateTypes();
-        loadDeliveryTemplates(DeliveryType.FLAT_FILE);
-        setInitialLoadDone(true);
       }
     }
   }, [isOpen, form, editSchedule]);
-
-  useEffect(() => {
-    // Load templates when delivery type changes after initial load
-    if (deliveryType && initialLoadDone) {
-      loadDeliveryTemplates(deliveryType);
-    }
-  }, [deliveryType, initialLoadDone]);
-
-  const loadDeliveryTemplateTypes = async () => {
-    try {
-      const response: any = await fetchDeliveryTemplateTypes();
-      if (Array.isArray(response?.data?.data)) {
-        setDeliveryTemplateTypes(response?.data?.data || []);
-      }
-    } catch (error) {
-      // Error is handled by authenticatedRequest
-    }
-  };
-
-  const loadDeliveryTemplates = async (type: DeliveryType) => {
-    try {
-      setLoadingTemplates(true);
-      const response = await fetchDeliveryTemplateList(type);
-      if (response?.data) {
-        setDeliveryTemplates(response.data);
-        // Set template ID when templates load
-        if (response.data.length > 0) {
-          if (editSchedule && editSchedule.deliveryType === type) {
-            // Edit mode - try to use existing template ID
-            const templateId = editSchedule.deliveryTemplateId;
-            if (
-              templateId &&
-              response.data.some((template) => template.id === templateId)
-            ) {
-              form.setFieldsValue({
-                deliveryTemplateId: templateId,
-              });
-            } else {
-              // Fallback to first template if existing ID not found
-              form.setFieldsValue({
-                deliveryTemplateId: response.data[0].id,
-              });
-            }
-          } else {
-            // Create mode - select first template by default
-            form.setFieldsValue({
-              deliveryTemplateId: response.data[0].id,
-            });
-          }
-        }
-      }
-    } catch (error) {
-      // Error is handled by authenticatedRequest
-      setDeliveryTemplates([]);
-    } finally {
-      setLoadingTemplates(false);
-    }
-  };
 
   const handleDeliveryTypeChange = (value: DeliveryType) => {
     setDeliveryType(value);
@@ -212,7 +167,7 @@ export const ScheduleDeliveryDrawer: FC<IScheduleDeliveryDrawerProps> = ({
       deliveryFormat: undefined,
       deliveryTemplateId: undefined,
     });
-    // Templates will be loaded automatically via useEffect
+    // Templates will be loaded automatically via query key change
   };
 
   const handleFrequencyChange = (

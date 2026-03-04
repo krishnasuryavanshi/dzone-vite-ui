@@ -5,7 +5,7 @@ import { FC, useEffect, useState } from 'react';
 import { useUpdateQueryState } from '../../../lib/hooks';
 import { LineItemFormContainer } from './line-item-form-container';
 import { ICampaign } from '../../../campaigns/lib/types';
-import { fetchCampaignDetails } from '../../../campaigns/services';
+import { useCampaignDetailQuery } from '../../../campaigns/hooks';
 
 interface ICreateLineItemProps {
   userDetails?: any;
@@ -21,15 +21,11 @@ export const CreateLineItem: FC<ICreateLineItemProps> = ({
   const [loading, setLoading] = useState<boolean>(true);
   const { queryState, updateQueryParams } = useUpdateQueryState();
   const setSourceObject = useUnsavedDataStore((s) => s.setSourceObject);
-  const [campaignData, setCampaignData] = useState<ICampaign>({} as ICampaign);
-  const fetchCampaignId = async () => {
-    try {
-      const data = await fetchCampaignDetails(queryState?.campaignId);
-      setCampaignData(data?.data as ICampaign);
-    } catch (error) {
-      throw error;
-    }
-  };
+
+  const { data: campaignResponse } = useCampaignDetailQuery(
+    queryState?.campaignId ?? '',
+  );
+  const campaignData = (campaignResponse?.data as ICampaign) ?? ({} as ICampaign);
 
   useEffect(() => {
     setSourceObject({});
@@ -37,12 +33,6 @@ export const CreateLineItem: FC<ICreateLineItemProps> = ({
     updateQueryParams(0);
     setLoading(false);
   }, []);
-
-  useEffect(() => {
-    if (queryState?.campaignId) {
-      fetchCampaignId();
-    }
-  }, [queryState?.campaignId]);
 
   if (loading) {
     return null;

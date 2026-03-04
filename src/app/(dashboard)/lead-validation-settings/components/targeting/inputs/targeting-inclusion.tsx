@@ -1,12 +1,12 @@
 import { DzBox } from '@/components/layout/v1';
 import { DzRecord } from '@/lib/types';
-import { fetchFileUploadMetadata } from '@/services/file-upload';
 import { Flex } from '@/uicomponents/layout';
 import { Text } from '@/uicomponents/text';
 import { useEffect, useState } from 'react';
 import { fileSortAndUpload } from '../../../lib/utils';
 import { useValidationSettingStore } from '../../../store';
 import { TargetingFile } from './targeting-file';
+import { useFileUploadMetadataQuery } from '@/app/(dashboard)/campaign-management/line-items/hooks';
 
 type InclusionProps = {
   attribute: Record<string, any>;
@@ -20,10 +20,11 @@ export const TargetingInclusion = ({
   const [isDisabled, setIsDisabled] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<DzRecord[]>([]);
-  const [inclusionFileMetadata, setInclusionFileMetadata] = useState<Record<
-    string,
-    any
-  > | null>(null);
+
+  const { data: metadataResponse } = useFileUploadMetadataQuery(
+    attribute.fileMetadataType?.inclusion ?? '',
+  );
+  const inclusionFileMetadata = metadataResponse?.data ?? null;
 
   const { selectedValues, setSelectedValues, settingMetadata } =
     useValidationSettingStore();
@@ -35,17 +36,6 @@ export const TargetingInclusion = ({
       setUploadedFiles([]);
     }
   }, [selectedValues]);
-
-  useEffect(() => {
-    fetchFileUploadMeta(attribute.fileMetadataType?.inclusion);
-  }, [attribute]);
-
-  const fetchFileUploadMeta = async (fileTypeName: string) => {
-    try {
-      const { data } = await fetchFileUploadMetadata(fileTypeName);
-      setInclusionFileMetadata(data || null);
-    } catch (error) {}
-  };
 
   const handleRemoveFile = (file: DzRecord) => {
     const sectionSelection = selectedValues?.[sectionName];

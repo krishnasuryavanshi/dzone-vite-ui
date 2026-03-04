@@ -8,9 +8,9 @@ import {
   LoadingOutlined,
 } from '@/uicomponents/icons';
 import { Flex } from '@/uicomponents/layout';
-import React, { FC, SyntheticEvent, useEffect, useState } from 'react';
+import React, { FC, SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import { IUser } from '../../ums/users/lib/types';
-import { fetchUsersWithModuleAccess } from '../../ums/users/services';
+import { useUsersWithModuleAccessQuery } from '../../ums/users/hooks';
 import { ICollaborator } from '../lib/types';
 
 interface IAssignedToEditCellProps {
@@ -28,23 +28,30 @@ export const AssignedToEditCell: FC<IAssignedToEditCellProps> = ({
   isLineItem,
   tenantCode,
 }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isUpdating, setIsUpdating] = useState(false);
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
-  const [options, setOptions] = React.useState<
-    { label: string; value: string }[]
-  >([]);
   const [visible, setVisible] = useState(false);
   const [omittedValues, setOmittedValues] = useState<Record<string, any>[]>([]);
+
+  const moduleName = isLineItem ? 'Line Item' : 'Campaign';
+  const { data: usersData, isLoading } = useUsersWithModuleAccessQuery(
+    moduleName,
+    tenantCode,
+  );
+
+  const options = useMemo(() => {
+    if (!usersData?.data) return [];
+    return usersData.data.map((user: IUser) => ({
+      label: `${user.firstName} ${user.lastName}`,
+      value: user.id,
+    }));
+  }, [usersData]);
 
   useEffect(() => {
     if (value?.length > 0) {
       setSelectedIds(value.map((item) => item.id));
     }
   }, [value]);
-
-  useEffect(() => {
-    fetchAllUsers();
-  }, []);
 
   const showDrawer = (e: SyntheticEvent, values: Record<string, any>[]) => {
     e.stopPropagation();
@@ -58,29 +65,12 @@ export const AssignedToEditCell: FC<IAssignedToEditCellProps> = ({
   };
 
   const handleUpdate = async () => {
-    setIsLoading(true);
+    setIsUpdating(true);
     const isUpdated = await onUpdate(selectedIds);
-    setIsLoading(false);
+    setIsUpdating(false);
     if (isUpdated) {
       enableViewMode();
     }
-  };
-
-  const fetchAllUsers = async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await fetchUsersWithModuleAccess(
-        isLineItem ? 'Line Item' : 'Campaign',
-        tenantCode,
-      );
-      setOptions(
-        data.map((user: IUser) => ({
-          label: `${user.firstName} ${user.lastName}`,
-          value: user.id,
-        })),
-      );
-      setIsLoading(false);
-    } catch (error) {}
   };
 
   const filterOptions = (

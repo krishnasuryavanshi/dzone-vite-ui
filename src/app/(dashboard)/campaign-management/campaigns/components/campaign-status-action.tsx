@@ -8,18 +8,15 @@ import { Flex } from '@/uicomponents/layout';
 import { Modal } from '@/uicomponents/modal';
 import { Spin } from '@/uicomponents/spin';
 import { LoadingOutlined } from '@ant-design/icons';
-import { FC, SyntheticEvent, useEffect, useState } from 'react';
+import { FC, SyntheticEvent, useEffect, useMemo, useState } from 'react';
 import './campaign-status-action.scss';
 import { ICampaign } from '../lib/types';
-import { fetchCampaignStatuses, putCreateCampaign } from '../services';
+import { putCreateCampaign } from '../services';
 import { CampaignStatus } from '../../components/campaign-status';
 import { ALLOWED_STATUS } from '../lib/constants';
 import { ConfirmationModal } from './status-confirmation-modal';
 import { useRouter } from '@/lib/hooks/use-router';
-
-// Simple module-level cache to prevent multiple API calls
-let statusesCache: IStatus[] | null = null;
-let fetchPromise: Promise<IStatus[]> | null = null;
+import { useCampaignStatusesQuery } from '../hooks';
 
 interface IStatusActionProps {
   record: ICampaign;
@@ -34,11 +31,24 @@ export const CampaignStatusAction: FC<IStatusActionProps> = ({ record }) => {
   const router = useRouter();
   const isUpdateStatusAllowed = usePermissionCheck(CampaignActionsEnum.Edit);
 
-  const [statusList, setStatusList] = useState<IStatus[]>([]);
   const [selectedStatus, setSelectedStatus] = useState<IStatus | null>();
   const [updateStatus, setUpdateStatus] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<boolean>(false);
+
+  const { data: statusesData } = useCampaignStatusesQuery();
+
+  const statusList = useMemo<IStatus[]>(() => {
+    if (!statusesData) return [];
+    return statusesData
+      .filter((status: { value: string }) =>
+        ALLOWED_STATUS.includes(status.value),
+      )
+      .map((status: { text: string; value: string }) => ({
+        name: status.text,
+        value: status.value,
+      }));
+  }, [statusesData]);
 
   const handleChange = (value: string) => {
     const status = statusList.find((status: any) => status?.value === value);
@@ -85,49 +95,6 @@ export const CampaignStatusAction: FC<IStatusActionProps> = ({ record }) => {
       setOpenModal(false);
     }
   };
-
-  const fetchStatusData = async () => {
-    // Return cached data if available
-    if (statusesCache) {
-      setStatusList(statusesCache);
-      return;
-    }
-
-    // If already fetching, wait for the existing promise
-    if (fetchPromise) {
-      const result = await fetchPromise;
-      setStatusList(result);
-      return;
-    }
-
-    // Start new fetch
-    fetchPromise = fetchCampaignStatuses()
-      .then((data) => {
-        const filteredStatuses = data
-          .filter((status: { value: string }) =>
-            ALLOWED_STATUS.includes(status.value),
-          )
-          .map((status: { text: string; value: string }) => ({
-            name: status.text,
-            value: status.value,
-          }));
-
-        statusesCache = filteredStatuses;
-        fetchPromise = null;
-        return filteredStatuses;
-      })
-      .catch(() => {
-        fetchPromise = null;
-        return [];
-      });
-
-    const result = await fetchPromise;
-    setStatusList(result);
-  };
-
-  useEffect(() => {
-    fetchStatusData();
-  }, []);
 
   useEffect(() => {
     if (!selectedStatus) return;

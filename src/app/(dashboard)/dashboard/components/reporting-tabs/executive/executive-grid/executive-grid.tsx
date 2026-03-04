@@ -1,41 +1,28 @@
 import { Filters } from '@/lib/utils/table';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { IExcecutiveGrids } from '../types';
-import { fetchExecutiveGrid } from '@/app/(dashboard)/dashboard/services';
 import { ExecutiveLists } from './executive-lists';
 import { Hideable, TableWithPaginationLayout } from '@/components/shared';
 import { SimplePagination } from '@/uicomponents';
+import { useExecutiveGridQuery } from '@/app/(dashboard)/dashboard/hooks';
 
 export const ExecutiveGrids = () => {
-  const [executiveList, setExecutiveList] = useState<IExcecutiveGrids[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(25);
-  const [totalRecords, setTotalRecords] = useState(0);
   const [filteredInfo, setFilteredInfo] = useState<any>({});
 
-  const fetchFilterData = async (
-    page: number,
-    size: number,
-    filteredInfo: any,
-  ) => {
-    const data = await fetchExecutiveGrid(
-      page,
-      size,
-      filteredInfo?.status ? filteredInfo.status : [],
-    );
-    if (data) {
-      setTotalRecords(data?.total);
-      setExecutiveList(data.data);
-    }
-  };
+  const { data } = useExecutiveGridQuery(
+    currentPage,
+    pageSize,
+    filteredInfo?.status ? filteredInfo.status : [],
+  );
+
+  const executiveList = data?.data ?? [];
+  const totalRecords = data?.total ?? 0;
 
   const goToFirstPage = () => {
     setCurrentPage(1);
   };
-
-  useEffect(() => {
-    fetchFilterData(currentPage, pageSize, filteredInfo);
-  }, [currentPage, pageSize, filteredInfo]);
 
   const handleFiltersChange = (filters: Filters<IExcecutiveGrids>) => {
     setFilteredInfo(filters);
