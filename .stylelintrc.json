@@ -1,0 +1,18 @@
+{
+  "extends": ["stylelint-config-standard-scss", "stylelint-config-prettier-scss"],
+  "rules": {
+    "declaration-no-important": [true, { "severity": "warning" }],
+    "declaration-property-unit-disallowed-list": [
+      {
+        "/^font/": ["px"],
+        "/^(margin|padding|gap|row-gap|column-gap)/": ["px"],
+        "/^(width|height|min-width|max-width|min-height|max-height)/": ["px"],
+        "/^(top|right|bottom|left|inset)/": ["px"],
+        "border-radius": ["px"],
+        "line-height": ["px"],
+        "letter-spacing": ["px"]
+      },
+      { "severity": "warning" }
+    ]
+  }
+}

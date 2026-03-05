@@ -8,17 +8,15 @@
   },
   "scripts": {
     "dev": "vite --port 3001",
-    "dev:uat": "vite --port 3001 --mode uat",
-    "dev:qa": "vite --port 3001 --mode qa",
     "build": "tsc --noEmit && vite build",
-    "build:uat": "vite build --mode uat",
-    "build:qa": "vite build --mode qa",
     "preview": "vite preview",
-    "start": "serve -s dist -l 3001",
+    "start": "serve -s dist -l 3000",
     "lint": "eslint 'src/**/*.{js,jsx,ts,tsx}'",
+    "lint:css": "stylelint 'src/**/*.{css,scss}'",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write 'src/**/*.{ts,tsx,js,jsx,scss,css,json}'",
-    "format:check": "prettier --check 'src/**/*.{ts,tsx,js,jsx,scss,css,json}'"
+    "format:check": "prettier --check 'src/**/*.{ts,tsx,js,jsx,scss,css,json}'",
+    "prepare": "husky"
   },
   "dependencies": {
     "@amcharts/amcharts5": "^5.13.6",
@@ -48,6 +46,7 @@
     "zustand": "^5.0.3"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.3",
     "@types/dompurify": "^3.0.5",
     "@types/js-cookie": "^3.0.6",
     "@types/lodash": "^4.14.202",
@@ -57,15 +56,41 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.4",
     "babel-plugin-react-compiler": "^1.0.0",
+    "eslint": "^9.39.3",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react": "^7.37.5",
     "eslint-plugin-react-compiler": "^19.1.0-rc.2",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.3.2",
     "prettier": "^3.8.1",
     "rollup-plugin-visualizer": "^7.0.0",
     "sass": "^1.74.1",
+    "stylelint": "^17.4.0",
+    "stylelint-config-prettier-scss": "^1.0.0",
+    "stylelint-config-standard-scss": "^17.0.0",
     "typescript": "^5.6.0",
+    "typescript-eslint": "^8.56.1",
     "vite": "^7.3.1",
-    "vite-plugin-svgr": "^4.5.0"
+    "vite-plugin-svgr": "^4.5.0",
+    "zod-validation-error": "^4.0.2"
   },
   "overrides": {
-    "@types/d3-dispatch": "3.0.6"
+    "@types/d3-dispatch": "3.0.6",
+    "zod-validation-error": "$zod-validation-error"
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx,js,jsx}": [
+      "prettier --write",
+      "eslint --fix"
+    ],
+    "src/**/*.{scss,css}": [
+      "prettier --write",
+      "stylelint --fix"
+    ],
+    "src/**/*.json": [
+      "prettier --write"
+    ]
   }
 }
