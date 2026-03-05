@@ -23,7 +23,6 @@ export const authenticatedRequest = async ({
   }
   try {
     const response = await backendRequest({
-      logRequest: false,
       method,
       isAuthenticated,
       apiHost,
@@ -34,10 +33,11 @@ export const authenticatedRequest = async ({
       return response;
     }
     return response.data;
-  } catch (error: any) {
-    if (error.status === 401 || error.status === 403) {
+  } catch (error: unknown) {
+    const err = error as Record<string, unknown>;
+    if (err.status === 401 || err.status === 403) {
       logger.warn('Auth: auto-logout triggered', {
-        status: error.status,
+        status: err.status,
         resource: rest.resource,
         url: rest.url,
       });
@@ -48,8 +48,9 @@ export const authenticatedRequest = async ({
       const to = `${window.location.pathname}${window.location.search}`;
       window.location.href = `/login?to=${to}`;
     }
-    const errorMessage = error?.data?.message;
-    const messageHeader = error?.data?.messageHeader;
+    const data = err.data as Record<string, unknown> | undefined;
+    const errorMessage = data?.message as string | undefined;
+    const messageHeader = data?.messageHeader as string | undefined;
     if (errorMessage) {
       showNotification({ message: errorMessage, messageHeader, type: 'error' });
       throw errorMessage;

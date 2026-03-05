@@ -7,7 +7,6 @@ import { generateUniqueToken } from '@/lib/utils/string';
 import { axiosInstance } from '@/services';
 import { AxiosHeaders } from 'axios';
 import { useTokenStore } from '../auth/stores';
-import { useAuthStore } from '../auth/stores';
 
 export async function backendRequest({
   url,
@@ -23,7 +22,7 @@ export async function backendRequest({
   responseType,
   logRequest = true,
 }: IApiRequestConfig) {
-  let customHeaders = new AxiosHeaders().setContentType('application/json');
+  const customHeaders = new AxiosHeaders().setContentType('application/json');
   if (logRequest) {
     customHeaders.set('X-Request-Id', generateUniqueToken());
   }
@@ -34,21 +33,9 @@ export async function backendRequest({
   }
   if (isAuthenticated) {
     const token = useTokenStore.getState().accessToken;
-    const auth = useAuthStore.getState();
-    const roleIds = (auth.roles || [])
-      .map((r: any) => r.id)
-      .filter(Boolean)
-      .join(',');
 
     if (token) {
       customHeaders.setAuthorization(`Bearer ${token}`);
-    }
-    customHeaders.set('roleIds', roleIds);
-    if (auth.user?.userId) {
-      customHeaders.set('X-User-Id', auth.user.userId);
-    }
-    if (auth.user?.email) {
-      customHeaders.set('X-User-Email', auth.user.email);
     }
   }
 
