@@ -18,7 +18,8 @@ const PlatformService = ApiUrl + '/api/platform-service';
 const CommonService = ApiUrl + '/api/common-service';
 const AnalyticsService = ApiUrl + '/api/analytics-service';
 const JobMonitoringService = ApiUrl + '/api/job-monitoring';
-const AICoworkerService = ApiUrl + '/api/coworker';
+const AICoworkerUrl = import.meta.env.VITE_AI_COWORKER_API_URL || ApiUrl;
+const AICoworkerService = AICoworkerUrl + '/api/coworker';
 const LoggerService = LoggerUrl;
 
 export const ApiHost = {

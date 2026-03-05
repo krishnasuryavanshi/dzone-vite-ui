@@ -10,6 +10,7 @@ interface ImportMetaEnv {
   readonly VITE_AUTH_SESSION_TIMEOUT?: string;
   readonly VITE_LOG_HTTP_REQUEST_DETAILS?: string;
   readonly VITE_LOG_HTTP_RESPONSE_DETAILS?: string;
+  readonly VITE_AI_COWORKER_API_URL?: string;
 }
 
 interface ImportMeta {

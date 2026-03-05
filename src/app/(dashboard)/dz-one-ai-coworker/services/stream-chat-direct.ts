@@ -64,7 +64,8 @@ export const streamChatDirect = async (
       throw new Error('API URL not configured');
     }
 
-    const AI_SERVICE_URL = `${apiUrl}/api/coworker/chat/stream`;
+    const aiCoworkerHost = import.meta.env.VITE_AI_COWORKER_API_URL || apiUrl;
+    const AI_SERVICE_URL = `${aiCoworkerHost}/api/coworker/chat/stream`;
 
     const headers: Record<string, string> = {
       Authorization: `Bearer ${token}`,
